@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,52 +33,38 @@
         }
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #1f2937; }
+        
         .btn-cta {
             background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
             transition: all 0.3s ease;
         }
-
         .btn-cta:hover {
             box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
             transform: translateY(-2px);
         }
-
+        
         .btn-secondary {
             border: 2px solid #2f6b48;
             color: #2f6b48;
             transition: all 0.3s ease;
         }
-
         .btn-secondary:hover {
             background: #2f6b48;
             color: white;
             transform: translateY(-2px);
         }
-
+        
         .card {
             transition: all 0.3s ease;
         }
-
         .card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
-
+        
         .code-block {
             background: #1f2937;
             border-radius: 12px;
@@ -89,16 +74,15 @@
             color: #d1d5db;
             border: 2px solid #374151;
         }
-
+        
         .checkbox-item {
             transition: all 0.2s ease;
         }
-
         .checkbox-item:has(input:checked) {
             background: #e6f2ea;
             border-color: #2f6b48;
         }
-
+        
         .step-number {
             width: 48px;
             height: 48px;
@@ -114,7 +98,6 @@
         }
     </style>
 </head>
-
 <body class="bg-white">
 
     <!-- Hero -->
@@ -123,32 +106,29 @@
             <!-- Breadcrumb -->
             <div class="mb-8">
                 <p class="text-sm text-gray-600">
-                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
-                    /
-                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
-                        4</a> /
+                    <a href="index.html" class="hover:text-ifrn-red-500 transition">Início</a> / 
+                    <a href="autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a> / 
+                    <a href="autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre 4</a> / 
                     <span class="font-semibold text-ifrn-green-700">Semana 31</span>
                 </p>
             </div>
 
             <!-- Tag -->
-            <div
-                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
-                ⚡ JavaScript • Primeiro Contato
+            <div class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                ⚡ Introdução ao JavaScript
             </div>
 
             <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
-                Semana 31 — JavaScript do zero
+                Semana 31 — Introdução ao JavaScript
             </h1>
-
+            
             <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed max-w-3xl">
-                Hoje você vai entender o que é JS, por que ele existe e como usar o console. Nada de framework, só base
-                sólida. É o primeiro passo pra dar vida às suas páginas.
+                Hoje você vai aprender os fundamentos do JavaScript: sintaxe básica, variáveis, tipos de dados e funções. É a base sólida para tudo que vem depois.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
                 <a href="#exemplo1" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
-                    Começar pelo exemplo →
+                    Começar pelos exemplos →
                 </a>
                 <a href="#lista" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center">
                     Ver lista da semana
@@ -160,12 +140,12 @@
                 <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
                     <div class="text-3xl mb-3">⏱️</div>
                     <p class="font-bold text-gray-900 mb-1">Duração</p>
-                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas (Dia 1 + Dia 2)</p>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
                     <div class="text-3xl mb-3">🎯</div>
-                    <p class="font-bold text-gray-900 mb-1">Tipo</p>
-                    <p class="text-sm text-gray-600">Teoria + Demo ao vivo</p>
+                    <p class="font-bold text-gray-900 mb-1">Foco</p>
+                    <p class="text-sm text-gray-600">Sintaxe, variáveis, tipos, funções</p>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
                     <div class="text-3xl mb-3">📊</div>
@@ -179,15 +159,13 @@
     <!-- Intenção de Aprendizagem -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-4xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+            <div class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
                 <div class="flex items-start gap-4">
                     <div class="text-4xl">🎯</div>
                     <div>
                         <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
                         <p class="text-xl opacity-95 leading-relaxed">
-                            Entender o papel do JavaScript no frontend e executar seus primeiros comandos com segurança.
-                            Sem medo, sem pressa.
+                            Compreender os fundamentos da linguagem JavaScript: sintaxe básica, como declarar variáveis, trabalhar com diferentes tipos de dados e criar funções simples. Sem medo, sem pressa.
                         </p>
                     </div>
                 </div>
@@ -202,54 +180,42 @@
                 ✅ Critérios de Sucesso
             </h2>
             <p class="text-gray-700 mb-6">
-                Marque conforme você for dominando:
+                Marque conforme você for dominando cada conceito:
             </p>
 
             <div class="space-y-3">
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                <label class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox" class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-gray-800">
-                        <strong>Entender o papel do JS:</strong> Eu sei explicar o que é JavaScript e onde ele roda.
+                        <strong>Sintaxe básica:</strong> Sei escrever comandos JavaScript no console e em arquivos .html
                     </span>
                 </label>
 
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                <label class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox" class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-gray-800">
-                        <strong>Abrir o console:</strong> Eu consigo abrir o console do navegador sem ajuda.
+                        <strong>Variáveis:</strong> Consigo declarar variáveis com let e const, e entendo a diferença entre elas
                     </span>
                 </label>
 
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                <label class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox" class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-gray-800">
-                        <strong>Usar console.log():</strong> Eu consigo imprimir mensagens com console.log().
+                        <strong>Tipos de dados:</strong> Reconheço e uso strings, numbers, booleans, arrays e objects
                     </span>
                 </label>
 
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                <label class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox" class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-gray-800">
-                        <strong>Adicionar script:</strong> Eu consigo colocar um &lt;script&gt; na minha página sem
-                        quebrar nada.
+                        <strong>Funções básicas:</strong> Consigo criar e chamar funções simples com parâmetros e return
                     </span>
                 </label>
 
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                <label class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox" class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-gray-800">
-                        <strong>Exercícios básicos:</strong> Eu consegui fazer os exercícios sozinho (ou com pouca
-                        ajuda).
+                        <strong>Prática:</strong> Consegui fazer os exercícios básicos sozinho ou com pouca ajuda
                     </span>
                 </label>
             </div>
@@ -280,8 +246,7 @@
                     </p>
                 </div>
 
-                <div
-                    class="bg-gradient-to-br from-ifrn-green-100 to-ifrn-green-50 rounded-2xl p-8 border-2 border-ifrn-green-300">
+                <div class="bg-gradient-to-br from-ifrn-green-100 to-ifrn-green-50 rounded-2xl p-8 border-2 border-ifrn-green-300">
                     <div class="text-4xl mb-4">⚡</div>
                     <h3 class="font-bold text-2xl text-ifrn-green-800 mb-3">JavaScript</h3>
                     <p class="text-ifrn-green-700">
@@ -295,8 +260,7 @@
                 <div class="space-y-3 text-lg">
                     <p><strong>HTML</strong> é a casa (paredes, portas, janelas)</p>
                     <p><strong>CSS</strong> é a pintura (cores, decoração, móveis)</p>
-                    <p><strong>JavaScript</strong> é a eletricidade e os botões (luz acende, porta abre, campainha toca)
-                    </p>
+                    <p><strong>JavaScript</strong> é a eletricidade e os botões (luz acende, porta abre, campainha toca)</p>
                 </div>
             </div>
 
@@ -304,16 +268,14 @@
                 <div class="bg-ifrn-green-50 rounded-2xl p-6 border-l-4 border-ifrn-green-500">
                     <p class="font-bold text-ifrn-green-900 mb-2">💡 Onde o JS roda?</p>
                     <p class="text-ifrn-green-800">
-                        JavaScript roda <strong>no navegador</strong> (Chrome, Firefox, Safari, Edge). Ele lê o HTML e o
-                        CSS, e muda a página "por dentro" conforme você interage.
+                        JavaScript roda <strong>no navegador</strong> (Chrome, Firefox, Safari, Edge). Ele lê o HTML e o CSS, e muda a página "por dentro" conforme você interage.
                     </p>
                 </div>
 
                 <div class="bg-gray-100 rounded-2xl p-6 border-l-4 border-gray-400">
                     <p class="font-bold text-gray-900 mb-2">🌐 JS não é só pra navegador</p>
                     <p class="text-gray-700">
-                        Hoje JS também roda em servidores (Node.js), apps mobile, até em robôs. Mas pra você agora, o
-                        foco é JS no navegador.
+                        Hoje JS também roda em servidores (Node.js), apps mobile, até em robôs. Mas pra você agora, o foco é JS no navegador.
                     </p>
                 </div>
             </div>
@@ -321,13 +283,10 @@
             <div class="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200">
                 <h3 class="font-bold text-2xl text-gray-900 mb-4">📜 Contexto Histórico (rapidinho)</h3>
                 <p class="text-gray-700 mb-4">
-                    JavaScript foi criado em <strong>1995</strong> por Brendan Eich em apenas <strong>10 dias</strong>
-                    (!). O nome "JavaScript" foi escolhido pra pegar carona na fama do Java, mas são linguagens
-                    completamente diferentes.
+                    JavaScript foi criado em <strong>1995</strong> por Brendan Eich em apenas <strong>10 dias</strong> (!). O nome "JavaScript" foi escolhido pra pegar carona na fama do Java, mas são linguagens completamente diferentes.
                 </p>
                 <p class="text-gray-700">
-                    Hoje, JS é uma das linguagens mais usadas no mundo. Todo site que você acessa usa JavaScript de
-                    alguma forma.
+                    Hoje, JS é uma das linguagens mais usadas no mundo. Todo site que você acessa usa JavaScript de alguma forma.
                 </p>
             </div>
         </div>
@@ -352,19 +311,17 @@
                     </div>
 
                     <p class="text-gray-700 mb-4">
-                        Cole o código JavaScript direto no arquivo HTML, dentro de uma tag <code
-                            class="bg-gray-100 px-2 py-1 rounded">&lt;script&gt;</code>:
+                        Cole o código JavaScript direto no arquivo HTML, dentro de uma tag <code class="bg-gray-100 px-2 py-1 rounded">&lt;script&gt;</code>:
                     </p>
 
                     <div class="code-block text-sm">
-                        &lt;body&gt;<br>
-                        &nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
-                        <br>
-                        &nbsp;&nbsp;<span class="text-yellow-400">&lt;script&gt;</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span
-                            class="text-orange-400">"Oi, JavaScript!"</span>);<br>
-                        &nbsp;&nbsp;<span class="text-yellow-400">&lt;/script&gt;</span><br>
-                        &lt;/body&gt;
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;<span class="text-yellow-400">&lt;script&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Oi, JavaScript!"</span>);<br>
+&nbsp;&nbsp;<span class="text-yellow-400">&lt;/script&gt;</span><br>
+&lt;/body&gt;
                     </div>
 
                     <div class="mt-4 bg-ifrn-green-50 p-4 rounded-xl border-l-4 border-ifrn-green-500">
@@ -385,24 +342,21 @@
                     </div>
 
                     <p class="text-gray-700 mb-4">
-                        Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">script.js</code> e conecte ele no
-                        HTML:
+                        Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">script.js</code> e conecte ele no HTML:
                     </p>
 
                     <div class="code-block text-sm mb-4">
-                        <span class="text-gray-400">// Arquivo: script.js</span><br>
-                        <span class="text-green-400">console.log</span>(<span class="text-orange-400">"Oi do arquivo
-                            externo!"</span>);
+<span class="text-gray-400">// Arquivo: script.js</span><br>
+<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Oi do arquivo externo!"</span>);
                     </div>
 
                     <div class="code-block text-sm">
-                        <span class="text-gray-400">&lt;!-- No HTML --&gt;</span><br>
-                        &lt;body&gt;<br>
-                        &nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
-                        <br>
-                        &nbsp;&nbsp;&lt;script <span class="text-blue-400">src</span>=<span
-                            class="text-orange-400">"script.js"</span>&gt;&lt;/script&gt;<br>
-                        &lt;/body&gt;
+<span class="text-gray-400">&lt;!-- No HTML --&gt;</span><br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
+<br>
+&nbsp;&nbsp;&lt;script <span class="text-blue-400">src</span>=<span class="text-orange-400">"script.js"</span>&gt;&lt;/script&gt;<br>
+&lt;/body&gt;
                     </div>
 
                     <div class="mt-4 bg-gray-100 p-4 rounded-xl border-l-4 border-gray-400">
@@ -416,8 +370,7 @@
             <div class="mt-8 bg-gray-900 rounded-2xl p-6 text-white">
                 <p class="font-bold text-lg mb-2">💡 Dica importante:</p>
                 <p>
-                    Nesta semana, use <strong>Opção A</strong> (dentro do HTML). É mais rápido pra aprender e ver o
-                    resultado na hora.
+                    Nesta semana, use <strong>Opção A</strong> (dentro do HTML). É mais rápido pra aprender e ver o resultado na hora.
                 </p>
             </div>
         </div>
@@ -435,17 +388,13 @@
 
             <div class="bg-ifrn-green-50 rounded-2xl p-8 border-2 border-ifrn-green-200 mb-8">
                 <h3 class="font-bold text-2xl text-ifrn-green-900 mb-6">Como Abrir o Console</h3>
-
+                
                 <div class="space-y-4">
                     <div class="flex items-start gap-4 p-4 bg-white rounded-xl">
                         <div class="text-3xl">🌐</div>
                         <div>
                             <p class="font-bold text-gray-900 mb-1">Chrome / Edge</p>
-                            <p class="text-gray-700">Pressione <code
-                                    class="bg-gray-200 px-2 py-1 rounded font-mono">F12</code> ou <code
-                                    class="bg-gray-200 px-2 py-1 rounded font-mono">Ctrl+Shift+I</code> → clique em
-                                <strong>Console</strong>
-                            </p>
+                            <p class="text-gray-700">Pressione <code class="bg-gray-200 px-2 py-1 rounded font-mono">F12</code> ou <code class="bg-gray-200 px-2 py-1 rounded font-mono">Ctrl+Shift+I</code> → clique em <strong>Console</strong></p>
                         </div>
                     </div>
 
@@ -453,10 +402,7 @@
                         <div class="text-3xl">🦊</div>
                         <div>
                             <p class="font-bold text-gray-900 mb-1">Firefox</p>
-                            <p class="text-gray-700">Pressione <code
-                                    class="bg-gray-200 px-2 py-1 rounded font-mono">F12</code> → clique em
-                                <strong>Console</strong>
-                            </p>
+                            <p class="text-gray-700">Pressione <code class="bg-gray-200 px-2 py-1 rounded font-mono">F12</code> → clique em <strong>Console</strong></p>
                         </div>
                     </div>
 
@@ -464,8 +410,7 @@
                         <div class="text-3xl">🧭</div>
                         <div>
                             <p class="font-bold text-gray-900 mb-1">Safari</p>
-                            <p class="text-gray-700">Habilite "Develop" nas preferências → depois <code
-                                    class="bg-gray-200 px-2 py-1 rounded font-mono">Cmd+Option+C</code></p>
+                            <p class="text-gray-700">Habilite "Develop" nas preferências → depois <code class="bg-gray-200 px-2 py-1 rounded font-mono">Cmd+Option+C</code></p>
                         </div>
                     </div>
                 </div>
@@ -477,8 +422,7 @@
                     <div>
                         <p class="font-bold text-yellow-800 mb-2">Se não achou o console:</p>
                         <p class="text-yellow-700">
-                            Chama o professor ou monitor <strong>antes de travar</strong>. Melhor perguntar agora do que
-                            perder tempo depois.
+                            Chama o professor ou monitor <strong>antes de travar</strong>. Melhor perguntar agora do que perder tempo depois.
                         </p>
                     </div>
                 </div>
@@ -489,9 +433,9 @@
     <!-- Exemplo 1 -->
     <section id="exemplo1" class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 shadow-xl mb-8">
+            <div class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
                 <h2 class="font-bold text-3xl mb-4">
-                    Exemplo 1 — Seu Primeiro console.log()
+                    ⚡ Exemplo 1 — Seu Primeiro console.log()
                 </h2>
                 <p class="text-xl opacity-95">
                     Vamos rodar JavaScript de verdade agora.
@@ -507,8 +451,7 @@
                             Abra o arquivo HTML do seu mini-site
                         </h3>
                         <p class="text-gray-700">
-                            Pode ser o <code class="bg-gray-100 px-2 py-1 rounded">index.html</code> ou qualquer página
-                            que você já tenha.
+                            Pode ser o <code class="bg-gray-100 px-2 py-1 rounded">index.html</code> ou qualquer página que você já tenha.
                         </p>
                     </div>
                 </div>
@@ -521,15 +464,14 @@
                             Cole o script abaixo antes de fechar o &lt;/body&gt;
                         </h3>
                         <div class="code-block text-sm">
-                            &lt;body&gt;<br>
-                            &nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
-                            &nbsp;&nbsp;&lt;p&gt;Conteúdo aqui...&lt;/p&gt;<br>
-                            <br>
-                            &nbsp;&nbsp;<span class="text-yellow-400">&lt;script&gt;</span><br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span
-                                class="text-orange-400">"Olá, mundo!"</span>);<br>
-                            &nbsp;&nbsp;<span class="text-yellow-400">&lt;/script&gt;</span><br>
-                            &lt;/body&gt;
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;h1&gt;Minha Página&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;Conteúdo aqui...&lt;/p&gt;<br>
+<br>
+&nbsp;&nbsp;<span class="text-yellow-400">&lt;script&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Olá, mundo!"</span>);<br>
+&nbsp;&nbsp;<span class="text-yellow-400">&lt;/script&gt;</span><br>
+&lt;/body&gt;
                         </div>
                     </div>
                 </div>
@@ -555,8 +497,7 @@
                             Abra o console e veja a mensagem
                         </h3>
                         <p class="text-gray-700 mb-4">
-                            Pressione <code class="bg-gray-100 px-2 py-1 rounded">F12</code>, vá em
-                            <strong>Console</strong>, e você vai ver:
+                            Pressione <code class="bg-gray-100 px-2 py-1 rounded">F12</code>, vá em <strong>Console</strong>, e você vai ver:
                         </p>
                         <div class="bg-gray-900 text-white p-4 rounded-xl font-mono text-sm">
                             <span class="text-gray-400">&gt;</span> Olá, mundo!
@@ -574,13 +515,11 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">2.</span>
-                        <span>Quando chegou no <code class="bg-gray-100 px-2 py-1 rounded">&lt;script&gt;</code>,
-                            executou o JavaScript</span>
+                        <span>Quando chegou no <code class="bg-gray-100 px-2 py-1 rounded">&lt;script&gt;</code>, executou o JavaScript</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">3.</span>
-                        <span>O comando <code class="bg-gray-100 px-2 py-1 rounded">console.log()</code> mandou a
-                            mensagem pro console</span>
+                        <span>O comando <code class="bg-gray-100 px-2 py-1 rounded">console.log()</code> mandou a mensagem pro console</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">4.</span>
@@ -595,7 +534,7 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                Exemplo 2 — Fazendo Conta no JS
+                🧮 Exemplo 2 — Fazendo Conta no JS
             </h2>
 
             <p class="text-xl text-gray-700 mb-8">
@@ -605,16 +544,12 @@
             <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
                 <h3 class="font-bold text-xl text-gray-900 mb-4">Código:</h3>
                 <div class="code-block text-sm">
-                    &lt;script&gt;<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">2 +
-                        3</span>);<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">10 -
-                        4</span>);<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">5 *
-                        7</span>);<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">20 /
-                        4</span>);<br>
-                    &lt;/script&gt;
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">2 + 3</span>);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">10 - 4</span>);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">5 * 7</span>);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-blue-400">20 / 4</span>);<br>
+&lt;/script&gt;
                 </div>
             </div>
 
@@ -631,8 +566,7 @@
             <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-gray-400">
                 <p class="font-bold text-gray-900 mb-2">💡 Entendeu?</p>
                 <p class="text-gray-700">
-                    O JavaScript fez as contas e mostrou o resultado direto no console. Não aparece nada na página, só
-                    no DevTools.
+                    O JavaScript fez as contas e mostrou o resultado direto no console. Não aparece nada na página, só no DevTools.
                 </p>
             </div>
         </div>
@@ -642,59 +576,245 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                Exemplo 3 — Guardando um Valor (preview de variável)
+                📦 Exemplo 3 — Variáveis: Guardando Valores
             </h2>
 
             <p class="text-xl text-gray-700 mb-8">
-                Às vezes você quer guardar um valor pra usar depois. Pra isso existe a <strong>variável</strong> — é
-                tipo uma caixinha com um nome.
+                Variáveis são "caixinhas" com nome onde você guarda valores para usar depois. Em JavaScript moderno, usamos <code class="bg-gray-200 px-2 py-1 rounded">let</code> e <code class="bg-gray-200 px-2 py-1 rounded">const</code>.
             </p>
 
             <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
                 <h3 class="font-bold text-xl text-gray-900 mb-4">Código:</h3>
                 <div class="code-block text-sm">
-                    &lt;script&gt;<br>
-                    &nbsp;&nbsp;<span class="text-purple-400">let</span> nome = <span
-                        class="text-orange-400">"Cesar"</span>;<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(nome);<br>
-                    <br>
-                    &nbsp;&nbsp;<span class="text-purple-400">let</span> idade = <span
-                        class="text-blue-400">17</span>;<br>
-                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(idade);<br>
-                    &lt;/script&gt;
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-gray-500">// let - pode mudar depois</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">let</span> nome = <span class="text-orange-400">"Cesar"</span>;<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(nome); <span class="text-gray-500">// Cesar</span><br>
+<br>
+&nbsp;&nbsp;nome = <span class="text-orange-400">"Maria"</span>; <span class="text-gray-500">// Mudou!</span><br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(nome); <span class="text-gray-500">// Maria</span><br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// const - NÃO pode mudar</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> idade = <span class="text-blue-400">17</span>;<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(idade); <span class="text-gray-500">// 17</span><br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// idade = 18; // ERRO! const não muda</span><br>
+&lt;/script&gt;
                 </div>
             </div>
 
             <div class="bg-gray-900 text-white p-6 rounded-2xl mb-8">
-                <p class="font-bold text-lg mb-3">Resultado no Console:</p>
+                <p class="font-bold text-lg mb-3">📺 Resultado no Console:</p>
                 <div class="font-mono text-sm space-y-1">
                     <p><span class="text-gray-400">&gt;</span> Cesar</p>
+                    <p><span class="text-gray-400">&gt;</span> Maria</p>
                     <p><span class="text-gray-400">&gt;</span> 17</p>
                 </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-ifrn-green-50 rounded-2xl p-6 border-2 border-ifrn-green-200">
-                    <p class="font-bold text-ifrn-green-900 mb-3">O que aconteceu?</p>
+                    <p class="font-bold text-ifrn-green-900 mb-3">💡 Quando usar let?</p>
                     <ul class="space-y-2 text-ifrn-green-800">
-                        <li>• Criamos uma caixinha chamada <code class="bg-white px-2 py-1 rounded">nome</code></li>
-                        <li>• Colocamos o texto <code class="bg-white px-2 py-1 rounded">"Cesar"</code> dentro</li>
-                        <li>• Mandamos mostrar o que tem na caixinha</li>
-                        <li>• Depois criamos outra caixinha <code class="bg-white px-2 py-1 rounded">idade</code> com um
-                            número</li>
+                        <li>• Quando o valor pode mudar</li>
+                        <li>• Contadores, acumuladores</li>
+                        <li>• Variáveis que serão atualizadas</li>
                     </ul>
                 </div>
 
+                <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                    <p class="font-bold text-blue-900 mb-3">🔒 Quando usar const?</p>
+                    <ul class="space-y-2 text-blue-800">
+                        <li>• Quando o valor é fixo</li>
+                        <li>• Configurações, constantes</li>
+                        <li>• Use por padrão (segurança)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipos de Dados -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎲 Exemplo 4 — Tipos de Dados
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8">
+                JavaScript tem diferentes tipos de dados. Você precisa conhecer os principais:
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-orange-50 rounded-2xl p-6 border-2 border-orange-200">
+                    <div class="text-3xl mb-3">📝</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">String</h3>
+                    <p class="text-gray-700 text-sm mb-3">Texto entre aspas</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block">"Olá mundo"</code>
+                </div>
+
+                <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                    <div class="text-3xl mb-3">🔢</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">Number</h3>
+                    <p class="text-gray-700 text-sm mb-3">Números inteiros ou decimais</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block">42 ou 3.14</code>
+                </div>
+
+                <div class="bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
+                    <div class="text-3xl mb-3">✅</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">Boolean</h3>
+                    <p class="text-gray-700 text-sm mb-3">Verdadeiro ou falso</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block">true ou false</code>
+                </div>
+
+                <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+                    <div class="text-3xl mb-3">📚</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">Array</h3>
+                    <p class="text-gray-700 text-sm mb-3">Lista de valores</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block">[1, 2, 3]</code>
+                </div>
+
+                <div class="bg-yellow-50 rounded-2xl p-6 border-2 border-yellow-200">
+                    <div class="text-3xl mb-3">📦</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">Object</h3>
+                    <p class="text-gray-700 text-sm mb-3">Estrutura com propriedades</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block text-xs">{nome: "Ana"}</code>
+                </div>
+
                 <div class="bg-gray-100 rounded-2xl p-6 border-2 border-gray-300">
-                    <p class="font-bold text-gray-900 mb-3">Por que "let"?</p>
-                    <p class="text-gray-700 mb-3">
-                        <code class="bg-white px-2 py-1 rounded">let</code> é a palavra que diz pro JavaScript:
-                        <strong>"cria uma caixinha nova"</strong>.
+                    <div class="text-3xl mb-3">⚠️</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">undefined</h3>
+                    <p class="text-gray-700 text-sm mb-3">Sem valor definido</p>
+                    <code class="text-sm bg-white px-3 py-1 rounded block">undefined</code>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Código - Exemplos de Tipos:</h3>
+                <div class="code-block text-sm">
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-gray-500">// String (texto)</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> mensagem = <span class="text-orange-400">"Olá, JavaScript!"</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Number (número)</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> idade = <span class="text-blue-400">17</span>;<br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> preco = <span class="text-blue-400">19.99</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Boolean (verdadeiro/falso)</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> ativo = <span class="text-blue-400">true</span>;<br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> desativado = <span class="text-blue-400">false</span>;<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Array (lista)</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> numeros = [<span class="text-blue-400">1, 2, 3, 4, 5</span>];<br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> frutas = [<span class="text-orange-400">"maçã", "banana", "laranja"</span>];<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Object (objeto com propriedades)</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> aluno = {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;nome: <span class="text-orange-400">"João"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;idade: <span class="text-blue-400">16</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;aprovado: <span class="text-blue-400">true</span><br>
+&nbsp;&nbsp;};<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Imprimindo tudo</span><br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(mensagem);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(idade);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(frutas);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(aluno);<br>
+&lt;/script&gt;
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-gray-400">
+                <p class="font-bold text-gray-900 mb-2">💡 Dica importante:</p>
+                <p class="text-gray-700">
+                    JavaScript descobre o tipo automaticamente. Você não precisa declarar "isso é string" ou "isso é número" — a linguagem identifica sozinha.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funções -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ⚙️ Exemplo 5 — Funções Básicas
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8">
+                Funções são blocos de código reutilizáveis. Você define uma vez e chama quantas vezes quiser.
+            </p>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Código - Função Simples:</h3>
+                <div class="code-block text-sm">
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Declarando uma função</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">function</span> <span class="text-yellow-400">saudar</span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Olá!"</span>);<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Chamando a função</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudar</span>(); <span class="text-gray-500">// Olá!</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudar</span>(); <span class="text-gray-500">// Olá!</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudar</span>(); <span class="text-gray-500">// Olá!</span><br>
+&lt;/script&gt;
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Código - Função com Parâmetro:</h3>
+                <div class="code-block text-sm">
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Função que recebe um nome</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">function</span> <span class="text-yellow-400">saudarPessoa</span>(nome) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Olá, "</span> + nome + <span class="text-orange-400">"!"</span>);<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Chamando com valores diferentes</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudarPessoa</span>(<span class="text-orange-400">"Ana"</span>); <span class="text-gray-500">// Olá, Ana!</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudarPessoa</span>(<span class="text-orange-400">"João"</span>); <span class="text-gray-500">// Olá, João!</span><br>
+&nbsp;&nbsp;<span class="text-yellow-400">saudarPessoa</span>(<span class="text-orange-400">"Maria"</span>); <span class="text-gray-500">// Olá, Maria!</span><br>
+&lt;/script&gt;
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Código - Função com Return:</h3>
+                <div class="code-block text-sm">
+&lt;script&gt;<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Função que retorna um valor</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">function</span> <span class="text-yellow-400">somar</span>(a, b) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">return</span> a + b;<br>
+&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;<span class="text-gray-500">// Usando o valor retornado</span><br>
+&nbsp;&nbsp;<span class="text-purple-400">const</span> resultado = <span class="text-yellow-400">somar</span>(<span class="text-blue-400">5, 3</span>);<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(resultado); <span class="text-gray-500">// 8</span><br>
+<br>
+&nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-yellow-400">somar</span>(<span class="text-blue-400">10, 20</span>)); <span class="text-gray-500">// 30</span><br>
+&lt;/script&gt;
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                    <p class="font-bold text-blue-900 mb-3">1️⃣ Declarar</p>
+                    <p class="text-sm text-blue-800">
+                        Use <code class="bg-white px-2 py-1 rounded">function</code> + nome + <code class="bg-white px-2 py-1 rounded">()</code>
                     </p>
-                    <p class="text-gray-700">
-                        A <strong>Semana 32</strong> vai explicar variáveis direitinho (e também outras formas como
-                        <code class="bg-white px-2 py-1 rounded">const</code> e <code
-                            class="bg-white px-2 py-1 rounded">var</code>).
+                </div>
+
+                <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+                    <p class="font-bold text-green-900 mb-3">2️⃣ Parâmetros</p>
+                    <p class="text-sm text-green-800">
+                        Valores que a função recebe (opcionais)
+                    </p>
+                </div>
+
+                <div class="bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
+                    <p class="font-bold text-purple-900 mb-3">3️⃣ Return</p>
+                    <p class="text-sm text-purple-800">
+                        Devolve um valor para quem chamou
                     </p>
                 </div>
             </div>
@@ -705,9 +825,8 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t-4 border-ifrn-green-500">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-12">
-                <div
-                    class="inline-block px-6 py-3 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-bold text-lg mb-4">
-                    Conhecendo mais sobre...
+                <div class="inline-block px-6 py-3 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-bold text-lg mb-4">
+                    🔍 Conhecendo mais sobre...
                 </div>
                 <h2 class="font-bold text-4xl text-gray-900 mb-4">
                     Curiosidades e Conceitos Extras
@@ -720,31 +839,30 @@
             <!-- let, const, var -->
             <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 md:p-10 text-white mb-8">
                 <h3 class="font-bold text-3xl mb-6">
-                    Por que usamos "let" pra criar variáveis?
+                    📦 Por que usamos "let" pra criar variáveis?
                 </h3>
-
+                
                 <p class="text-xl mb-6 opacity-95">
                     Na verdade, existem <strong>3 formas</strong> de criar variáveis em JavaScript:
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6 mb-8">
-                    <div
-                        class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-white border-opacity-20">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-white border-opacity-20">
+                        <div class="text-4xl mb-3">🆕</div>
                         <h4 class="font-bold text-2xl mb-3"><code class="text-purple-300">let</code></h4>
                         <p class="text-lg opacity-90 mb-3">A mais moderna e recomendada</p>
-                        <p class="text-sm opacity-75">Você pode mudar o valor depois. Funciona só no bloco onde foi
-                            criada.</p>
+                        <p class="text-sm opacity-75">Você pode mudar o valor depois. Funciona só no bloco onde foi criada.</p>
                     </div>
 
-                    <div
-                        class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-white border-opacity-20">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-white border-opacity-20">
+                        <div class="text-4xl mb-3">🔒</div>
                         <h4 class="font-bold text-2xl mb-3"><code class="text-blue-300">const</code></h4>
                         <p class="text-lg opacity-90 mb-3">Pra valores constantes</p>
                         <p class="text-sm opacity-75">Não pode mudar depois de criada. Use quando o valor é fixo.</p>
                     </div>
 
-                    <div
-                        class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-yellow-400 border-opacity-40">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 border-2 border-yellow-400 border-opacity-40">
+                        <div class="text-4xl mb-3">⚠️</div>
                         <h4 class="font-bold text-2xl mb-3"><code class="text-yellow-300">var</code></h4>
                         <p class="text-lg opacity-90 mb-3">A forma antiga</p>
                         <p class="text-sm opacity-75">Funciona diferente e pode causar bugs. Evite usar.</p>
@@ -752,12 +870,9 @@
                 </div>
 
                 <div class="bg-ifrn-green-500 bg-opacity-20 rounded-2xl p-6 border-l-4 border-ifrn-green-400">
-                    <p class="font-bold text-lg mb-3">Regra prática pra você agora:</p>
+                    <p class="font-bold text-xl mb-3">💡 Regra prática pra você agora:</p>
                     <p class="text-lg opacity-95">
-                        Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> quando for aprender.
-                        Semana 32 a gente explica quando usar <code
-                            class="bg-white bg-opacity-20 px-2 py-1 rounded">const</code> e por que <code
-                            class="bg-white bg-opacity-20 px-2 py-1 rounded">var</code> ficou no passado.
+                        Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> quando for aprender. Semana 32 a gente explica quando usar <code class="bg-white bg-opacity-20 px-2 py-1 rounded">const</code> e por que <code class="bg-white bg-opacity-20 px-2 py-1 rounded">var</code> ficou no passado.
                     </p>
                 </div>
             </div>
@@ -765,19 +880,16 @@
             <!-- Como funciona por dentro -->
             <div class="bg-gray-50 rounded-3xl p-8 md:p-10 border-2 border-gray-200 mb-8">
                 <h3 class="font-bold text-3xl text-gray-900 mb-6">
-                    Como funciona "por dentro"?
+                    ⚙️ Como funciona "por dentro"?
                 </h3>
 
                 <p class="text-xl text-gray-700 mb-6">
-                    Quando você escreve <code class="bg-gray-200 px-2 py-1 rounded">let nome = "Cesar";</code>, o
-                    JavaScript faz isso:
+                    Quando você escreve <code class="bg-gray-200 px-2 py-1 rounded">let nome = "Cesar";</code>, o JavaScript faz isso:
                 </p>
 
                 <div class="space-y-4 mb-8">
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            1</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                         <div class="bg-white rounded-xl p-5 flex-1 border-2 border-gray-200">
                             <p class="font-bold text-gray-900 mb-2">Reserva um espaço na memória</p>
                             <p class="text-gray-700">Como se criasse uma gaveta vazia no computador</p>
@@ -785,9 +897,7 @@
                     </div>
 
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            2</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
                         <div class="bg-white rounded-xl p-5 flex-1 border-2 border-gray-200">
                             <p class="font-bold text-gray-900 mb-2">Coloca uma etiqueta: "nome"</p>
                             <p class="text-gray-700">Agora você pode chamar essa gaveta pelo nome</p>
@@ -795,9 +905,7 @@
                     </div>
 
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            3</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
                         <div class="bg-white rounded-xl p-5 flex-1 border-2 border-gray-200">
                             <p class="font-bold text-gray-900 mb-2">Guarda o valor "Cesar"</p>
                             <p class="text-gray-700">Coloca o dado dentro da gaveta</p>
@@ -805,33 +913,25 @@
                     </div>
 
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            4</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">4</div>
                         <div class="bg-white rounded-xl p-5 flex-1 border-2 border-gray-200">
                             <p class="font-bold text-gray-900 mb-2">Pronto pra usar</p>
-                            <p class="text-gray-700">Toda vez que você escrever <code
-                                    class="bg-gray-100 px-2 py-1 rounded">nome</code>, o JS vai buscar "Cesar"</p>
+                            <p class="text-gray-700">Toda vez que você escrever <code class="bg-gray-100 px-2 py-1 rounded">nome</code>, o JS vai buscar "Cesar"</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-gray-900 text-white rounded-2xl p-6">
-                    <p class="font-bold text-lg mb-3">Exemplo prático:</p>
+                    <p class="font-bold text-lg mb-3">💻 Exemplo prático:</p>
                     <div class="code-block text-sm">
-                        <span class="text-purple-400">let</span> mensagem = <span
-                            class="text-orange-400">"Olá"</span>;<br>
-                        <span class="text-green-400">console.log</span>(mensagem); <span class="text-gray-500">//
-                            Mostra: Olá</span><br>
-                        <br>
-                        mensagem = <span class="text-orange-400">"Tchau"</span>; <span class="text-gray-500">// Mudou o
-                            valor!</span><br>
-                        <span class="text-green-400">console.log</span>(mensagem); <span class="text-gray-500">//
-                            Mostra: Tchau</span>
+<span class="text-purple-400">let</span> mensagem = <span class="text-orange-400">"Olá"</span>;<br>
+<span class="text-green-400">console.log</span>(mensagem); <span class="text-gray-500">// Mostra: Olá</span><br>
+<br>
+mensagem = <span class="text-orange-400">"Tchau"</span>; <span class="text-gray-500">// Mudou o valor!</span><br>
+<span class="text-green-400">console.log</span>(mensagem); <span class="text-gray-500">// Mostra: Tchau</span>
                     </div>
                     <p class="text-sm mt-4 opacity-75">
-                        Note: não precisa escrever <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> de
-                        novo. Só quando cria pela primeira vez.
+                        Note: não precisa escrever <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> de novo. Só quando cria pela primeira vez.
                     </p>
                 </div>
             </div>
@@ -841,21 +941,18 @@
                 <!-- Console.log -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
                     <div class="flex items-center gap-3 mb-4">
+                        <div class="text-4xl">🖨️</div>
                         <h4 class="font-bold text-2xl text-gray-900">console.log()</h4>
                     </div>
                     <p class="text-gray-700 mb-4">
-                        "log" vem de <strong>logging</strong> (registrar). É tipo um diário onde o JavaScript anota o
-                        que você mandou.
+                        "log" vem de <strong>logging</strong> (registrar). É tipo um diário onde o JavaScript anota o que você mandou.
                     </p>
                     <p class="text-gray-700 mb-4">
-                        Existem outros comandos tipo <code class="bg-gray-100 px-2 py-1 rounded">console.error()</code>
-                        e <code class="bg-gray-100 px-2 py-1 rounded">console.warn()</code>, mas você vai usar <code
-                            class="bg-gray-100 px-2 py-1 rounded">.log()</code> 90% do tempo.
+                        Existem outros comandos tipo <code class="bg-gray-100 px-2 py-1 rounded">console.error()</code> e <code class="bg-gray-100 px-2 py-1 rounded">console.warn()</code>, mas você vai usar <code class="bg-gray-100 px-2 py-1 rounded">.log()</code> 90% do tempo.
                     </p>
                     <div class="bg-gray-50 p-4 rounded-xl border-l-4 border-gray-400">
                         <p class="text-sm text-gray-700">
-                            <strong>Dica:</strong> console.log() é sua melhor amiga pra debugar código. Sempre que
-                            travar, imprime valores pra ver o que tá acontecendo.
+                            <strong>Dica:</strong> console.log() é sua melhor amiga pra debugar código. Sempre que travar, imprime valores pra ver o que tá acontecendo.
                         </p>
                     </div>
                 </div>
@@ -867,17 +964,14 @@
                         <h4 class="font-bold text-2xl text-gray-900">Ponto e vírgula</h4>
                     </div>
                     <p class="text-gray-700 mb-4">
-                        Você viu que cada linha termina com <code class="bg-gray-100 px-2 py-1 rounded">;</code> — isso
-                        diz pro JavaScript: <strong>"acabou esse comando"</strong>.
+                        Você viu que cada linha termina com <code class="bg-gray-100 px-2 py-1 rounded">;</code> — isso diz pro JavaScript: <strong>"acabou esse comando"</strong>.
                     </p>
                     <p class="text-gray-700 mb-4">
-                        JS até funciona sem ponto e vírgula em alguns casos (ele tenta adivinhar), mas <strong>é boa
-                            prática sempre colocar</strong>.
+                        JS até funciona sem ponto e vírgula em alguns casos (ele tenta adivinhar), mas <strong>é boa prática sempre colocar</strong>.
                     </p>
                     <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
                         <p class="text-sm text-yellow-800">
-                            <strong>Regra simples:</strong> terminou a linha de código? Coloca <code
-                                class="bg-white px-2 py-1 rounded">;</code> no final.
+                            <strong>Regra simples:</strong> terminou a linha de código? Coloca <code class="bg-white px-2 py-1 rounded">;</code> no final.
                         </p>
                     </div>
                 </div>
@@ -885,24 +979,19 @@
                 <!-- Case sensitive -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
                     <div class="flex items-center gap-3 mb-4">
+                        <div class="text-4xl">🔤</div>
                         <h4 class="font-bold text-2xl text-gray-900">Maiúsculas importam!</h4>
                     </div>
                     <p class="text-gray-700 mb-4">
-                        JavaScript diferencia maiúsculas de minúsculas. Pra ele, <code
-                            class="bg-gray-100 px-2 py-1 rounded">nome</code> e <code
-                            class="bg-gray-100 px-2 py-1 rounded">Nome</code> são coisas diferentes.
+                        JavaScript diferencia maiúsculas de minúsculas. Pra ele, <code class="bg-gray-100 px-2 py-1 rounded">nome</code> e <code class="bg-gray-100 px-2 py-1 rounded">Nome</code> são coisas diferentes.
                     </p>
                     <div class="code-block text-sm mb-4">
-                        <span class="text-purple-400">let</span> nome = <span
-                            class="text-orange-400">"Cesar"</span>;<br>
-                        <span class="text-green-400">console.log</span>(Nome); <span class="text-red-400">// ERRO!
-                            "Nome" não existe</span>
+<span class="text-purple-400">let</span> nome = <span class="text-orange-400">"Cesar"</span>;<br>
+<span class="text-green-400">console.log</span>(Nome); <span class="text-red-400">// ERRO! "Nome" não existe</span>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-xl border-l-4 border-gray-400">
                         <p class="text-sm text-gray-700">
-                            <strong>Convenção:</strong> use minúsculas pra variáveis. Só a primeira letra de cada
-                            palavra pode ser maiúscula se o nome tiver várias palavras: <code
-                                class="bg-white px-2 py-1 rounded">nomeCompleto</code>
+                            <strong>Convenção:</strong> use minúsculas pra variáveis. Só a primeira letra de cada palavra pode ser maiúscula se o nome tiver várias palavras: <code class="bg-white px-2 py-1 rounded">nomeCompleto</code>
                         </p>
                     </div>
                 </div>
@@ -910,6 +999,7 @@
                 <!-- Nomes de variáveis -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
                     <div class="flex items-center gap-3 mb-4">
+                        <div class="text-4xl">📝</div>
                         <h4 class="font-bold text-2xl text-gray-900">Nomeando variáveis</h4>
                     </div>
                     <p class="text-gray-700 mb-4">
@@ -953,18 +1043,15 @@
             </div>
 
             <!-- Resumo final -->
-            <div class="mt-8 bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8">
-                <h3 class="font-bold text-2xl mb-4">Resumo: O que você precisa lembrar agora</h3>
+            <div class="mt-8 bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-4">🎯 Resumo: O que você precisa lembrar agora</h3>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <p class="font-bold mb-2">Pra usar hoje:</p>
                         <ul class="space-y-2 opacity-95">
-                            <li>• Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> pra criar
-                                variáveis</li>
-                            <li>• Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">console.log()</code> pra
-                                ver valores</li>
-                            <li>• Coloque <code class="bg-white bg-opacity-20 px-2 py-1 rounded">;</code> no final de
-                                cada linha</li>
+                            <li>• Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">let</code> pra criar variáveis</li>
+                            <li>• Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">console.log()</code> pra ver valores</li>
+                            <li>• Coloque <code class="bg-white bg-opacity-20 px-2 py-1 rounded">;</code> no final de cada linha</li>
                             <li>• Cuidado com maiúsculas/minúsculas</li>
                         </ul>
                     </div>
@@ -987,53 +1074,53 @@
         <div class="max-w-5xl mx-auto">
             <div class="bg-gradient-to-r from-gray-800 to-gray-900 rounded-3xl p-8 text-white shadow-xl mb-8">
                 <h2 class="font-bold text-3xl mb-4">
-                    Na Prática - Aula
+                    💻 Dia 2 — Prática Guiada
                 </h2>
                 <p class="text-xl opacity-95">
-                    Hoje foi teoria e demo. Amanhã você faz na mão.
+                    Hoje (Dia 1) foi sintaxe e exemplos. Amanhã você pratica variáveis, tipos e funções na mão.
                 </p>
             </div>
 
             <div class="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 mb-8">
-                <h3 class="font-bold text-2xl text-gray-900 mb-6">O que vamos fazer:</h3>
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">O que vamos fazer no Dia 2:</h3>
                 <ul class="space-y-3 text-lg text-gray-700">
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">✓</span>
-                        <span>Repetir os 3 exemplos de hoje, mudando os textos e números</span>
+                        <span>Criar variáveis com <code class="bg-gray-200 px-2 py-1 rounded">let</code> e <code class="bg-gray-200 px-2 py-1 rounded">const</code>, testando quando cada uma funciona</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">✓</span>
-                        <span>Criar um "console playground" — uma página só pra testar JS</span>
+                        <span>Trabalhar com todos os tipos de dados: strings, numbers, booleans, arrays e objects</span>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-ifrn-green-600 font-bold">✓</span>
-                        <span>Todo mundo vai rodar pelo menos 5 logs diferentes</span>
+                        <span>Escrever funções simples com e sem parâmetros, com e sem return</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span>Criar um "playground" com pelo menos 10 exemplos diferentes</span>
                     </li>
                 </ul>
             </div>
 
             <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-ifrn-green-200">
-                <h3 class="font-bold text-xl text-gray-900 mb-6">✅ Mini-Checklist de Prática (Dia 2)</h3>
+                <h3 class="font-bold text-xl text-gray-900 mb-6">✅ Checklist de Prática (Dia 2)</h3>
                 <div class="space-y-3">
-                    <label
-                        class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
+                    <label class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
                         <input type="checkbox" class="mt-1 w-5 h-5">
-                        <span class="text-gray-800">Abri o console sem ajuda</span>
+                        <span class="text-gray-800">Criei variáveis com let e const</span>
                     </label>
-                    <label
-                        class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
+                    <label class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
                         <input type="checkbox" class="mt-1 w-5 h-5">
-                        <span class="text-gray-800">Rodei 3 mensagens diferentes</span>
+                        <span class="text-gray-800">Testei todos os tipos de dados (string, number, boolean, array, object)</span>
                     </label>
-                    <label
-                        class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
+                    <label class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
                         <input type="checkbox" class="mt-1 w-5 h-5">
-                        <span class="text-gray-800">Rodei 3 contas diferentes</span>
+                        <span class="text-gray-800">Escrevi 3 funções diferentes</span>
                     </label>
-                    <label
-                        class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
+                    <label class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:bg-gray-100 transition">
                         <input type="checkbox" class="mt-1 w-5 h-5">
-                        <span class="text-gray-800">Rodei 1 variável simples</span>
+                        <span class="text-gray-800">Testei função com parâmetros e return</span>
                     </label>
                 </div>
             </div>
@@ -1044,68 +1131,76 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                🏃‍♂️ Exercícios em Sala
+                🏃‍♂️ Exercícios em Sala (Dia 1 e Dia 2)
             </h2>
 
             <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
-                <h3 class="font-bold text-2xl text-gray-900 mb-6">Atividade Simples</h3>
-
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">Atividade Prática</h3>
+                
                 <div class="space-y-6">
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            1</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
                         <div>
                             <p class="text-gray-800 text-lg">
-                                Crie uma página nova chamada <code
-                                    class="bg-gray-100 px-2 py-1 rounded">js-playground.html</code>
+                                Crie um arquivo chamado <code class="bg-gray-100 px-2 py-1 rounded">fundamentos-js.html</code>
                             </p>
                         </div>
                     </div>
 
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            2</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
                         <div>
                             <p class="text-gray-800 text-lg mb-3">
-                                Adicione 6 comandos <code class="bg-gray-100 px-2 py-1 rounded">console.log()</code>:
+                                Dentro de um <code class="bg-gray-100 px-2 py-1 rounded">&lt;script&gt;</code>, crie:
                             </p>
                             <ul class="space-y-2 text-gray-700">
-                                <li class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full"></span>
-                                    <span>3 mensagens (textos entre aspas)</span>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><strong>3 variáveis com let</strong> (nome, idade, cidade)</span>
                                 </li>
-                                <li class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full"></span>
-                                    <span>2 contas (soma, subtração, multiplicação ou divisão)</span>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><strong>2 variáveis com const</strong> (PI, URL_SITE)</span>
                                 </li>
-                                <li class="flex items-center gap-2">
-                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full"></span>
-                                    <span>1 variável <code class="bg-gray-100 px-2 py-1 rounded">let</code> com um
-                                        texto</span>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><strong>1 array</strong> com 5 números</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><strong>1 object</strong> com propriedades nome, idade, aprovado</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><strong>2 funções</strong> — uma sem parâmetro, outra com parâmetro e return</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="flex gap-4 items-start">
-                        <div
-                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            3</div>
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
                         <div>
                             <p class="text-gray-800 text-lg">
-                                Abra no navegador, abra o console (F12) e confira se os 6 logs apareceram
+                                Use <code class="bg-gray-100 px-2 py-1 rounded">console.log()</code> para imprimir cada variável e chamar as funções
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">4</div>
+                        <div>
+                            <p class="text-gray-800 text-lg">
+                                Abra no navegador, pressione F12, vá em Console e confira se tudo apareceu
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-ifrn-green-50 p-6 rounded- border-l-4 border-ifrn-green-500">
+                <div class="mt-8 bg-ifrn-green-50 p-6 rounded-xl border-l-4 border-ifrn-green-500">
                     <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
                     <p class="text-ifrn-green-800">
-                        Você pratica os 3 conceitos de hoje (mensagens, contas, variáveis) numa página controlada, sem
-                        pressa.
+                        Praticar os 4 pilares da semana: <strong>sintaxe, variáveis, tipos de dados e funções</strong>. Cada conceito numa linha de código diferente, com calma.
                     </p>
                 </div>
             </div>
@@ -1115,87 +1210,121 @@
     <!-- Lista da Semana -->
     <section id="lista" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-ifrn-green-500 to-ifrn-green-500 rounded-xl p-8 md:p-10 text-white shadow-xl mb-8">
+            <div class="bg-gradient-to-br from-ifrn-red-500 to-ifrn-red-600 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-8">
                 <h2 class="font-bold text-3xl mb-4">
-                    Entrega da semana 31
+                    📋 Lista da Semana 31
                 </h2>
                 <p class="text-xl opacity-95">
-                    Entrega: até a próxima final da aula
+                    Entrega: até o início da Semana 32 (próxima aula)
                 </p>
             </div>
 
             <div class="space-y-6">
                 <!-- Parte 1 -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
-                    <h3 class="font-bold text-2xl text-gray-900 mb-6">1️⃣ Repetição Guiada</h3>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-6">1️⃣ Fundamentos JavaScript</h3>
                     <p class="text-gray-700 mb-4">
-                        Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">js-playground.html</code> com:
+                        Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">lista-semana31.html</code> com:
                     </p>
                     <ul class="space-y-3 text-gray-800">
                         <li class="flex items-start gap-3">
                             <span class="text-ifrn-green-600 font-bold">✓</span>
-                            <span>5 mensagens no console (textos diferentes)</span>
+                            <span><strong>5 variáveis com let</strong> de tipos diferentes (string, number, boolean)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-ifrn-green-600 font-bold">✓</span>
-                            <span>5 contas diferentes (soma, subtração, multiplicação, divisão)</span>
+                            <span><strong>3 variáveis com const</strong> (valores que não mudam)</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-ifrn-green-600 font-bold">✓</span>
-                            <span>2 variáveis <code class="bg-gray-100 px-2 py-1 rounded">let</code> com textos (ex:
-                                nome, cidade)</span>
+                            <span><strong>1 array</strong> com pelo menos 5 elementos</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-ifrn-green-600 font-bold">✓</span>
+                            <span><strong>1 object</strong> representando uma pessoa (nome, idade, cidade, ativo)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-ifrn-green-600 font-bold">✓</span>
+                            <span><strong>3 funções:</strong> uma sem parâmetro, uma com 1 parâmetro, uma com 2 parâmetros e return</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Parte 2 -->
                 <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
-                    <h3 class="font-bold text-2xl text-gray-900 mb-6">2️⃣ Exploração Simples</h3>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-6">2️⃣ Teste e Validação</h3>
                     <p class="text-gray-700 mb-4">
-                        Depois de fazer os itens acima:
+                        Para cada item criado acima:
                     </p>
                     <ul class="space-y-3 text-gray-800">
                         <li class="flex items-start gap-3">
                             <span class="text-ifrn-green-600 font-bold">✓</span>
-                            <span>Troque os valores e textos (mude os números, mude os nomes)</span>
+                            <span>Imprima no console usando <code class="bg-gray-100 px-2 py-1 rounded">console.log()</code></span>
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-ifrn-green-600 font-bold">✓</span>
-                            <span>No final do arquivo, escreva:</span>
+                            <span>Teste mudando valores das variáveis <code class="bg-gray-100 px-2 py-1 rounded">let</code></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-ifrn-green-600 font-bold">✓</span>
+                            <span>Chame cada função pelo menos 2 vezes com valores diferentes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-ifrn-green-600 font-bold">✓</span>
+                            <span>Adicione comentários explicando o que cada parte faz</span>
                         </li>
                     </ul>
-                    <div class="mt-4 code-block text-sm">
-                        <span class="text-green-400">console.log</span>(<span class="text-orange-400">"Eu consegui rodar
-                            JS no console!"</span>);
-                    </div>
                 </div>
 
+                <!-- Parte 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-2xl text-gray-900 mb-6">3️⃣ Reflexão (learning-log.md)</h3>
+                    <p class="text-gray-700 mb-4">
+                        Abra ou crie o arquivo <code class="bg-gray-100 px-2 py-1 rounded">learning-log.md</code> e responda:
+                    </p>
+                    <div class="bg-gray-50 p-6 rounded-xl space-y-4">
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">1. Qual a diferença entre let e const?</p>
+                            <p class="text-sm text-gray-600">(Com suas próprias palavras)</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">2. Qual tipo de dado você mais usou? Por quê?</p>
+                            <p class="text-sm text-gray-600">(String, number, boolean, array ou object)</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">3. O que foi mais difícil: variáveis, tipos ou funções?</p>
+                            <p class="text-sm text-gray-600">(Seja honesto - isso ajuda a identificar onde precisa reforçar)</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">4. Você conseguiu criar uma função com return? Como foi?</p>
+                            <p class="text-sm text-gray-600">(Funcionou na primeira? Precisou de ajuda?)</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
-                <p class="font-bold text-yellow-800 mb-2">⚠️ Lembra:</p>
+                <p class="font-bold text-yellow-800 mb-2">⚠️ Importante:</p>
                 <p class="text-yellow-700">
-                    Essa lista é pra fixar o básico. Não precisa ser perfeito, precisa ser <strong>feito</strong>.
-                    Semana 32 a gente evolui.
+                    Esta lista consolida os <strong>fundamentos de JavaScript</strong>. A Semana 32 começa DOM, então certifique-se de dominar variáveis, tipos e funções antes de seguir.
                 </p>
             </div>
         </div>
     </section>
 
+
     <!-- Mini-Autoavaliação -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-4xl mx-auto">
             <h2 class="font-bold text-3xl text-gray-900 mb-6">
-                📊 Mini-Autoavaliação
+                Mini-Autoavaliação
             </h2>
             <p class="text-gray-700 mb-8">
                 Como você se sente em relação ao JavaScript agora?
             </p>
 
             <div class="space-y-4">
-                <label
-                    class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
+                <label class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
                     <input type="radio" name="autoavaliacao" value="0" class="mt-1">
                     <div>
                         <p class="font-bold text-gray-900">0 — Não consegui</p>
@@ -1203,8 +1332,7 @@
                     </div>
                 </label>
 
-                <label
-                    class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
+                <label class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
                     <input type="radio" name="autoavaliacao" value="1" class="mt-1">
                     <div>
                         <p class="font-bold text-gray-900">1 — Só copiando</p>
@@ -1212,8 +1340,7 @@
                     </div>
                 </label>
 
-                <label
-                    class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
+                <label class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
                     <input type="radio" name="autoavaliacao" value="2" class="mt-1">
                     <div>
                         <p class="font-bold text-gray-900">2 — Com ajuda</p>
@@ -1221,8 +1348,7 @@
                     </div>
                 </label>
 
-                <label
-                    class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
+                <label class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
                     <input type="radio" name="autoavaliacao" value="3" class="mt-1">
                     <div>
                         <p class="font-bold text-gray-900">3 — Sozinho</p>
@@ -1230,8 +1356,7 @@
                     </div>
                 </label>
 
-                <label
-                    class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
+                <label class="flex items-start gap-4 p-5 bg-gray-50 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-ifrn-green-400 transition">
                     <input type="radio" name="autoavaliacao" value="4" class="mt-1">
                     <div>
                         <p class="font-bold text-gray-900">4 — Consigo explicar</p>
@@ -1246,35 +1371,31 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="font-bold text-4xl mb-6">
-                🎯 Semana 31: Primeiro Passo Dado
+                🎯 Semana 31: Fundamentos Consolidados
             </h2>
             <p class="text-2xl mb-8 opacity-95">
-                O objetivo não é decorar nada agora: é perder o medo de ver JS rodando.
+                O objetivo não é decorar sintaxe agora: é entender a lógica de variáveis, tipos e funções.
             </p>
 
             <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8">
                 <p class="text-xl mb-6 opacity-95">
-                    <strong>Semana 32</strong> a gente organiza as caixinhas (variáveis) e começa a controlar a lógica.
-                    Mas antes disso, você precisa estar confortável abrindo o console e vendo mensagens aparecerem.
+                    <strong>Semana 32</strong> começa DOM (Document Object Model) — manipular elementos HTML com JavaScript. Mas antes disso, você precisa estar confortável com esses fundamentos que aprendeu hoje.
                 </p>
                 <p class="text-lg opacity-90">
-                    Se você conseguiu rodar <code
-                        class="bg-white bg-opacity-20 px-2 py-1 rounded">console.log("Oi")</code> e viu no DevTools, já
-                    tá no caminho certo.
+                    Se você consegue criar variáveis, arrays, objects e funções simples, já tá pronto pro próximo nível.
                 </p>
             </div>
 
             <div class="bg-ifrn-green-500 bg-opacity-20 rounded-2xl p-6 border-2 border-ifrn-green-400">
                 <div class="flex items-start gap-4 justify-center">
-                    <div class="text-4xl">☕</div>
+                    <div class="text-4xl">💡</div>
                     <div class="text-left">
                         <p class="font-bold text-xl mb-2">Pensamento final:</p>
                         <p class="text-lg opacity-95">
-                            <em>"Se o console te assustar, lembra: ele só mostra a verdade. E a gente gosta da
-                                verdade."</em>
+                            <em>"JavaScript não é difícil. É diferente. E diferente a gente aprende praticando, não só lendo."</em>
                         </p>
                         <p class="text-sm mt-3 opacity-75">
-                            Erro no console não é punição. É informação. Use isso a seu favor.
+                            Os erros no console não são punição — são informação. Quanto mais você errar hoje, menos vai errar depois.
                         </p>
                     </div>
                 </div>
@@ -1282,7 +1403,7 @@
 
             <div class="mt-12 pt-8 border-t border-white border-opacity-20">
                 <p class="text-sm opacity-75">
-                    Autoria Web | IFRN | Semana 31 — JavaScript do zero
+                    Autoria Web | IFRN | Semana 31 — Introdução ao JavaScript
                 </p>
             </div>
         </div>
@@ -1304,7 +1425,7 @@
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             const key = `semana31-${checkbox.parentElement.textContent.substring(0, 30)}`;
             checkbox.checked = localStorage.getItem(key) === 'true';
-
+            
             checkbox.addEventListener('change', e => {
                 localStorage.setItem(key, e.target.checked);
             });
@@ -1315,12 +1436,11 @@
             if (localStorage.getItem('semana31-autoavaliacao') === radio.value) {
                 radio.checked = true;
             }
-
+            
             radio.addEventListener('change', e => {
                 localStorage.setItem('semana31-autoavaliacao', e.target.value);
             });
         });
     </script>
 </body>
-
 </html>
