@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoria Web — Seu primeiro passo como criador de sites | IFRN</title>
+    <meta name="description"
+        content="Disciplina introdutória de Web Design e Frontend para ensino médio. Do zero até um site publicado em 4 bimestres.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #143021;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.1);
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(47, 107, 72, 0.1);
+        }
+
+        .accordion-button {
+            transition: all 0.3s ease;
+        }
+
+        .accordion-button:hover {
+            background: #e6f2ea;
+        }
+
+        .code-block {
+            background: #143021;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #c4e2d1;
+            border: 2px solid #2f6b48;
+        }
+
+        details summary {
+            cursor: pointer;
+            list-style: none;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] summary .chevron {
+            transform: rotate(180deg);
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="font-bold text-xl text-ifrn-green-800">Autoria Web</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Sobre</a>
+                    <a href="#metodologia"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Metodologia</a>
+                    <a href="#plano" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Plano</a>
+                    <a href="#git" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Git CLI</a>
+                    <a href="#avaliacoes" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Avaliações</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                    Disciplina Introdutória • 60 horas • 4 Bimestres
+                </div>
+
+                <h1 class="font-bold text-5xl md:text-7xl text-ifrn-green-800 mb-6 leading-tight">
+                    Autoria Web
+                </h1>
+
+                <p class="text-2xl md:text-3xl text-ifrn-green-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    Seu primeiro passo como criador de sites
+                </p>
+
+                <p class="text-lg text-ifrn-green-600 mb-12 max-w-3xl mx-auto">
+                    Disciplina introdutória do zero até um site completo publicado. Para quem nunca programou ou
+                    desenhou sites antes. 40 semanas de evolução gradual.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    <a href="#plano" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg inline-block">
+                        Ver plano por bimestre
+                    </a>
+                    <a href="#git" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg inline-block">
+                        Começar pelo Git CLI
+                    </a>
+                </div>
+            </div>
+
+            <!-- O que você vai dominar -->
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-ifrn-green-100">
+                <h2 class="font-bold text-3xl text-ifrn-green-800 mb-8 text-center">
+                    O que você vai dominar ao final
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">📝</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">HTML Semântico</h3>
+                            <p class="text-ifrn-green-600">Estrutura correta, acessível, organizada e preparada para SEO
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">🎨</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">CSS Moderno</h3>
+                            <p class="text-ifrn-green-600">Do básico ao Flexbox e Grid, responsivo em 3 breakpoints</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">⚡</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">JavaScript e DOM</h3>
+                            <p class="text-ifrn-green-600">Sintaxe básica, seletores, manipulação de elementos, eventos
+                                e validações</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">🐙</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Git via Linha de Comando</h3>
+                            <p class="text-ifrn-green-600">Versionamento profissional desde o primeiro dia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Sobre a Disciplina
+            </h2>
+
+            <div class="space-y-8">
+                <div class="bg-ifrn-green-50 rounded-2xl p-8 border border-ifrn-green-100">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Para quem é</h3>
+                    <p class="text-lg text-ifrn-green-700 leading-relaxed">
+                        Esta é uma disciplina introdutória. Você não precisa saber programar ou ter desenhado sites
+                        antes. Começamos do zero absoluto e construímos competências gradualmente.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-4">📅</div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Duração</h3>
+                        <p class="text-ifrn-green-700">
+                            60 horas ao longo do ano letivo, distribuídas em 4 bimestres
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Estrutura</h3>
+                        <p class="text-ifrn-green-700">
+                            10 semanas por bimestre, 2 aulas geminadas por semana
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Objetivo</h3>
+                        <p class="text-ifrn-green-700">
+                            Sair publicando um site completo e responsivo do zero
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-2xl p-8 text-white">
+                    <h3 class="font-bold text-2xl mb-4">Foco da Disciplina</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>HTML semântico</strong> — estrutura correta, acessível e otimizada</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>CSS do básico ao responsivo moderno</strong> — Flexbox, Grid,
+                                mobile-first</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>JavaScript e manipulação do DOM</strong> — sintaxe, seletores, eventos,
+                                validações (4º bimestre)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Git via CLI</strong> — usado desde cedo como "caderno de evidências"</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia -->
+    <section id="metodologia" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Como Você Aprende Aqui
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl">👥</span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Aulas Geminadas</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-ifrn-green-50 rounded-xl">
+                            <p class="font-bold text-ifrn-green-800 mb-2">📖 Dia 1 — Conteúdo Novo</p>
+                            <p class="text-ifrn-green-700">Teoria curta + demonstração prática + exemplos</p>
+                        </div>
+                        <div class="p-4 bg-ifrn-green-50 rounded-xl">
+                            <p class="font-bold text-ifrn-green-800 mb-2">💻 Dia 2 — Prática Guiada</p>
+                            <p class="text-ifrn-green-700">Exercícios + correção em tempo real + dúvidas</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl">📈</span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Níveis de Domínio</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 mb-4 leading-relaxed">
+                        Seguimos uma progressão natural de aprendizado:
+                    </p>
+                    <ol class="space-y-2 text-ifrn-green-700">
+                        <li><strong>1.</strong> Lembrar o que viu</li>
+                        <li><strong>2.</strong> Compreender o conceito</li>
+                        <li><strong>3.</strong> Aplicar em exercício</li>
+                        <li><strong>4.</strong> Analisar e comparar</li>
+                        <li><strong>5.</strong> Avaliar qualidade</li>
+                        <li><strong>6.</strong> Criar algo novo</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <div class="text-4xl mb-4">🔄</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Aprendizagem Espaçada</h3>
+                    <p class="text-ifrn-green-700">
+                        Revisar, repetir com variações e integrar em desafios crescentes
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <div class="text-4xl mb-4">👁️</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Aprendizagem Visível</h3>
+                    <p class="text-ifrn-green-700">
+                        Você acompanha seu progresso com checklist e evidências no GitHub
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <div class="text-4xl mb-4">✅</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Auto-Diagnóstico</h3>
+                    <p class="text-ifrn-green-700">
+                        Quizzes rápidos e checkpoints bimestrais sem drama, só pra calibrar
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano por Bimestre -->
+    <section id="plano" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
+                Plano Completo — 4 Bimestres, 40 Semanas
+            </h2>
+            <p class="text-xl text-ifrn-green-600 mb-12 text-center max-w-3xl mx-auto">
+                Cada bimestre tem 10 semanas. Cada semana tem 2 aulas geminadas. O plano é progressivo: você constrói
+                competências gradualmente.
+            </p>
+
+            <div class="space-y-6">
+                <!-- Bimestre 1 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-blue-200 overflow-hidden">
+                    <summary class="accordion-button p-6 cursor-pointer flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-blue-700">B1</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 1 — HTML e Fundamentos</h3>
+                                <p class="text-ifrn-green-600">Semanas 1–10 • Estrutura semântica do zero</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-ifrn-green-700" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+
+                    <div class="p-6 border-t border-blue-100 bg-blue-50">
+                        <div class="mb-6 p-4 bg-white rounded-xl">
+                            <h4 class="font-bold text-lg text-ifrn-green-800 mb-2">🎯 Objetivo do Bimestre</h4>
+                            <p class="text-ifrn-green-700">Dominar HTML semântico e criar sites multi-páginas sem CSS
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">✅ O que entra</p>
+                                <p class="text-sm text-ifrn-green-700">Tags HTML, semântica, formulários, mídia,
+                                    tabelas, navegação</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">📦 Entrega Parcial</p>
+                                <p class="text-sm text-ifrn-green-700">Mini-site multi-páginas sem estilização (só HTML)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- Semana 1 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 1</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">S</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Web, frontend e boilerplate
+                                    HTML</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> O que é web, navegador, HTML básico</p>
+                                    <p><strong>Dia 2:</strong> Estrutura mínima, salvar, abrir no navegador</p>
+                                    <p><strong>Bloom:</strong> Lembrar / Compreender</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 2 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 2</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">S</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Texto, headings, listas e
+                                    links</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> h1-h6, p, strong, em, listas ul/ol</p>
+                                    <p><strong>Dia 2:</strong> Âncoras, links internos/externos</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 3 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 3</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Semântica estrutural</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> header, nav, main, section, article, footer</p>
+                                    <p><strong>Dia 2:</strong> Organizar página com essas tags</p>
+                                    <p><strong>Bloom:</strong> Aplicar / Analisar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 4 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 4</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Mídia: imagens, vídeo, áudio
+                                </p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> img com src/alt, figure/figcaption</p>
+                                    <p><strong>Dia 2:</strong> video, audio, acessibilidade</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 5 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 5</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">S</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Tabelas semânticas</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> table, thead, tbody, tr, th, td</p>
+                                    <p><strong>Dia 2:</strong> Construir tabela de dados real</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 6 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 6</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Formulários</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> form, input types, label, textarea</p>
+                                    <p><strong>Dia 2:</strong> select, checkbox, radio, button</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 7 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 7</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Site multi-páginas com
+                                    navegação</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Estrutura de páginas interligadas</p>
+                                    <p><strong>Dia 2:</strong> Navegação consistente entre páginas</p>
+                                    <p><strong>Bloom:</strong> Criar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 8 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 8</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Organização de pastas e
+                                    projeto</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Estrutura de diretórios, caminhos relativos</p>
+                                    <p><strong>Dia 2:</strong> Refatorar projeto com boa organização</p>
+                                    <p><strong>Bloom:</strong> Analisar / Avaliar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 9 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 9</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">SEO e acessibilidade básica
+                                </p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> meta tags, title, lang, alt</p>
+                                    <p><strong>Dia 2:</strong> Auditoria básica, corrigir problemas</p>
+                                    <p><strong>Bloom:</strong> Avaliar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 10 -->
+                            <div class="bg-white rounded-xl p-5 border border-blue-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 10</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">🎯 Checkpoint: Mini-site sem
+                                    CSS</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Revisão + prova teórica</p>
+                                    <p><strong>Dia 2:</strong> Entrega e apresentação do projeto</p>
+                                    <p><strong>Bloom:</strong> Criar / Avaliar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Bimestre 2 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-green-200 overflow-hidden">
+                    <summary class="accordion-button p-6 cursor-pointer flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-green-700">B2</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 2 — CSS Básico + Identidade
+                                </h3>
+                                <p class="text-ifrn-green-600">Semanas 11–20 • Estilização e layout simples</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-ifrn-green-700" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+
+                    <div class="p-6 border-t border-green-100 bg-green-50">
+                        <div class="mb-6 p-4 bg-white rounded-xl">
+                            <h4 class="font-bold text-lg text-ifrn-green-800 mb-2">🎯 Objetivo do Bimestre</h4>
+                            <p class="text-ifrn-green-700">Dominar CSS básico e criar identidade visual consistente</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">✅ O que entra</p>
+                                <p class="text-sm text-ifrn-green-700">Seletores, box model, tipografia, cores, estados,
+                                    responsivo básico</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">📦 Entrega Parcial</p>
+                                <p class="text-sm text-ifrn-green-700">Site completamente estilizado e responsivo (2
+                                    breakpoints)</p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- Semanas 11-20 resumidas -->
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 11</h5>
+                                <p class="text-sm text-ifrn-green-700">CSS, seletores, cascade</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 12</h5>
+                                <p class="text-sm text-ifrn-green-700">Tipografia e cores</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 13</h5>
+                                <p class="text-sm text-ifrn-green-700">Box model (margin, padding, border)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 14</h5>
+                                <p class="text-sm text-ifrn-green-700">Layouts simples (display, width)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 15</h5>
+                                <p class="text-sm text-ifrn-green-700">Estados (hover, focus) + navbar</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 16</h5>
+                                <p class="text-sm text-ifrn-green-700">Backgrounds e hero sections</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 17</h5>
+                                <p class="text-sm text-ifrn-green-700">Componentização CSS leve</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 18</h5>
+                                <p class="text-sm text-ifrn-green-700">Responsivo simples (2 breakpoints)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 19</h5>
+                                <p class="text-sm text-ifrn-green-700">Refino visual com rubrica</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-green-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 20 🎯</h5>
+                                <p class="text-sm text-ifrn-green-700">Checkpoint: Site estilizado</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Bimestre 3 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-purple-200 overflow-hidden">
+                    <summary class="accordion-button p-6 cursor-pointer flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-purple-700">B3</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 3 — Flexbox + Grid +
+                                    Responsivo Real</h3>
+                                <p class="text-ifrn-green-600">Semanas 21–30 • Layouts modernos</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-ifrn-green-700" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+
+                    <div class="p-6 border-t border-purple-100 bg-purple-50">
+                        <div class="mb-6 p-4 bg-white rounded-xl">
+                            <h4 class="font-bold text-lg text-ifrn-green-800 mb-2">🎯 Objetivo do Bimestre</h4>
+                            <p class="text-ifrn-green-700">Dominar Flexbox e Grid, criar layouts complexos e responsivos
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">✅ O que entra</p>
+                                <p class="text-sm text-ifrn-green-700">Flexbox, Grid, mobile-first, 3 breakpoints,
+                                    biblioteca componentes</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">📦 Entrega Parcial</p>
+                                <p class="text-sm text-ifrn-green-700">Landing page moderna e totalmente responsiva</p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 21</h5>
+                                <p class="text-sm text-ifrn-green-700">Flexbox base (justify, align, flex)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 22</h5>
+                                <p class="text-sm text-ifrn-green-700">Flexbox em UI real (navbar, cards)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 23</h5>
+                                <p class="text-sm text-ifrn-green-700">Debug Flexbox (troubleshooting)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 24</h5>
+                                <p class="text-sm text-ifrn-green-700">Grid base (template, areas)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 25</h5>
+                                <p class="text-sm text-ifrn-green-700">Grid responsivo (auto-fit, minmax)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 26</h5>
+                                <p class="text-sm text-ifrn-green-700">Layout completo moderno (Flex + Grid)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 27</h5>
+                                <p class="text-sm text-ifrn-green-700">Biblioteca de componentes reutilizáveis</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 28</h5>
+                                <p class="text-sm text-ifrn-green-700">Responsivo 3 breakpoints (mobile-first)</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 29</h5>
+                                <p class="text-sm text-ifrn-green-700">Acessibilidade responsiva</p>
+                            </div>
+                            <div class="bg-white rounded-xl p-5 border border-purple-200">
+                                <h5 class="font-bold text-ifrn-green-800 mb-2">Semana 30 🎯</h5>
+                                <p class="text-sm text-ifrn-green-700">Checkpoint: Landing moderna</p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Bimestre 4 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-orange-200 overflow-hidden">
+                    <summary class="accordion-button p-6 cursor-pointer flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="text-2xl font-bold text-orange-700">B4</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 4 — JavaScript Básico + DOM
+                                </h3>
+                                <p class="text-ifrn-green-600">Semanas 31–40 • Manipulação dinâmica e interações</p>
+                            </div>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-ifrn-green-700" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+
+                    <div class="p-6 border-t border-orange-100 bg-orange-50">
+                        <div class="mb-6 p-4 bg-white rounded-xl">
+                            <h4 class="font-bold text-lg text-ifrn-green-800 mb-2">🎯 Objetivo do Bimestre</h4>
+                            <p class="text-ifrn-green-700">Aprender JavaScript do zero, dominar manipulação do DOM e
+                                criar interações dinâmicas em páginas web</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">✅ O que entra</p>
+                                <p class="text-sm text-ifrn-green-700">Sintaxe JS, DOM, seletores, manipulação de
+                                    conteúdo/classes, eventos, validações, manipulação dinâmica</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-xl">
+                                <p class="font-bold text-ifrn-green-800 mb-2">📦 Entrega Final</p>
+                                <p class="text-sm text-ifrn-green-700">Site interativo completo (HTML+CSS+JS) publicado
+                                    no Vercel</p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- Semana 31 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 31</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">S</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Introdução ao JavaScript</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Sintaxe básica, console.log</p>
+                                    <p><strong>Dia 2:</strong> Variáveis (let, const), tipos de dados, funções básicas
+                                    </p>
+                                    <p><strong>Bloom:</strong> Lembrar / Compreender</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 32 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 32</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">S</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">DOM — Conceitos</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> O que é DOM, estrutura em árvore</p>
+                                    <p><strong>Dia 2:</strong> Entender nós e elementos, DevTools</p>
+                                    <p><strong>Bloom:</strong> Compreender / Analisar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 33 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 33</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Seleção de Elementos</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> getElementById, querySelector</p>
+                                    <p><strong>Dia 2:</strong> querySelectorAll, diferenças práticas</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 34 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 34</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Manipulação de Conteúdo</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> innerHTML, textContent</p>
+                                    <p><strong>Dia 2:</strong> Manipulação de atributos (src, href, alt)</p>
+                                    <p><strong>Bloom:</strong> Aplicar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 35 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 35</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">I</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Estilos e Classes pelo JS</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> classList.add, classList.remove, toggle</p>
+                                    <p><strong>Dia 2:</strong> style.property, manipulação inline</p>
+                                    <p><strong>Bloom:</strong> Aplicar / Analisar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 36 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 36</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Eventos no DOM</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> onclick, addEventListener</p>
+                                    <p><strong>Dia 2:</strong> Eventos de teclado e formulário (keypress, submit)</p>
+                                    <p><strong>Bloom:</strong> Aplicar / Criar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 37 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 37</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Validações e Máscaras</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Validação básica (campos vazios, regex simples)</p>
+                                    <p><strong>Dia 2:</strong> Máscaras simples, form handling</p>
+                                    <p><strong>Bloom:</strong> Analisar / Criar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 38 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 38</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Manipulação Avançada</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> createElement, appendChild, remove</p>
+                                    <p><strong>Dia 2:</strong> Inserção dinâmica no DOM, listas interativas</p>
+                                    <p><strong>Bloom:</strong> Criar / Avaliar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 39 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 39</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">Projeto Interativo</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Planejamento: pequeno site interativo</p>
+                                    <p><strong>Dia 2:</strong> Desenvolvimento: formulário validado + componentes
+                                        dinâmicos</p>
+                                    <p><strong>Bloom:</strong> Criar / Avaliar</p>
+                                </div>
+                            </div>
+
+                            <!-- Semana 40 -->
+                            <div class="bg-white rounded-xl p-5 border border-orange-200">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h5 class="font-bold text-ifrn-green-800">Semana 40</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">C</span>
+                                </div>
+                                <p class="text-sm font-semibold text-ifrn-green-700 mb-2">🎯 Avaliação Final +
+                                    Publicação</p>
+                                <div class="text-xs text-ifrn-green-600 space-y-1">
+                                    <p><strong>Dia 1:</strong> Revisão final, ajustes projeto</p>
+                                    <p><strong>Dia 2:</strong> Deploy no Vercel + apresentação</p>
+                                    <p><strong>Bloom:</strong> Avaliar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Legenda -->
+            <div class="mt-8 bg-ifrn-green-50 rounded-2xl p-6 border border-ifrn-green-100">
+                <h3 class="font-bold text-lg text-ifrn-green-800 mb-4">📌 Legenda dos Artefatos</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">S</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Simples:</strong> Reprodução guiada, foco na
+                            sintaxe</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Intermediário:</strong> Variações com
+                            autonomia</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">C</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Complexo:</strong> Criação autônoma
+                            completa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Git CLI -->
+    <section id="git" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
+                Git via Linha de Comando
+            </h2>
+            <p class="text-xl text-ifrn-green-600 mb-12 text-center max-w-3xl mx-auto">
+                Desde a primeira semana, você usa Git via terminal como um profissional. É o seu caderno de evidências
+                digital.
+            </p>
+
+            <div class="space-y-8">
+                <!-- Passo 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center font-bold text-xl text-ifrn-green-800">
+                            1
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Criar e clonar repositório</h3>
+                    </div>
+                    <div class="code-block mb-4">
+                        <span class="text-green-400"># Criar repositório no GitHub e clonar</span><br>
+                        git clone https://github.com/seu-usuario/autoria-web.git<br>
+                        cd autoria-web
+                    </div>
+                    <p class="text-sm text-ifrn-green-600">
+                        Você cria o repositório no GitHub e clona ele pro seu computador. A partir daí, toda mudança é
+                        versionada.
+                    </p>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center font-bold text-xl text-ifrn-green-800">
+                            2
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Editar e verificar mudanças</h3>
+                    </div>
+                    <div class="code-block mb-4">
+                        <span class="text-green-400"># Depois de editar seus arquivos</span><br>
+                        git status
+                    </div>
+                    <p class="text-sm text-ifrn-green-600">
+                        O comando <code class="bg-ifrn-green-100 px-2 py-1 rounded">git status</code> mostra o que
+                        mudou. Vermelho = não salvo, verde = pronto pra commitar.
+                    </p>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center font-bold text-xl text-ifrn-green-800">
+                            3
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Adicionar e commitar</h3>
+                    </div>
+                    <div class="code-block mb-4">
+                        git add .<br>
+                        git commit -m "adiciona estrutura HTML da página inicial"
+                    </div>
+                    <p class="text-sm text-ifrn-green-600">
+                        <code class="bg-ifrn-green-100 px-2 py-1 rounded">git add .</code> prepara tudo. <code
+                            class="bg-ifrn-green-100 px-2 py-1 rounded">git commit</code> salva com uma mensagem clara.
+                    </p>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center font-bold text-xl text-ifrn-green-800">
+                            4
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Subir pro GitHub</h3>
+                    </div>
+                    <div class="code-block mb-4">
+                        git push
+                    </div>
+                    <p class="text-sm text-ifrn-green-600">
+                        Envia suas mudanças pro GitHub. Agora seu trabalho está online e versionado.
+                    </p>
+                </div>
+
+                <!-- Passo 5 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center font-bold text-xl text-ifrn-green-800">
+                            5
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Branches (a partir do B2)</h3>
+                    </div>
+                    <div class="code-block mb-4">
+                        git checkout -b feature/navbar<br>
+                        <span class="text-green-400"># Trabalhe na feature...</span><br>
+                        git push -u origin feature/navbar
+                    </div>
+                    <p class="text-sm text-ifrn-green-600">
+                        A partir do Bimestre 2, você trabalha em branches separadas. Cada feature = uma branch.
+                    </p>
+                </div>
+
+                <!-- Checklist -->
+                <div class="bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-2xl p-8 text-white">
+                    <h3 class="font-bold text-2xl mb-6">✅ Checklist de Evolução Git</h3>
+                    <p class="mb-4 opacity-95">Se você consegue fazer isso, está evoluindo certinho:</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Criar repo no GitHub e clonar pro computador</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Usar git status pra ver mudanças</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Commitar com mensagem descritiva</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Push frequente (pelo menos 1x por semana)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Criar branches por feature (B2+)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span>Abrir Pull Request básico (B3+)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visible Learning -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Como Acompanhar Sua Evolução
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-ifrn-green-50 rounded-2xl p-8 border border-ifrn-green-100">
+                    <div class="text-4xl mb-4">📋</div>
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Checklist Semanal</h3>
+                    <p class="text-ifrn-green-700 mb-4 leading-relaxed">
+                        Toda semana você marca critérios de sucesso. Exemplo:
+                    </p>
+                    <ul class="space-y-2 text-sm text-ifrn-green-700">
+                        <li>✓ Entendi o conceito de tag semântica</li>
+                        <li>✓ Consegui criar um formulário do zero</li>
+                        <li>✓ Meu código HTML valida sem erros</li>
+                    </ul>
+                </div>
+
+                <div class="bg-ifrn-green-50 rounded-2xl p-8 border border-ifrn-green-100">
+                    <div class="text-4xl mb-4">📸</div>
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Evidências</h3>
+                    <p class="text-ifrn-green-700 mb-4 leading-relaxed">
+                        Você registra seu progresso com:
+                    </p>
+                    <ul class="space-y-2 text-sm text-ifrn-green-700">
+                        <li>• Screenshots do resultado</li>
+                        <li>• Link do commit no GitHub</li>
+                        <li>• Link do Pull Request (quando aplicável)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border border-ifrn-green-100 mb-8">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-6">📊 Autoavaliação (escala 0–4)</h3>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <span class="font-bold text-lg text-ifrn-green-800">0</span>
+                        <span class="text-ifrn-green-700">Não comecei ainda</span>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <span class="font-bold text-lg text-ifrn-green-800">1</span>
+                        <span class="text-ifrn-green-700">Fiz copiando, não sei fazer sozinho</span>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-xl">
+                        <span class="font-bold text-lg text-ifrn-green-800">2</span>
+                        <span class="text-ifrn-green-700">Consigo fazer com ajuda (docs, colega, prof)</span>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-ifrn-green-50 rounded-xl border-2 border-ifrn-green-300">
+                        <span class="font-bold text-lg text-ifrn-green-800">3</span>
+                        <span class="text-ifrn-green-700"><strong>Consigo fazer sozinho</strong></span>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-ifrn-green-50 rounded-xl border-2 border-ifrn-green-300">
+                        <span class="font-bold text-lg text-ifrn-green-800">4</span>
+                        <span class="text-ifrn-green-700"><strong>Consigo explicar pros colegas</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-2xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-4">📝 Template learning-log.md</h3>
+                <p class="mb-4 opacity-95">
+                    Crie um arquivo <code class="bg-white bg-opacity-20 px-2 py-1 rounded">learning-log.md</code> na
+                    raiz do seu repositório:
+                </p>
+                <div class="bg-ifrn-green-900 rounded-xl p-6 font-mono text-sm overflow-x-auto">
+                    <pre class="text-white">## Semana X — [Tema da Semana]
+
+### Critérios de Sucesso
+- [ ] Critério 1
+- [ ] Critério 2
+- [ ] Critério 3
+
+### Evidências
+- Screenshot: [link ou arquivo]
+- Commit: [link do GitHub]
+
+### Autoavaliação
+Nota: [0-4]
+Comentário: [o que aprendi, onde travei, próximo passo]</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section id="avaliacoes" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Avaliações e Critérios
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <div class="text-4xl mb-4">📝</div>
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Componentes da Nota</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">30%</span>
+                            <span>Atividades em sala + listas semanais</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">20%</span>
+                            <span>Quizzes de auto-diagnóstico</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">30%</span>
+                            <span>Checkpoints bimestrais (4 no total)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">20%</span>
+                            <span>Projeto final publicado</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <div class="text-4xl mb-4">⚖️</div>
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Critérios de Qualidade</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Semântica:</strong> HTML correto e acessível</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Consistência visual:</strong> Identidade mantida</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Responsividade:</strong> Funciona em 3 breakpoints</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Organização:</strong> Código limpo e pastas lógicas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Git/CLI:</strong> Commits frequentes e descritivos</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Explicação:</strong> Sabe justificar escolhas</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-4">🎯 Checkpoints Bimestrais</h3>
+                <p class="text-lg mb-6 opacity-95">
+                    Ao final de cada bimestre, você entrega um projeto que demonstra domínio do conteúdo:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-bold mb-2">B1: Mini-site HTML</p>
+                        <p class="text-sm opacity-90">Estrutura semântica completa, sem CSS</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-bold mb-2">B2: Site Estilizado</p>
+                        <p class="text-sm opacity-90">HTML + CSS com identidade visual</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-bold mb-2">B3: Landing Moderna</p>
+                        <p class="text-sm opacity-90">Flexbox + Grid, 3 breakpoints</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-bold mb-2">B4: Site Interativo Completo</p>
+                        <p class="text-sm opacity-90">HTML + CSS + JS com DOM, eventos e validações</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Recursos para Estudar
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">📄</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">MDN HTML</h3>
+                    <p class="text-sm text-ifrn-green-600">Documentação oficial completa de HTML</p>
+                </a>
+
+                <a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">MDN CSS</h3>
+                    <p class="text-sm text-ifrn-green-600">Referência completa de CSS moderno</p>
+                </a>
+
+                <a href="https://flexboxfroggy.com/" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">🐸</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Flexbox Froggy</h3>
+                    <p class="text-sm text-ifrn-green-600">Aprenda Flexbox jogando</p>
+                </a>
+
+                <a href="https://cssgridgarden.com/" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Grid Garden</h3>
+                    <p class="text-sm text-ifrn-green-600">Aprenda CSS Grid jogando</p>
+                </a>
+
+                <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">JavaScript Básico</h3>
+                    <p class="text-sm text-ifrn-green-600">Fundamentos de JavaScript (MDN)</p>
+                </a>
+
+                <a href="https://git-scm.com/book/pt-br/v2" target="_blank"
+                    class="bg-white rounded-2xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4">🐙</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Git Book</h3>
+                    <p class="text-sm text-ifrn-green-600">Livro oficial do Git em português</p>
+                </a>
+            </div>
+
+            <div class="mt-12 bg-ifrn-green-50 rounded-2xl p-8 border border-ifrn-green-100 text-center">
+                <div class="text-4xl mb-4">📂</div>
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-3">Repositórios Exemplo do Professor</h3>
+                <p class="text-ifrn-green-700 mb-4">
+                    Códigos de referência organizados por bimestre
+                </p>
+                <a href="#" class="inline-block btn-cta text-white font-bold py-3 px-6 rounded-full">
+                    Acessar no GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Perguntas Frequentes
+            </h2>
+
+            <div class="space-y-4">
+                <details class="bg-white rounded-2xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Preciso saber programar antes?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p>
+                            Não! Esta disciplina é introdutória. Começamos do zero absoluto. Se você nunca viu uma linha
+                            de código, perfeito — você vai aprender do jeito certo desde o início.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-2xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        E se eu travar em algo?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Travar faz parte do processo. Quando isso acontecer:
+                        </p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Revise a documentação (MDN é sua aliada)</li>
+                            <li>Consulte os repositórios exemplo do professor</li>
+                            <li>Pergunte pros colegas (aprender juntos acelera)</li>
+                            <li>Tire dúvida comigo nas aulas ou por Issue no GitHub</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-2xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Como recuperar uma semana perdida?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Se você faltar ou atrasar:
+                        </p>
+                        <ol class="space-y-2 list-decimal list-inside">
+                            <li>Veja o plano da semana nesta página</li>
+                            <li>Acesse os repositórios exemplo do professor</li>
+                            <li>Faça os exercícios por conta e commite no seu repo</li>
+                            <li>Agende um momento comigo pra tirar dúvidas específicas</li>
+                        </ol>
+                        <p class="mt-3">
+                            O conteúdo é progressivo, então quanto antes você se atualizar, melhor.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-2xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Posso usar IA (ChatGPT, Copilot, etc)?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Sim, mas com responsabilidade e clareza:
+                        </p>
+                        <ul class="space-y-2">
+                            <li><strong>✓ Use IA para:</strong> entender conceitos, debugar erros, ver exemplos
+                                alternativos</li>
+                            <li><strong>✗ Não use IA para:</strong> copiar respostas inteiras sem entender</li>
+                        </ul>
+                        <p class="mt-3 bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
+                            <strong>Regra:</strong> Se você não consegue explicar o código que a IA gerou, você não
+                            aprendeu. E nas avaliações, você precisa explicar.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-2xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Quanto tempo preciso dedicar fora da aula?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Idealmente, 2–3 horas por semana fora da sala de aula para:
+                        </p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Terminar exercícios que não deu tempo</li>
+                            <li>Revisar conceitos da semana</li>
+                            <li>Fazer a lista semanal</li>
+                            <li>Atualizar seu learning-log.md</li>
+                        </ul>
+                        <p class="mt-3">
+                            Se você acompanhar o ritmo semanal, não acumula e não fica pesado.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-bold text-3xl mb-6">
+                Se seguir o fluxo, você sai construindo site de verdade
+            </h2>
+            <p class="text-xl mb-8 opacity-95 max-w-3xl mx-auto">
+                Esta disciplina não é sobre decorar tags. É sobre ganhar autonomia pra criar sites completos, publicados
+                e funcionais. Um passo de cada vez, com evidências sólidas no GitHub.
+            </p>
+
+            <div class="border-t border-white border-opacity-20 pt-8 mt-12">
+                <p class="text-lg mb-2"><strong>Professor:</strong> [Nome do Professor]</p>
+                <p class="mb-2"><strong>Campus:</strong> IFRN [Campus]</p>
+                <p class="mb-6"><strong>Período:</strong> [Ano/Semestre]</p>
+                <p class="text-sm opacity-75">
+                    Autoria Web • IFRN • 60 horas • 40 semanas
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active state navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+
+                if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('text-ifrn-red-500');
+                        link.classList.add('text-ifrn-green-700');
+                    });
+                    navLink.classList.remove('text-ifrn-green-700');
+                    navLink.classList.add('text-ifrn-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
