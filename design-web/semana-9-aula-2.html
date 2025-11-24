@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 9 — Dia 2: Refatorando com DaisyUI | Design Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Sora', 'sans-serif'],
+                        'body': ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn-green': {
+                            50: '#e6f2ea',
+                            100: '#c4e2d1',
+                            500: '#2f6b48',
+                            700: '#1f4a32',
+                            800: '#143021',
+                        },
+                        'ifrn-red': {
+                            500: '#e63946',
+                            600: '#d62828',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #143021;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #143021;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #c4e2d1;
+            border: 2px solid #2f6b48;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.15);
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+
+<body class="smooth-scroll bg-white">
+
+    <!-- Hero -->
+    <section class="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-white to-purple-50">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-ifrn-green-700">
+                    <a href="#" class="hover:text-ifrn-red-500">Design Web</a> /
+                    <a href="#" class="hover:text-ifrn-red-500">Semana 9</a> /
+                    <span class="font-semibold">Dia 2 — Prática</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div class="inline-block mb-6 px-4 py-2 bg-purple-100 text-purple-700 rounded-full font-semibold text-sm">
+                🔧 Laboratório Prático
+            </div>
+
+            <h1 class="font-display font-extrabold text-4xl md:text-6xl text-ifrn-green-800 mb-6 leading-tight">
+                Refatoração real: seu projeto Tailwind com DaisyUI
+            </h1>
+
+            <p class="text-xl md:text-2xl text-ifrn-green-700 mb-8 leading-relaxed max-w-3xl">
+                Hoje você vai pegar o mini-projeto da Semana 8 e refatorar usando DaisyUI. Mesma funcionalidade, código
+                mais limpo, velocidade de desenvolvimento turbinada.
+            </p>
+
+            <a href="#" class="inline-block btn-primary text-white font-bold py-5 px-10 rounded-full text-lg">
+                📂 Abrir Repositório da Semana
+            </a>
+
+            <!-- Alerta importante -->
+            <div class="mt-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
+                <div class="flex items-start gap-4">
+                    <div class="text-3xl">⚠️</div>
+                    <div>
+                        <p class="font-bold text-yellow-800 mb-2">Trabalhe na branch de ontem!</p>
+                        <p class="text-yellow-700">
+                            <code class="bg-white px-2 py-1 rounded">feat/semana9-daisyui-base</code> — você já criou
+                            ela. Agora é continuar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objetivo Prático -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div
+                class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                <div class="flex items-start gap-4">
+                    <div class="text-4xl">🎯</div>
+                    <div>
+                        <h2 class="font-display font-bold text-3xl mb-4">Objetivo Prático</h2>
+                        <p class="text-xl opacity-95 leading-relaxed">
+                            Refatorar o mini-projeto da Semana 8 usando DaisyUI, mantendo identidade visual e
+                            responsividade. O resultado final precisa ser igual (ou melhor) — mas com menos código.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
+                ✅ Critérios de Sucesso
+            </h2>
+            <p class="text-ifrn-green-700 mb-6">
+                Marque conforme for completando. Todos precisam estar OK antes do PR:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Componentes refatorados:</strong> Refatorei pelo menos 4 componentes com DaisyUI.
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Identidade preservada:</strong> Mantive a mesma hierarquia visual (tipografia, cores,
+                        espaçamento).
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Customização inteligente:</strong> Usei Tailwind para ajustes finos sem quebrar o
+                        componente.
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Responsividade mantida:</strong> Projeto continua responsivo em 3 breakpoints (mobile,
+                        tablet, desktop).
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>PR com evidências:</strong> Subi Pull Request com prints + checklist preenchido.
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sprint Guiada -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-4">
+                🏃‍♂️ Sprint Guiada (Passo a Passo)
+            </h2>
+            <p class="text-lg text-ifrn-green-700 mb-10">
+                Siga essa ordem. Não pule etapas. Commite incremental (pequenos commits são melhores que um commit
+                gigante).
+            </p>
+
+            <div class="space-y-6">
+                <!-- Passo 1 -->
+                <div class="flex gap-6 items-start bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="step-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                            Escolha 4 componentes para refatorar
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Sugestões de combinação ideal:
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-3">
+                            <div class="bg-white p-4 rounded-lg border border-purple-300">
+                                <p class="font-semibold text-ifrn-green-800">1. Navbar</p>
+                                <p class="text-sm text-ifrn-green-600">Menu de navegação principal</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-purple-300">
+                                <p class="font-semibold text-ifrn-green-800">2. Hero / Card</p>
+                                <p class="text-sm text-ifrn-green-600">Seção destaque ou cards de conteúdo</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-purple-300">
+                                <p class="font-semibold text-ifrn-green-800">3. Botões</p>
+                                <p class="text-sm text-ifrn-green-600">CTAs e botões de ação</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-purple-300">
+                                <p class="font-semibold text-ifrn-green-800">4. Modal / Tabs / Accordion</p>
+                                <p class="text-sm text-ifrn-green-600">Interação adicional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="flex gap-6 items-start bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="step-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                            Substitua pelo equivalente DaisyUI
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-3">
+                            Abra a documentação e procure o componente equivalente:
+                        </p>
+                        <a href="https://daisyui.com/components/" target="_blank"
+                            class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition mb-4">
+                            📖 Ver Componentes DaisyUI →
+                        </a>
+                        <div class="bg-white p-4 rounded-xl border-l-4 border-purple-500">
+                            <p class="text-sm text-ifrn-green-700">
+                                <strong>Dica:</strong> Copie o código exemplo e cole no seu projeto. Depois ajusta.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="flex gap-6 items-start bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="step-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                            Ajuste com Tailwind onde necessário
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-3">
+                            DaisyUI dá a base. Tailwind adiciona os detalhes:
+                        </p>
+                        <div class="code-block text-sm">
+                            &lt;button class="btn btn-primary <span class="text-yellow-400">shadow-xl hover:scale-105
+                                transition</span>"&gt;<br>
+                            &nbsp;&nbsp;Meu Botão Turbinado<br>
+                            &lt;/button&gt;
+                        </div>
+                        <p class="text-sm text-ifrn-green-600 mt-3">
+                            Classes extras do Tailwind continuam funcionando normalmente!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="flex gap-6 items-start bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="step-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                            Re-teste responsividade
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Abra o DevTools e teste nos 3 breakpoints:
+                        </p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="bg-white p-4 rounded-lg text-center border border-purple-300">
+                                <p class="text-2xl mb-2">📱</p>
+                                <p class="font-bold text-ifrn-green-800">Mobile</p>
+                                <p class="text-xs text-ifrn-green-600">375px</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg text-center border border-purple-300">
+                                <p class="text-2xl mb-2">📱</p>
+                                <p class="font-bold text-ifrn-green-800">Tablet</p>
+                                <p class="text-xs text-ifrn-green-600">768px</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg text-center border border-purple-300">
+                                <p class="text-2xl mb-2">💻</p>
+                                <p class="font-bold text-ifrn-green-800">Desktop</p>
+                                <p class="text-xs text-ifrn-green-600">1440px</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 5 -->
+                <div class="flex gap-6 items-start bg-purple-50 p-6 rounded-2xl border-2 border-purple-200">
+                    <div class="step-number">5</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                            Commit incremental (não tudo de uma vez!)
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-3">
+                            Faça um commit por componente refatorado:
+                        </p>
+                        <div class="space-y-2">
+                            <div class="code-block text-sm">
+                                git add navbar.html<br>
+                                git commit -m "refactor: migra navbar para DaisyUI"
+                            </div>
+                            <div class="code-block text-sm">
+                                git add hero.html<br>
+                                git commit -m "refactor: substitui hero card por DaisyUI"
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500 mt-4">
+                            <p class="text-sm text-green-800">
+                                ✅ <strong>Por quê?</strong> Commits pequenos são mais fáceis de revisar e reverter se
+                                precisar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regras de Qualidade -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
+                ⚖️ Regras de Qualidade
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl p-6 border-2 border-green-300 card-hover">
+                    <div class="text-3xl mb-3">✅</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Faça Isso</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-600 font-bold">•</span>
+                            <span>DaisyUI entra como base. Tailwind entra para customizar.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-600 font-bold">•</span>
+                            <span>Mantenha classes utilitárias que garantem consistência.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-600 font-bold">•</span>
+                            <span>Teste em todos os breakpoints antes de commitar.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-green-600 font-bold">•</span>
+                            <span>Commits semânticos e descritivos.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border-2 border-red-300 card-hover">
+                    <div class="text-3xl mb-3">❌</div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Evite Isso</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-600 font-bold">•</span>
+                            <span>Usar DaisyUI sem entender o que ele faz.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-600 font-bold">•</span>
+                            <span>Remover todas as classes Tailwind (você perde controle).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-600 font-bold">•</span>
+                            <span>Commitar tudo de uma vez sem testar.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-red-600 font-bold">•</span>
+                            <span>Aceitar componente que não serve "porque é pronto".</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
+                <p class="font-bold text-yellow-800 mb-2">⚠️ Regra de Ouro:</p>
+                <p class="text-yellow-700">
+                    Se o componente DaisyUI não servir, volte pro Tailwind puro — mas <strong>explique por quê</strong>
+                    no PR. Essa justificativa vale pontos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub CLI -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
+                🐙 GitHub CLI — Fluxo Obrigatório
+            </h2>
+
+            <div class="bg-gray-900 rounded-2xl p-8 mb-8">
+                <p class="text-gray-300 mb-4 font-semibold">
+                    Depois de refatorar todos os componentes:
+                </p>
+                <div class="code-block text-sm space-y-3">
+                    <div><span class="text-green-400">$</span> git status</div>
+                    <div class="text-gray-400"># Veja o que mudou</div>
+                    <div><span class="text-green-400">$</span> git add .</div>
+                    <div><span class="text-green-400">$</span> git commit -m "refactor: migra componentes X para
+                        DaisyUI"</div>
+                    <div><span class="text-green-400">$</span> git push</div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-8 text-white mb-8">
+                <h3 class="font-bold text-2xl mb-4">📝 Abrir Pull Request</h3>
+                <p class="text-lg opacity-95 mb-4">
+                    Depois do push, vá no GitHub e abra um Pull Request da branch <code
+                        class="bg-white bg-opacity-20 px-2 py-1 rounded">feat/semana9-daisyui-base</code> para <code
+                        class="bg-white bg-opacity-20 px-2 py-1 rounded">main</code>.
+                </p>
+                <div class="bg-white bg-opacity-10 backdrop-blur p-4 rounded-xl">
+                    <p class="text-sm font-semibold mb-2">Título do PR:</p>
+                    <p class="font-mono text-sm">refactor(semana9): migra projeto para DaisyUI mantendo identidade
+                        visual</p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <p class="font-bold text-blue-900 mb-2">💡 Dica Pro:</p>
+                <p class="text-blue-800">
+                    Peça pra um colega revisar seu PR antes de mim. Code review em pares acelera o aprendizado!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evidências Obrigatórias -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
+                📸 Evidências Obrigatórias no PR
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-ifrn-green-200">
+                <p class="text-lg text-ifrn-green-700 mb-6">
+                    Seu Pull Request PRECISA ter todas essas evidências. Copie esse checklist na descrição do PR:
+                </p>
+
+                <div class="bg-gray-50 p-6 rounded-xl font-mono text-sm mb-6">
+                    <pre class="whitespace-pre-wrap">## Evidências da Refatoração
+
+### Screenshots
+- [ ] Print desktop (1440px)
+- [ ] Print mobile (375px)
+
+### Commits
+- Link "antes": [commit inicial da semana 8]
+- Link "depois": [último commit desta refatoração]
+
+### Critérios de Sucesso
+- [ ] Refatorei 4+ componentes
+- [ ] Mantive identidade visual
+- [ ] Tailwind usado para ajustes finos
+- [ ] Responsivo nos 3 breakpoints
+- [ ] Testado em navegadores
+
+### Trade-offs Percebidos
+**O que acelerou:** [explique aqui]
+**Onde perdi controle:** [explique aqui]
+**Como resolvi:** [explique aqui]</pre>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
+                        <p class="font-bold text-green-800 mb-2">✅ PR Completo Vale:</p>
+                        <p class="text-sm text-green-700">70% da nota semanal + experiência profissional</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                        <p class="font-bold text-red-800 mb-2">❌ PR Incompleto:</p>
+                        <p class="text-sm text-red-700">Volta pra você com feedback. Prazo conta a partir da reentrega.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lista Semanal -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-8">
+                <h2 class="font-display font-bold text-3xl mb-4">
+                    📋 Lista Semanal (Entrega Semana 10)
+                </h2>
+                <p class="text-xl opacity-95">
+                    Essa lista fecha a Semana 9. Prazo: antes da aula da Semana 10.
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div
+                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            1</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
+                                Refatorar mais 2 componentes
+                            </h3>
+                            <p class="text-ifrn-green-700">
+                                Além dos 4 feitos hoje, pegue mais 2 componentes do seu projeto e migre pra DaisyUI.
+                                Sugestões: footer, formulário, alert/toast, badge/chip.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div
+                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            2</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
+                                Atualizar <code class="bg-white px-2 py-1 rounded text-sm">learning-log.md</code>
+                            </h3>
+                            <p class="text-ifrn-green-700 mb-4">
+                                Crie (ou atualize) o arquivo <code
+                                    class="bg-white px-2 py-1 rounded text-sm">learning-log.md</code> na raiz do projeto
+                                e responda:
+                            </p>
+                            <div class="bg-white p-6 rounded-xl space-y-4">
+                                <div>
+                                    <p class="font-semibold text-ifrn-green-800 mb-2">1. Qual componente mais acelerou o
+                                        desenvolvimento?</p>
+                                    <p class="text-sm text-ifrn-green-600">Ex: "Os botões do DaisyUI economizaram 80% do
+                                        código..."</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-ifrn-green-800 mb-2">2. Onde você perdeu controle e
+                                        como resolveu?</p>
+                                    <p class="text-sm text-ifrn-green-600">Ex: "O navbar tinha padding fixo. Resolvi
+                                        adicionando classes Tailwind..."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            3</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
+                                PR final com commits semânticos
+                            </h3>
+                            <p class="text-ifrn-green-700">
+                                Finalize o PR da semana 9 com pelo menos 2 commits claros: um pros 2 componentes extras
+                                e outro pro learning-log.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
+                <p class="font-bold text-green-800 mb-2">✅ Entrega completa:</p>
+                <p class="text-green-700">
+                    PR com 6 componentes refatorados + learning-log.md respondido + prints atualizados
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="font-display font-bold text-4xl mb-6">
+                    🎯 Próxima Semana: Theming Profissional
+                </h2>
+                <p class="text-2xl opacity-95 mb-6">
+                    Semana 10 começa com theming e telas integradas.
+                </p>
+                <p class="text-xl opacity-90 max-w-2xl mx-auto">
+                    Você vai usar DaisyUI como base de produto, não como preset aleatório. Vamos criar um design system
+                    consistente e escalável.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3">🎨</div>
+                    <p class="font-bold text-lg mb-2">Temas Customizados</p>
+                    <p class="text-sm opacity-90">Paletas de cores profissionais</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3">📱</div>
+                    <p class="font-bold text-lg mb-2">Dashboard Completo</p>
+                    <p class="text-sm opacity-90">2-3 telas integradas</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-3">🔧</div>
+                    <p class="font-bold text-lg mb-2">Customização Avançada</p>
+                    <p class="text-sm opacity-90">Override de componentes</p>
+                </div>
+            </div>
+
+            <div class="bg-purple-500 bg-opacity-20 rounded-2xl p-6 border-2 border-purple-400 text-center">
+                <p class="text-lg opacity-95">
+                    <strong>Spoiler:</strong> Na Semana 10 você vai finalmente entender por que grandes empresas usam
+                    design systems. E vai construir o seu.
+                </p>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-white border-opacity-20 text-center">
+                <p class="text-sm opacity-75">
+                    Design Web | IFRN | Semana 9 — Dia 2
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana9-dia2-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>
