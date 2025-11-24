@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Cesimar Xavier | IFRN Campus ZN</title>
+    <meta name="description"
+        content="Página profissional do Prof. [Nome] - Desenvolvimento Web, Frontend e Tecnologias Educacionais no IFRN">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                                900: '#0d2016',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.15);
+        }
+
+        .discipline-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discipline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2f6b48, #1f4a32);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .discipline-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid rgba(47, 107, 72, 0.1);
+        }
+
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #e6f2ea, #c4e2d1);
+            border: 4px solid #2f6b48;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #2f6b48;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-ifrn-green-700 rounded-lg flex items-center justify-center text-white font-bold">
+                        IF
+                    </div>
+                    <span class="font-bold text-lg text-ifrn-green-800">Prof. [Nome]</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Sobre</a>
+                    <a href="#disciplinas"
+                        class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Disciplinas</a>
+                    <a href="#materiais"
+                        class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Materiais</a>
+                    <a href="#pesquisa"
+                        class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Pesquisa</a>
+                    <a href="#contato"
+                        class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Contato</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Apresentação -->
+    <section id="sobre" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <!-- Foto -->
+                <div class="flex-shrink-0">
+                    <div class="profile-image rounded-2xl flex items-center justify-center">
+                        <span class="text-6xl text-ifrn-green-700">👨‍💻</span>
+                    </div>
+                </div>
+
+                <!-- Info -->
+                <div class="flex-1">
+                    <div class="mb-6">
+                        <h1 class="font-bold text-4xl md:text-5xl text-gray-900 mb-3">
+                            Prof. Cesimar Xavier
+                        </h1>
+                        <p class="text-2xl text-ifrn-green-700 font-semibold mb-2">
+                            Professor de Webdesign
+                        </p>
+                        <p class="text-lg text-gray-600">
+                            IFRN - Instituto Federal do Rio Grande do Norte<br>
+                            Campus Natal Zona Norte
+                        </p>
+                    </div>
+
+                    <div class="py-5">
+                        <h2 class="font-bold text-xl text-ifrn-green-900 mb-3">Sobre</h2>
+                        <p class="text-gray-700 leading-relaxed mb-3">
+                            Professor de Informática com experiência em desenvolvimento web, frontend e tecnologias
+                            educacionais. Atuo no ensino médio técnico integrado, formando desenvolvedores com base
+                            sólida em HTML, CSS, JavaScript e boas práticas de desenvolvimento.
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            Minha abordagem pedagógica combina teoria e prática, com foco em aprendizagem visível,
+                            scaffolding progressivo e projetos reais que preparam os alunos para o mercado de trabalho.
+                        </p>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="flex flex-wrap gap-3">
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
+                            📧 [cesimar.xavier]@ifrn.edu.br
+                        </span>
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
+                            🐙 GitHub: @[cesimarxavier]
+                        </span>
+                        <span
+                            class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
+                            📚 Lattes
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="mt-12 grid md:grid-cols-4 gap-6">
+                <div
+                    class="bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 rounded-2xl p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">10+</div>
+                    <p class="text-ifrn-green-100">Anos de Experiência</p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">3</div>
+                    <p class="text-gray-200">Disciplinas Ativas</p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">500+</div>
+                    <p class="text-gray-200">Alunos Formados</p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                    <div class="text-4xl font-bold mb-2">5</div>
+                    <p class="text-gray-200">Projetos Ativos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disciplinas -->
+    <section id="disciplinas" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title font-bold text-4xl text-gray-900 mb-12">
+                Disciplinas
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Autoria Web -->
+                <a href="autoria-web-disciplina.html"
+                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center text-3xl">
+                            🌐
+                        </div>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">
+                            60h • 4 Bimestres
+                        </span>
+                    </div>
+
+                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
+                        Autoria Web
+                    </h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Disciplina introdutória de desenvolvimento web. Do zero absoluto até um site completo publicado.
+                        HTML semântico, CSS moderno (Flexbox/Grid) e JavaScript com DOM.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">HTML</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">CSS</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">JavaScript</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Git</span>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm text-gray-600">
+                        <span>📚 Ensino Médio Integrado</span>
+                        <span class="text-ifrn-green-700 font-semibold">Acessar disciplina →</span>
+                    </div>
+                </a>
+
+                <!-- Design Web -->
+                <a href="plano-design-web-v2.html"
+                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center text-3xl">
+                            🎨
+                        </div>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
+                            30h • 1 Semestre
+                        </span>
+                    </div>
+
+                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
+                        Design Web
+                    </h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Disciplina intermediária focada em Tailwind CSS, DaisyUI e Alpine.js. Para quem já domina
+                        HTML/CSS básico e quer acelerar desenvolvimento com frameworks modernos.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Tailwind
+                            CSS</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">DaisyUI</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Alpine.js</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">GitHub</span>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm text-gray-600">
+                        <span>📚 Ensino Médio Integrado</span>
+                        <span class="text-ifrn-green-700 font-semibold">Acessar disciplina →</span>
+                    </div>
+                </a>
+
+                <!-- Git & GitHub -->
+                <a href="git-github-curso.html"
+                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-16 h-16 bg-gray-700 rounded-xl flex items-center justify-center text-3xl">
+                            🐙
+                        </div>
+                        <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-bold">
+                            12h • Complementar
+                        </span>
+                    </div>
+
+                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
+                        Git & GitHub via CLI
+                    </h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Curso gamificado de versionamento profissional. Comandos Git via terminal, fluxo de trabalho com
+                        branches, Pull Requests e colaboração em equipe.
+                    </p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Git
+                            CLI</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">GitHub</span>
+                        <span
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Workflows</span>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm text-gray-600">
+                        <span>📚 Todos os níveis</span>
+                        <span class="text-ifrn-green-700 font-semibold">Acessar curso →</span>
+                    </div>
+                </a>
+
+                <!-- Card em branco para futuras disciplinas -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-gray-300">
+                    <div class="flex flex-col items-center justify-center h-full text-center py-8">
+                        <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-3xl mb-4">
+                            ➕
+                        </div>
+                        <h3 class="font-bold text-xl text-gray-700 mb-2">
+                            Novas Disciplinas em Breve
+                        </h3>
+                        <p class="text-gray-500 text-sm">
+                            Mais conteúdos e cursos serão adicionados
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materiais de Estudo -->
+    <section id="materiais" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title font-bold text-4xl text-gray-900 mb-4">
+                Materiais de Estudo
+            </h2>
+            <p class="text-xl text-gray-600 mb-12">
+                Recursos, referências e repositórios organizados por tema
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Repositórios Exemplo -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">📂</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Repositórios Exemplo</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Código de referência organizado por disciplina e semana. Projetos completos comentados.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        GitHub <span>→</span>
+                    </a>
+                </div>
+
+                <!-- Documentação -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Documentação</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Links curados: MDN, W3C, documentação oficial de frameworks e ferramentas.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        Ver links <span>→</span>
+                    </a>
+                </div>
+
+                <!-- Tutoriais -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">🎥</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Tutoriais</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Vídeos, artigos e guias passo a passo criados especialmente para as disciplinas.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        Acessar <span>→</span>
+                    </a>
+                </div>
+
+                <!-- Ferramentas -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Ferramentas</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        VS Code, extensões recomendadas, Git, Chrome DevTools e outras ferramentas essenciais.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        Ver lista <span>→</span>
+                    </a>
+                </div>
+
+                <!-- Exercícios -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">✏️</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Exercícios Extra</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Desafios, katas e projetos bônus para praticar além das aulas regulares.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        Praticar <span>→</span>
+                    </a>
+                </div>
+
+                <!-- Cheatsheets -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
+                    <div class="text-4xl mb-4">📋</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">Cheatsheets</h3>
+                    <p class="text-gray-600 mb-4 text-sm">
+                        Folhas de referência rápida: HTML tags, CSS properties, Git commands, JS syntax.
+                    </p>
+                    <a href="#"
+                        class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
+                        Download <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pesquisa -->
+    <section id="pesquisa" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="section-title font-bold text-4xl text-gray-900 mb-4">
+                Pesquisa & Projetos
+            </h2>
+            <p class="text-xl text-gray-600 mb-12">
+                Áreas de interesse e projetos em andamento
+            </p>
+
+            <!-- Áreas de Interesse -->
+            <div class="bg-white rounded-2xl p-8 md:p-10 shadow-lg border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">🔍 Áreas de Interesse</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg text-ifrn-green-800 mb-3">Tecnologias Educacionais</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>Aprendizagem visível e scaffolding progressivo</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>Gamificação no ensino técnico</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>Metodologias ativas em programação</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-ifrn-green-800 mb-3">Desenvolvimento Web</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>Frameworks CSS modernos (Tailwind, DaisyUI)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>JavaScript vanilla e Alpine.js</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-ifrn-green-600">•</span>
+                                <span>Acessibilidade e responsividade</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projetos Ativos -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200 card">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">📱</span>
+                        </div>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                            Em Andamento
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">
+                        Plataforma de Aprendizagem Adaptativa
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Sistema web para acompanhamento personalizado de progresso dos alunos com feedback em tempo
+                        real.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">React</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Node.js</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">PostgreSQL</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200 card">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">🎮</span>
+                        </div>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                            Em Andamento
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">
+                        CodeQuest - Gamificação Git
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Plataforma gamificada para ensino de Git e GitHub com sistema de missões, badges e rankings.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Vue.js</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">GitHub API</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Supabase</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200 card">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">📊</span>
+                        </div>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">
+                            Planejamento
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">
+                        Análise de Learning Analytics
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Pesquisa sobre padrões de aprendizagem em programação através de dados do GitHub.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Python</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Data Analysis</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">ML</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200 card">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                            <span class="text-2xl">🌐</span>
+                        </div>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">
+                            Em Andamento
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">
+                        Portal de Disciplinas IFRN
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Sistema unificado de gestão de conteúdo didático com foco em metodologias ativas.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Tailwind</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Alpine.js</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">GitHub Pages</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publicações -->
+            <div class="mt-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 rounded-2xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-6">📄 Publicações Recentes</h3>
+                <div class="space-y-4">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-semibold mb-1">Scaffolding Progressivo no Ensino de Frontend (2024)</p>
+                        <p class="text-sm opacity-90">Congresso Brasileiro de Informática na Educação</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-semibold mb-1">Gamificação com Git: Uma Abordagem Prática (2023)</p>
+                        <p class="text-sm opacity-90">Workshop sobre Educação em Computação</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                        <p class="font-semibold mb-1">Visible Learning em Disciplinas Técnicas (2023)</p>
+                        <p class="text-sm opacity-90">Revista Brasileira de Informática na Educação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="section-title font-bold text-4xl text-gray-900 mb-6 inline-block">
+                Contato
+            </h2>
+            <p class="text-xl text-gray-600 mb-12">
+                Entre em contato para dúvidas, colaborações ou orientações
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200">
+                    <div class="text-4xl mb-4">📧</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">E-mail Institucional</h3>
+                    <a href="mailto:[email]@ifrn.edu.br" class="text-ifrn-green-700 font-semibold hover:underline">
+                        [email]@ifrn.edu.br
+                    </a>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200">
+                    <div class="text-4xl mb-4">🏫</div>
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">Campus</h3>
+                    <p class="text-gray-700">
+                        IFRN Campus [Nome]<br>
+                        [Endereço]<br>
+                        [Cidade] - RN
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#"
+                    class="px-6 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800 transition flex items-center gap-2">
+                    <span>🐙</span> GitHub
+                </a>
+                <a href="#"
+                    class="px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition flex items-center gap-2">
+                    <span>💼</span> LinkedIn
+                </a>
+                <a href="#"
+                    class="px-6 py-3 bg-ifrn-green-700 text-white rounded-xl font-semibold hover:bg-ifrn-green-800 transition flex items-center gap-2">
+                    <span>📚</span> Lattes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-900 to-gray-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Navegação</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#sobre" class="hover:text-white transition">Sobre</a></li>
+                        <li><a href="#disciplinas" class="hover:text-white transition">Disciplinas</a></li>
+                        <li><a href="#materiais" class="hover:text-white transition">Materiais</a></li>
+                        <li><a href="#pesquisa" class="hover:text-white transition">Pesquisa</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Disciplinas</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="autoria-web-disciplina.html" class="hover:text-white transition">Autoria Web</a>
+                        </li>
+                        <li><a href="plano-design-web-v2.html" class="hover:text-white transition">Design Web</a></li>
+                        <li><a href="git-github-curso.html" class="hover:text-white transition">Git & GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">IFRN</h3>
+                    <p class="text-gray-300 text-sm mb-3">
+                        Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte
+                    </p>
+                    <a href="https://portal.ifrn.edu.br" target="_blank"
+                        class="text-ifrn-green-300 hover:text-white transition text-sm">
+                        portal.ifrn.edu.br →
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 Prof. [Nome Completo] • IFRN Campus [Campus]</p>
+                <p class="mt-2">Página atualizada em [Data]</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Active nav
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+
+                if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('text-ifrn-green-700');
+                        link.classList.add('text-gray-700');
+                    });
+                    navLink.classList.remove('text-gray-700');
+                    navLink.classList.add('text-ifrn-green-700');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
