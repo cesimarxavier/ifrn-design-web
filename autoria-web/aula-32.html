@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 32 — Variáveis, tipos e operadores | Autoria Web</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ifrn-green': {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#2f6b48',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        'ifrn-red': {
+                            500: '#e63946',
+                            600: '#d62828',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .checkbox-item {
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #f0fdf4;
+            border-color: #2f6b48;
+        }
+
+        .checkbox-item input:checked+label {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Hero -->
+    <section
+        class="relative bg-gradient-to-br from-ifrn-green-800 via-ifrn-green-700 to-ifrn-green-600 text-white py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="flex items-center gap-2 text-sm text-ifrn-green-100 mb-6">
+                <a href="#" class="hover:text-white transition">Autoria Web</a>
+                <span>/</span>
+                <a href="#" class="hover:text-white transition">Bimestre 4</a>
+                <span>/</span>
+                <span class="text-white font-semibold">Semana 32</span>
+            </div>
+
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-ifrn-green-500 rounded-full mb-6">
+                <span class="text-xl">📦</span>
+                <span class="font-semibold text-sm">JavaScript • Variáveis e Tipos</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="font-bold text-4xl md:text-5xl lg:text-6xl mb-6 leading-tight">
+                Semana 32 — Variáveis, tipos e operadores
+            </h1>
+
+            <!-- Subheadline -->
+            <p class="text-xl md:text-2xl text-ifrn-green-50 mb-8 leading-relaxed max-w-3xl">
+                Hoje você aprende a guardar informações no JavaScript e fazer operações simples com elas. Base sólida,
+                sem pressa.
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap gap-4">
+                <a href="#exemplo1"
+                    class="px-8 py-4 bg-ifrn-red-600 hover:bg-ifrn-red-500 text-white font-bold rounded-xl transition shadow-lg">
+                    Começar pelos exemplos
+                </a>
+                <a href="#lista"
+                    class="px-8 py-4 bg-white bg-opacity-10 hover:bg-opacity-20 backdrop-blur text-white font-bold rounded-xl border-2 border-white transition">
+                    Ver lista da semana
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-4 mt-12">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                    <p class="text-ifrn-green-100 text-sm mb-1">Duração</p>
+                    <p class="font-bold text-lg">2 aulas</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                    <p class="text-ifrn-green-100 text-sm mb-1">Tipo</p>
+                    <p class="font-bold text-lg">Teoria + Prática Guiada</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                    <p class="text-ifrn-green-100 text-sm mb-1">Bloom</p>
+                    <p class="font-bold text-lg">Compreender / Aplicar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intenção de Aprendizagem -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-ifrn-green-700 to-ifrn-green-600">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 border border-white border-opacity-20">
+                <h2 class="font-bold text-2xl text-white mb-4 flex items-center gap-3">
+                    <span class="text-3xl">🎯</span>
+                    Intenção de Aprendizagem
+                </h2>
+                <p class="text-xl text-white leading-relaxed">
+                    Aprender a criar variáveis, reconhecer tipos básicos e usar operadores simples no JavaScript.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-4">
+                ✅ Critérios de Sucesso
+            </h2>
+            <p class="text-lg text-gray-600 mb-8">
+                Marque conforme você for conseguindo:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc1" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc1" class="flex-1 cursor-pointer text-gray-800">
+                        Eu sei o que é uma variável e pra que serve
+                    </label>
+                </div>
+
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc2" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc2" class="flex-1 cursor-pointer text-gray-800">
+                        Eu consigo criar variáveis com <code class="bg-gray-100 px-2 py-1 rounded">let</code> e <code
+                            class="bg-gray-100 px-2 py-1 rounded">const</code>
+                    </label>
+                </div>
+
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc3" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc3" class="flex-1 cursor-pointer text-gray-800">
+                        Eu sei diferenciar texto (string) e número (number)
+                    </label>
+                </div>
+
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc4" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc4" class="flex-1 cursor-pointer text-gray-800">
+                        Eu consigo usar operadores (+, -, *, /) com variáveis
+                    </label>
+                </div>
+
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc5" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc5" class="flex-1 cursor-pointer text-gray-800">
+                        Eu consigo prever o que o console vai mostrar antes de rodar
+                    </label>
+                </div>
+
+                <div
+                    class="checkbox-item bg-white rounded-xl p-5 border-2 border-gray-200 flex items-start gap-4 cursor-pointer">
+                    <input type="checkbox" id="sc6" class="w-6 h-6 mt-1 cursor-pointer">
+                    <label for="sc6" class="flex-1 cursor-pointer text-gray-800">
+                        Eu fiz os exercícios básicos da lista
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retomada Semana 31 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                    <span>↩️</span>
+                    Retomada rápida da Semana 31
+                </h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Semana passada você rodou JS no console, viu <code
+                        class="bg-gray-200 px-2 py-1 rounded">console.log()</code> funcionando e fez algumas contas
+                    básicas. Agora vamos organizar as "caixinhas" onde o JavaScript guarda informações. Essas caixinhas
+                    se chamam <strong>variáveis</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conceito Central: Variáveis -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50" id="exemplo1">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                📦 O que é uma variável?
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-8">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    Variável é uma <strong>caixinha com um nome</strong> onde você guarda um valor. Você pode olhar o
+                    que tem dentro sempre que quiser, e até trocar o conteúdo (se a caixinha permitir).
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-ifrn-green-50 rounded-xl p-6 border-2 border-ifrn-green-200">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center text-xl font-bold">
+                                let
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-900">Valor pode mudar</h4>
+                                <p class="text-sm text-ifrn-green-700">Use quando o conteúdo vai variar</p>
+                            </div>
+                        </div>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">let</span> idade = <span class="text-blue-400">16</span>;<br>
+                            <span class="text-green-400">console.log</span>(idade); <span class="text-gray-500">//
+                                16</span><br>
+                            <br>
+                            idade = <span class="text-blue-400">17</span>; <span class="text-gray-500">//
+                                mudou!</span><br>
+                            <span class="text-green-400">console.log</span>(idade); <span class="text-gray-500">//
+                                17</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-xl p-6 border-2 border-gray-300">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-12 h-12 bg-gray-600 text-white rounded-xl flex items-center justify-center text-xl font-bold">
+                                const
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Valor não muda</h4>
+                                <p class="text-sm text-gray-700">Use quando o valor é fixo</p>
+                            </div>
+                        </div>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> escola = <span
+                                class="text-orange-400">"IFRN"</span>;<br>
+                            <span class="text-green-400">console.log</span>(escola); <span class="text-gray-500">//
+                                IFRN</span><br>
+                            <br>
+                            <span class="text-gray-500">// escola = "outra"; ❌ ERRO!</span><br>
+                            <span class="text-gray-500">// const não deixa mudar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo completo:</h3>
+                <div class="code-block">
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> idade = <span
+                        class="text-blue-400">16</span>;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">const</span> escola = <span
+                        class="text-orange-400">"IFRN"</span>;<br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(idade);<br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(escola);<br>
+                    &lt;/script&gt;
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl mt-6">
+                    <p class="font-bold text-lg mb-3">📺 Resultado no Console:</p>
+                    <div class="font-mono text-sm space-y-1">
+                        <p><span class="text-gray-400">&gt;</span> 16</p>
+                        <p><span class="text-gray-400">&gt;</span> IFRN</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipos Básicos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                🏷️ Tipos básicos de dados
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                Toda variável guarda um <strong>tipo</strong> de dado. Os 3 tipos mais importantes pra você agora são:
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
+                    <div class="text-4xl mb-3">🔢</div>
+                    <h3 class="font-bold text-2xl text-blue-900 mb-2">number</h3>
+                    <p class="text-blue-800 mb-4">Números (inteiros ou decimais)</p>
+                    <div class="bg-white rounded-lg p-3 font-mono text-sm">
+                        <p>let idade = 17;</p>
+                        <p>let nota = 8.5;</p>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-2xl p-6 border-2 border-orange-200">
+                    <div class="text-4xl mb-3">💬</div>
+                    <h3 class="font-bold text-2xl text-orange-900 mb-2">string</h3>
+                    <p class="text-orange-800 mb-4">Textos (entre aspas)</p>
+                    <div class="bg-white rounded-lg p-3 font-mono text-sm">
+                        <p>let nome = "Ana";</p>
+                        <p>let cidade = "Natal";</p>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
+                    <div class="text-4xl mb-3">✓✗</div>
+                    <h3 class="font-bold text-2xl text-green-900 mb-2">boolean</h3>
+                    <p class="text-green-800 mb-4">Verdadeiro ou falso</p>
+                    <div class="bg-white rounded-lg p-3 font-mono text-sm">
+                        <p>let aprovado = true;</p>
+                        <p>let temCarro = false;</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo com os 3 tipos:</h3>
+                <div class="code-block mb-6">
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> nota = <span
+                        class="text-blue-400">8.5</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-gray-500">// number</span><br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> nome = <span
+                        class="text-orange-400">"Ana"</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-gray-500">// string</span><br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> aprovado = <span
+                        class="text-blue-400">true</span>;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">//
+                        boolean</span><br>
+                    <br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(nota, nome, aprovado);<br>
+                    &lt;/script&gt;
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">📺 Resultado no Console:</p>
+                    <div class="font-mono text-sm">
+                        <p><span class="text-gray-400">&gt;</span> 8.5 "Ana" true</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl">
+                <p class="font-bold text-yellow-900 mb-2">💡 Dica importante:</p>
+                <p class="text-yellow-800">
+                    String sempre tem aspas (simples ou duplas). Sem aspas, o JS acha que é uma variável.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operadores Básicos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                ➕➖✖️➗ Operadores básicos
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                Operadores são <strong>ações que você faz com valores</strong>. Os 4 mais básicos são as operações
+                matemáticas:
+            </p>
+
+            <div class="grid md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                    <div class="text-4xl font-bold text-ifrn-green-600 mb-2">+</div>
+                    <p class="font-bold text-gray-900">Soma</p>
+                    <p class="text-sm text-gray-600 mt-2">5 + 3 = 8</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                    <div class="text-4xl font-bold text-ifrn-green-600 mb-2">-</div>
+                    <p class="font-bold text-gray-900">Subtração</p>
+                    <p class="text-sm text-gray-600 mt-2">10 - 4 = 6</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                    <div class="text-4xl font-bold text-ifrn-green-600 mb-2">*</div>
+                    <p class="font-bold text-gray-900">Multiplicação</p>
+                    <p class="text-sm text-gray-600 mt-2">5 * 7 = 35</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 text-center border-2 border-gray-200">
+                    <div class="text-4xl font-bold text-ifrn-green-600 mb-2">/</div>
+                    <p class="font-bold text-gray-900">Divisão</p>
+                    <p class="text-sm text-gray-600 mt-2">20 / 4 = 5</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Usando operadores com variáveis:</h3>
+                <div class="code-block mb-6">
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> a = <span class="text-blue-400">10</span>;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> b = <span class="text-blue-400">2</span>;<br>
+                    <br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(a + b); <span class="text-gray-500">//
+                        12</span><br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(a - b); <span class="text-gray-500">//
+                        8</span><br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(a * b); <span class="text-gray-500">//
+                        20</span><br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(a / b); <span class="text-gray-500">//
+                        5</span><br>
+                    &lt;/script&gt;
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">📺 Resultado no Console:</p>
+                    <div class="font-mono text-sm space-y-1">
+                        <p><span class="text-gray-400">&gt;</span> 12</p>
+                        <p><span class="text-gray-400">&gt;</span> 8</p>
+                        <p><span class="text-gray-400">&gt;</span> 20</p>
+                        <p><span class="text-gray-400">&gt;</span> 5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Soma de texto x número -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                ⚠️ Atenção: soma de texto ≠ soma de número
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                O operador <code class="bg-gray-200 px-2 py-1 rounded">+</code> tem <strong>dois
+                    comportamentos</strong>:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-blue-50 rounded-2xl p-6 border-2 border-blue-300">
+                    <h3 class="font-bold text-xl text-blue-900 mb-3">Número + Número = Soma</h3>
+                    <p class="text-blue-800 mb-4">Quando os dois lados são numbers, ele soma.</p>
+                    <div class="code-block text-sm">
+                        <span class="text-purple-400">let</span> x = <span class="text-blue-400">5</span>;<br>
+                        <span class="text-purple-400">let</span> y = <span class="text-blue-400">3</span>;<br>
+                        <span class="text-green-400">console.log</span>(x + y); <span class="text-gray-500">// 8</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-2xl p-6 border-2 border-orange-300">
+                    <h3 class="font-bold text-xl text-orange-900 mb-3">Texto + Texto = Junta</h3>
+                    <p class="text-orange-800 mb-4">Quando tem string, ele junta (concatena).</p>
+                    <div class="code-block text-sm">
+                        <span class="text-purple-400">let</span> nome = <span class="text-orange-400">"João"</span>;<br>
+                        <span class="text-green-400">console.log</span>(nome + <span class="text-orange-400">"
+                            Silva"</span>);<br>
+                        <span class="text-gray-500">// "João Silva"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo completo:</h3>
+                <div class="code-block mb-6">
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> x = <span class="text-blue-400">5</span>;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> y = <span class="text-blue-400">3</span>;<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">let</span> nome = <span
+                        class="text-orange-400">"João"</span>;<br>
+                    <br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(x +
+                    y);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// 8
+                        (soma)</span><br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(nome + <span class="text-orange-400">"
+                        Silva"</span>); <span class="text-gray-500">// "João Silva" (junta)</span><br>
+                    &lt;/script&gt;
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">📺 Resultado no Console:</p>
+                    <div class="font-mono text-sm space-y-1">
+                        <p><span class="text-gray-400">&gt;</span> 8</p>
+                        <p><span class="text-gray-400">&gt;</span> João Silva</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-xl">
+                <p class="font-bold text-red-900 mb-2">🚨 Erro comum:</p>
+                <p class="text-red-800 mb-3">
+                    Se você colocar número + string, o JS junta tudo como texto:
+                </p>
+                <div class="code-block text-sm">
+                    <span class="text-green-400">console.log</span>(<span class="text-blue-400">5</span> + <span
+                        class="text-orange-400">"3"</span>); <span class="text-gray-500">// "53" (não é 8!)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aula 1 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-blue-100 border-t-4 border-blue-500">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full font-bold text-lg mb-4">
+                    📚 Momento Aula 1
+                </div>
+                <h2 class="font-bold text-4xl text-gray-900 mb-4">
+                    Teoria curta + Exemplos guiados
+                </h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Nesta aula você vai ver teoria e acompanhar exemplos práticos. Próxima aula você faz na mão.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-blue-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">📋 Conteúdo da Aula 1:</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            1</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Variáveis (let e const)</p>
+                            <p class="text-gray-600">O que são, como criar, quando usar cada uma</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            2</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Tipos básicos (number, string, boolean)</p>
+                            <p class="text-gray-600">Reconhecer cada tipo e saber quando usar</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            3</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Operadores matemáticos (+, -, *, /)</p>
+                            <p class="text-gray-600">Fazer contas com variáveis</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            4</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Diferença entre somar e concatenar</p>
+                            <p class="text-gray-600">Entender quando + soma e quando + junta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mini-atividade Aula 1 -->
+            <div class="bg-gradient-to-r from-ifrn-green-700 to-ifrn-green-600 rounded-2xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-4 flex items-center gap-2">
+                    <span>💻</span>
+                    Mini-atividade ao final da Aula 1
+                </h3>
+                <p class="text-lg mb-6 opacity-95">
+                    Tempo estimado: 5–10 minutos. Faça junto com o professor.
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6 space-y-4">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">1.</span>
+                        <p>Crie (ou abra) um arquivo <code
+                                class="bg-white bg-opacity-20 px-2 py-1 rounded">js-playground.html</code></p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">2.</span>
+                        <p>Declare 3 variáveis: uma number, uma string, uma boolean</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">3.</span>
+                        <p>Faça 2 contas usando variáveis (ex.: soma e multiplicação)</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">4.</span>
+                        <p>Mostre tudo no console com <code
+                                class="bg-white bg-opacity-20 px-2 py-1 rounded">console.log()</code></p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Praticar o básico antes de sair da aula. Se travar, chama o
+                        professor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aula 2 -->
+    <section
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-purple-100 border-t-4 border-purple-500">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="inline-block px-6 py-3 bg-purple-600 text-white rounded-full font-bold text-lg mb-4">
+                    🛠️ Momento Aula 2
+                </div>
+                <h2 class="font-bold text-4xl text-gray-900 mb-4">
+                    Prática guiada + Reforço
+                </h2>
+                <p class="text-xl text-gray-700 max-w-3xl mx-auto">
+                    Agora você faz na mão. Repetir, variar e prever saídas do console antes de rodar.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">🎯 Objetivo prático:</h3>
+                <p class="text-lg text-gray-700 mb-6">
+                    Você vai rodar código, mas <strong>antes de rodar, tenta prever o resultado</strong>. Isso treina
+                    sua "visão" de código.
+                </p>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl mb-8">
+                    <p class="font-bold text-yellow-900 mb-2">📝 Método:</p>
+                    <ol class="space-y-2 text-yellow-800">
+                        <li>1. Leia o código</li>
+                        <li>2. Anote no caderno o que você acha que vai aparecer</li>
+                        <li>3. Rode no navegador</li>
+                        <li>4. Compare: acertou? Por quê? Errou? O que aconteceu?</li>
+                    </ol>
+                </div>
+
+                <h4 class="font-bold text-xl text-gray-900 mb-4">Atividade em sala (passo a passo):</h4>
+
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            1</div>
+                        <p class="flex-1 text-gray-800">Copie o bloco de código abaixo</p>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            2</div>
+                        <p class="flex-1 text-gray-800">Antes de rodar, escreva no caderno o que acha que vai aparecer
+                            no console</p>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-10 h-10 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            3</div>
+                        <p class="flex-1 text-gray-800">Rode no console e compare com sua previsão</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                    <p class="font-bold text-gray-900 mb-3">Código pra copiar:</p>
+                    <div class="code-block">
+                        &lt;script&gt;<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">let</span> preco = <span
+                            class="text-blue-400">12</span>;<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">let</span> quantidade = <span
+                            class="text-blue-400">3</span>;<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">let</span> total = preco * quantidade;<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="text-purple-400">const</span> produto = <span
+                            class="text-orange-400">"Coxinha"</span>;<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="text-green-400">console.log</span>(produto);<br>
+                        &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span
+                            class="text-orange-400">"Total:"</span>, total);<br>
+                        &lt;/script&gt;
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl p-8 text-white">
+                <h3 class="font-bold text-2xl mb-4">🔁 Reforço próximo:</h3>
+                <p class="text-lg mb-4 opacity-95">
+                    Agora troca os valores e refaz <strong>3 vezes</strong>:
+                </p>
+                <ul class="space-y-2 opacity-90">
+                    <li>• Teste 1: Muda preço e quantidade</li>
+                    <li>• Teste 2: Muda o nome do produto</li>
+                    <li>• Teste 3: Adiciona mais uma variável (ex.: desconto)</li>
+                </ul>
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Você precisa rodar variações pra fixar. Repetir é aprender.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios em Sala -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                🏃‍♂️ Exercícios em Sala
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8">
+                Esses são pra fazer durante a aula, com suporte do professor. Tenta fazer sozinho primeiro.
+            </p>
+
+            <div class="space-y-6">
+                <!-- Exercício 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            1
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-2">Calcular área de retângulo</h3>
+                            <p class="text-gray-700 mb-4">
+                                Crie variáveis <code class="bg-gray-100 px-2 py-1 rounded">largura</code> e <code
+                                    class="bg-gray-100 px-2 py-1 rounded">altura</code>. Calcule <code
+                                    class="bg-gray-100 px-2 py-1 rounded">area</code> (largura × altura) e mostre no
+                                console.
+                            </p>
+                            <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-ifrn-green-500">
+                                <p class="text-sm text-gray-700">
+                                    <strong>Dica:</strong> area = largura * altura
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercício 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            2
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-2">Juntar nome completo</h3>
+                            <p class="text-gray-700 mb-4">
+                                Crie variáveis <code class="bg-gray-100 px-2 py-1 rounded">nome</code> e <code
+                                    class="bg-gray-100 px-2 py-1 rounded">sobrenome</code>. Mostre o nome completo no
+                                console.
+                            </p>
+                            <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-ifrn-green-500">
+                                <p class="text-sm text-gray-700">
+                                    <strong>Dica:</strong> Use + pra juntar strings (não esqueça do espaço entre!)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercício 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            3
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-2">Usar boolean</h3>
+                            <p class="text-gray-700 mb-4">
+                                Crie uma variável <code class="bg-gray-100 px-2 py-1 rounded">aprovado</code> com valor
+                                <code class="bg-gray-100 px-2 py-1 rounded">false</code>. Mostre no console.
+                            </p>
+                            <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-ifrn-green-500">
+                                <p class="text-sm text-gray-700">
+                                    <strong>Dica:</strong> true e false não levam aspas (não são strings)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-ifrn-green-50 border-l-4 border-ifrn-green-500 p-6 rounded-xl">
+                <p class="font-bold text-ifrn-green-900 mb-2">🎯 Objetivo desses exercícios:</p>
+                <p class="text-ifrn-green-800">
+                    Praticar os 3 conceitos numa sequência controlada: number, string, boolean. Se você fez os 3, os
+                    conceitos estão fixados.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lista da Semana -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-red-50 to-orange-50" id="lista">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white mb-8 shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    📋 Lista da Semana 32
+                </h2>
+                <p class="text-xl opacity-95 mb-2">
+                    Entrega: até próxima aula (Semana 33)
+                </p>
+                <p class="text-lg opacity-90">
+                    Essa lista é pra fixar os conceitos. Não precisa ser perfeito, precisa ser feito.
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Parte 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-red-200">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                            1️⃣
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-2xl text-gray-900 mb-3">Variáveis e tipos</h3>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">lista-semana32.html</code> e
+                                declare:
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>3 variáveis number</strong> (ex.: idade, altura, nota)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>3 variáveis string</strong> (ex.: nome, cidade, escola)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>2 variáveis boolean</strong> (ex.: temCarteira, gostaDeWeb)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 border-l-4 border-gray-400">
+                        <p class="text-sm text-gray-700">
+                            Mostre todas as variáveis no console com <code
+                                class="bg-gray-200 px-2 py-1 rounded">console.log()</code>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Parte 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-red-200">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                            2️⃣
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-2xl text-gray-900 mb-3">Operações</h3>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Usando números, calcule:
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>Média de 3 notas</strong> (soma as 3 e divide por 3)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>Área de um retângulo</strong> (largura × altura)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span><strong>Desconto simples</strong> (ex.: preço - (preço * 0.10) pra 10%
+                                        off)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 border-l-4 border-gray-400">
+                        <p class="text-sm text-gray-700">
+                            Mostre cada resultado no console com uma mensagem explicativa
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Parte 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-red-200">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                            3️⃣
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-2xl text-gray-900 mb-3">Previsão do console</h3>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Em cada exercício, <strong>antes de rodar</strong>:
+                            </p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span>Escreva no caderno o resultado esperado</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span>Rode no navegador</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">•</span>
+                                    <span>Compare: acertou? Errou? Por quê?</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parte 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-red-200">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div
+                            class="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                            4️⃣
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-2xl text-gray-900 mb-3">Reflexão curta</h3>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Crie um arquivo <code class="bg-gray-100 px-2 py-1 rounded">learning-log.md</code> (ou
+                                escreva no caderno) e responda:
+                            </p>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">1.</span>
+                                    <span>O que é uma variável?</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">2.</span>
+                                    <span>Qual a diferença de <code class="bg-gray-100 px-2 py-1 rounded">let</code> e
+                                        <code class="bg-gray-100 px-2 py-1 rounded">const</code>?</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-ifrn-green-600">3.</span>
+                                    <span>Qual exercício você achou mais fácil e por quê?</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 border-l-4 border-gray-400">
+                        <p class="text-sm text-gray-700">
+                            <strong>Objetivo:</strong> Reflexão ajuda a fixar conceitos. Escreve em 3–5 linhas, sem
+                            enrolar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl">
+                <p class="font-bold text-yellow-900 mb-2">⚠️ Lembre-se:</p>
+                <p class="text-yellow-800">
+                    Essa lista é pra fixar o básico. Não precisa ser perfeito, precisa ser feito. Se travar, anota a
+                    dúvida e traz na próxima aula.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mini-Autoavaliação -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                🎯 Mini-Autoavaliação
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8">
+                Seja honesto. Como você se sente com os conteúdos da Semana 32?
+            </p>
+
+            <div class="space-y-4">
+                <label
+                    class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="0" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">0 — Não consegui</p>
+                        <p class="text-gray-600">Não entendi nada, preciso começar de novo</p>
+                    </div>
+                </label>
+
+                <label
+                    class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="1" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">1 — Só copiando</p>
+                        <p class="text-gray-600">Consigo copiar e colar, mas não sei fazer sozinho</p>
+                    </div>
+                </label>
+
+                <label
+                    class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="2" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">2 — Com ajuda</p>
+                        <p class="text-gray-600">Consigo fazer consultando material ou perguntando</p>
+                    </div>
+                </label>
+
+                <label
+                    class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="3" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">3 — Sozinho</p>
+                        <p class="text-gray-600">Consigo fazer sem ajuda, sei o que estou fazendo</p>
+                    </div>
+                </label>
+
+                <label
+                    class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="4" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">4 — Consigo explicar</p>
+                        <p class="text-gray-600">Domino o conteúdo e posso ensinar colegas</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-bold text-4xl mb-6">
+                🎯 Semana 32: Base Sólida
+            </h2>
+
+            <div class="max-w-3xl mx-auto space-y-6">
+                <p class="text-xl leading-relaxed opacity-95">
+                    Semana 32 te dá o alfabeto do JavaScript. Variáveis, tipos, operadores — são os tijolos de tudo que
+                    vem depois.
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 border border-white border-opacity-20">
+                    <p class="text-lg leading-relaxed opacity-90">
+                        <strong>Semana 33</strong> entra lógica de decisão (if/else). Se variáveis ficaram claras, a
+                        próxima etapa vai fluir. Se não ficou claro, volta aqui e refaz os exemplos.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-ifrn-green-600 bg-opacity-20 backdrop-blur rounded-2xl p-6 border-l-4 border-ifrn-green-400">
+                    <p class="text-lg italic">
+                        "Se você entendeu variáveis, você já tem a mochila. Agora vamos sair da sala."
+                    </p>
+                </div>
+
+                <p class="text-sm opacity-75 mt-8">
+                    Dúvidas? Traz na próxima aula. Melhor perguntar do que ficar travado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript para Interatividade -->
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Salvar checkboxes no localStorage
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            // Carregar estado salvo
+            const saved = localStorage.getItem(checkbox.id);
+            if (saved === 'true') {
+                checkbox.checked = true;
+            }
+
+            // Salvar quando mudar
+            checkbox.addEventListener('change', function () {
+                localStorage.setItem(this.id, this.checked);
+            });
+        });
+
+        // Salvar autoavaliação no localStorage
+        const radioButtons = document.querySelectorAll('input[name="autoavaliacao"]');
+        const savedRating = localStorage.getItem('semana32_autoavaliacao');
+
+        if (savedRating) {
+            const radioToCheck = document.querySelector(`input[name="autoavaliacao"][value="${savedRating}"]`);
+            if (radioToCheck) {
+                radioToCheck.checked = true;
+            }
+        }
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                localStorage.setItem('semana32_autoavaliacao', this.value);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
