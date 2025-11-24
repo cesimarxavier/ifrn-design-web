@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Web — CSS Avançado, Tailwind e JavaScript Reativo | IFRN</title>
+    <meta name="description"
+        content="Plano completo da disciplina Design Web: domine CSS avançado, Tailwind, DaisyUI e Alpine.js com metodologia baseada em Bloom e aprendizagem espaçada.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Sora', 'sans-serif'],
+                        'body': ['Work Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn-green': {
+                            50: '#e6f2ea',
+                            100: '#c4e2d1',
+                            200: '#93b7a1',
+                            300: '#629070',
+                            400: '#3e7750',
+                            500: '#2f6b48',
+                            600: '#265740',
+                            700: '#1f4a32',
+                            800: '#143021',
+                            900: '#0b1a12',
+                        },
+                        'ifrn-red': {
+                            500: '#e63946',
+                            600: '#d62828',
+                            700: '#c1121f',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #0b1a12;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .bg-grain {
+            position: relative;
+        }
+
+        .bg-grain::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #e6f2ea 0%, #ffffff 50%, #e6f2ea 100%);
+        }
+
+        .section-alt {
+            background: linear-gradient(180deg, #ffffff 0%, #e6f2ea 100%);
+        }
+
+        nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid #c4e2d1;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.12);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .timeline-item {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .timeline-item:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .code-block {
+            background: #0b1a12;
+            border-radius: 16px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #93b7a1;
+            border: 1px solid #1f4a32;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 2000px;
+        }
+
+        details summary {
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+        }
+
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="smooth-scroll">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="font-display font-bold text-xl text-ifrn-green-700">
+                    Design Web
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium transition-colors">Sobre</a>
+                    <a href="#metodologia"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium transition-colors">Metodologia</a>
+                    <a href="#plano"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium transition-colors">Plano</a>
+                    <a href="#github"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium transition-colors">GitHub</a>
+                    <a href="#avaliacoes"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium transition-colors">Avaliações</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-gradient bg-grain pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-block mb-6">
+                    <span class="badge bg-ifrn-green-100 text-ifrn-green-700 border border-ifrn-green-300">
+                        60 horas · Semestre 2025
+                    </span>
+                </div>
+                <h1 class="font-display font-extrabold text-5xl md:text-7xl text-ifrn-green-800 mb-6 leading-tight">
+                    Design Web
+                </h1>
+                <p class="font-display text-2xl md:text-3xl text-ifrn-green-600 mb-4 font-semibold">
+                    CSS Avançado, Tailwind e JavaScript Reativo
+                </p>
+                <p class="text-lg md:text-xl text-ifrn-green-700 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    Evolução de Autoria Web. Domine componentização moderna, frameworks de utilidades e reatividade
+                    declarativa. Preparação sólida para React e frameworks modernos.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    <a href="#plano" class="btn-primary text-white font-bold py-4 px-8 rounded-full text-lg">
+                        Ver plano semana a semana
+                    </a>
+                    <a href="#github" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg">
+                        Começar pelo Git CLI
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto">
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
+                        O que você vai dominar ao final
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6 text-left">
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">CSS avançado e componentização</p>
+                                <p class="text-sm text-ifrn-green-600">Grids complexos, variáveis, animações e
+                                    arquitetura escalável</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">Tailwind CSS proficiente</p>
+                                <p class="text-sm text-ifrn-green-600">Utility-first, responsividade, temas e
+                                    customização</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">DaisyUI e sistemas de design</p>
+                                <p class="text-sm text-ifrn-green-600">Componentes prontos, temas e consistência visual
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">Alpine.js e reatividade</p>
+                                <p class="text-sm text-ifrn-green-600">Interatividade declarativa sem bundlers</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">Git e GitHub via CLI</p>
+                                <p class="text-sm text-ifrn-green-600">Fluxo profissional com branches, PRs e code
+                                    review</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-6 h-6 bg-ifrn-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm mt-1">
+                                ✓</div>
+                            <div>
+                                <p class="font-semibold text-ifrn-green-800">Projetos do zero ao deploy</p>
+                                <p class="text-sm text-ifrn-green-600">Workflow completo, responsivo e acessível</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre a Disciplina -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-12 text-center">
+                Sobre a disciplina
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-ifrn-green-50 rounded-2xl p-6 border-2 border-ifrn-green-200">
+                    <div class="text-4xl mb-4">⏱️</div>
+                    <h3 class="font-display font-bold text-xl text-ifrn-green-800 mb-2">Duração</h3>
+                    <p class="text-ifrn-green-700">60 horas por semestre, 4 aulas semanais em formato de aulas geminadas
+                    </p>
+                </div>
+                <div class="bg-ifrn-green-50 rounded-2xl p-6 border-2 border-ifrn-green-200">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="font-display font-bold text-xl text-ifrn-green-800 mb-2">Foco</h3>
+                    <p class="text-ifrn-green-700">CSS avançado, Tailwind, DaisyUI, Alpine.js e GitHub CLI profissional
+                    </p>
+                </div>
+                <div class="bg-ifrn-green-50 rounded-2xl p-6 border-2 border-ifrn-green-200">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="font-display font-bold text-xl text-ifrn-green-800 mb-2">Premissa</h3>
+                    <p class="text-ifrn-green-700">Aprender fazendo, com repetição inteligente e desafios progressivos
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-12 text-white">
+                <h3 class="font-display font-bold text-2xl mb-6">Por que essa disciplina é importante?</h3>
+                <p class="text-lg mb-4 leading-relaxed opacity-95">
+                    Design Web representa a ponte entre o CSS tradicional e os frameworks modernos como React. Você não
+                    vai apenas aprender ferramentas — vai desenvolver um mindset de componentização, reatividade e
+                    workflow profissional que será essencial em qualquer stack de frontend moderna.
+                </p>
+                <p class="text-lg leading-relaxed opacity-95">
+                    Ao dominar Tailwind, você ganha velocidade sem perder qualidade. Com Alpine.js, entende reatividade
+                    declarativa antes de mergulhar em React. E com Git CLI, trabalha como um desenvolvedor profissional
+                    desde o primeiro dia.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia de Aprendizagem -->
+    <section id="metodologia" class="section-alt py-20 px-4 sm:px-6 lg:px-8 bg-grain">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Metodologia de aprendizagem
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                Nossa abordagem combina ciência cognitiva com prática intensiva
+            </p>
+
+            <!-- Taxonomia de Bloom -->
+            <div class="mb-16">
+                <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+                    <h3 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
+                        Taxonomia de Bloom aplicada
+                    </h3>
+                    <p class="text-lg text-ifrn-green-700 mb-8">
+                        Cada semana é planejada para desenvolver habilidades cognitivas progressivas, dos conceitos
+                        básicos até a criação autônoma:
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-4 bg-ifrn-green-50 rounded-xl">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">
+                                1</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Lembrar</h4>
+                                <p class="text-ifrn-green-700">Reconhecer conceitos e sintaxe (quizzes, revisões)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-4 bg-ifrn-green-50 rounded-xl">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">
+                                2</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Compreender</h4>
+                                <p class="text-ifrn-green-700">Explicar por que uma solução funciona (discussões,
+                                    explicações)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-4 bg-ifrn-green-50 rounded-xl">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">
+                                3</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Aplicar</h4>
+                                <p class="text-ifrn-green-700">Usar o conhecimento em exercícios guiados (listas
+                                    semanais)</p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-start space-x-4 p-4 bg-ifrn-green-100 rounded-xl border-2 border-ifrn-green-300">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-green-700 text-white rounded-full flex items-center justify-center font-bold">
+                                4</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Analisar</h4>
+                                <p class="text-ifrn-green-700">Comparar soluções e identificar trade-offs (code review)
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-start space-x-4 p-4 bg-ifrn-green-100 rounded-xl border-2 border-ifrn-green-300">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-green-700 text-white rounded-full flex items-center justify-center font-bold">
+                                5</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Avaliar</h4>
+                                <p class="text-ifrn-green-700">Julgar qualidade e propor melhorias (revisões entre
+                                    pares)</p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-start space-x-4 p-4 bg-ifrn-red-50 rounded-xl border-2 border-ifrn-red-500">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold">
+                                6</div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-1">Criar</h4>
+                                <p class="text-ifrn-green-700">Produzir soluções originais do zero (projeto final)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aprendizagem Espaçada -->
+            <div class="mb-16">
+                <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+                    <h3 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
+                        Aprendizagem espaçada e revisão inteligente
+                    </h3>
+                    <p class="text-lg text-ifrn-green-700 mb-8">
+                        Você não aprende algo uma vez e pronto. O cérebro precisa de reforço em momentos estratégicos:
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-ifrn-green-50 p-6 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-3 flex items-center">
+                                <span class="mr-2">🔄</span> Revisão próxima (mesma semana)
+                            </h4>
+                            <p class="text-ifrn-green-700 mb-3">Reforça a memória de curto prazo logo após aprender</p>
+                            <p class="text-sm text-ifrn-green-600 italic">Exemplo: aprende Flexbox na segunda → aplica
+                                em exercício na quinta</p>
+                        </div>
+                        <div class="bg-ifrn-green-50 p-6 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-3 flex items-center">
+                                <span class="mr-2">🔁</span> Revisão distante (semanas depois)
+                            </h4>
+                            <p class="text-ifrn-green-700 mb-3">Consolida na memória de longo prazo com nova aplicação
+                            </p>
+                            <p class="text-sm text-ifrn-green-600 italic">Exemplo: Flexbox retorna em Grid (semana 3),
+                                depois em Tailwind (semana 4)</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="mt-8 p-6 bg-gradient-to-r from-ifrn-red-50 to-ifrn-green-50 rounded-xl border-l-4 border-ifrn-red-500">
+                        <p class="font-semibold text-ifrn-green-800 mb-2">Ciclo de domínio progressivo:</p>
+                        <p class="text-ifrn-green-700">
+                            <span class="font-semibold">Rever</span> → <span class="font-semibold">Aplicar</span> →
+                            <span class="font-semibold">Variar</span> → <span class="font-semibold">Integrar</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aulas Geminadas -->
+            <div class="bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-600 rounded-3xl p-8 md:p-12 text-white">
+                <h3 class="font-display font-bold text-3xl mb-6">
+                    Como funcionam as aulas geminadas
+                </h3>
+                <p class="text-lg mb-8 opacity-95">
+                    Cada par de aulas segue um ritmo planejado para maximizar retenção e aplicação:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl border border-white border-opacity-20">
+                        <div class="text-3xl mb-3">📖</div>
+                        <h4 class="font-bold text-xl mb-3">Dia 1: Exposição e demonstração</h4>
+                        <ul class="space-y-2 opacity-95">
+                            <li>• Apresentação do conteúdo novo</li>
+                            <li>• Teoria curta e objetiva</li>
+                            <li>• Demonstração prática ao vivo</li>
+                            <li>• Exemplos comentados</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="bg-white bg-opacity-10 backdrop-blur-sm p-6 rounded-2xl border border-white border-opacity-20">
+                        <div class="text-3xl mb-3">💻</div>
+                        <h4 class="font-bold text-xl mb-3">Dia 2: Prática e revisão</h4>
+                        <ul class="space-y-2 opacity-95">
+                            <li>• Exercícios guiados em sala</li>
+                            <li>• Resolução de dúvidas pontuais</li>
+                            <li>• Code review entre colegas</li>
+                            <li>• Preparação para lista semanal</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-8 p-6 bg-white bg-opacity-10 backdrop-blur-sm rounded-xl border border-white border-opacity-20">
+                    <p class="text-lg opacity-95">
+                        <span class="font-bold">Listas semanais</span> são liberadas após a aula 2 e devem ser entregues
+                        antes da próxima semana. <span class="font-bold">Quizzes</span> testam conceitos fundamentais.
+                        <span class="font-bold">Provas</span> avaliam compreensão integrada. <span
+                            class="font-bold">Projetos</span> demonstram autonomia criativa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano Semana a Semana -->
+    <section id="plano" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Plano semana a semana
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                15 semanas de construção progressiva, do CSS avançado até reatividade com Alpine.js
+            </p>
+
+            <div class="space-y-6">
+                <!-- Semana 1 -->
+                <details
+                    class="timeline-item bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden card-hover">
+                    <summary class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                                    1</div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-ifrn-green-800">Revisão CSS Avançado
+                                        I</h3>
+                                    <p class="text-sm text-ifrn-green-600">Flexbox e posicionamento avançado</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="badge bg-blue-100 text-blue-700">Aplicar</span>
+                                <span class="text-2xl text-ifrn-green-600">›</span>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">🎯 Objetivo de aprendizagem</h4>
+                                <p class="text-ifrn-green-700">Relembrar e aplicar Flexbox com propriedades avançadas
+                                    (order, flex-grow, align-self), dominando layouts responsivos complexos</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">📚 Conteúdo principal</h4>
+                                <ul class="text-ifrn-green-700 space-y-1">
+                                    <li>• Flexbox: propriedades avançadas</li>
+                                    <li>• Position: absolute, relative, sticky</li>
+                                    <li>• Z-index e contextos de empilhamento</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Aulas</h4>
+                                <p class="text-ifrn-green-700">A1–A4</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Bloom dominante</h4>
+                                <span class="badge bg-blue-100 text-blue-700">Aplicar</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Entregáveis</h4>
+                                <p class="text-ifrn-green-700">Lista 1 (S)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">🔄 Reforço (próxima/distante)</h4>
+                            <p class="text-ifrn-green-700 text-sm">Próxima: aplicar em Grid (semana 2). Distante:
+                                integrar em layouts Tailwind (semana 4)</p>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-ifrn-red-500 font-semibold hover:text-ifrn-red-600 text-sm">
+                                Ver repositório exemplo da semana 1 →
+                            </a>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Semana 2 -->
+                <details
+                    class="timeline-item bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden card-hover">
+                    <summary class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                                    2</div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-ifrn-green-800">CSS Grid e
+                                        Componentização</h3>
+                                    <p class="text-sm text-ifrn-green-600">Layouts bidimensionais e arquitetura CSS</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="badge bg-purple-100 text-purple-700">Analisar</span>
+                                <span class="text-2xl text-ifrn-green-600">›</span>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">🎯 Objetivo de aprendizagem</h4>
+                                <p class="text-ifrn-green-700">Dominar Grid para layouts bidimensionais complexos e
+                                    introduzir componentização CSS com variáveis e padrões reutilizáveis</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">📚 Conteúdo principal</h4>
+                                <ul class="text-ifrn-green-700 space-y-1">
+                                    <li>• CSS Grid: áreas nomeadas, auto-fit, minmax</li>
+                                    <li>• CSS Variables (custom properties)</li>
+                                    <li>• Componentização: card, button, navbar</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Aulas</h4>
+                                <p class="text-ifrn-green-700">A5–A8</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Bloom dominante</h4>
+                                <span class="badge bg-purple-100 text-purple-700">Analisar</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Entregáveis</h4>
+                                <p class="text-ifrn-green-700">Lista 2 (I) + Quiz 1</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">🔄 Reforço (próxima/distante)</h4>
+                            <p class="text-ifrn-green-700 text-sm">Próxima: usar Grid em projeto Tailwind (semana 5).
+                                Distante: layouts complexos com DaisyUI (semana 9)</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Semana 3 -->
+                <details
+                    class="timeline-item bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden card-hover">
+                    <summary class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-700 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                                    3</div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-ifrn-green-800">Introdução ao
+                                        Tailwind CSS</h3>
+                                    <p class="text-sm text-ifrn-green-600">Utility-first CSS e setup inicial</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="badge bg-blue-100 text-blue-700">Aplicar</span>
+                                <span class="text-2xl text-ifrn-green-600">›</span>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">🎯 Objetivo de aprendizagem</h4>
+                                <p class="text-ifrn-green-700">Compreender a filosofia utility-first e aplicar classes
+                                    básicas do Tailwind para recriar componentes antes feitos em CSS puro</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">📚 Conteúdo principal</h4>
+                                <ul class="text-ifrn-green-700 space-y-1">
+                                    <li>• Filosofia utility-first vs CSS tradicional</li>
+                                    <li>• Setup Tailwind (CDN e build)</li>
+                                    <li>• Classes básicas: spacing, colors, typography</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Aulas</h4>
+                                <p class="text-ifrn-green-700">A9–A12</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Bloom dominante</h4>
+                                <span class="badge bg-blue-100 text-blue-700">Aplicar</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Entregáveis</h4>
+                                <p class="text-ifrn-green-700">Lista 3 (S)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">🔄 Reforço (próxima/distante)</h4>
+                            <p class="text-ifrn-green-700 text-sm">Próxima: responsividade com Tailwind (semana 4).
+                                Distante: customização de tema (semana 6)</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Semanas 4-8: Tailwind Intensivo -->
+                <div
+                    class="bg-gradient-to-r from-ifrn-green-100 to-ifrn-green-50 rounded-2xl p-6 border-2 border-ifrn-green-300">
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">
+                        Semanas 4–8: Tailwind CSS Intensivo
+                    </h3>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Cinco semanas focadas em dominar Tailwind: responsividade, layout avançado, customização,
+                        animações e otimização. Culmina na <span class="font-bold text-ifrn-red-500">Prova 1</span>
+                        (semana 8).
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 4: Responsividade</h4>
+                            <p class="text-sm text-ifrn-green-700">Breakpoints, mobile-first, containers</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 5: Layouts Avançados</h4>
+                            <p class="text-sm text-ifrn-green-700">Grid complexo, Flexbox integrado, positioning</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 6: Customização</h4>
+                            <p class="text-sm text-ifrn-green-700">Tailwind config, temas, cores personalizadas</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 7: Animações & Transições</h4>
+                            <p class="text-sm text-ifrn-green-700">Hover states, transitions, animations utilities</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 p-4 bg-ifrn-red-500 text-white rounded-xl">
+                        <p class="font-bold mb-1">📝 Semana 8: Prova 1 — Tailwind CSS</p>
+                        <p class="text-sm opacity-95">Avaliação teórica + prática cobrindo semanas 3-7</p>
+                    </div>
+                </div>
+
+                <!-- Semanas 9-10: DaisyUI -->
+                <details
+                    class="timeline-item bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden card-hover">
+                    <summary class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-700 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                                    9-10</div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-ifrn-green-800">DaisyUI e Sistemas de
+                                        Design</h3>
+                                    <p class="text-sm text-ifrn-green-600">Componentes prontos e consistência visual</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="badge bg-purple-100 text-purple-700">Analisar</span>
+                                <span class="text-2xl text-ifrn-green-600">›</span>
+                            </div>
+                        </div>
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">🎯 Objetivo de aprendizagem</h4>
+                                <p class="text-ifrn-green-700">Aplicar biblioteca de componentes DaisyUI, entender
+                                    sistemas de design e temas, criar interfaces consistentes rapidamente</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2">📚 Conteúdo principal</h4>
+                                <ul class="text-ifrn-green-700 space-y-1">
+                                    <li>• Setup e integração DaisyUI + Tailwind</li>
+                                    <li>• Componentes: buttons, cards, modals, forms</li>
+                                    <li>• Temas e customização de design system</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Aulas</h4>
+                                <p class="text-ifrn-green-700">A33–A40</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Bloom dominante</h4>
+                                <span class="badge bg-purple-100 text-purple-700">Analisar</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-2 text-sm">Entregáveis</h4>
+                                <p class="text-ifrn-green-700">Lista 9-10 (I) + Quiz 2</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">🔄 Reforço (próxima/distante)</h4>
+                            <p class="text-ifrn-green-700 text-sm">Próxima: usar DaisyUI com Alpine (semana 11).
+                                Distante: projeto final integrado (semana 14)</p>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Semanas 11-13: Alpine.js -->
+                <div
+                    class="bg-gradient-to-r from-purple-100 to-ifrn-green-50 rounded-2xl p-6 border-2 border-purple-300">
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">
+                        Semanas 11–13: Alpine.js e Reatividade
+                    </h3>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Introdução à reatividade declarativa, manipulação de estado, eventos e integração com
+                        Tailwind/DaisyUI. Preparação para frameworks como React.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 11: Alpine Básico</h4>
+                            <p class="text-sm text-ifrn-green-700">x-data, x-bind, x-on, x-show</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 12: Componentes Reativos</h4>
+                            <p class="text-sm text-ifrn-green-700">x-for, x-if, x-model, state management</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl">
+                            <h4 class="font-semibold text-ifrn-green-800 mb-2">Semana 13: Integração</h4>
+                            <p class="text-sm text-ifrn-green-700">Alpine + Tailwind + DaisyUI completo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Semanas 14-15: Projeto Final -->
+                <div class="bg-gradient-to-br from-ifrn-red-500 to-ifrn-red-600 rounded-2xl p-8 text-white">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div
+                            class="w-16 h-16 bg-white text-ifrn-red-500 rounded-full flex items-center justify-center font-bold text-2xl">
+                            14-15</div>
+                        <div>
+                            <h3 class="font-display font-bold text-3xl">Projeto Interdisciplinar + Prova 2</h3>
+                            <p class="text-lg opacity-95">Criação autônoma e avaliação final</p>
+                        </div>
+                    </div>
+                    <p class="text-lg mb-6 opacity-95">
+                        Desenvolvimento de projeto completo integrando todo o conteúdo do semestre: CSS avançado,
+                        Tailwind, DaisyUI, Alpine.js e workflow GitHub. Prova 2 avalia compreensão conceitual e
+                        capacidade de síntese.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div
+                            class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-xl border border-white border-opacity-20">
+                            <h4 class="font-semibold mb-2">Semana 14: Desenvolvimento</h4>
+                            <p class="text-sm opacity-95">Planejamento, wireframes, implementação inicial</p>
+                        </div>
+                        <div
+                            class="bg-white bg-opacity-10 backdrop-blur-sm p-4 rounded-xl border border-white border-opacity-20">
+                            <h4 class="font-semibold mb-2">Semana 15: Apresentação + Prova</h4>
+                            <p class="text-sm opacity-95">Deploy, apresentação oral e Prova 2 teórica</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub CLI -->
+    <section id="github" class="section-alt py-20 px-4 sm:px-6 lg:px-8 bg-grain">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Fluxo de trabalho com GitHub CLI
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-12 max-w-3xl mx-auto">
+                Aprenda a trabalhar como um desenvolvedor profissional desde o primeiro dia
+            </p>
+
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-8">
+                <p class="text-lg text-ifrn-green-700 mb-8">
+                    Nesta disciplina, você vai usar <span class="font-bold text-ifrn-green-800">Git exclusivamente via
+                        linha de comando</span>. Nada de interfaces gráficas. O objetivo é criar músculo de memória e
+                    entender o que realmente acontece por trás dos botões.
+                </p>
+
+                <div class="space-y-8">
+                    <!-- Passo 1 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            1. Criando e clonando repositório
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Primeiro, crie um repositório no GitHub (via interface web). Depois, clone localmente:
+                        </p>
+                        <div class="code-block">
+                            <code>
+# Clonar repositório<br>
+git clone https://github.com/seu-usuario/nome-do-repo.git<br>
+cd nome-do-repo
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Passo 2 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            2. Criando branch por feature
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Nunca trabalhe direto na <code
+                                class="bg-ifrn-green-100 px-2 py-1 rounded text-sm">main</code>. Crie uma branch para
+                            cada funcionalidade:
+                        </p>
+                        <div class="code-block">
+                            <code>
+# Criar e trocar para nova branch<br>
+git checkout -b feature/navbar<br>
+<br>
+# Verificar em qual branch você está<br>
+git branch
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            3. Commits semânticos
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Mensagens claras ajudam o time (e você mesmo) a entender o histórico:
+                        </p>
+                        <div class="code-block">
+                            <code>
+# Ver o que mudou<br>
+git status<br>
+<br>
+# Adicionar arquivos específicos<br>
+git add index.html style.css<br>
+<br>
+# Ou adicionar tudo<br>
+git add .<br>
+<br>
+# Commit com mensagem descritiva<br>
+git commit -m "feat: add responsive navbar with mobile menu"<br>
+git commit -m "fix: correct flexbox alignment on hero section"<br>
+git commit -m "style: improve button hover states"
+                            </code>
+                        </div>
+                        <div class="mt-4 p-4 bg-ifrn-green-50 rounded-xl">
+                            <p class="text-sm text-ifrn-green-700">
+                                <span class="font-bold">Padrão de mensagens:</span> feat (nova feature), fix (correção),
+                                style (visual), refactor (reorganização), docs (documentação)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 4 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            4. Push e pull
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Envie suas mudanças para o GitHub e sincronize com o repositório remoto:
+                        </p>
+                        <div class="code-block">
+                            <code>
+# Primeira vez: enviar branch para o GitHub<br>
+git push -u origin feature/navbar<br>
+<br>
+# Próximas vezes (na mesma branch)<br>
+git push<br>
+<br>
+# Atualizar sua branch local com mudanças remotas<br>
+git pull origin main
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Passo 5 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            5. Pull Request (PR)
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Depois de fazer push, crie um Pull Request no GitHub para revisar e integrar seu código na
+                            <code class="bg-ifrn-green-100 px-2 py-1 rounded text-sm">main</code>:
+                        </p>
+                        <ol class="list-decimal list-inside space-y-2 text-ifrn-green-700">
+                            <li>Acesse o repositório no GitHub</li>
+                            <li>Clique em "Compare & pull request"</li>
+                            <li>Descreva o que foi feito</li>
+                            <li>Peça revisão (se for trabalho em grupo)</li>
+                            <li>Faça merge após aprovação</li>
+                        </ol>
+                    </div>
+
+                    <!-- Passo 6 -->
+                    <div class="border-l-4 border-ifrn-green-600 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            6. Resolução de conflitos simples
+                        </h3>
+                        <p class="text-ifrn-green-700 mb-4">
+                            Quando duas pessoas editam o mesmo arquivo, pode rolar conflito:
+                        </p>
+                        <div class="code-block">
+                            <code>
+# Git avisa sobre conflitos ao fazer pull ou merge<br>
+# Abra o arquivo em conflito, você verá:<br>
+<br>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>
+seu código atual<br>
+=======<br>
+código que veio do pull<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main<br>
+<br>
+# Escolha qual manter (ou combine), remova as marcações,<br>
+# salve o arquivo e faça commit:<br>
+git add arquivo-com-conflito.html<br>
+git commit -m "fix: resolve merge conflict in navbar"
+                            </code>
+                        </div>
+                    </div>
+
+                    <!-- Boas Práticas -->
+                    <div class="border-l-4 border-ifrn-red-500 pl-6">
+                        <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                            🎯 Boas práticas essenciais
+                        </h3>
+                        <ul class="space-y-2 text-ifrn-green-700">
+                            <li class="flex items-start">
+                                <span class="text-ifrn-red-500 mr-2">•</span>
+                                <span><span class="font-semibold">Commits frequentes:</span> faça pequenos commits a
+                                    cada mudança significativa (não acumule horas de trabalho em um commit)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ifrn-red-500 mr-2">•</span>
+                                <span><span class="font-semibold">Mensagens claras:</span> escreva como se estivesse
+                                    explicando para um colega</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ifrn-red-500 mr-2">•</span>
+                                <span><span class="font-semibold">Pull antes de push:</span> sempre sincronize antes de
+                                    enviar suas mudanças</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ifrn-red-500 mr-2">•</span>
+                                <span><span class="font-semibold">Branches descritivas:</span> use nomes como <code
+                                        class="bg-ifrn-green-100 px-2 py-1 rounded text-sm">feature/hero-section</code>,
+                                    <code
+                                        class="bg-ifrn-green-100 px-2 py-1 rounded text-sm">fix/responsive-grid</code></span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-ifrn-red-500 mr-2">•</span>
+                                <span><span class="font-semibold">Nunca force push:</span> evite <code
+                                        class="bg-ifrn-green-100 px-2 py-1 rounded text-sm">git push -f</code> a menos
+                                    que você saiba exatamente o que está fazendo</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-600 rounded-3xl p-8 text-white">
+                <h3 class="font-display font-bold text-2xl mb-6">
+                    ✅ Checklist: você está no caminho certo se consegue...
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Clonar um repo e criar uma branch sem pensar duas vezes</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Fazer commits descritivos regularmente</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Criar Pull Requests e pedir/fazer code review</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Resolver conflitos simples de merge com confiança</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Sincronizar seu trabalho com <code
+                                class="bg-white bg-opacity-20 px-2 py-1 rounded">git pull</code> frequentemente</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div
+                            class="flex-shrink-0 w-6 h-6 bg-white text-ifrn-green-700 rounded-full flex items-center justify-center font-bold text-sm mt-1">
+                            ✓</div>
+                        <p>Entender o histórico com <code
+                                class="bg-white bg-opacity-20 px-2 py-1 rounded">git log</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios e Desafios -->
+    <section id="exercicios" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Exercícios e desafios
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                Três trilhas progressivas para você evoluir no seu ritmo
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Trilha Base -->
+                <div class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-200 card-hover">
+                    <div class="text-5xl mb-4">📘</div>
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                        Trilha Base (S)
+                    </h3>
+                    <p class="text-ifrn-green-700 mb-6">
+                        Exercícios guiados passo a passo para fixar conceitos fundamentais
+                    </p>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Card de produto</p>
+                            <p class="text-xs text-ifrn-green-600">Recriar um card usando Tailwind seguindo wireframe
+                                fornecido</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Grid responsivo</p>
+                            <p class="text-xs text-ifrn-green-600">Implementar layout 3-2-1 colunas com breakpoints
+                                dados</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Botão interativo</p>
+                            <p class="text-xs text-ifrn-green-600">Criar botão com Alpine que muda texto ao clicar</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <span class="badge bg-blue-500 text-white">Nível satisfatório</span>
+                    </div>
+                </div>
+
+                <!-- Trilha Evolução -->
+                <div class="bg-purple-50 rounded-2xl p-8 border-2 border-purple-200 card-hover">
+                    <div class="text-5xl mb-4">📗</div>
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                        Trilha Evolução (I)
+                    </h3>
+                    <p class="text-ifrn-green-700 mb-6">
+                        Variações com autonomia, você precisa tomar decisões de design
+                    </p>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Portfolio pessoal</p>
+                            <p class="text-xs text-ifrn-green-600">Criar página sobre você com 3+ seções usando DaisyUI
+                            </p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Sistema de tabs</p>
+                            <p class="text-xs text-ifrn-green-600">Implementar navegação por abas com Alpine sem
+                                tutorial</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Theme switcher</p>
+                            <p class="text-xs text-ifrn-green-600">Criar toggle dark/light mode persistente</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <span class="badge bg-purple-500 text-white">Nível intermediário</span>
+                    </div>
+                </div>
+
+                <!-- Trilha Pro -->
+                <div class="bg-ifrn-red-50 rounded-2xl p-8 border-2 border-ifrn-red-300 card-hover">
+                    <div class="text-5xl mb-4">📕</div>
+                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-3">
+                        Trilha Pro (C)
+                    </h3>
+                    <p class="text-ifrn-green-700 mb-6">
+                        Desafios integrados tipo mini-projeto, máxima autonomia criativa
+                    </p>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Dashboard interativo</p>
+                            <p class="text-xs text-ifrn-green-600">Interface administrativa com filtros, gráficos e
+                                modal</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: Landing page completa</p>
+                            <p class="text-xs text-ifrn-green-600">Site one-page para produto fictício com animações</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-ifrn-green-800 text-sm mb-1">Exemplo: App de lista</p>
+                            <p class="text-xs text-ifrn-green-600">Todo-list com CRUD completo usando Alpine</p>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <span class="badge bg-ifrn-red-500 text-white">Nível criativo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-ifrn-green-100 rounded-2xl p-8 border-2 border-ifrn-green-300">
+                <h3 class="font-display font-bold text-xl text-ifrn-green-800 mb-4">
+                    Como escolher sua trilha?
+                </h3>
+                <p class="text-ifrn-green-700 mb-4">
+                    A trilha Base (S) garante aprovação. As trilhas Evolução (I) e Pro (C) aumentam sua nota e, mais
+                    importante, seu domínio real das tecnologias.
+                </p>
+                <p class="text-ifrn-green-700">
+                    <span class="font-bold">Dica:</span> faça a Base primeiro para garantir a base conceitual, depois
+                    desafie-se nas outras trilhas para consolidar e se preparar melhor para o mercado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section id="avaliacoes" class="section-alt py-20 px-4 sm:px-6 lg:px-8 bg-grain">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Avaliações e critérios
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                Sistema transparente com foco no aprendizado progressivo
+            </p>
+
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-8">
+                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
+                    Componentes da avaliação
+                </h3>
+
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4 p-6 bg-ifrn-green-50 rounded-xl">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                            30%</div>
+                        <div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Atividades em sala + Listas semanais</h4>
+                            <p class="text-ifrn-green-700">Exercícios práticos, participação ativa, entregas regulares
+                                via GitHub</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 p-6 bg-ifrn-green-50 rounded-xl">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                            20%</div>
+                        <div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Quizzes</h4>
+                            <p class="text-ifrn-green-700">Avaliações rápidas (5-10 min) para testar conceitos
+                                fundamentais</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                            30%</div>
+                        <div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Provas teóricas (2)</h4>
+                            <p class="text-ifrn-green-700">Prova 1 (semana 8): Tailwind CSS | Prova 2 (semana 15):
+                                Integração completa</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 p-6 bg-ifrn-red-50 rounded-xl border-2 border-ifrn-red-300">
+                        <div
+                            class="flex-shrink-0 w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                            20%</div>
+                        <div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Projeto interdisciplinar final</h4>
+                            <p class="text-ifrn-green-700">Aplicação completa integrando todo o conteúdo do semestre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
+                    Critérios de avaliação
+                </h3>
+                <p class="text-ifrn-green-700 mb-6">
+                    Em todos os trabalhos práticos (listas, projeto final), você será avaliado por:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Completude</h4>
+                                <p class="text-sm text-ifrn-green-700">Todos os requisitos foram atendidos?</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Consistência visual</h4>
+                                <p class="text-sm text-ifrn-green-700">Design coerente, uso apropriado de espaçamento e
+                                    tipografia</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Responsividade</h4>
+                                <p class="text-sm text-ifrn-green-700">Funciona bem em mobile, tablet e desktop</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Organização do código</h4>
+                                <p class="text-sm text-ifrn-green-700">Estrutura limpa, comentários quando necessário,
+                                    boas práticas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Uso correto de Git CLI</h4>
+                                <p class="text-sm text-ifrn-green-700">Commits frequentes e descritivos, branches
+                                    organizadas</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                ✓</div>
+                            <div>
+                                <h4 class="font-semibold text-ifrn-green-800">Argumentação</h4>
+                                <p class="text-sm text-ifrn-green-700">Capacidade de explicar decisões de design e
+                                    código</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-gradient-to-r from-ifrn-green-700 to-ifrn-green-600 rounded-2xl p-8 text-white">
+                <h3 class="font-display font-bold text-xl mb-4">
+                    💡 Lembre-se
+                </h3>
+                <p class="text-lg opacity-95">
+                    A nota não é o objetivo final — é o indicador do seu progresso. Foque em entender profundamente cada
+                    conceito, pratique com consistência e não hesite em pedir ajuda quando travar.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section id="recursos" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Recursos para se aprofundar
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                Links essenciais para consulta e estudo autônomo
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <a href="https://tailwindcss.com/docs" target="_blank"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-ifrn-green-600 text-white rounded-lg flex items-center justify-center font-bold">
+                            T</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">Documentação Tailwind CSS</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Referência completa de todas as utility classes e
+                        configurações</p>
+                </a>
+
+                <a href="https://daisyui.com/" target="_blank"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-purple-600 text-white rounded-lg flex items-center justify-center font-bold">
+                            D</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">DaisyUI</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Biblioteca de componentes e temas prontos para Tailwind</p>
+                </a>
+
+                <a href="https://alpinejs.dev/" target="_blank"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold">
+                            A</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">Alpine.js</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Documentação oficial do framework de reatividade</p>
+                </a>
+
+                <a href="https://git-scm.com/book/pt-br/v2" target="_blank"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-orange-600 text-white rounded-lg flex items-center justify-center font-bold">
+                            G</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">Pro Git (livro)</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Guia completo sobre Git, gratuito e em português</p>
+                </a>
+
+                <a href="#"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-ifrn-red-500 text-white rounded-lg flex items-center justify-center font-bold">
+                            📂</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">Repositórios exemplo do professor
+                        </h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Código-fonte das demonstrações em aula (link a definir)</p>
+                </a>
+
+                <a href="https://github.com/github/gitignore" target="_blank"
+                    class="block bg-ifrn-green-50 p-6 rounded-2xl border-2 border-ifrn-green-200 hover:border-ifrn-green-400 hover:shadow-lg transition-all">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div
+                            class="w-10 h-10 bg-gray-700 text-white rounded-lg flex items-center justify-center font-bold">
+                            📝</div>
+                        <h3 class="font-display font-bold text-xl text-ifrn-green-800">Git Cheatsheet & .gitignore</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 text-sm">Templates e referências rápidas de comandos Git</p>
+                </a>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 text-white">
+                <h3 class="font-display font-bold text-2xl mb-4">
+                    🎥 Vídeos curtos de referência
+                </h3>
+                <p class="text-lg opacity-95 mb-4">
+                    Playlist com tutoriais selecionados sobre Tailwind, DaisyUI e Alpine (links a serem adicionados pelo
+                    professor)
+                </p>
+                <a href="#"
+                    class="inline-block bg-white text-ifrn-green-800 font-bold py-3 px-6 rounded-full hover:bg-ifrn-green-50 transition-colors">
+                    Acessar playlist →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section-alt py-20 px-4 sm:px-6 lg:px-8 bg-grain">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-4xl md:text-5xl text-ifrn-green-800 mb-6 text-center">
+                Perguntas frequentes
+            </h2>
+            <p class="text-xl text-ifrn-green-700 text-center mb-16 max-w-3xl mx-auto">
+                Respostas diretas para suas dúvidas mais comuns
+            </p>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        Preciso saber React antes de começar?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700">
+                            Não! Na verdade, esta disciplina é justamente a preparação para React. Você vai aprender os
+                            fundamentos de componentização, reatividade e workflow moderno que vão facilitar muito
+                            quando chegar em React ou qualquer outro framework.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 2 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        Como recuperar uma semana perdida?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700 mb-3">
+                            Procure o professor imediatamente. O conteúdo é progressivo, então quanto antes você
+                            nivelar, melhor. Estratégias:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-ifrn-green-700">
+                            <li>Assista às demos gravadas (se disponíveis)</li>
+                            <li>Estude o repositório exemplo da semana</li>
+                            <li>Faça os exercícios base para fixar conceitos</li>
+                            <li>Peça ajuda a colegas (isso também reforça o aprendizado deles)</li>
+                            <li>Agende um momento para tirar dúvidas pontuais</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <!-- FAQ 3 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        O que fazer se eu travar em um exercício?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700 mb-3">
+                            Travar faz parte do processo de aprendizagem. Siga este fluxo:
+                        </p>
+                        <ol class="list-decimal list-inside space-y-2 text-ifrn-green-700">
+                            <li><span class="font-semibold">Releia o enunciado:</span> às vezes a resposta está lá</li>
+                            <li><span class="font-semibold">Consulte a documentação:</span> Tailwind/Alpine docs são
+                                suas amigas</li>
+                            <li><span class="font-semibold">Quebre o problema:</span> resolva uma parte menor primeiro
+                            </li>
+                            <li><span class="font-semibold">Pesquise exemplos:</span> veja como outros resolveram
+                                problemas similares</li>
+                            <li><span class="font-semibold">Peça ajuda:</span> colegas, fórum, professor</li>
+                        </ol>
+                        <p class="text-ifrn-green-700 mt-3">
+                            <span class="font-semibold">Regra dos 15 minutos:</span> se você travou por mais de 15
+                            minutos sem progresso, peça ajuda. Não perca tempo precioso.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 4 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        Posso usar IA (ChatGPT, Claude, etc.) nos exercícios?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700 mb-3">
+                            <span class="font-bold text-ifrn-green-800">Sim, mas com responsabilidade.</span> IA é uma
+                            ferramenta poderosa, mas só aprende quem entende o que está fazendo:
+                        </p>
+                        <div class="bg-white p-4 rounded-xl mb-3">
+                            <p class="font-semibold text-ifrn-green-800 mb-2">✅ Uso permitido:</p>
+                            <ul class="text-sm text-ifrn-green-700 space-y-1">
+                                <li>• Explicar conceitos que você não entendeu</li>
+                                <li>• Debugar erros específicos (mostrando o código)</li>
+                                <li>• Sugerir alternativas para um problema que você já tentou resolver</li>
+                                <li>• Revisar seu código e dar feedback</li>
+                            </ul>
+                        </div>
+                        <div class="bg-ifrn-red-50 p-4 rounded-xl border-l-4 border-ifrn-red-500">
+                            <p class="font-semibold text-ifrn-green-800 mb-2">❌ Uso não permitido:</p>
+                            <ul class="text-sm text-ifrn-green-700 space-y-1">
+                                <li>• Pedir para a IA fazer o exercício inteiro por você</li>
+                                <li>• Copiar código sem entender o que ele faz</li>
+                                <li>• Usar IA em provas (óbvio)</li>
+                            </ul>
+                        </div>
+                        <p class="text-ifrn-green-700 mt-3 font-semibold">
+                            Nas apresentações e code reviews, você precisa ser capaz de explicar cada linha do seu
+                            código. Se você não consegue explicar, você não aprendeu.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 5 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        Quanto tempo devo dedicar fora da sala de aula?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700 mb-3">
+                            Recomendamos <span class="font-bold text-ifrn-green-800">pelo menos 2-3 horas por
+                                semana</span> além das aulas para:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-ifrn-green-700">
+                            <li>Completar listas semanais (1-2h)</li>
+                            <li>Revisar conceitos da semana (30min)</li>
+                            <li>Explorar a documentação e exemplos (30min-1h)</li>
+                        </ul>
+                        <p class="text-ifrn-green-700 mt-3">
+                            Se você quiser ir além (trilhas I e C), pode precisar de mais tempo. O importante é a
+                            consistência: melhor 30 minutos todo dia do que 3 horas de uma vez só.
+                        </p>
+                    </div>
+                </details>
+
+                <!-- FAQ 6 -->
+                <details class="bg-white rounded-2xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer hover:bg-ifrn-green-50 transition-colors font-bold text-lg text-ifrn-green-800">
+                        Por que CLI? Não é mais fácil usar GitHub Desktop?
+                    </summary>
+                    <div class="p-6 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <p class="text-ifrn-green-700 mb-3">
+                            Ferramentas gráficas são convenientes, mas escondem o que realmente acontece. Ao usar CLI:
+                        </p>
+                        <ul class="list-disc list-inside space-y-2 text-ifrn-green-700">
+                            <li>Você <span class="font-semibold">entende</span> Git, não apenas usa</li>
+                            <li>Ganha <span class="font-semibold">independência</span> de ferramentas específicas</li>
+                            <li>Se prepara para <span class="font-semibold">ambientes profissionais</span> (servidores,
+                                CI/CD)</li>
+                            <li>Desenvolve <span class="font-semibold">autonomia</span> para resolver problemas
+                                complexos</li>
+                        </ul>
+                        <p class="text-ifrn-green-700 mt-3">
+                            Depois que você dominar CLI, pode usar interfaces gráficas à vontade — mas você vai notar
+                            que o terminal é mais rápido.
+                        </p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Encerramento -->
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="mb-8">
+                <h2 class="font-display font-bold text-3xl md:text-4xl mb-4">
+                    Se você seguir o fluxo, você sai proficiente
+                </h2>
+                <p class="text-xl opacity-95 max-w-3xl mx-auto">
+                    Esta disciplina foi planejada para levar você de CSS básico até autonomia completa em design web
+                    moderno. O sucesso depende de consistência, prática e curiosidade. Você tem todas as ferramentas —
+                    agora é hora de construir.
+                </p>
+            </div>
+
+            <div
+                class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 mb-8 max-w-3xl mx-auto border border-white border-opacity-20">
+                <h3 class="font-display font-bold text-2xl mb-4">Informações do curso</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-left">
+                    <div>
+                        <p class="text-sm opacity-75 mb-1">Professor</p>
+                        <p class="font-semibold text-lg">[Nome do Professor]</p>
+                    </div>
+                    <div>
+                        <p class="text-sm opacity-75 mb-1">Contato</p>
+                        <p class="font-semibold text-lg">[email@ifrn.edu.br]</p>
+                    </div>
+                    <div>
+                        <p class="text-sm opacity-75 mb-1">Sala</p>
+                        <p class="font-semibold text-lg">[Laboratório X]</p>
+                    </div>
+                    <div>
+                        <p class="text-sm opacity-75 mb-1">Semestre</p>
+                        <p class="font-semibold text-lg">[2025.1]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white border-opacity-20 pt-8">
+                <p class="text-sm opacity-75">
+                    Design Web — Curso Técnico de Informática para Internet<br>
+                    Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte
+                </p>
+                <p class="text-sm opacity-75 mt-4">
+                    Atualizado em novembro de 2024
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer para animações ao scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos com animação
+        document.querySelectorAll('.timeline-item, .card-hover').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Destacar link ativo na navegação
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('text-ifrn-red-500');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-ifrn-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
