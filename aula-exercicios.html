@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Exercícios - Carregando...</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ifrn-green': {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+                            500: '#2f6b48', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d',
+                        },
+                        'ifrn-red': { 500: '#e63946', 600: '#d62828' }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: #f0fdf4;
+            border-color: #2f6b48;
+        }
+
+        .checkbox-item input:checked+label {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .error-state {
+            background: #fef2f2;
+            border: 2px solid #ef4444;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Loading -->
+    <div id="loading-state" class="min-h-screen flex items-center justify-center">
+        <div class="text-center">
+            <div
+                class="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4">
+            </div>
+            <p class="text-xl text-gray-600">Carregando exercícios...</p>
+            <p class="text-sm text-gray-500 mt-2" id="loading-week"></p>
+        </div>
+    </div>
+
+    <!-- Error -->
+    <div id="error-state" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="error-state max-w-2xl">
+            <div class="text-6xl mb-4">⚠️</div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Erro ao carregar exercícios</h2>
+            <p class="text-gray-600 mb-4" id="error-message"></p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <button onclick="location.reload()"
+                    class="px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700">
+                    Tentar novamente
+                </button>
+                <a href="aula.html?aula=32"
+                    class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-bold hover:bg-gray-300">
+                    Voltar para aula
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+
+        <!-- Hero -->
+        <section
+            class="relative bg-gradient-to-br from-purple-800 via-purple-700 to-purple-600 text-white py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl mx-auto">
+                <a href="#" id="back-link"
+                    class="inline-flex items-center gap-2 text-purple-100 hover:text-white mb-6 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Voltar para aula
+                </a>
+
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-500 rounded-full mb-6">
+                    <span class="text-xl">📝</span>
+                    <span class="font-semibold text-sm" id="badge-text">Exercícios</span>
+                </div>
+
+                <h1 class="font-bold text-4xl md:text-5xl mb-4 leading-tight" id="headline">Exercícios — Semana</h1>
+                <p class="text-xl text-purple-50 mb-8">Pratique os conceitos aprendidos na aula</p>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div
+                        class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                        <p class="text-purple-100 text-sm mb-1">Exercícios</p>
+                        <p class="font-bold text-lg" id="total-exercicios">-</p>
+                    </div>
+                    <div
+                        class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                        <p class="text-purple-100 text-sm mb-1">Concluídos</p>
+                        <p class="font-bold text-lg" id="exercicios-concluidos">0</p>
+                    </div>
+                    <div
+                        class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border border-white border-opacity-20">
+                        <p class="text-purple-100 text-sm mb-1">Progresso</p>
+                        <p class="font-bold text-lg" id="progresso">0%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercícios em Sala -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white" id="exercicios-sala-section"></section>
+
+        <!-- Lista da Semana -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-red-50 to-orange-50">
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white mb-8 shadow-2xl"
+                    id="lista-header"></div>
+                <div class="space-y-6" id="lista-items"></div>
+                <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl" id="lista-alert"></div>
+            </div>
+        </section>
+
+        <!-- Autoavaliação -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="font-bold text-4xl text-gray-900 mb-8">🎯 Como você se sente?</h2>
+                <p class="text-xl text-gray-700 mb-8">Seja honesto sobre sua compreensão dos exercícios:</p>
+                <div class="space-y-4" id="autoavaliacao-options"></div>
+            </div>
+        </section>
+
+        <!-- Recursos -->
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="font-bold text-3xl text-gray-900 mb-8">📚 Recursos Adicionais</h2>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="#" id="link-aula"
+                        class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-ifrn-green-500 transition group">
+                        <div class="text-4xl mb-4">📖</div>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2 group-hover:text-ifrn-green-700">Ver Aula
+                            Completa</h3>
+                        <p class="text-gray-600">Revise todo o conteúdo teórico</p>
+                    </a>
+
+                    <button onclick="imprimirExercicios()"
+                        class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-purple-500 transition group">
+                        <div class="text-4xl mb-4">🖨️</div>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2 group-hover:text-purple-700">Imprimir</h3>
+                        <p class="text-gray-600">Versão para impressão</p>
+                    </button>
+
+                    <button onclick="resetarProgresso()"
+                        class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-red-500 transition group">
+                        <div class="text-4xl mb-4">🔄</div>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2 group-hover:text-red-700">Resetar</h3>
+                        <p class="text-gray-600">Limpar progresso</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script type="module">
+        const DATA_PATH = 'data';
+        const CACHE_VERSION = '2024-11-24';
+
+        function getAulaFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const aula = params.get('aula');
+
+            if (!aula) {
+                window.location.href = 'aula-exercicios.html?aula=32';
+                return null;
+            }
+
+            const aulaNum = parseInt(aula);
+            if (isNaN(aulaNum) || aulaNum < 31 || aulaNum > 40) {
+                throw new Error(`Número de aula inválido: ${aula}`);
+            }
+
+            return aulaNum;
+        }
+
+        let currentWeek;
+
+        try {
+            currentWeek = getAulaFromURL();
+            if (!currentWeek) return;
+            document.getElementById('loading-week').textContent = `Semana ${currentWeek}`;
+        } catch (error) {
+            showError(error.message);
+            throw error;
+        }
+
+        async function loadExercisesData() {
+            try {
+                showLoading();
+
+                const url = `${DATA_PATH}/semana${currentWeek}.json?v=${CACHE_VERSION}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`Exercícios da Semana ${currentWeek} não encontrados.`);
+                }
+
+                const data = await response.json();
+                renderPage(data);
+                initInteractivity();
+                updateProgress();
+                showContent();
+
+            } catch (error) {
+                console.error('Erro:', error);
+                showError(error.message);
+            }
+        }
+
+        function renderPage(data) {
+            document.getElementById('page-title').textContent = `Exercícios - ${data.meta.title}`;
+            document.getElementById('back-link').href = `aula.html?aula=${currentWeek}`;
+            document.getElementById('link-aula').href = `aula.html?aula=${currentWeek}`;
+            document.getElementById('badge-text').textContent = `Semana ${currentWeek} • Exercícios`;
+            document.getElementById('headline').textContent = `Exercícios — Semana ${currentWeek}`;
+
+            // Exercícios em Sala
+            const exerciciosSala = data.sections.find(s =>
+                s.content?.some(c => c.type === 'exercicios')
+            );
+
+            if (exerciciosSala) {
+                const exerciciosContent = exerciciosSala.content.find(c => c.type === 'exercicios');
+                const section = document.getElementById('exercicios-sala-section');
+
+                section.innerHTML = `
+                    <div class="max-w-5xl mx-auto">
+                        <h2 class="font-bold text-4xl text-gray-900 mb-4">🏃‍♂️ Exercícios em Sala</h2>
+                        <p class="text-xl text-gray-700 mb-8">Pratique durante a aula com suporte do professor. Marque quando concluir.</p>
+
+                        <div class="space-y-6">
+                            ${exerciciosContent.exercises.map((ex, i) => `
+                                <div class="checkbox-item bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                                    <div class="flex items-start gap-6">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-14 h-14 bg-purple-600 text-white rounded-xl flex items-center justify-center text-2xl font-bold">
+                                                ${i + 1}
+                                            </div>
+                                            <div class="mt-4 flex justify-center">
+                                                <input type="checkbox" id="ex-sala-${i}" class="w-6 h-6 cursor-pointer">
+                                            </div>
+                                        </div>
+                                        <div class="flex-1">
+                                            <h3 class="font-bold text-2xl text-gray-900 mb-3">${ex.title}</h3>
+                                            <p class="text-lg text-gray-700 mb-4">${ex.description}</p>
+                                            ${ex.hint ? `
+                                                <div class="bg-purple-50 rounded-lg p-4 border-l-4 border-purple-500">
+                                                    <p class="text-sm text-purple-900">
+                                                        <strong>💡 Dica:</strong> ${ex.hint}
+                                                    </p>
+                                                </div>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        ${exerciciosContent.objective ? `
+                            <div class="mt-8 bg-purple-50 border-l-4 border-purple-500 p-6 rounded-xl">
+                                <p class="font-bold text-purple-900 mb-2">🎯 Objetivo:</p>
+                                <p class="text-purple-800">${exerciciosContent.objective}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                const totalSala = exerciciosContent.exercises.length;
+                const totalLista = data.lista.items.length;
+                document.getElementById('total-exercicios').textContent = `${totalSala} sala + ${totalLista} lista`;
+            }
+
+            // Lista
+            document.getElementById('lista-header').innerHTML = `
+                <h2 class="font-bold text-4xl mb-4">${data.lista.title}</h2>
+                <p class="text-xl opacity-95 mb-2">${data.lista.entrega}</p>
+                <p class="text-lg opacity-90">${data.lista.intro}</p>
+            `;
+
+            document.getElementById('lista-items').innerHTML = data.lista.items.map((item, i) => `
+                <div class="checkbox-item bg-white rounded-2xl p-8 shadow-xl border-2 border-red-200">
+                    <div class="flex items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-red-600 text-white rounded-xl flex items-center justify-center text-3xl font-bold mb-4">
+                                ${item.number}
+                            </div>
+                            <div class="flex justify-center">
+                                <input type="checkbox" id="ex-lista-${i}" class="w-6 h-6 cursor-pointer">
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-2xl text-gray-900 mb-3">${item.title}</h3>
+                            <p class="text-lg text-gray-700 mb-4">${item.intro}</p>
+                            ${item.tasks ? `
+                                <ul class="space-y-2 text-gray-700 mb-4">
+                                    ${item.tasks.map(task => `
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-ifrn-green-600">•</span>
+                                            <span>${task}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            ` : ''}
+                            ${item.questions ? `
+                                <ul class="space-y-3 text-gray-700 mb-4">
+                                    ${item.questions.map((q, idx) => `
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-ifrn-green-600">${idx + 1}.</span>
+                                            <span>${q}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            ` : ''}
+                            ${item.note ? `
+                                <div class="bg-gray-50 rounded-xl p-4 border-l-4 border-gray-400 mt-4">
+                                    <p class="text-sm text-gray-700">${item.note}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('lista-alert').innerHTML = `
+                <p class="font-bold text-yellow-900 mb-2">${data.lista.alert.icon} ${data.lista.alert.title}</p>
+                <p class="text-yellow-800">${data.lista.alert.content}</p>
+            `;
+
+            // Autoavaliação
+            document.getElementById('autoavaliacao-options').innerHTML = data.autoavaliacao.options.map(option => `
+                <label class="flex items-start gap-4 p-6 bg-gray-100 hover:bg-gray-200 rounded-xl cursor-pointer border-2 border-gray-200 transition">
+                    <input type="radio" name="autoavaliacao" value="${option.value}" class="w-6 h-6 mt-1">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-1">${option.value} — ${option.label}</p>
+                        <p class="text-gray-600">${option.description}</p>
+                    </div>
+                </label>
+            `).join('');
+        }
+
+        function initInteractivity() {
+            const weekKey = `semana${currentWeek}_exercicios`;
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                const saved = localStorage.getItem(`${weekKey}_${checkbox.id}`);
+                if (saved === 'true') checkbox.checked = true;
+
+                checkbox.addEventListener('change', function () {
+                    localStorage.setItem(`${weekKey}_${this.id}`, this.checked);
+                    updateProgress();
+                });
+            });
+
+            const radioButtons = document.querySelectorAll('input[name="autoavaliacao"]');
+            const savedRating = localStorage.getItem(`${weekKey}_autoavaliacao`);
+            if (savedRating) {
+                const radioToCheck = document.querySelector(`input[name="autoavaliacao"][value="${savedRating}"]`);
+                if (radioToCheck) radioToCheck.checked = true;
+            }
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    localStorage.setItem(`${weekKey}_autoavaliacao`, this.value);
+                });
+            });
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const concluidos = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const progresso = total > 0 ? Math.round((concluidos / total) * 100) : 0;
+
+            document.getElementById('exercicios-concluidos').textContent = concluidos;
+            document.getElementById('progresso').textContent = `${progresso}%`;
+        }
+
+        window.imprimirExercicios = function () {
+            window.print();
+        };
+
+        window.resetarProgresso = function () {
+            if (confirm('Tem certeza que deseja resetar todo o progresso dos exercícios?')) {
+                const weekKey = `semana${currentWeek}_exercicios`;
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                    localStorage.removeItem(`${weekKey}_${cb.id}`);
+                });
+                localStorage.removeItem(`${weekKey}_autoavaliacao`);
+
+                document.querySelectorAll('input[name="autoavaliacao"]').forEach(rb => rb.checked = false);
+
+                updateProgress();
+                alert('✅ Progresso resetado com sucesso!');
+            }
+        };
+
+        function showLoading() {
+            document.getElementById('loading-state').classList.remove('hidden');
+            document.getElementById('error-state').classList.add('hidden');
+            document.getElementById('main-content').classList.add('hidden');
+        }
+
+        function showContent() {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('error-state').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+        function showError(message) {
+            document.getElementById('loading-state').classList.add('hidden');
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('error-state').classList.remove('hidden');
+            document.getElementById('error-message').textContent = message;
+        }
+
+        loadExercisesData();
+    </script>
+
+</body>
+
+</html>

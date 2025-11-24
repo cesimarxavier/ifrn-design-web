@@ -1,0 +1,462 @@
+{
+  "aulas": {
+    "semana32": {
+      "meta": {
+        "title": "Semana 32 — Variáveis, tipos e operadores | Autoria Web",
+        "week": 32,
+        "breadcrumb": {
+          "disciplina": {
+            "text": "Autoria Web",
+            "url": "#"
+          },
+          "bimestre": {
+            "text": "Bimestre 4",
+            "url": "#"
+          },
+          "semana": "Semana 32"
+        }
+      },
+      "hero": {
+        "badge": {
+          "icon": "📦",
+          "text": "JavaScript • Variáveis e Tipos"
+        },
+        "headline": "Semana 32 — Variáveis, tipos e operadores",
+        "subheadline": "Hoje você aprende a guardar informações no JavaScript e fazer operações simples com elas. Base sólida, sem pressa.",
+        "ctas": [
+          {
+            "text": "Começar pelos exemplos",
+            "href": "#exemplo1",
+            "style": "bg-ifrn-red-600 hover:bg-ifrn-red-500 text-white"
+          },
+          {
+            "text": "Ver lista da semana",
+            "href": "#lista",
+            "style": "bg-white bg-opacity-10 hover:bg-opacity-20 backdrop-blur text-white border-2 border-white"
+          }
+        ],
+        "infoCards": [
+          {
+            "label": "Duração",
+            "value": "2 aulas"
+          },
+          {
+            "label": "Tipo",
+            "value": "Teoria + Prática Guiada"
+          },
+          {
+            "label": "Bloom",
+            "value": "Compreender / Aplicar"
+          }
+        ]
+      },
+      "learningIntention": "Aprender a criar variáveis, reconhecer tipos básicos e usar operadores simples no JavaScript.",
+      "successCriteria": [
+        "Eu sei o que é uma variável e pra que serve",
+        "Eu consigo criar variáveis com <code class=\"bg-gray-100 px-2 py-1 rounded\">let</code> e <code class=\"bg-gray-100 px-2 py-1 rounded\">const</code>",
+        "Eu sei diferenciar texto (string) e número (number)",
+        "Eu consigo usar operadores (+, -, *, /) com variáveis",
+        "Eu consigo prever o que o console vai mostrar antes de rodar",
+        "Eu fiz os exercícios básicos da lista"
+      ],
+      "retomada": {
+        "icon": "↩️",
+        "title": "Retomada rápida da Semana 31",
+        "content": "Semana passada você rodou JS no console, viu <code class=\"bg-gray-200 px-2 py-1 rounded\">console.log()</code> funcionando e fez algumas contas básicas. Agora vamos organizar as \"caixinhas\" onde o JavaScript guarda informações. Essas caixinhas se chamam <strong>variáveis</strong>."
+      },
+      "sections": [
+        {
+          "id": "exemplo1",
+          "title": "📦 O que é uma variável?",
+          "background": "bg-gray-50",
+          "intro": null,
+          "content": [
+            {
+              "type": "grid",
+              "columns": "grid-cols-1",
+              "items": [
+                {
+                  "class": "bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-8",
+                  "content": "<p class=\"text-xl text-gray-700 mb-6 leading-relaxed\">Variável é uma <strong>caixinha com um nome</strong> onde você guarda um valor. Você pode olhar o que tem dentro sempre que quiser, e até trocar o conteúdo (se a caixinha permitir).</p>"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "columns": "md:grid-cols-2",
+              "items": [
+                {
+                  "class": "bg-ifrn-green-50 rounded-xl p-6 border-2 border-ifrn-green-200",
+                  "content": "<div class=\"flex items-center gap-3 mb-4\"><div class=\"w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center text-xl font-bold\">let</div><div><h4 class=\"font-bold text-ifrn-green-900\">Valor pode mudar</h4><p class=\"text-sm text-ifrn-green-700\">Use quando o conteúdo vai variar</p></div></div><div class=\"code-block text-sm\"><span class=\"text-purple-400\">let</span> idade = <span class=\"text-blue-400\">16</span>;<br><span class=\"text-green-400\">console.log</span>(idade); <span class=\"text-gray-500\">// 16</span><br><br>idade = <span class=\"text-blue-400\">17</span>; <span class=\"text-gray-500\">// mudou!</span><br><span class=\"text-green-400\">console.log</span>(idade); <span class=\"text-gray-500\">// 17</span></div>"
+                },
+                {
+                  "class": "bg-gray-100 rounded-xl p-6 border-2 border-gray-300",
+                  "content": "<div class=\"flex items-center gap-3 mb-4\"><div class=\"w-12 h-12 bg-gray-600 text-white rounded-xl flex items-center justify-center text-xl font-bold\">const</div><div><h4 class=\"font-bold text-gray-900\">Valor não muda</h4><p class=\"text-sm text-gray-700\">Use quando o valor é fixo</p></div></div><div class=\"code-block text-sm\"><span class=\"text-purple-400\">const</span> escola = <span class=\"text-orange-400\">\"IFRN\"</span>;<br><span class=\"text-green-400\">console.log</span>(escola); <span class=\"text-gray-500\">// IFRN</span><br><br><span class=\"text-gray-500\">// escola = \"outra\"; ❌ ERRO!</span><br><span class=\"text-gray-500\">// const não deixa mudar</span></div>"
+                }
+              ]
+            },
+            {
+              "type": "code-example",
+              "title": "Exemplo completo:",
+              "code": "&lt;script&gt;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> idade = <span class=\"text-blue-400\">16</span>;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">const</span> escola = <span class=\"text-orange-400\">\"IFRN\"</span>;<br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(idade);<br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(escola);<br>&lt;/script&gt;",
+              "console": [
+                "16",
+                "IFRN"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "🏷️ Tipos básicos de dados",
+          "background": "bg-white",
+          "intro": "Toda variável guarda um <strong>tipo</strong> de dado. Os 3 tipos mais importantes pra você agora são:",
+          "content": [
+            {
+              "type": "grid",
+              "columns": "md:grid-cols-3",
+              "items": [
+                {
+                  "class": "bg-blue-50 rounded-2xl p-6 border-2 border-blue-200",
+                  "icon": "🔢",
+                  "title": "number",
+                  "titleClass": "text-blue-900",
+                  "subtitle": "Números (inteiros ou decimais)",
+                  "subtitleClass": "text-blue-800",
+                  "code": "<div class=\"bg-white rounded-lg p-3 font-mono text-sm\"><p>let idade = 17;</p><p>let nota = 8.5;</p></div>"
+                },
+                {
+                  "class": "bg-orange-50 rounded-2xl p-6 border-2 border-orange-200",
+                  "icon": "💬",
+                  "title": "string",
+                  "titleClass": "text-orange-900",
+                  "subtitle": "Textos (entre aspas)",
+                  "subtitleClass": "text-orange-800",
+                  "code": "<div class=\"bg-white rounded-lg p-3 font-mono text-sm\"><p>let nome = \"Ana\";</p><p>let cidade = \"Natal\";</p></div>"
+                },
+                {
+                  "class": "bg-green-50 rounded-2xl p-6 border-2 border-green-200",
+                  "icon": "✓✗",
+                  "title": "boolean",
+                  "titleClass": "text-green-900",
+                  "subtitle": "Verdadeiro ou falso",
+                  "subtitleClass": "text-green-800",
+                  "code": "<div class=\"bg-white rounded-lg p-3 font-mono text-sm\"><p>let aprovado = true;</p><p>let temCarro = false;</p></div>"
+                }
+              ]
+            },
+            {
+              "type": "code-example",
+              "title": "Exemplo com os 3 tipos:",
+              "code": "&lt;script&gt;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> nota = <span class=\"text-blue-400\">8.5</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"text-gray-500\">// number</span><br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> nome = <span class=\"text-orange-400\">\"Ana\"</span>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"text-gray-500\">// string</span><br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> aprovado = <span class=\"text-blue-400\">true</span>;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"text-gray-500\">// boolean</span><br><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(nota, nome, aprovado);<br>&lt;/script&gt;",
+              "console": [
+                "8.5 \"Ana\" true"
+              ]
+            },
+            {
+              "type": "alert",
+              "bgClass": "bg-yellow-50",
+              "borderClass": "border-yellow-500",
+              "titleClass": "text-yellow-900",
+              "contentClass": "text-yellow-800",
+              "icon": "💡",
+              "title": "Dica importante:",
+              "content": "String sempre tem aspas (simples ou duplas). Sem aspas, o JS acha que é uma variável."
+            }
+          ]
+        },
+        {
+          "title": "➕➖✖️➗ Operadores básicos",
+          "background": "bg-gray-50",
+          "intro": "Operadores são <strong>ações que você faz com valores</strong>. Os 4 mais básicos são as operações matemáticas:",
+          "content": [
+            {
+              "type": "grid",
+              "columns": "md:grid-cols-4",
+              "items": [
+                {
+                  "class": "bg-white rounded-xl p-6 text-center border-2 border-gray-200",
+                  "content": "<div class=\"text-4xl font-bold text-ifrn-green-600 mb-2\">+</div><p class=\"font-bold text-gray-900\">Soma</p><p class=\"text-sm text-gray-600 mt-2\">5 + 3 = 8</p>"
+                },
+                {
+                  "class": "bg-white rounded-xl p-6 text-center border-2 border-gray-200",
+                  "content": "<div class=\"text-4xl font-bold text-ifrn-green-600 mb-2\">-</div><p class=\"font-bold text-gray-900\">Subtração</p><p class=\"text-sm text-gray-600 mt-2\">10 - 4 = 6</p>"
+                },
+                {
+                  "class": "bg-white rounded-xl p-6 text-center border-2 border-gray-200",
+                  "content": "<div class=\"text-4xl font-bold text-ifrn-green-600 mb-2\">*</div><p class=\"font-bold text-gray-900\">Multiplicação</p><p class=\"text-sm text-gray-600 mt-2\">5 * 7 = 35</p>"
+                },
+                {
+                  "class": "bg-white rounded-xl p-6 text-center border-2 border-gray-200",
+                  "content": "<div class=\"text-4xl font-bold text-ifrn-green-600 mb-2\">/</div><p class=\"font-bold text-gray-900\">Divisão</p><p class=\"text-sm text-gray-600 mt-2\">20 / 4 = 5</p>"
+                }
+              ]
+            },
+            {
+              "type": "code-example",
+              "title": "Usando operadores com variáveis:",
+              "code": "&lt;script&gt;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> a = <span class=\"text-blue-400\">10</span>;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> b = <span class=\"text-blue-400\">2</span>;<br><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(a + b); <span class=\"text-gray-500\">// 12</span><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(a - b); <span class=\"text-gray-500\">// 8</span><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(a * b); <span class=\"text-gray-500\">// 20</span><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(a / b); <span class=\"text-gray-500\">// 5</span><br>&lt;/script&gt;",
+              "console": [
+                "12",
+                "8",
+                "20",
+                "5"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "⚠️ Atenção: soma de texto ≠ soma de número",
+          "background": "bg-white",
+          "intro": "O operador <code class=\"bg-gray-200 px-2 py-1 rounded\">+</code> tem <strong>dois comportamentos</strong>:",
+          "content": [
+            {
+              "type": "grid",
+              "columns": "md:grid-cols-2",
+              "items": [
+                {
+                  "class": "bg-blue-50 rounded-2xl p-6 border-2 border-blue-300",
+                  "content": "<h3 class=\"font-bold text-xl text-blue-900 mb-3\">Número + Número = Soma</h3><p class=\"text-blue-800 mb-4\">Quando os dois lados são numbers, ele soma.</p><div class=\"code-block text-sm\"><span class=\"text-purple-400\">let</span> x = <span class=\"text-blue-400\">5</span>;<br><span class=\"text-purple-400\">let</span> y = <span class=\"text-blue-400\">3</span>;<br><span class=\"text-green-400\">console.log</span>(x + y); <span class=\"text-gray-500\">// 8</span></div>"
+                },
+                {
+                  "class": "bg-orange-50 rounded-2xl p-6 border-2 border-orange-300",
+                  "content": "<h3 class=\"font-bold text-xl text-orange-900 mb-3\">Texto + Texto = Junta</h3><p class=\"text-orange-800 mb-4\">Quando tem string, ele junta (concatena).</p><div class=\"code-block text-sm\"><span class=\"text-purple-400\">let</span> nome = <span class=\"text-orange-400\">\"João\"</span>;<br><span class=\"text-green-400\">console.log</span>(nome + <span class=\"text-orange-400\">\" Silva\"</span>);<br><span class=\"text-gray-500\">// \"João Silva\"</span></div>"
+                }
+              ]
+            },
+            {
+              "type": "code-example",
+              "title": "Exemplo completo:",
+              "code": "&lt;script&gt;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> x = <span class=\"text-blue-400\">5</span>;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> y = <span class=\"text-blue-400\">3</span>;<br>&nbsp;&nbsp;<span class=\"text-purple-400\">let</span> nome = <span class=\"text-orange-400\">\"João\"</span>;<br><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(x + y);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"text-gray-500\">// 8 (soma)</span><br>&nbsp;&nbsp;<span class=\"text-green-400\">console.log</span>(nome + <span class=\"text-orange-400\">\" Silva\"</span>); <span class=\"text-gray-500\">// \"João Silva\" (junta)</span><br>&lt;/script&gt;",
+              "console": [
+                "8",
+                "João Silva"
+              ]
+            },
+            {
+              "type": "alert",
+              "bgClass": "bg-red-50",
+              "borderClass": "border-red-500",
+              "titleClass": "text-red-900",
+              "contentClass": "text-red-800",
+              "icon": "🚨",
+              "title": "Erro comum:",
+              "content": "Se você colocar número + string, o JS junta tudo como texto:<br><div class=\"code-block text-sm mt-3\"><span class=\"text-green-400\">console.log</span>(<span class=\"text-blue-400\">5</span> + <span class=\"text-orange-400\">\"3\"</span>); <span class=\"text-gray-500\">// \"53\" (não é 8!)</span></div>"
+            }
+          ]
+        },
+        {
+          "background": "bg-gradient-to-br from-blue-50 to-blue-100 border-t-4 border-blue-500",
+          "content": [
+            {
+              "type": "aula-moment",
+              "badgeClass": "bg-blue-600",
+              "badge": "📚 Momento Aula 1",
+              "title": "Teoria curta + Exemplos guiados",
+              "intro": "Nesta aula você vai ver teoria e acompanhar exemplos práticos. Próxima aula você faz na mão.",
+              "contentTitle": "📋 Conteúdo da Aula 1:",
+              "borderClass": "border-blue-200",
+              "stepClass": "bg-blue-600",
+              "steps": [
+                {
+                  "title": "Variáveis (let e const)",
+                  "description": "O que são, como criar, quando usar cada uma"
+                },
+                {
+                  "title": "Tipos básicos (number, string, boolean)",
+                  "description": "Reconhecer cada tipo e saber quando usar"
+                },
+                {
+                  "title": "Operadores matemáticos (+, -, *, /)",
+                  "description": "Fazer contas com variáveis"
+                },
+                {
+                  "title": "Diferença entre somar e concatenar",
+                  "description": "Entender quando + soma e quando + junta"
+                }
+              ],
+              "activity": {
+                "icon": "💻",
+                "title": "Mini-atividade ao final da Aula 1",
+                "intro": "Tempo estimado: 5–10 minutos. Faça junto com o professor.",
+                "bgClass": "from-ifrn-green-700 to-ifrn-green-600",
+                "steps": [
+                  "Crie (ou abra) um arquivo <code class=\"bg-white bg-opacity-20 px-2 py-1 rounded\">js-playground.html</code>",
+                  "Declare 3 variáveis: uma number, uma string, uma boolean",
+                  "Faça 2 contas usando variáveis (ex.: soma e multiplicação)",
+                  "Mostre tudo no console com <code class=\"bg-white bg-opacity-20 px-2 py-1 rounded\">console.log()</code>"
+                ],
+                "objective": "Praticar o básico antes de sair da aula. Se travar, chama o professor."
+              }
+            }
+          ]
+        },
+        {
+          "background": "bg-gradient-to-br from-purple-50 to-purple-100 border-t-4 border-purple-500",
+          "content": [
+            {
+              "type": "aula-moment",
+              "badgeClass": "bg-purple-600",
+              "badge": "🛠️ Momento Aula 2",
+              "title": "Prática guiada + Reforço",
+              "intro": "Agora você faz na mão. Repetir, variar e prever saídas do console antes de rodar.",
+              "contentTitle": "🎯 Objetivo prático:",
+              "borderClass": "border-purple-200",
+              "stepClass": "bg-purple-600",
+              "steps": [
+                {
+                  "title": "Leia o código",
+                  "description": "Entenda o que cada linha faz"
+                },
+                {
+                  "title": "Anote no caderno o que você acha que vai aparecer",
+                  "description": "Faça sua previsão antes de rodar"
+                },
+                {
+                  "title": "Rode no navegador",
+                  "description": "Execute o código e veja o resultado"
+                },
+                {
+                  "title": "Compare: acertou? Por quê? Errou? O que aconteceu?",
+                  "description": "Reflita sobre o resultado"
+                }
+              ],
+              "activity": {
+                "icon": "🔁",
+                "title": "Reforço próximo:",
+                "intro": "Agora troca os valores e refaz <strong>3 vezes</strong>:",
+                "bgClass": "from-purple-600 to-purple-700",
+                "steps": [
+                  "Teste 1: Muda preço e quantidade",
+                  "Teste 2: Muda o nome do produto",
+                  "Teste 3: Adiciona mais uma variável (ex.: desconto)"
+                ],
+                "objective": "Você precisa rodar variações pra fixar. Repetir é aprender."
+              }
+            }
+          ]
+        },
+        {
+          "title": "🏃‍♂️ Exercícios em Sala",
+          "background": "bg-white",
+          "intro": "Esses são pra fazer durante a aula, com suporte do professor. Tenta fazer sozinho primeiro.",
+          "content": [
+            {
+              "type": "exercicios",
+              "exercises": [
+                {
+                  "title": "Calcular área de retângulo",
+                  "description": "Crie variáveis <code class=\"bg-gray-100 px-2 py-1 rounded\">largura</code> e <code class=\"bg-gray-100 px-2 py-1 rounded\">altura</code>. Calcule <code class=\"bg-gray-100 px-2 py-1 rounded\">area</code> (largura × altura) e mostre no console.",
+                  "hint": "area = largura * altura"
+                },
+                {
+                  "title": "Juntar nome completo",
+                  "description": "Crie variáveis <code class=\"bg-gray-100 px-2 py-1 rounded\">nome</code> e <code class=\"bg-gray-100 px-2 py-1 rounded\">sobrenome</code>. Mostre o nome completo no console.",
+                  "hint": "Use + pra juntar strings (não esqueça do espaço entre!)"
+                },
+                {
+                  "title": "Usar boolean",
+                  "description": "Crie uma variável <code class=\"bg-gray-100 px-2 py-1 rounded\">aprovado</code> com valor <code class=\"bg-gray-100 px-2 py-1 rounded\">false</code>. Mostre no console.",
+                  "hint": "true e false não levam aspas (não são strings)"
+                }
+              ],
+              "objective": "Praticar os 3 conceitos numa sequência controlada: number, string, boolean. Se você fez os 3, os conceitos estão fixados."
+            }
+          ]
+        }
+      ],
+      "lista": {
+        "title": "📋 Lista da Semana 32",
+        "entrega": "Entrega: até próxima aula (Semana 33)",
+        "intro": "Essa lista é pra fixar os conceitos. Não precisa ser perfeito, precisa ser feito.",
+        "items": [
+          {
+            "number": "1️⃣",
+            "title": "Variáveis e tipos",
+            "intro": "Crie um arquivo <code class=\"bg-gray-100 px-2 py-1 rounded\">lista-semana32.html</code> e declare:",
+            "tasks": [
+              "<strong>3 variáveis number</strong> (ex.: idade, altura, nota)",
+              "<strong>3 variáveis string</strong> (ex.: nome, cidade, escola)",
+              "<strong>2 variáveis boolean</strong> (ex.: temCarteira, gostaDeWeb)"
+            ],
+            "note": "Mostre todas as variáveis no console com <code class=\"bg-gray-200 px-2 py-1 rounded\">console.log()</code>"
+          },
+          {
+            "number": "2️⃣",
+            "title": "Operações",
+            "intro": "Usando números, calcule:",
+            "tasks": [
+              "<strong>Média de 3 notas</strong> (soma as 3 e divide por 3)",
+              "<strong>Área de um retângulo</strong> (largura × altura)",
+              "<strong>Desconto simples</strong> (ex.: preço - (preço * 0.10) pra 10% off)"
+            ],
+            "note": "Mostre cada resultado no console com uma mensagem explicativa"
+          },
+          {
+            "number": "3️⃣",
+            "title": "Previsão do console",
+            "intro": "Em cada exercício, <strong>antes de rodar</strong>:",
+            "tasks": [
+              "Escreva no caderno o resultado esperado",
+              "Rode no navegador",
+              "Compare: acertou? Errou? Por quê?"
+            ]
+          },
+          {
+            "number": "4️⃣",
+            "title": "Reflexão curta",
+            "intro": "Crie um arquivo <code class=\"bg-gray-100 px-2 py-1 rounded\">learning-log.md</code> (ou escreva no caderno) e responda:",
+            "questions": [
+              "O que é uma variável?",
+              "Qual a diferença de <code class=\"bg-gray-100 px-2 py-1 rounded\">let</code> e <code class=\"bg-gray-100 px-2 py-1 rounded\">const</code>?",
+              "Qual exercício você achou mais fácil e por quê?"
+            ],
+            "note": "<strong>Objetivo:</strong> Reflexão ajuda a fixar conceitos. Escreve em 3–5 linhas, sem enrolar."
+          }
+        ],
+        "alert": {
+          "icon": "⚠️",
+          "title": "Lembre-se:",
+          "content": "Essa lista é pra fixar o básico. Não precisa ser perfeito, precisa ser feito. Se travar, anota a dúvida e traz na próxima aula."
+        }
+      },
+      "autoavaliacao": {
+        "title": "🎯 Mini-Autoavaliação",
+        "intro": "Seja honesto. Como você se sente com os conteúdos desta semana?",
+        "options": [
+          {
+            "value": "0",
+            "label": "Não consegui",
+            "description": "Não entendi nada, preciso começar de novo"
+          },
+          {
+            "value": "1",
+            "label": "Só copiando",
+            "description": "Consigo copiar e colar, mas não sei fazer sozinho"
+          },
+          {
+            "value": "2",
+            "label": "Com ajuda",
+            "description": "Consigo fazer consultando material ou perguntando"
+          },
+          {
+            "value": "3",
+            "label": "Sozinho",
+            "description": "Consigo fazer sem ajuda, sei o que estou fazendo"
+          },
+          {
+            "value": "4",
+            "label": "Consigo explicar",
+            "description": "Domino o conteúdo e posso ensinar colegas"
+          }
+        ]
+      },
+      "fechamento": {
+        "title": "🎯 Semana 32: Base Sólida",
+        "intro": "Semana 32 te dá o alfabeto do JavaScript. Variáveis, tipos, operadores — são os tijolos de tudo que vem depois.",
+        "nextWeek": "<strong>Semana 33</strong> entra lógica de decisão (if/else). Se variáveis ficaram claras, a próxima etapa vai fluir. Se não ficou claro, volta aqui e refaz os exemplos.",
+        "quote": "Se você entendeu variáveis, você já tem a mochila. Agora vamos sair da sala.",
+        "footer": "Dúvidas? Traz na próxima aula. Melhor perguntar do que ficar travado."
+      }
+    }
+  }
+}
