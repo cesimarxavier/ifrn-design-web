@@ -136,7 +136,7 @@
 
             <!-- Tag -->
             <div class="inline-block mb-6 px-4 py-2 bg-purple-100 text-purple-700 rounded-full font-semibold text-sm">
-                🔧 Laboratório Prático
+                Laboratório Prático
             </div>
 
             <h1 class="font-display font-extrabold text-4xl md:text-6xl text-ifrn-green-800 mb-6 leading-tight">
@@ -144,16 +144,18 @@
             </h1>
 
             <p class="text-xl md:text-2xl text-ifrn-green-700 mb-8 leading-relaxed max-w-3xl">
-                Hoje você vai pegar o mini-projeto da Semana 8 e refatorar usando DaisyUI. Mesma funcionalidade, código
+                Hoje você vai pegar o mini-projeto <strong>Landing Page 1</strong> e refatorar usando DaisyUI. Mesmas
+                funcionalidades, código
                 mais limpo, velocidade de desenvolvimento turbinada.
+
             </p>
 
-            <a href="#" class="inline-block btn-primary text-white font-bold py-5 px-10 rounded-full text-lg">
+            <a href="#" class="inline-block btn-primary text-white font-bold py-5 px-10 rounded-full text-lg hidden">
                 📂 Abrir Repositório da Semana
             </a>
 
             <!-- Alerta importante -->
-            <div class="mt-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
+            <div class="mt-12 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl hidden">
                 <div class="flex items-start gap-4">
                     <div class="text-3xl">⚠️</div>
                     <div>
@@ -165,27 +167,28 @@
                     </div>
                 </div>
             </div>
+            <!-- Objetivo Prático -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-display font-bold text-3xl mb-4">Objetivo Prático</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Refatorar um mini-projeto usando DaisyUI, mantendo identidade visual e
+                                    responsividade. O resultado final precisa ser igual (ou melhor) — mas com menos
+                                    código.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 
-    <!-- Objetivo Prático -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="text-4xl">🎯</div>
-                    <div>
-                        <h2 class="font-display font-bold text-3xl mb-4">Objetivo Prático</h2>
-                        <p class="text-xl opacity-95 leading-relaxed">
-                            Refatorar o mini-projeto da Semana 8 usando DaisyUI, mantendo identidade visual e
-                            responsividade. O resultado final precisa ser igual (ou melhor) — mas com menos código.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+
 
     <!-- Critérios de Sucesso -->
     <section class="py-12 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
@@ -242,7 +245,7 @@
                     <input type="checkbox"
                         class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
                     <span class="text-ifrn-green-800">
-                        <strong>PR com evidências:</strong> Subi Pull Request com prints + checklist preenchido.
+                        <strong>Commit com evidências:</strong> Subi <i>commit</i> com código atualizado.
                     </span>
                 </label>
             </div>
@@ -253,11 +256,12 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-4">
-                🏃‍♂️ Sprint Guiada (Passo a Passo)
+                Sprint Guiada (Passo a Passo)
             </h2>
             <p class="text-lg text-ifrn-green-700 mb-10">
                 Siga essa ordem. Não pule etapas. Commite incremental (pequenos commits são melhores que um commit
-                gigante).
+                gigante). Isso ajuda quando for necessário fazer algum <i>restore</i>. Você precisa voltar apenas um
+                passo e não todos de uma só vez.
             </p>
 
             <div class="space-y-6">
@@ -266,7 +270,7 @@
                     <div class="step-number">1</div>
                     <div class="flex-1">
                         <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Escolha 4 componentes para refatorar
+                            Escolha 4 componentes para trabalhar
                         </h3>
                         <p class="text-ifrn-green-700 mb-4">
                             Sugestões de combinação ideal:
@@ -306,7 +310,7 @@
                             class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition mb-4">
                             📖 Ver Componentes DaisyUI →
                         </a>
-                        <div class="bg-white p-4 rounded-xl border-l-4 border-purple-500">
+                        <div class="bg-purple-50 p-4 rounded border-l-2 border-purple-500">
                             <p class="text-sm text-ifrn-green-700">
                                 <strong>Dica:</strong> Copie o código exemplo e cole no seu projeto. Depois ajusta.
                             </p>
@@ -378,15 +382,15 @@
                         </p>
                         <div class="space-y-2">
                             <div class="code-block text-sm">
-                                git add navbar.html<br>
-                                git commit -m "refactor: migra navbar para DaisyUI"
+                                git add index.html<br>
+                                git commit -m "add: criando navbar para DaisyUI"
                             </div>
                             <div class="code-block text-sm">
-                                git add hero.html<br>
+                                git add index.html<br>
                                 git commit -m "refactor: substitui hero card por DaisyUI"
                             </div>
                         </div>
-                        <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500 mt-4">
+                        <div class="bg-green-50 p-4 rounded border-l-2 border-green-500 mt-4">
                             <p class="text-sm text-green-800">
                                 ✅ <strong>Por quê?</strong> Commits pequenos são mais fáceis de revisar e reverter se
                                 precisar.
@@ -399,10 +403,10 @@
     </section>
 
     <!-- Regras de Qualidade -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                ⚖️ Regras de Qualidade
+                Regras de Qualidade
             </h2>
 
             <div class="grid md:grid-cols-2 gap-6">
@@ -454,10 +458,9 @@
             </div>
 
             <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
-                <p class="font-bold text-yellow-800 mb-2">⚠️ Regra de Ouro:</p>
+                <p class="font-bold text-yellow-800 mb-2">Regra de Ouro:</p>
                 <p class="text-yellow-700">
-                    Se o componente DaisyUI não servir, volte pro Tailwind puro — mas <strong>explique por quê</strong>
-                    no PR. Essa justificativa vale pontos.
+                    Se o componente DaisyUI não servir, volte pro Tailwind puro.
                 </p>
             </div>
         </div>
@@ -467,25 +470,25 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-4xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                🐙 GitHub CLI — Fluxo Obrigatório
+                GitHub CLI — Fluxo Obrigatório
             </h2>
 
             <div class="bg-gray-900 rounded-2xl p-8 mb-8">
                 <p class="text-gray-300 mb-4 font-semibold">
-                    Depois de refatorar todos os componentes:
+                    Depois de criar ou refatorar todos os componentes:
                 </p>
                 <div class="code-block text-sm space-y-3">
                     <div><span class="text-green-400">$</span> git status</div>
                     <div class="text-gray-400"># Veja o que mudou</div>
                     <div><span class="text-green-400">$</span> git add .</div>
-                    <div><span class="text-green-400">$</span> git commit -m "refactor: migra componentes X para
+                    <div><span class="text-green-400">$</span> git commit -m "refactor: migra/cria componentes [X] para
                         DaisyUI"</div>
                     <div><span class="text-green-400">$</span> git push</div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-8 text-white mb-8">
-                <h3 class="font-bold text-2xl mb-4">📝 Abrir Pull Request</h3>
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-8 text-white mb-8 hidden">
+                <h3 class="font-bold text-2xl mb-4">Abrir Pull Request</h3>
                 <p class="text-lg opacity-95 mb-4">
                     Depois do push, vá no GitHub e abra um Pull Request da branch <code
                         class="bg-white bg-opacity-20 px-2 py-1 rounded">feat/semana9-daisyui-base</code> para <code
@@ -498,7 +501,7 @@
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+            <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 hidden">
                 <p class="font-bold text-blue-900 mb-2">💡 Dica Pro:</p>
                 <p class="text-blue-800">
                     Peça pra um colega revisar seu PR antes de mim. Code review em pares acelera o aprendizado!
@@ -508,7 +511,7 @@
     </section>
 
     <!-- Evidências Obrigatórias -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white hidden">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
                 📸 Evidências Obrigatórias no PR
@@ -558,98 +561,9 @@
         </div>
     </section>
 
-    <!-- Lista Semanal -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-8">
-                <h2 class="font-display font-bold text-3xl mb-4">
-                    📋 Lista Semanal (Entrega Semana 10)
-                </h2>
-                <p class="text-xl opacity-95">
-                    Essa lista fecha a Semana 9. Prazo: antes da aula da Semana 10.
-                </p>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            1</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
-                                Refatorar mais 2 componentes
-                            </h3>
-                            <p class="text-ifrn-green-700">
-                                Além dos 4 feitos hoje, pegue mais 2 componentes do seu projeto e migre pra DaisyUI.
-                                Sugestões: footer, formulário, alert/toast, badge/chip.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            2</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                                Atualizar <code class="bg-white px-2 py-1 rounded text-sm">learning-log.md</code>
-                            </h3>
-                            <p class="text-ifrn-green-700 mb-4">
-                                Crie (ou atualize) o arquivo <code
-                                    class="bg-white px-2 py-1 rounded text-sm">learning-log.md</code> na raiz do projeto
-                                e responda:
-                            </p>
-                            <div class="bg-white p-6 rounded-xl space-y-4">
-                                <div>
-                                    <p class="font-semibold text-ifrn-green-800 mb-2">1. Qual componente mais acelerou o
-                                        desenvolvimento?</p>
-                                    <p class="text-sm text-ifrn-green-600">Ex: "Os botões do DaisyUI economizaram 80% do
-                                        código..."</p>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-ifrn-green-800 mb-2">2. Onde você perdeu controle e
-                                        como resolveu?</p>
-                                    <p class="text-sm text-ifrn-green-600">Ex: "O navbar tinha padding fixo. Resolvi
-                                        adicionando classes Tailwind..."</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-orange-50 rounded-2xl p-8 border-2 border-orange-200">
-                    <div class="flex items-start gap-4">
-                        <div
-                            class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            3</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
-                                PR final com commits semânticos
-                            </h3>
-                            <p class="text-ifrn-green-700">
-                                Finalize o PR da semana 9 com pelo menos 2 commits claros: um pros 2 componentes extras
-                                e outro pro learning-log.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                <p class="font-bold text-green-800 mb-2">✅ Entrega completa:</p>
-                <p class="text-green-700">
-                    PR com 6 componentes refatorados + learning-log.md respondido + prints atualizados
-                </p>
-            </div>
-        </div>
-    </section>
 
     <!-- Fechamento -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-8">
                 <h2 class="font-display font-bold text-4xl mb-6">
@@ -666,27 +580,17 @@
 
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
-                    <div class="text-4xl mb-3">🎨</div>
                     <p class="font-bold text-lg mb-2">Temas Customizados</p>
                     <p class="text-sm opacity-90">Paletas de cores profissionais</p>
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
-                    <div class="text-4xl mb-3">📱</div>
                     <p class="font-bold text-lg mb-2">Dashboard Completo</p>
                     <p class="text-sm opacity-90">2-3 telas integradas</p>
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
-                    <div class="text-4xl mb-3">🔧</div>
                     <p class="font-bold text-lg mb-2">Customização Avançada</p>
                     <p class="text-sm opacity-90">Override de componentes</p>
                 </div>
-            </div>
-
-            <div class="bg-purple-500 bg-opacity-20 rounded-2xl p-6 border-2 border-purple-400 text-center">
-                <p class="text-lg opacity-95">
-                    <strong>Spoiler:</strong> Na Semana 10 você vai finalmente entender por que grandes empresas usam
-                    design systems. E vai construir o seu.
-                </p>
             </div>
 
             <div class="mt-12 pt-8 border-t border-white border-opacity-20 text-center">
