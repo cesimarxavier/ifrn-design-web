@@ -9,108 +9,8 @@
         content="Página profissional do Prof. [Nome] - Desenvolvimento Web, Frontend e Tecnologias Educacionais no IFRN">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        'ifrn': {
-                            'green': {
-                                50: '#e6f2ea',
-                                100: '#c4e2d1',
-                                500: '#2f6b48',
-                                700: '#1f4a32',
-                                800: '#143021',
-                                900: '#0d2016',
-                            },
-                            'red': {
-                                500: '#e63946',
-                                600: '#d62828',
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
-
-        .card {
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.15);
-        }
-
-        .discipline-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .discipline-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #2f6b48, #1f4a32);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .discipline-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .navbar {
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid rgba(47, 107, 72, 0.1);
-        }
-
-        .profile-image {
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(135deg, #e6f2ea, #c4e2d1);
-            border: 4px solid #2f6b48;
-        }
-
-        .section-title {
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: #2f6b48;
-        }
-    </style>
+    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body class="bg-gray-50">
@@ -124,7 +24,7 @@
                         class="w-10 h-10 bg-ifrn-green-700 rounded-lg flex items-center justify-center text-white font-bold">
                         IF
                     </div>
-                    <span class="font-bold text-lg text-ifrn-green-800">Prof. [Nome]</span>
+                    <span class="font-bold text-lg text-ifrn-green-800">Prof. Cesimar Xavier</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
                     <a href="#sobre" class="text-gray-700 hover:text-ifrn-green-700 transition font-medium">Sobre</a>
@@ -184,15 +84,15 @@
                     <div class="flex flex-wrap gap-3">
                         <span
                             class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
-                            📧 [cesimar.xavier]@ifrn.edu.br
+                            [cesimar.xavier]@ifrn.edu.br
                         </span>
                         <span
                             class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
-                            🐙 GitHub: @[cesimarxavier]
+                            GitHub: @[cesimarxavier]
                         </span>
                         <span
                             class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-semibold border border-gray-300">
-                            📚 Lattes
+                            Lattes
                         </span>
                     </div>
                 </div>
@@ -201,19 +101,19 @@
             <!-- Estatísticas -->
             <div class="mt-12 grid md:grid-cols-4 gap-6">
                 <div
-                    class="bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 rounded-2xl p-6 text-white text-center">
+                    class="bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 rounded-md p-6 text-white text-center">
                     <div class="text-4xl font-bold mb-2">10+</div>
                     <p class="text-ifrn-green-100">Anos de Experiência</p>
                 </div>
-                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-md p-6 text-white text-center">
                     <div class="text-4xl font-bold mb-2">3</div>
                     <p class="text-gray-200">Disciplinas Ativas</p>
                 </div>
-                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-md p-6 text-white text-center">
                     <div class="text-4xl font-bold mb-2">500+</div>
                     <p class="text-gray-200">Alunos Formados</p>
                 </div>
-                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl p-6 text-white text-center">
+                <div class="bg-gradient-to-br from-gray-700 to-gray-800 rounded-md p-6 text-white text-center">
                     <div class="text-4xl font-bold mb-2">5</div>
                     <p class="text-gray-200">Projetos Ativos</p>
                 </div>
@@ -228,128 +128,8 @@
                 Disciplinas
             </h2>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Autoria Web -->
-                <a href="autoria-web-disciplina.html"
-                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center text-3xl">
-                            🌐
-                        </div>
-                        <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">
-                            60h • 4 Bimestres
-                        </span>
-                    </div>
+            <div id="discipline-grid" class="grid md:grid-cols-2 gap-8"></div>
 
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
-                        Autoria Web
-                    </h3>
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                        Disciplina introdutória de desenvolvimento web. Do zero absoluto até um site completo publicado.
-                        HTML semântico, CSS moderno (Flexbox/Grid) e JavaScript com DOM.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">HTML</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">CSS</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">JavaScript</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Git</span>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm text-gray-600">
-                        <span>📚 Ensino Médio Integrado</span>
-                        <span class="text-ifrn-green-700 font-semibold">Acessar disciplina →</span>
-                    </div>
-                </a>
-
-                <!-- Design Web -->
-                <a href="design-web-disciplina.html"
-                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center text-3xl">
-                            🎨
-                        </div>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
-                            30h • 1 Semestre
-                        </span>
-                    </div>
-
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
-                        Design Web
-                    </h3>
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                        Disciplina intermediária focada em Tailwind CSS, DaisyUI e Alpine.js. Para quem já domina
-                        HTML/CSS básico e quer acelerar desenvolvimento com frameworks modernos.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Tailwind
-                            CSS</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">DaisyUI</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Alpine.js</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">GitHub</span>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm text-gray-600">
-                        <span>📚 Ensino Médio Integrado</span>
-                        <span class="text-ifrn-green-700 font-semibold">Acessar disciplina →</span>
-                    </div>
-                </a>
-
-                <!-- Git & GitHub -->
-                <a href="git-github-curso.html"
-                    class="discipline-card bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 card block">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 bg-gray-700 rounded-xl flex items-center justify-center text-3xl">
-                            🐙
-                        </div>
-                        <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-bold">
-                            12h • Complementar
-                        </span>
-                    </div>
-
-                    <h3 class="font-bold text-2xl text-gray-900 mb-3">
-                        Git & GitHub via CLI
-                    </h3>
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                        Curso gamificado de versionamento profissional. Comandos Git via terminal, fluxo de trabalho com
-                        branches, Pull Requests e colaboração em equipe.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Git
-                            CLI</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">GitHub</span>
-                        <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">Workflows</span>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm text-gray-600">
-                        <span>📚 Todos os níveis</span>
-                        <span class="text-ifrn-green-700 font-semibold">Acessar curso →</span>
-                    </div>
-                </a>
-
-                <!-- Card em branco para futuras disciplinas -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-dashed border-gray-300">
-                    <div class="flex flex-col items-center justify-center h-full text-center py-8">
-                        <div class="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center text-3xl mb-4">
-                            ➕
-                        </div>
-                        <h3 class="font-bold text-xl text-gray-700 mb-2">
-                            Novas Disciplinas em Breve
-                        </h3>
-                        <p class="text-gray-500 text-sm">
-                            Mais conteúdos e cursos serão adicionados
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -366,79 +146,73 @@
             <div class="grid md:grid-cols-3 gap-6">
                 <!-- Repositórios Exemplo -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">📂</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Repositórios Exemplo</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         Código de referência organizado por disciplina e semana. Projetos completos comentados.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        GitHub <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
 
                 <!-- Documentação -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">📚</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Documentação</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         Links curados: MDN, W3C, documentação oficial de frameworks e ferramentas.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        Ver links <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
 
                 <!-- Tutoriais -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">🎥</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Tutoriais</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         Vídeos, artigos e guias passo a passo criados especialmente para as disciplinas.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        Acessar <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
 
                 <!-- Ferramentas -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">🔧</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Ferramentas</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         VS Code, extensões recomendadas, Git, Chrome DevTools e outras ferramentas essenciais.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        Ver lista <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
 
                 <!-- Exercícios -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">✏️</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Exercícios Extra</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         Desafios, katas e projetos bônus para praticar além das aulas regulares.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        Praticar <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
 
                 <!-- Cheatsheets -->
                 <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 card">
-                    <div class="text-4xl mb-4">📋</div>
                     <h3 class="font-bold text-xl text-gray-900 mb-3">Cheatsheets</h3>
                     <p class="text-gray-600 mb-4 text-sm">
                         Folhas de referência rápida: HTML tags, CSS properties, Git commands, JS syntax.
                     </p>
                     <a href="#"
                         class="inline-flex items-center gap-2 text-ifrn-green-700 font-semibold text-sm hover:gap-3 transition-all">
-                        Download <span>→</span>
+                        Em breve <span>→</span>
                     </a>
                 </div>
             </div>
