@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 38 — Projeto Integrado 1 | Autoria Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #d1d5db;
+            border: 2px solid #374151;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
+                    /
+                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
+                        4</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 38</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                🎯 Projeto Integrado
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 38 — Projeto Integrado 1
+            </h1>
+
+            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Hora de juntar tudo! Você vai criar uma aplicação completa usando HTML, CSS e JavaScript: um mini to-do
+                list com tema claro/escuro e funcionalidades dinâmicas.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#projeto" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Ver o projeto
+                </a>
+                <a href="#requisitos"
+                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
+                    Requisitos
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Tipo</p>
+                    <p class="text-sm text-gray-600">Projeto prático completo</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
+                    <p class="text-sm text-gray-600">Criar / Avaliar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Integrar todos os conhecimentos das semanas anteriores (DOM, eventos, classes,
+                                    criação de elementos) em um projeto completo e funcional: um mini to-do list com
+                                    tema claro/escuro.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                ✅ Critérios de sucesso
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Marque conforme você for completando cada parte do projeto:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Estrutura HTML:</strong> Criei o HTML com input, botão e lista
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Adicionar tarefa:</strong> Consigo adicionar tarefas na lista
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Remover tarefa:</strong> Cada tarefa tem botão X que funciona
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Dark mode:</strong> Botão de tema claro/escuro funciona
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>CSS básico:</strong> Página tem visual organizado e limpo
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Validação:</strong> Não adiciona tarefa vazia
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recap das Semanas -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📚 O que você já aprendeu
+            </h2>
+
+            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500 mb-8">
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Nas últimas semanas você dominou os fundamentos do JavaScript para web. Veja tudo que você já sabe
+                    fazer:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-3">🌳 DOM & Seleção</h3>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• querySelector / querySelectorAll</li>
+                            <li>• getElementById</li>
+                            <li>• Navegar pela árvore do DOM</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-3">✏️ Manipulação</h3>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• innerText / innerHTML</li>
+                            <li>• setAttribute / .src / .href</li>
+                            <li>• classList (add, remove, toggle)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-3">⚡ Eventos</h3>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• addEventListener (click, keyup, submit)</li>
+                            <li>• preventDefault</li>
+                            <li>• Objeto event</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-900 mb-3">➕ Criar/Remover</h3>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• createElement</li>
+                            <li>• append / prepend</li>
+                            <li>• .remove()</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-50 rounded-xl p-6 border-l-4 border-ifrn-green-500">
+                <p class="font-bold text-ifrn-green-900 mb-2">🎯 Agora é a hora de usar TUDO isso junto!</p>
+                <p class="text-ifrn-green-800">
+                    O projeto de hoje integra todos esses conceitos em uma aplicação real e funcional.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Projeto -->
+    <section id="projeto" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    🎯 O Projeto: Mini To-Do List
+                </h2>
+                <p class="text-xl opacity-95">
+                    Uma aplicação completa para gerenciar tarefas com tema claro/escuro.
+                </p>
+            </div>
+
+            <!-- Wireframe Visual -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">Como deve ficar:</h3>
+
+                <div class="bg-gray-100 rounded-xl p-8 border-2 border-gray-300">
+                    <div class="bg-white rounded-lg p-6 shadow-lg max-w-md mx-auto">
+                        <div class="flex justify-between items-center mb-6">
+                            <h1 class="text-2xl font-bold text-gray-900">Minhas Tarefas</h1>
+                            <button class="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm">🌙 Dark</button>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Nova tarefa..."
+                                    class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg">
+                                <button class="px-6 py-3 bg-green-600 text-white rounded-lg font-bold">+</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <div
+                                class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <span class="text-gray-800">Estudar JavaScript</span>
+                                <button class="text-red-500 font-bold">✕</button>
+                            </div>
+                            <div
+                                class="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <span class="text-gray-800">Fazer exercícios</span>
+                                <button class="text-red-500 font-bold">✕</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requisitos -->
+    <section id="requisitos" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📋 Requisitos do Projeto
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Requisito 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">1</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Estrutura HTML</h3>
+                            <p class="text-gray-700 mb-4">Crie a estrutura básica:</p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Título da página (h1)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Botão de tema (Dark/Light)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Input para digitar tarefa</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Botão "Adicionar" (+)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Div ou ul vazia para as tarefas</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisito 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">2</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Funcionalidade: Adicionar Tarefa</h3>
+                            <p class="text-gray-700 mb-4">Quando clicar no botão "Adicionar":</p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Verificar se o input não está vazio</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Criar uma nova div/li com o texto da tarefa</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Adicionar um botão "✕" dentro da tarefa</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Inserir no DOM</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Limpar o input</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisito 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">3</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Funcionalidade: Remover Tarefa</h3>
+                            <p class="text-gray-700 mb-4">Quando clicar no botão "✕":</p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Remover aquela tarefa específica do DOM</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Use <code class="bg-gray-100 px-2 py-1 rounded">.remove()</code></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisito 4 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">4</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Funcionalidade: Tema Claro/Escuro</h3>
+                            <p class="text-gray-700 mb-4">Quando clicar no botão de tema:</p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Usar <code
+                                            class="bg-gray-100 px-2 py-1 rounded">body.classList.toggle("dark")</code></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>CSS define estilos para <code
+                                            class="bg-gray-100 px-2 py-1 rounded">body.dark</code></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Trocar texto do botão (☀️ Light / 🌙 Dark)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requisito 5 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">5</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">CSS Básico</h3>
+                            <p class="text-gray-700 mb-4">Estilize a página:</p>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Container centralizado</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Cores organizadas (tema claro e escuro)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Espaçamento adequado</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Botões com hover</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dicas de Implementação -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                💡 Dicas de Implementação
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3">🎨 CSS para Dark Mode</h3>
+                    <div class="code-block text-sm">
+                        <span class="text-gray-500">/* Tema padrão */</span><br>
+                        <span class="text-yellow-400">body</span> {<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">background</span>: <span
+                            class="text-orange-400">#fff</span>;<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">color</span>: <span
+                            class="text-orange-400">#000</span>;<br>
+                        }<br>
+                        <br>
+                        <span class="text-gray-500">/* Dark mode */</span><br>
+                        <span class="text-yellow-400">body.dark</span> {<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">background</span>: <span
+                            class="text-orange-400">#1a1a1a</span>;<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">color</span>: <span
+                            class="text-orange-400">#fff</span>;<br>
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3">📝 Criar Tarefa com Botão X</h3>
+                    <div class="code-block text-sm">
+                        <span class="text-purple-400">const</span> div = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">createElement</span>(<span
+                            class="text-orange-400">"div"</span>);<br>
+                        div.<span class="text-yellow-400">innerText</span> = input.<span
+                            class="text-yellow-400">value</span>;<br>
+                        <br>
+                        <span class="text-purple-400">const</span> btnX = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">createElement</span>(<span
+                            class="text-orange-400">"button"</span>);<br>
+                        btnX.<span class="text-yellow-400">innerText</span> = <span
+                            class="text-orange-400">"✕"</span>;<br>
+                        btnX.<span class="text-yellow-400">onclick</span> = <span class="text-purple-400">()
+                            =&gt;</span> div.<span class="text-yellow-400">remove</span>();<br>
+                        <br>
+                        div.<span class="text-yellow-400">append</span>(btnX);<br>
+                        lista.<span class="text-yellow-400">append</span>(div);
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3">🔄 Toggle Dark Mode</h3>
+                    <div class="code-block text-sm">
+                        btnTheme.<span class="text-yellow-400">onclick</span> = <span
+                            class="text-purple-400">function</span>() {<br>
+                        &nbsp;&nbsp;<span class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">body</span>.<span class="text-yellow-400">classList</span>.<span
+                            class="text-blue-400">toggle</span>(<span class="text-orange-400">"dark"</span>);<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Trocar texto do botão</span><br>
+                        &nbsp;&nbsp;<span class="text-purple-400">if</span> (btnTheme.<span
+                            class="text-yellow-400">innerText</span> === <span class="text-orange-400">"🌙 Dark"</span>)
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;btnTheme.<span class="text-yellow-400">innerText</span> = <span
+                            class="text-orange-400">"☀️ Light"</span>;<br>
+                        &nbsp;&nbsp;} <span class="text-purple-400">else</span> {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;btnTheme.<span class="text-yellow-400">innerText</span> = <span
+                            class="text-orange-400">"🌙 Dark"</span>;<br>
+                        &nbsp;&nbsp;}<br>
+                        };
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-lg text-gray-900 mb-3">✔️ Validar Input Vazio</h3>
+                    <div class="code-block text-sm">
+                        btnAdd.<span class="text-yellow-400">onclick</span> = <span
+                            class="text-purple-400">function</span>() {<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">if</span> (input.<span
+                            class="text-yellow-400">value</span>.<span class="text-yellow-400">trim</span>() === <span
+                            class="text-orange-400">""</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">alert</span>(<span
+                            class="text-orange-400">"Digite uma tarefa!"</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">return</span>;<br>
+                        &nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// ... resto do código</span><br>
+                        };
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarefa de Casa -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    🏠 Tarefa de Casa
+                </h2>
+                <p class="text-xl opacity-95 mb-6">
+                    Melhore seu projeto:
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6">
+                    <p class="text-lg mb-4 font-bold">
+                        Polir e melhorar o projeto
+                    </p>
+                    <p class="text-lg mb-4">Adicione melhorias:</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span><strong>Responsividade:</strong> Funcione bem no celular</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span><strong>Animações leves:</strong> Transitions suaves nos botões e tarefas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span><strong>Visual:</strong> Cores harmoniosas, sombras, bordas arredondadas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">4.</span>
+                            <span><strong>Extra:</strong> Contador de tarefas, data/hora, ou outra funcionalidade
+                                criativa</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Entregar um projeto completo, bonito e funcional que você possa
+                        mostrar com orgulho!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Final -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ✅ Checklist Final
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <p class="text-gray-700 mb-6">Antes de entregar, verifique:</p>
+
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Adicionar tarefas funciona (valida vazio)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Remover tarefas funciona (cada botão X)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Dark mode funciona (cores mudam)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Input é limpo após adicionar</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Visual está organizado e bonito</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Funciona no celular (responsivo)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Código está comentado e organizado</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-xl mb-4 font-bold">🎉 Parabéns por chegar até aqui!</p>
+            <p class="text-sm opacity-75">
+                Autoria Web | IFRN | Semana 38 — Projeto Integrado 1
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana38-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

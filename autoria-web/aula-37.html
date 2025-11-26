@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 37 — Criar e Remover Elementos | Autoria Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #d1d5db;
+            border: 2px solid #374151;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
+                    /
+                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
+                        4</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 37</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                ➕ Criar e Remover Elementos
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 37 — Criando e Removendo Elementos no DOM
+            </h1>
+
+            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Agora você vai aprender a criar elementos HTML pelo JavaScript, adicionar no DOM e remover quando
+                quiser. Listas dinâmicas, cards gerados automaticamente e muito mais!
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#exemplo1" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Começar pelos exemplos
+                </a>
+                <a href="#exercicios"
+                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
+                    Ver exercícios em sala
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Foco</p>
+                    <p class="text-sm text-gray-600">createElement, append, remove</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
+                    <p class="text-sm text-gray-600">Criar / Avaliar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Aprender a criar elementos HTML dinamicamente com JavaScript, inserir no DOM e
+                                    remover quando necessário, possibilitando a construção de interfaces completamente
+                                    dinâmicas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                ✅ Critérios de sucesso
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Marque conforme você for dominando cada conceito:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>createElement:</strong> Sei criar elementos HTML pelo JavaScript
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>append:</strong> Consigo adicionar elementos no final
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>prepend:</strong> Consigo adicionar elementos no início
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>remove:</strong> Sei remover elementos do DOM
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Listas dinâmicas:</strong> Criei uma lista que adiciona/remove itens
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Prática:</strong> Consegui fazer os exercícios de criação dinâmica
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retomada Semana 36 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                    <span>↩️</span>
+                    Retomada rápida da Semana 36
+                </h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Semana passada você aprendeu a <strong>validar formulários</strong> e criar
+                    <strong>máscaras</strong> para campos. Agora vamos aprender algo ainda mais poderoso: <strong>criar
+                        elementos HTML do zero</strong> usando JavaScript e adicionar/remover do DOM dinamicamente.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Criando Elementos -->
+    <section id="exemplo1" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    ➕ Criando Elementos com createElement
+                </h2>
+                <p class="text-xl opacity-95">
+                    Até agora você modificava elementos que já existiam no HTML. Agora vai criá-los do zero!
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">Como criar um elemento?</h3>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <p class="font-bold text-gray-900 mb-4">3 passos básicos:</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">1</span>
+                            <div>
+                                <p class="font-bold text-gray-900">Criar o elemento</p>
+                                <code
+                                    class="text-sm bg-white px-2 py-1 rounded">const li = document.createElement("li");</code>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">2</span>
+                            <div>
+                                <p class="font-bold text-gray-900">Adicionar conteúdo</p>
+                                <code class="text-sm bg-white px-2 py-1 rounded">li.innerText = "Novo item";</code>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-ifrn-green-600 text-white rounded-full flex items-center justify-center font-bold">3</span>
+                            <div>
+                                <p class="font-bold text-gray-900">Inserir no DOM</p>
+                                <code class="text-sm bg-white px-2 py-1 rounded">ul.append(li);</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;ul id="lista"&gt;&lt;/ul&gt;<br>
+                            &lt;button id="adicionar"&gt;Adicionar&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> lista = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#lista"</span>);<br>
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#adicionar"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">addEventListener</span>(<span
+                                class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                            {<br>
+                            &nbsp;&nbsp;<span class="text-gray-500">// 1. Criar</span><br>
+                            &nbsp;&nbsp;<span class="text-purple-400">const</span> li = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">createElement</span>(<span
+                                class="text-orange-400">"li"</span>);<br>
+                            &nbsp;&nbsp;<span class="text-gray-500">// 2. Conteúdo</span><br>
+                            &nbsp;&nbsp;li.<span class="text-yellow-400">innerText</span> = <span
+                                class="text-orange-400">"Novo item"</span>;<br>
+                            &nbsp;&nbsp;<span class="text-gray-500">// 3. Inserir</span><br>
+                            &nbsp;&nbsp;lista.<span class="text-yellow-400">append</span>(li);<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Cada vez que você clica no botão, um novo &lt;li&gt; é criado e adicionado na
+                        lista!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Métodos de Inserção -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📍 Onde Inserir: append, prepend, after, before
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                Você pode escolher onde inserir o elemento:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">append()</h3>
+                    <p class="text-gray-700 mb-4 text-sm">Adiciona <strong>no final</strong> (como último filho)</p>
+                    <div class="code-block text-sm">
+                        lista.<span class="text-yellow-400">append</span>(novoItem);
+                    </div>
+                    <div class="mt-4 bg-gray-50 rounded p-3">
+                        <p class="text-xs text-gray-600">Antes: [Item 1, Item 2]</p>
+                        <p class="text-xs text-gray-900 font-bold">Depois: [Item 1, Item 2, Novo]</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">prepend()</h3>
+                    <p class="text-gray-700 mb-4 text-sm">Adiciona <strong>no início</strong> (como primeiro filho)</p>
+                    <div class="code-block text-sm">
+                        lista.<span class="text-yellow-400">prepend</span>(novoItem);
+                    </div>
+                    <div class="mt-4 bg-gray-50 rounded p-3">
+                        <p class="text-xs text-gray-600">Antes: [Item 1, Item 2]</p>
+                        <p class="text-xs text-gray-900 font-bold">Depois: [Novo, Item 1, Item 2]</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">after()</h3>
+                    <p class="text-gray-700 mb-4 text-sm">Adiciona <strong>depois</strong> do elemento</p>
+                    <div class="code-block text-sm">
+                        item2.<span class="text-yellow-400">after</span>(novoItem);
+                    </div>
+                    <div class="mt-4 bg-gray-50 rounded p-3">
+                        <p class="text-xs text-gray-600">Antes: [Item 1, Item 2]</p>
+                        <p class="text-xs text-gray-900 font-bold">Depois: [Item 1, Item 2, Novo]</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-3">before()</h3>
+                    <p class="text-gray-700 mb-4 text-sm">Adiciona <strong>antes</strong> do elemento</p>
+                    <div class="code-block text-sm">
+                        item2.<span class="text-yellow-400">before</span>(novoItem);
+                    </div>
+                    <div class="mt-4 bg-gray-50 rounded p-3">
+                        <p class="text-xs text-gray-600">Antes: [Item 1, Item 2]</p>
+                        <p class="text-xs text-gray-900 font-bold">Depois: [Item 1, Novo, Item 2]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-50 rounded p-6 border-l-4 border-ifrn-green-500">
+                <p class="font-bold text-ifrn-green-900 mb-2">💡 Mais usado:</p>
+                <p class="text-ifrn-green-800">
+                    Na prática, <code class="bg-white px-2 py-1 rounded">append()</code> e <code
+                        class="bg-white px-2 py-1 rounded">prepend()</code> são os mais usados. Eles são simples e
+                    diretos!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Removendo Elementos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🗑️ Removendo Elementos com .remove()
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    Para remover um elemento do DOM, basta chamar <code
+                        class="bg-gray-100 px-2 py-1 rounded">.remove()</code> nele:
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;ul id="lista"&gt;<br>
+                            &nbsp;&nbsp;&lt;li&gt;Item 1&lt;/li&gt;<br>
+                            &nbsp;&nbsp;&lt;li&gt;Item 2&lt;/li&gt;<br>
+                            &nbsp;&nbsp;&lt;li&gt;Item 3&lt;/li&gt;<br>
+                            &lt;/ul&gt;<br>
+                            &lt;button id="remover"&gt;Remover último&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> lista = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#lista"</span>);<br>
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#remover"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">addEventListener</span>(<span
+                                class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                            {<br>
+                            &nbsp;&nbsp;<span class="text-gray-500">// Pega o último li</span><br>
+                            &nbsp;&nbsp;<span class="text-purple-400">const</span> ultimo = lista.<span
+                                class="text-yellow-400">lastElementChild</span>;<br>
+                            &nbsp;&nbsp;<span class="text-gray-500">// Remove</span><br>
+                            &nbsp;&nbsp;<span class="text-purple-400">if</span> (ultimo) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;ultimo.<span class="text-yellow-400">remove</span>();<br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Cada clique remove o último item da lista. Se não houver mais itens, não faz nada
+                        (por causa do if).</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded p-6 border-l-2 border-gray-400">
+                <p class="font-bold text-gray-900 mb-2">📚 Propriedades úteis:</p>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• <code class="bg-white px-2 py-1 rounded">lastElementChild</code> → último filho</li>
+                    <li>• <code class="bg-white px-2 py-1 rounded">firstElementChild</code> → primeiro filho</li>
+                    <li>• <code class="bg-white px-2 py-1 rounded">children</code> → todos os filhos (array-like)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exemplo Completo -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎯 Exemplo Completo: Lista de Tarefas
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Adicionar E remover itens</h3>
+
+                <div class="code-block mb-6">
+                    <span class="text-gray-500">// HTML</span><br>
+                    <span class="text-gray-500">// &lt;input id="tarefa" placeholder="Nova tarefa"&gt;</span><br>
+                    <span class="text-gray-500">// &lt;button id="adicionar"&gt;Adicionar&lt;/button&gt;</span><br>
+                    <span class="text-gray-500">// &lt;ul id="lista"&gt;&lt;/ul&gt;</span><br>
+                    <br>
+                    <span class="text-purple-400">const</span> input = <span class="text-blue-400">document</span>.<span
+                        class="text-yellow-400">querySelector</span>(<span
+                        class="text-orange-400">"#tarefa"</span>);<br>
+                    <span class="text-purple-400">const</span> btnAdd = <span
+                        class="text-blue-400">document</span>.<span class="text-yellow-400">querySelector</span>(<span
+                        class="text-orange-400">"#adicionar"</span>);<br>
+                    <span class="text-purple-400">const</span> lista = <span class="text-blue-400">document</span>.<span
+                        class="text-yellow-400">querySelector</span>(<span class="text-orange-400">"#lista"</span>);<br>
+                    <br>
+                    <span class="text-gray-500">// Adicionar tarefa</span><br>
+                    btnAdd.<span class="text-yellow-400">addEventListener</span>(<span
+                        class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>() {<br>
+                    &nbsp;&nbsp;<span class="text-purple-400">if</span> (input.<span
+                        class="text-yellow-400">value</span> !== <span class="text-orange-400">""</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Criar li</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">const</span> li = <span
+                        class="text-blue-400">document</span>.<span class="text-yellow-400">createElement</span>(<span
+                        class="text-orange-400">"li"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;li.<span class="text-yellow-400">innerText</span> = input.<span
+                        class="text-yellow-400">value</span>;<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Criar botão remover</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">const</span> btnRemover = <span
+                        class="text-blue-400">document</span>.<span class="text-yellow-400">createElement</span>(<span
+                        class="text-orange-400">"button"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;btnRemover.<span class="text-yellow-400">innerText</span> = <span
+                        class="text-orange-400">"X"</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;btnRemover.<span class="text-yellow-400">onclick</span> = <span
+                        class="text-purple-400">function</span>() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li.<span class="text-yellow-400">remove</span>();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Adicionar botão no li</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;li.<span class="text-yellow-400">append</span>(btnRemover);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Adicionar li na lista</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;lista.<span class="text-yellow-400">append</span>(li);<br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Limpar input</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;input.<span class="text-yellow-400">value</span> = <span
+                        class="text-orange-400">""</span>;<br>
+                    &nbsp;&nbsp;}<br>
+                    });
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">✨ Resultado:</p>
+                    <p class="text-sm mb-2">• Usuário digita uma tarefa</p>
+                    <p class="text-sm mb-2">• Clica em adicionar</p>
+                    <p class="text-sm mb-2">• Aparece um item com um botão "X"</p>
+                    <p class="text-sm">• Clicar no "X" remove aquele item específico</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios em Sala -->
+    <section id="exercicios" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🏃‍♂️ Exercícios em Sala
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Botão que adiciona itens</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Uma <code class="bg-gray-100 px-2 py-1 rounded">&lt;ul&gt;</code> vazia</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um botão "Adicionar Item"</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Cada clique cria um novo <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;li&gt;</code> com texto "Item
+                                    X"</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar <code
+                            class="bg-white px-2 py-1 rounded">createElement()</code> e <code
+                            class="bg-white px-2 py-1 rounded">append()</code></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Botão que remove último item</h3>
+                        <p class="text-gray-700 mb-4">
+                            Adicione ao exercício anterior:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Botão "Remover Último"</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Cada clique remove o último <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;li&gt;</code> da lista</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Use <code class="bg-gray-100 px-2 py-1 rounded">lastElementChild</code> e <code
+                                        class="bg-gray-100 px-2 py-1 rounded">.remove()</code></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar remoção de elementos com <code
+                            class="bg-white px-2 py-1 rounded">.remove()</code></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Cards dinâmicos com input</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um input para digitar texto</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um botão "Criar Card"</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Uma div vazia onde os cards aparecem</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Cada clique cria uma <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;div&gt;</code> com o texto
+                                    digitado</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Combinar input, createElement e append</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarefa de Casa -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    🏠 Tarefa
+                </h2>
+                <p class="text-xl opacity-95 mb-6">
+                    Faça este projeto completo:
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6">
+                    <p class="text-lg mb-4 font-bold">
+                        Criar um mini "Quadro de Recados"
+                    </p>
+                    <p class="text-lg mb-4">O quadro deve ter:</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span>Input para digitar o recado</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span>Botão "Adicionar Recado"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span>Área onde os recados aparecem</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">4.</span>
+                            <span>Cada recado deve ter um botão "X" para remover</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">5.</span>
+                            <span>Use CSS para deixar bonito (cores, espaçamento, etc)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Criar um projeto completo que adiciona E remove elementos
+                        dinamicamente, aplicando tudo que você aprendeu.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-sm opacity-75">
+                Autoria Web | IFRN | Semana 37 — Criando e Removendo Elementos no DOM
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana37-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

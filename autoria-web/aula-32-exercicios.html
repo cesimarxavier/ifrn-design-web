@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios — Semana 31 | Autoria Web IFRN</title>
+    <meta name="description" content="Lista de exercícios progressivos sobre JavaScript básico - Semana 31">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .exercise-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
+        }
+
+        .exercise-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Cores por nível */
+        .level-basic::before {
+            background: #10b981;
+        }
+
+        .level-intermediate::before {
+            background: #f59e0b;
+        }
+
+        .level-advanced::before {
+            background: #ef4444;
+        }
+
+        .badge-basic {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #f3f4f6;
+        }
+
+        .code-inline {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white border-b-2 border-ifrn-green-500 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a href="../autoria-web-disciplina.html"
+                        class="text-sm text-gray-600 hover:text-ifrn-green-700 mb-1 block">
+                        ← Voltar para Autoria Web
+                    </a>
+                    <h1 class="font-bold text-2xl text-gray-900">
+                        <a href="aula-31.html" class="hover:underline">Lista de Exercícios — Semana 31</a>
+                    </h1>
+                    <p class="text-gray-600">Introdução ao JavaScript</p>
+                </div>
+                <div class="text-right">
+                    <div class="px-4 py-2 bg-ifrn-red-500 text-white rounded-lg font-bold text-sm">
+                        📅 Prazo: 7 dias
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Entrega via Google Sala de Aula</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-4">🎯 Objetivo da Lista</h2>
+            <p class="text-xl mb-6 opacity-95">
+                Reforçar os conceitos fundamentais de JavaScript através de 10 exercícios progressivos que cobrem
+                sintaxe básica, console.log, variáveis e funções simples.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Total de Exercícios</p>
+                    <p class="text-3xl font-bold">10</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Tempo Estimado</p>
+                    <p class="text-3xl font-bold">3-4h</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Formato de Entrega</p>
+                    <p class="text-lg font-bold">Arquivos .html</p>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                <h3 class="font-bold text-xl mb-3">Instruções Gerais</h3>
+                <ul class="space-y-2 opacity-95">
+                    <li>✓ Crie um arquivo HTML para cada exercício (ex: <span
+                            class="code-inline bg-white bg-opacity-20">exercicio01.html</span>)</li>
+                    <li>✓ Coloque todo código JavaScript dentro da tag <span
+                            class="code-inline bg-white bg-opacity-20">&lt;script&gt;</span></li>
+                    <li>✓ Teste cada exercício no navegador (F12 para ver o console)</li>
+                    <li>✓ Envie todos os arquivos compactados em um único .zip no Google Sala de Aula</li>
+                    <li>✓ Nomeie o arquivo: <span
+                            class="code-inline bg-white bg-opacity-20">SEUNOME_semana31_exercicios.zip</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Níveis de Complexidade -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-2xl text-gray-900 mb-6">Níveis de Complexidade</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="border-2 border-green-300 rounded-xl p-4 bg-green-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="font-bold text-green-800">BÁSICO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Lembrar e Compreender. Seguir exemplos diretos da aula.</p>
+                </div>
+                <div class="border-2 border-yellow-300 rounded-xl p-4 bg-yellow-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <span class="font-bold text-yellow-800">INTERMEDIÁRIO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Aplicar e Analisar. Adaptar exemplos com pequenas mudanças.</p>
+                </div>
+                <div class="border-2 border-red-300 rounded-xl p-4 bg-red-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span class="font-bold text-red-800">AVANÇADO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Criar e Avaliar. Combinar conceitos de forma original.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">Lista de Exercícios</h2>
+
+            <!-- MODELO DE EXERCÍCIO - ESTRUTURA PARA BANCO DE DADOS -->
+
+            <!-- Exercício 1 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <!-- Header do Exercício -->
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">01</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Primeiro console.log()</h3>
+                            <p class="text-gray-600">Exercício de aquecimento</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 10
+                            min</span>
+                    </div>
+                </div>
+
+                <!-- Taxonomia de Bloom -->
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Lembrar / Compreender</p>
+                    <p class="text-sm text-blue-800">Reproduzir o exemplo básico visto em aula sem modificações
+                        complexas.</p>
+                </div>
+
+                <!-- Conhecimentos e Habilidades -->
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Sintaxe básica do JavaScript</li>
+                                <li>• Tag <code class="code-inline">&lt;script&gt;</code></li>
+                                <li>• Função <code class="code-inline">console.log()</code></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Abrir console do navegador (F12)</li>
+                                <li>• Escrever código dentro do HTML</li>
+                                <li>• Visualizar saída no DevTools</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descrição da Tarefa -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie um arquivo HTML chamado <code class="code-inline">exercicio01.html</code> e adicione um
+                        script que imprime <strong>5 mensagens diferentes</strong> no console usando <code
+                            class="code-inline">console.log()</code>.
+                    </p>
+                    <p class="text-gray-700 font-semibold">Mensagens sugeridas:</p>
+                    <ul class="mt-2 space-y-1 text-gray-700">
+                        <li>1. Seu nome completo</li>
+                        <li>2. Sua turma</li>
+                        <li>3. Uma frase motivacional</li>
+                        <li>4. Seu hobby favorito</li>
+                        <li>5. "Exercício 1 concluído!"</li>
+                    </ul>
+                </div>
+
+                <!-- Checklist de Aprendizagem -->
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei o arquivo HTML corretamente</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Adicionei a tag &lt;script&gt; antes do &lt;/body&gt;</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Escrevi 5 console.log() com mensagens diferentes</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Abri o arquivo no navegador e testei</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Todas as 5 mensagens aparecem no console</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- O que se espera -->
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Um arquivo HTML funcional que, ao ser aberto no navegador, mostra exatamente 5 mensagens no
+                        console (F12). Cada mensagem deve estar em uma linha separada.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Console exibe 5 mensagens de texto claramente visíveis.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 2 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">02</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Operações Matemáticas</h3>
+                            <p class="text-gray-600">Calculadora básica no console</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Lembrar / Compreender</p>
+                    <p class="text-sm text-blue-800">Aplicar operadores aritméticos básicos vistos em aula.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Operadores: +, -, *, /</li>
+                                <li>• Números em JavaScript</li>
+                                <li>• console.log() com operações</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Realizar operações matemáticas</li>
+                                <li>• Interpretar resultados no console</li>
+                                <li>• Testar cálculos simples</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio02.html</code> com um script que realiza e imprime no
+                        console <strong>8 operações matemáticas diferentes</strong>.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Operações obrigatórias:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>• 2 adições (ex: 15 + 27)</li>
+                        <li>• 2 subtrações (ex: 100 - 45)</li>
+                        <li>• 2 multiplicações (ex: 8 * 7)</li>
+                        <li>• 2 divisões (ex: 50 / 5)</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei o arquivo exercicio02.html</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Fiz 2 somas, 2 subtrações, 2 multiplicações e 2 divisões</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei console.log() para cada operação</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Verifiquei que os resultados estão corretos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console mostrando exatamente 8 resultados numéricos, sendo 2 de cada operação (+, -, *, /). Os
+                        números devem ser diferentes em cada operação.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 8 linhas no console com resultados numéricos corretos.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 3 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">03</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Primeira Variável</h3>
+                            <p class="text-gray-600">Guardando valores com let</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender / Aplicar</p>
+                    <p class="text-sm text-blue-800">Entender o conceito de variável e criar suas primeiras variáveis
+                        simples.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Palavra-chave <code class="code-inline">let</code></li>
+                                <li>• Atribuição com <code class="code-inline">=</code></li>
+                                <li>• Tipos: string e number</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Declarar variáveis</li>
+                                <li>• Armazenar valores</li>
+                                <li>• Exibir conteúdo de variáveis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio03.html</code> e declare <strong>6 variáveis</strong>
+                        usando <code class="code-inline">let</code>. Depois, imprima o valor de cada uma no console.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Variáveis obrigatórias:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>• <code class="code-inline">nome</code> — seu nome (texto entre aspas)</li>
+                        <li>• <code class="code-inline">idade</code> — sua idade (número)</li>
+                        <li>• <code class="code-inline">cidade</code> — sua cidade (texto)</li>
+                        <li>• <code class="code-inline">anoAtual</code> — 2025 (número)</li>
+                        <li>• <code class="code-inline">escola</code> — "IFRN" (texto)</li>
+                        <li>• <code class="code-inline">turma</code> — sua turma (texto)</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 6 variáveis com let</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei textos entre aspas e números sem aspas</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Imprimi todas as 6 variáveis com console.log()</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra os valores corretos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo 6 valores: 3 textos e 3 números, cada um em uma linha. Os valores devem
+                        corresponder às suas informações pessoais.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 6 variáveis declaradas corretamente e impressas no console.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 4 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">04</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Concatenação de Textos</h3>
+                            <p class="text-gray-600">Juntando strings com variáveis</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Analisar</p>
+                    <p class="text-sm text-orange-800">Combinar textos fixos com variáveis para criar mensagens
+                        dinâmicas.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Concatenação com <code class="code-inline">+</code></li>
+                                <li>• Diferença entre string e number</li>
+                                <li>• Template literals (opcional)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Juntar textos e variáveis</li>
+                                <li>• Criar frases completas</li>
+                                <li>• Formatar saídas legíveis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio04.html</code> com variáveis sobre você e use
+                        concatenação para criar <strong>5 frases completas</strong> no console.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Exemplo de frase esperada:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3">
+                        <code class="text-sm text-gray-800">"Meu nome é João e tenho 16 anos."</code>
+                    </div>
+                    <p class="text-gray-700 font-semibold mb-2">Crie frases sobre:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>1. Seu nome e idade</li>
+                        <li>2. Sua cidade e escola</li>
+                        <li>3. Sua turma e ano atual</li>
+                        <li>4. Hobby favorito e tempo que pratica</li>
+                        <li>5. Matéria favorita e nota desejada</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei variáveis necessárias (nome, idade, etc.)</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei + para juntar textos e variáveis</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 5 frases completas e gramaticalmente corretas</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra frases legíveis com pontuação</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo 5 frases completas em português correto, cada uma combinando texto fixo com
+                        valores de variáveis. As frases devem fazer sentido e ter pontuação adequada.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 5 frases legíveis com concatenação correta de strings e variáveis.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 5 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">05</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Calculadora com Variáveis</h3>
+                            <p class="text-gray-600">Operações usando variáveis numéricas</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Analisar</p>
+                    <p class="text-sm text-orange-800">Armazenar números em variáveis e realizar operações matemáticas
+                        com elas.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Variáveis numéricas</li>
+                                <li>• Operações com variáveis</li>
+                                <li>• Reutilização de valores</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Criar variáveis numéricas</li>
+                                <li>• Realizar cálculos entre variáveis</li>
+                                <li>• Apresentar resultados formatados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio05.html</code> onde você declara <strong>3 variáveis
+                            numéricas</strong> e realiza <strong>10 operações diferentes</strong> com elas.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Exemplo:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>let num1 = 10;</div>
+                        <div>let num2 = 5;</div>
+                        <div>let num3 = 2;</div>
+                        <div class="mt-2 text-gray-600">// Depois faça operações como:</div>
+                        <div>console.log(num1 + num2); // 15</div>
+                        <div>console.log(num1 * num3); // 20</div>
+                    </div>
+                    <p class="text-gray-700 font-semibold">Realize pelo menos:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>• 3 somas com variáveis</li>
+                        <li>• 3 multiplicações com variáveis</li>
+                        <li>• 2 subtrações com variáveis</li>
+                        <li>• 2 divisões com variáveis</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 variáveis numéricas diferentes</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Fiz 10 operações usando essas variáveis</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Inclui pelo menos uma operação combinando as 3 variáveis</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Verifiquei mentalmente que os resultados fazem sentido</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console mostrando 10 resultados numéricos de operações realizadas entre variáveis. Os cálculos
+                        devem estar matematicamente corretos.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 10 operações com variáveis numéricas exibindo resultados corretos.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 6 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">06</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Mudando Valores de Variáveis</h3>
+                            <p class="text-gray-600">Reatribuição de variáveis</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Analisar</p>
+                    <p class="text-sm text-orange-800">Entender que variáveis podem ter seus valores alterados ao longo
+                        do código.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Reatribuição com <code class="code-inline">=</code></li>
+                                <li>• let permite mudança</li>
+                                <li>• Sequência de execução</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Modificar valores existentes</li>
+                                <li>• Acompanhar mudanças no código</li>
+                                <li>• Entender fluxo de execução</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio06.html</code> onde você declara <strong>3
+                            variáveis</strong>, imprime seus valores, <strong>muda cada valor</strong> e imprime
+                        novamente.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Estrutura esperada para cada variável:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>let mensagem = "Olá";</div>
+                        <div>console.log(mensagem); // Imprime: Olá</div>
+                        <div class="mt-2">mensagem = "Tchau";</div>
+                        <div>console.log(mensagem); // Imprime: Tchau</div>
+                    </div>
+                    <p class="text-gray-700">Faça isso com 3 variáveis diferentes (pode ser texto ou número).</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 variáveis com valores iniciais</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Imprimi o valor inicial de cada uma</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Mudei o valor das 3 variáveis (sem usar let novamente)</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Imprimi o novo valor de cada uma</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra 6 linhas (3 valores antigos + 3 novos)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo 6 linhas: primeiro os 3 valores originais, depois os 3 novos valores. Deve
+                        ficar claro que as variáveis mudaram de conteúdo.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Demonstração clara de reatribuição de valores em 3 variáveis.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 7 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">07</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Primeira Função</h3>
+                            <p class="text-gray-600">Criando e executando funções simples</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar</p>
+                    <p class="text-sm text-red-800">Criar funções básicas que encapsulam blocos de código reutilizáveis.
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Sintaxe de função</li>
+                                <li>• Palavra-chave <code class="code-inline">function</code></li>
+                                <li>• Chamada de função com <code class="code-inline">()</code></li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Declarar funções</li>
+                                <li>• Executar (chamar) funções</li>
+                                <li>• Organizar código em blocos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio07.html</code> com <strong>3 funções
+                            diferentes</strong>. Cada função deve ter um nome descritivo e fazer algo específico quando
+                        chamada.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Estrutura básica de uma função:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-4 font-mono text-sm">
+                        <div>function saudar() {</div>
+                        <div>&nbsp;&nbsp;console.log("Olá, mundo!");</div>
+                        <div>}</div>
+                        <div class="mt-2 text-gray-600">// Depois chame a função:</div>
+                        <div>saudar();</div>
+                    </div>
+                    <p class="text-gray-700 font-semibold mb-2">Crie 3 funções que fazem:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>1. Imprime uma mensagem de boas-vindas</li>
+                        <li>2. Imprime suas 3 matérias favoritas (uma por linha)</li>
+                        <li>3. Imprime 3 operações matemáticas</li>
+                    </ul>
+                    <p class="text-gray-700 mt-3">Chame as 3 funções no final do código.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 funções com nomes descritivos</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Cada função tem código dentro das chaves { }</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Chamei as 3 funções com nomeDaFuncao()</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra as saídas de todas as 3 funções</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo as saídas das 3 funções executadas. O código deve ter as definições das funções
+                        no topo e as chamadas no final.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 3 funções declaradas corretamente e executadas com sucesso.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 8 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">08</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Função com Parâmetros</h3>
+                            <p class="text-gray-600">Passando valores para funções</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 35
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Criar funções que recebem dados externos (parâmetros) e os
+                        processam.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Parâmetros de função</li>
+                                <li>• Argumentos na chamada</li>
+                                <li>• Funções reutilizáveis</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Definir parâmetros</li>
+                                <li>• Passar argumentos</li>
+                                <li>• Criar funções flexíveis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio08.html</code> com <strong>2 funções que recebem
+                            parâmetros</strong> e demonstre chamando cada uma <strong>3 vezes com valores
+                            diferentes</strong>.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Exemplo de função com parâmetro:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-4 font-mono text-sm">
+                        <div>function saudarPessoa(nome) {</div>
+                        <div>&nbsp;&nbsp;console.log("Olá, " + nome + "!");</div>
+                        <div>}</div>
+                        <div class="mt-2 text-gray-600">// Chamadas:</div>
+                        <div>saudarPessoa("Ana"); // Olá, Ana!</div>
+                        <div>saudarPessoa("João"); // Olá, João!</div>
+                        <div>saudarPessoa("Maria"); // Olá, Maria!</div>
+                    </div>
+                    <p class="text-gray-700 font-semibold mb-2">Crie 2 funções:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>1. Função que recebe um nome e imprime uma saudação personalizada</li>
+                        <li>2. Função que recebe dois números e imprime a soma deles</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 2 funções com parâmetros entre parênteses</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei os parâmetros dentro do código da função</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Chamei cada função 3 vezes com valores diferentes</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra 6 saídas (3 de cada função)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo 6 linhas: 3 saudações personalizadas com nomes diferentes e 3 somas de pares de
+                        números diferentes. As funções devem funcionar com qualquer valor passado.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Funções parametrizadas funcionando corretamente com diferentes argumentos.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 9 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">09</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Mini-Projeto: Cartão de Apresentação</h3>
+                            <p class="text-gray-600">Integrando todos os conceitos</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 40
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Combinar variáveis, concatenação e funções para criar um projeto
+                        completo.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Variáveis (let)</li>
+                                <li>• Concatenação de strings</li>
+                                <li>• Funções</li>
+                                <li>• Organização de código</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Planejar estrutura</li>
+                                <li>• Integrar conceitos</li>
+                                <li>• Criar código organizado</li>
+                                <li>• Testar funcionalidades</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio09.html</code> que simula um <strong>cartão de
+                            apresentação digital</strong> no console. O código deve usar variáveis e funções para exibir
+                        suas informações de forma organizada.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Estrutura obrigatória:</p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><strong>1. Variáveis (mínimo 6):</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• nome, idade, cidade, escola, turma, hobby</li>
+                            </ul>
+                        </li>
+                        <li><strong>2. Função de boas-vindas:</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• Imprime um banner de boas-vindas</li>
+                            </ul>
+                        </li>
+                        <li><strong>3. Função de apresentação:</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• Usa as variáveis para criar frases sobre você</li>
+                            </ul>
+                        </li>
+                        <li><strong>4. Função de despedida:</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• Imprime uma mensagem final</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 mt-4 font-semibold">No final, chame as 3 funções na ordem.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 6+ variáveis com informações pessoais</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 funções (boas-vindas, apresentação, despedida)</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei concatenação para criar frases completas</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Chamei as 3 funções na ordem correta</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Console mostra um cartão completo e organizado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Console exibindo um "cartão de apresentação" bem formatado com banner de boas-vindas,
+                        informações pessoais organizadas em frases completas e mensagem de despedida. O código deve
+                        estar limpo e bem estruturado.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Projeto integrado demonstrando domínio de variáveis, concatenação e
+                        funções.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 10 - DESAFIO FINAL -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-red-300 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-white">10</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio Final: Calculadora Pessoal</h3>
+                            <p class="text-gray-600">Projeto livre criativo</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span
+                            class="bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-1 rounded-full text-xs font-bold">DESAFIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 50
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Aplicar todos os conceitos aprendidos de forma criativa e original.
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• TODOS os conceitos da Semana 31</li>
+                                <li>• Variáveis, operações, funções</li>
+                                <li>• Concatenação e lógica básica</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Criatividade e autonomia</li>
+                                <li>• Resolução de problemas</li>
+                                <li>• Organização de código complexo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio10.html</code> com uma <strong>"Calculadora
+                            Pessoal"</strong> que realiza cálculos relevantes para sua vida. Seja criativo!
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Exemplos de calculadoras:</p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• <strong>Calculadora de Média:</strong> recebe 4 notas e calcula a média</li>
+                        <li>• <strong>Calculadora de Idade:</strong> recebe ano de nascimento e calcula idade em 2025
+                        </li>
+                        <li>• <strong>Conversor de Moedas:</strong> converte Real para Dólar/Euro</li>
+                        <li>• <strong>Calculadora de Tempo:</strong> converte horas em minutos/segundos</li>
+                        <li>• <strong>Outro tema criativo:</strong> surpreenda!</li>
+                    </ul>
+                    <p class="text-gray-700 mt-4 font-semibold">Requisitos mínimos:</p>
+                    <ul class="space-y-1 text-gray-700 mt-2">
+                        <li>✓ Pelo menos 4 variáveis</li>
+                        <li>✓ Pelo menos 2 funções com parâmetros</li>
+                        <li>✓ Pelo menos 3 operações matemáticas</li>
+                        <li>✓ Saída formatada com textos explicativos</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Escolhi um tema criativo e relevante</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei 4+ variáveis e 2+ funções com parâmetros</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Realizei 3+ operações matemáticas</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Saída é clara e bem formatada com textos explicativos</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Código está organizado e comentado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Um projeto original e funcional que demonstra criatividade e domínio técnico. A calculadora deve
+                        funcionar corretamente, ter saída bem formatada e mostrar que você entendeu todos os conceitos
+                        da semana.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold mb-3">
+                        Critério de sucesso: Projeto criativo, tecnicamente correto e bem apresentado.
+                    </p>
+                    <div class="bg-white bg-opacity-50 rounded-lg p-3 mt-3">
+                        <p class="text-xs text-green-800">
+                            <strong>💡 Dica:</strong> Este exercício não tem resposta única. Surpreenda com sua
+                            criatividade!
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Entrega -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-8 text-center">Entrega dos Exercícios</h2>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-6">
+                <h3 class="font-bold text-2xl mb-4">Como entregar</h3>
+                <ol class="space-y-3 text-lg">
+                    <li><strong>1.</strong> Organize todos os 10 arquivos HTML em uma pasta</li>
+                    <li><strong>2.</strong> Nomeie os arquivos: <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio01.html</code>, <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio02.html</code>, etc.</li>
+                    <li><strong>3.</strong> Compacte a pasta em formato <strong>.zip</strong></li>
+                    <li><strong>4.</strong> Renomeie o arquivo: <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana31_exercicios.zip</code></li>
+                    <li><strong>5.</strong> Envie no Google Sala de Aula até a data limite</li>
+                </ol>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                    <h4 class="font-bold text-xl mb-3">Checklist de Entrega</h4>
+                    <ul class="space-y-2 opacity-95">
+                        <li>□ 10 arquivos HTML (.html)</li>
+                        <li>□ Arquivos nomeados corretamente</li>
+                        <li>□ Todos testados no navegador</li>
+                        <li>□ Compactados em .zip</li>
+                        <li>□ Nome do arquivo correto</li>
+                        <li>□ Enviado no prazo (7 dias)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                    <h4 class="font-bold text-xl mb-3">Atenção</h4>
+                    <ul class="space-y-2 opacity-95">
+                        <li>• Não envie arquivos soltos</li>
+                        <li>• Não envie em .rar ou .7z</li>
+                        <li>• Teste TODOS antes de enviar</li>
+                        <li>• Não copie código de colegas</li>
+                        <li>• Trabalho individual</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-red-200 rounded-2xl p-6 text-center">
+                <p class="font-bold text-2xl mb-2">Prazo de Entrega</p>
+                <p class="text-3xl font-bold">7 dias após a aula</p>
+                <p class="mt-3 opacity-95">Entregas atrasadas terão desconto na nota</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
+        <p>
+            <a href="../autoria-web-disciplina.html">Autoria Web</a> •
+            <a href="aula-31.html">Semana 31</a> •
+            IFRN © 2025
+        </p>
+        <p class="mt-2">Em caso de dúvidas, consulte o material da aula ou entre em contato</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios — Semana 33 | Autoria Web IFRN</title>
+    <meta name="description" content="Lista de exercícios progressivos sobre Manipulação de Conteúdo - Semana 33">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .exercise-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
+        }
+
+        .exercise-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .level-basic::before {
+            background: #10b981;
+        }
+
+        .level-intermediate::before {
+            background: #f59e0b;
+        }
+
+        .level-advanced::before {
+            background: #ef4444;
+        }
+
+        .badge-basic {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-advanced {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #f3f4f6;
+        }
+
+        .code-inline {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white border-b-2 border-ifrn-green-500 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a href="../autoria-web-disciplina.html"
+                        class="text-sm text-gray-600 hover:text-ifrn-green-700 mb-1 block">
+                        ← Voltar para Autoria Web
+                    </a>
+                    <h1 class="font-bold text-2xl text-gray-900">
+                        <a href="semana33-manipulacao-conteudo.html" class="hover:underline">Lista de Exercícios —
+                            Semana 33</a>
+                    </h1>
+                    <p class="text-gray-600">Manipulação de Conteúdo</p>
+                </div>
+                <div class="text-right">
+                    <div class="px-4 py-2 bg-ifrn-red-500 text-white rounded-lg font-bold text-sm">
+                        📅 Prazo: 7 dias
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Entrega via Google Sala de Aula</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-4">🎯 Objetivo da Lista</h2>
+            <p class="text-xl mb-6 opacity-95">
+                Praticar manipulação de conteúdo no DOM usando innerText, textContent, innerHTML e setAttribute() para
+                modificar textos, HTML interno e atributos de elementos.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Total de Exercícios</p>
+                    <p class="text-3xl font-bold">10</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Tempo Estimado</p>
+                    <p class="text-3xl font-bold">3-4h</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                    <p class="font-bold text-lg mb-1">Formato de Entrega</p>
+                    <p class="text-lg font-bold">Arquivos .html</p>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                <h3 class="font-bold text-xl mb-3">Instruções Gerais</h3>
+                <ul class="space-y-2 opacity-95">
+                    <li>✓ Crie um arquivo HTML para cada exercício (ex: <span
+                            class="code-inline bg-white bg-opacity-20">exercicio01.html</span>)</li>
+                    <li>✓ Cada HTML deve ter elementos para manipular</li>
+                    <li>✓ Coloque JavaScript dentro da tag <span
+                            class="code-inline bg-white bg-opacity-20">&lt;script&gt;</span> antes do <span
+                            class="code-inline bg-white bg-opacity-20">&lt;/body&gt;</span></li>
+                    <li>✓ Teste abrindo no navegador e verificando visualmente as mudanças</li>
+                    <li>✓ Envie todos compactados em .zip no Google Sala de Aula</li>
+                    <li>✓ Nomeie: <span
+                            class="code-inline bg-white bg-opacity-20">SEUNOME_semana33_exercicios.zip</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Níveis -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-2xl text-gray-900 mb-6">Níveis de Complexidade</h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="border-2 border-green-300 rounded-xl p-4 bg-green-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="font-bold text-green-800">BÁSICO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Modificar texto simples de elementos.</p>
+                </div>
+                <div class="border-2 border-yellow-300 rounded-xl p-4 bg-yellow-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <span class="font-bold text-yellow-800">INTERMEDIÁRIO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Inserir HTML e modificar atributos.</p>
+                </div>
+                <div class="border-2 border-red-300 rounded-xl p-4 bg-red-50">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span class="font-bold text-red-800">AVANÇADO</span>
+                    </div>
+                    <p class="text-sm text-gray-700">Combinar múltiplas técnicas de manipulação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">Lista de Exercícios</h2>
+
+            <!-- Exercício 1 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">01</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Mudando Texto com innerText</h3>
+                            <p class="text-gray-600">Primeira modificação de conteúdo</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 10
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender / Aplicar</p>
+                    <p class="text-sm text-blue-800">Modificar o texto de elementos usando innerText.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Propriedade <code class="code-inline">innerText</code></li>
+                                <li>• Atribuição com <code class="code-inline">=</code></li>
+                                <li>• Diferença leitura vs escrita</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Selecionar elementos</li>
+                                <li>• Modificar texto</li>
+                                <li>• Ver mudanças no navegador</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio01.html</code> com <strong>5 elementos</strong> (h1, h2,
+                        2 parágrafos, 1 span) cada um com texto inicial. Use JavaScript para mudar o texto de todos os 5
+                        elementos usando <code class="code-inline">innerText</code>.
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Exemplo:</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>&lt;h1 id="titulo"&gt;Texto Antigo&lt;/h1&gt;</div>
+                        <div class="mt-2 text-gray-600">// JavaScript:</div>
+                        <div>const titulo = document.querySelector("#titulo");</div>
+                        <div>titulo.innerText = "Texto Novo!";</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 5 elementos com texto inicial</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Selecionei cada elemento com querySelector</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Mudei o texto de todos com .innerText = "novo texto"</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Abri no navegador e vi os 5 textos mudados</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página exibindo 5 elementos com textos DIFERENTES dos originais. Os textos devem ter sido
+                        modificados pelo JavaScript.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Todos os 5 elementos mostram texto novo definido via innerText.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 2 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">02</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">textContent vs innerText</h3>
+                            <p class="text-gray-600">Comparando os dois métodos</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender / Analisar</p>
+                    <p class="text-sm text-blue-800">Entender a diferença entre textContent e innerText.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• <code class="code-inline">textContent</code></li>
+                                <li>• <code class="code-inline">innerText</code></li>
+                                <li>• Diferenças entre ambos</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Usar ambas propriedades</li>
+                                <li>• Comparar resultados</li>
+                                <li>• Escolher a apropriada</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio02.html</code> com <strong>3 divs</strong>. Em cada div:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>1. Crie 2 parágrafos vazios dentro de cada div</li>
+                        <li>2. No primeiro parágrafo, insira texto usando <code class="code-inline">innerText</code>
+                        </li>
+                        <li>3. No segundo parágrafo, insira o mesmo texto usando <code
+                                class="code-inline">textContent</code></li>
+                        <li>4. No console, imprima a diferença (se houver)</li>
+                    </ul>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>p1.innerText = "Olá Mundo";</div>
+                        <div>p2.textContent = "Olá Mundo";</div>
+                        <div>console.log("innerText:", p1.innerText);</div>
+                        <div>console.log("textContent:", p2.textContent);</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 divs com 2 parágrafos cada</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei innerText em uns e textContent em outros</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Comparei no console</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Entendi que ambos fazem coisas similares</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página com 6 parágrafos mostrando textos (3 via innerText, 3 via textContent). Console mostrando
+                        que ambos produzem resultados similares para texto simples.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Demonstrar compreensão de que ambos modificam texto.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 3 - BÁSICO -->
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-green-700">03</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">innerHTML Básico</h3>
+                            <p class="text-gray-600">Inserindo HTML simples</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Aplicar</p>
+                    <p class="text-sm text-blue-800">Inserir HTML dentro de elementos usando innerHTML.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Propriedade <code class="code-inline">innerHTML</code></li>
+                                <li>• Tags HTML em strings</li>
+                                <li>• Diferença texto vs HTML</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Inserir tags HTML</li>
+                                <li>• Criar estruturas simples</li>
+                                <li>• Formatar conteúdo HTML</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio03.html</code> com <strong>3 divs vazias</strong>. Use
+                        <code class="code-inline">innerHTML</code> para inserir em cada uma:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>1. Um parágrafo com texto em <strong>negrito</strong></li>
+                        <li>2. Um título h3 + parágrafo</li>
+                        <li>3. Uma lista não-ordenada (ul) com 3 itens (li)</li>
+                    </ul>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>div1.innerHTML = "&lt;p&gt;&lt;strong&gt;Texto em negrito&lt;/strong&gt;&lt;/p&gt;";</div>
+                        <div>div2.innerHTML = "&lt;h3&gt;Título&lt;/h3&gt;&lt;p&gt;Parágrafo&lt;/p&gt;";</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 divs vazias no HTML</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei innerHTML para inserir tags HTML</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Inseri estruturas diferentes em cada div</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Página mostra HTML formatado (negrito, lista, etc)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página exibindo 3 divs com conteúdo HTML: texto em negrito, título+parágrafo e lista. O HTML
+                        deve estar visualmente formatado (não como texto puro).
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: innerHTML criando estruturas HTML funcionais e visíveis.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 4 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">04</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Modificando Atributos src</h3>
+                            <p class="text-gray-600">Trocando imagens dinamicamente</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Analisar</p>
+                    <p class="text-sm text-orange-800">Modificar atributo src de imagens usando JavaScript.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Atributo <code class="code-inline">src</code></li>
+                                <li>• Acesso via <code class="code-inline">.src</code></li>
+                                <li>• URLs de imagens</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Modificar atributos</li>
+                                <li>• Trabalhar com imagens</li>
+                                <li>• Trocar src dinamicamente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio04.html</code> com <strong>3 imagens</strong> (use
+                        placeholder como https://via.placeholder.com/200). Use JavaScript para trocar o src de cada uma
+                        para URLs diferentes.
+                    </p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>&lt;img id="foto" src="https://via.placeholder.com/200" alt="Foto"&gt;</div>
+                        <div class="mt-2 text-gray-600">// JavaScript:</div>
+                        <div>const foto = document.querySelector("#foto");</div>
+                        <div>foto.src = "https://via.placeholder.com/200/FF0000";</div>
+                    </div>
+                    <p class="text-gray-700 mt-3">Use cores diferentes no placeholder para ver a mudança: /200/FF0000
+                        (vermelho), /200/00FF00 (verde), /200/0000FF (azul)</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei 3 tags &lt;img&gt; com src inicial</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Selecionei cada imagem com querySelector</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Modifiquei .src de cada uma para URL diferente</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Imagens mudaram visualmente na página</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página exibindo 3 imagens com cores/conteúdos DIFERENTES dos definidos no HTML original. As
+                        imagens devem ter sido trocadas pelo JavaScript.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Modificação visível de atributo src de 3 imagens.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 5 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">05</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">setAttribute() Completo</h3>
+                            <p class="text-gray-600">Modificando múltiplos atributos</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Analisar</p>
+                    <p class="text-sm text-orange-800">Usar setAttribute() para modificar diversos atributos.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Método <code class="code-inline">setAttribute()</code></li>
+                                <li>• Atributos HTML (href, title, alt)</li>
+                                <li>• 2 parâmetros (nome, valor)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Modificar qualquer atributo</li>
+                                <li>• Usar sintaxe setAttribute</li>
+                                <li>• Trabalhar com links e imagens</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio05.html</code> com:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>• 1 link (&lt;a&gt;) com href="#" e texto</li>
+                        <li>• 1 imagem com src e alt</li>
+                        <li>• 1 input com placeholder</li>
+                    </ul>
+                    <p class="text-gray-700 mb-3">Use <code class="code-inline">setAttribute()</code> para modificar:
+                    </p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>• href do link para "https://ifrn.edu.br"</li>
+                        <li>• alt da imagem para "Nova descrição"</li>
+                        <li>• placeholder do input para "Digite aqui..."</li>
+                    </ul>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>link.setAttribute("href", "https://ifrn.edu.br");</div>
+                        <div>img.setAttribute("alt", "Nova descrição");</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei link, imagem e input com atributos iniciais</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei setAttribute() para modificar cada atributo</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Sintaxe correta: setAttribute("nome", "valor")</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Verifiquei mudanças (link funciona, alt mudou, placeholder
+                                mudou)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Link funcionando para IFRN, imagem com alt modificado (inspecione no DevTools), input com novo
+                        placeholder visível. Demonstrar uso de setAttribute().
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: 3 atributos diferentes modificados com setAttribute().
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 6 - INTERMEDIÁRIO -->
+            <article
+                class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-yellow-700">06</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Substituindo Conteúdo Completo</h3>
+                            <p class="text-gray-600">innerHTML para trocar estruturas inteiras</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar / Criar</p>
+                    <p class="text-sm text-orange-800">Substituir completamente o conteúdo de elementos com estruturas
+                        HTML complexas.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• innerHTML substitui TUDO</li>
+                                <li>• HTML em template literals</li>
+                                <li>• Estruturas HTML complexas</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Criar HTML em strings</li>
+                                <li>• Substituir conteúdo dinâmico</li>
+                                <li>• Usar template literals (`)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio06.html</code> com <strong>1 div vazia</strong>. Use
+                        innerHTML para criar dentro dela um <strong>card completo</strong> com:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>• Título (h2)</li>
+                        <li>• Imagem</li>
+                        <li>• Parágrafo com descrição</li>
+                        <li>• Botão</li>
+                    </ul>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>div.innerHTML = `</div>
+                        <div>&nbsp;&nbsp;&lt;h2&gt;Título do Card&lt;/h2&gt;</div>
+                        <div>&nbsp;&nbsp;&lt;img src="..." alt="..."&gt;</div>
+                        <div>&nbsp;&nbsp;&lt;p&gt;Descrição...&lt;/p&gt;</div>
+                        <div>&nbsp;&nbsp;&lt;button&gt;Clique&lt;/button&gt;</div>
+                        <div>`;</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei div vazia no HTML</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei template literals (`) para HTML multilinha</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Inseri estrutura completa com h2, img, p e button</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Card aparece completo e formatado na página</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página exibindo um card completo com todos os elementos (título, imagem, texto, botão) criado
+                        100% via innerHTML no JavaScript.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Card completo criado dinamicamente com innerHTML.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 7 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">07</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Formulário Dinâmico</h3>
+                            <p class="text-gray-600">Modificando valor de inputs</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar</p>
+                    <p class="text-sm text-red-800">Preencher formulário dinamicamente via JavaScript.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Propriedade <code class="code-inline">.value</code></li>
+                                <li>• Inputs de formulário</li>
+                                <li>• Modificar valores de campos</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Preencher inputs</li>
+                                <li>• Trabalhar com formulários</li>
+                                <li>• Auto-complete via JS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio07.html</code> com um <strong>formulário</strong>
+                        contendo:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>• Input de nome (vazio)</li>
+                        <li>• Input de email (vazio)</li>
+                        <li>• Input de telefone (vazio)</li>
+                        <li>• Textarea de mensagem (vazio)</li>
+                    </ul>
+                    <p class="text-gray-700 mb-3">Use JavaScript para <strong>preencher automaticamente</strong> todos
+                        os campos com seus dados pessoais usando <code class="code-inline">.value</code>.</p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>nome.value = "João Silva";</div>
+                        <div>email.value = "joao@email.com";</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei formulário com 4 campos vazios</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Selecionei cada campo com querySelector</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei .value para preencher cada campo</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Formulário aparece preenchido automaticamente</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página carregando com formulário já preenchido automaticamente pelo JavaScript. Todos os 4
+                        campos devem ter valores.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Formulário auto-preenchido via .value no JavaScript.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 8 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">08</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Galeria de Imagens Dinâmica</h3>
+                            <p class="text-gray-600">Criando múltiplos elementos via loop</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 35
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Usar innerHTML dentro de loop para gerar múltiplos elementos.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• innerHTML em loops</li>
+                                <li>• Template literals</li>
+                                <li>• Concatenação de HTML</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Gerar HTML repetitivo</li>
+                                <li>• Usar loops com DOM</li>
+                                <li>• Criar galerias dinâmicas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio08.html</code> com <strong>1 div vazia</strong>. Crie um
+                        array com 6 URLs de imagens (use placeholder com cores diferentes). Use um loop para criar 6
+                        imagens dentro da div.
+                    </p>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>const imagens = [</div>
+                        <div>&nbsp;&nbsp;"https://via.placeholder.com/150/FF0000",</div>
+                        <div>&nbsp;&nbsp;"https://via.placeholder.com/150/00FF00",</div>
+                        <div>&nbsp;&nbsp;// ... mais 4</div>
+                        <div>];</div>
+                        <div class="mt-2">let html = "";</div>
+                        <div>for (let i = 0; i &lt; imagens.length; i++) {</div>
+                        <div>&nbsp;&nbsp;html += `&lt;img src="${imagens[i]}" alt="Foto ${i+1}"&gt;`;</div>
+                        <div>}</div>
+                        <div>galeria.innerHTML = html;</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei array com 6 URLs de imagens</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei loop for para percorrer array</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Concatenei HTML das imagens em string</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Inseri tudo de uma vez com innerHTML</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Página mostra galeria com 6 imagens coloridas</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Página exibindo galeria com 6 imagens coloridas (cores diferentes), todas geradas dinamicamente
+                        via loop + innerHTML.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Galeria de 6 imagens criada via loop e innerHTML.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 9 - AVANÇADO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-red-700">09</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">Banner Rotativo</h3>
+                            <p class="text-gray-600">Trocando conteúdo periodicamente</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 40
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Criar banner que alterna conteúdo automaticamente.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• innerHTML dinâmico</li>
+                                <li>• Arrays de conteúdo</li>
+                                <li>• Índice rotativo (% operador)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Alternar conteúdo</li>
+                                <li>• Trabalhar com índices</li>
+                                <li>• Criar rotação manual</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio09.html</code> com:
+                    </p>
+                    <ul class="space-y-1 text-gray-700 mb-3">
+                        <li>• 1 div para o banner</li>
+                        <li>• 1 botão "Próximo"</li>
+                        <li>• Array com 4 banners (cada um com título + texto + imagem)</li>
+                        <li>• Ao clicar no botão, trocar para o próximo banner usando innerHTML</li>
+                    </ul>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-3 mb-3 font-mono text-sm">
+                        <div>const banners = [</div>
+                        <div>&nbsp;&nbsp;{ titulo: "Banner 1", texto: "...", img: "url1" },</div>
+                        <div>&nbsp;&nbsp;{ titulo: "Banner 2", texto: "...", img: "url2" },</div>
+                        <div>&nbsp;&nbsp;// ... mais 2</div>
+                        <div>];</div>
+                        <div>let indice = 0;</div>
+                        <div>botao.onclick = function() {</div>
+                        <div>&nbsp;&nbsp;indice = (indice + 1) % banners.length;</div>
+                        <div>&nbsp;&nbsp;div.innerHTML = `&lt;h2&gt;${banners[indice].titulo}&lt;/h2&gt;...`;</div>
+                        <div>};</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei array com 4 objetos de banner</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei variável de índice e botão</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Usei operador % para rotação infinita</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">innerHTML atualiza banner ao clicar</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Após o 4º banner, volta pro 1º (loop)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Banner que alterna entre 4 conteúdos diferentes ao clicar no botão. Deve fazer loop infinito
+                        (após o 4º, voltar pro 1º). Cada banner mostra título, texto e imagem.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold">
+                        Critério de sucesso: Banner rotativo funcional com 4 estados diferentes.
+                    </p>
+                </div>
+            </article>
+
+            <!-- Exercício 10 - DESAFIO -->
+            <article
+                class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-lg border-2 border-red-300 mb-6">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="font-bold text-2xl text-white">10</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio Final: Editor de Perfil</h3>
+                            <p class="text-gray-600">Aplicação completa de edição</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 items-end">
+                        <span
+                            class="bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-1 rounded-full text-xs font-bold">DESAFIO</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 50
+                            min</span>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
+                    <p class="font-bold text-red-900 mb-2">Bloom: Criar / Avaliar</p>
+                    <p class="text-sm text-red-800">Integrar todos os conceitos de manipulação de conteúdo em uma
+                        aplicação completa.</p>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
+                    <div class="grid md:grid-cols-2 gap-3">
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• TODOS os conceitos da Semana 33</li>
+                                <li>• innerText, innerHTML, setAttribute</li>
+                                <li>• .value, .src, manipulação completa</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
+                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
+                            <ul class="text-gray-700 space-y-1">
+                                <li>• Integrar múltiplas técnicas</li>
+                                <li>• Criar aplicação funcional</li>
+                                <li>• Resolver problemas complexos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
+                    <p class="text-gray-700 mb-4">
+                        Crie <code class="code-inline">exercicio10.html</code> com um <strong>Editor de Perfil</strong>
+                        completo:
+                    </p>
+                    <p class="text-gray-700 font-semibold mb-2">Estrutura necessária:</p>
+                    <ul class="space-y-2 text-gray-700 mb-4">
+                        <li><strong>1. Área de visualização do perfil:</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• Foto de perfil (img)</li>
+                                <li>• Nome (h2)</li>
+                                <li>• Bio/Descrição (p)</li>
+                                <li>• Link de site (a)</li>
+                            </ul>
+                        </li>
+                        <li><strong>2. Formulário de edição:</strong>
+                            <ul class="ml-6 mt-1 space-y-1 text-sm">
+                                <li>• Input para URL da foto</li>
+                                <li>• Input para nome</li>
+                                <li>• Textarea para bio</li>
+                                <li>• Input para URL do site</li>
+                                <li>• Botão "Atualizar Perfil"</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 font-semibold mb-2">Funcionalidade:</p>
+                    <ul class="space-y-1 text-gray-700">
+                        <li>• Ao clicar em "Atualizar", pegar valores dos inputs</li>
+                        <li>• Atualizar foto (.src), nome (innerText), bio (innerText) e link (href + innerText)</li>
+                        <li>• Limpar formulário após atualizar</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Aprendizagem</h4>
+                    <div class="space-y-2">
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei área de visualização com foto, nome, bio e link</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Criei formulário completo com 4 campos</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Botão pega valores com .value</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Atualiza foto (.src), nome e bio (innerText), link (href)</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Formulário é limpo após atualizar</span>
+                        </label>
+                        <label
+                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
+                            <span class="text-gray-800">Aplicação está funcional e visualmente organizada</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500">
+                    <h4 class="font-bold text-lg text-green-900 mb-3">O que se espera no final</h4>
+                    <p class="text-green-800 mb-3">
+                        Aplicação completa de editor de perfil funcionando: usuário preenche formulário, clica em
+                        atualizar e vê o perfil mudar instantaneamente. Demonstra domínio completo de manipulação de
+                        conteúdo.
+                    </p>
+                    <p class="text-sm text-green-700 font-semibold mb-3">
+                        Critério de sucesso: Editor de perfil funcional integrando innerText, innerHTML, .src, .href e
+                        .value.
+                    </p>
+                    <div class="bg-white bg-opacity-50 rounded-lg p-3 mt-3">
+                        <p class="text-xs text-green-800">
+                            <strong>💡 Dica:</strong> Teste várias vezes para garantir que tudo funciona perfeitamente!
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Entrega -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-8 text-center">Entrega dos Exercícios</h2>
+
+            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-6">
+                <h3 class="font-bold text-2xl mb-4">Como entregar</h3>
+                <ol class="space-y-3 text-lg">
+                    <li><strong>1.</strong> Organize todos os 10 arquivos HTML em uma pasta</li>
+                    <li><strong>2.</strong> Nomeie: <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio01.html</code>, <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio02.html</code>, etc.</li>
+                    <li><strong>3.</strong> Compacte em <strong>.zip</strong></li>
+                    <li><strong>4.</strong> Renomeie: <code
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana33_exercicios.zip</code></li>
+                    <li><strong>5.</strong> Envie no Google Sala de Aula</li>
+                </ol>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                    <h4 class="font-bold text-xl mb-3">Checklist</h4>
+                    <ul class="space-y-2 opacity-95">
+                        <li>□ 10 arquivos HTML</li>
+                        <li>□ Todos testados visualmente</li>
+                        <li>□ Mudanças visíveis na página</li>
+                        <li>□ Compactados em .zip</li>
+                        <li>□ Enviado no prazo</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                    <h4 class="font-bold text-xl mb-3">Atenção</h4>
+                    <ul class="space-y-2 opacity-95">
+                        <li>• Teste ANTES de enviar</li>
+                        <li>• Veja as mudanças visualmente</li>
+                        <li>• Não copie código</li>
+                        <li>• Trabalho individual</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-red-200 rounded-2xl p-6 text-center">
+                <p class="font-bold text-2xl mb-2">Prazo</p>
+                <p class="text-3xl font-bold">7 dias</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
+        <p>
+            <a href="../autoria-web-disciplina.html">Autoria Web</a> •
+            <a href="semana33-manipulacao-conteudo.html">Semana 33</a> •
+            IFRN © 2025
+        </p>
+    </footer>
+
+</body>
+
+</html>

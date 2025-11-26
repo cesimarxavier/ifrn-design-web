@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 35 — Eventos no DOM | Autoria Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #d1d5db;
+            border: 2px solid #374151;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
+                    /
+                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
+                        4</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 35</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                ⚡ Eventos no DOM
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 35 — Eventos no DOM
+            </h1>
+
+            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Agora vamos aprender a reagir às ações do usuário: cliques, teclas pressionadas, envio de formulários e
+                muito mais. É aqui que sua página fica realmente interativa!
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#exemplo1" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Começar pelos exemplos
+                </a>
+                <a href="#exercicios"
+                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
+                    Ver exercícios em sala
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Foco</p>
+                    <p class="text-sm text-gray-600">onclick, addEventListener, eventos de teclado e formulário</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
+                    <p class="text-sm text-gray-600">Aplicar / Criar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Aprender a capturar e responder aos eventos do usuário (cliques, teclas,
+                                    formulários) usando addEventListener e entender como prevenir comportamentos padrão
+                                    do navegador.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                ✅ Critérios de sucesso
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Marque conforme você for dominando cada conceito:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Eventos básicos:</strong> Sei capturar cliques com onclick e addEventListener
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>addEventListener:</strong> Entendo a vantagem de usar addEventListener
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Teclado:</strong> Consigo capturar teclas com keydown e keyup
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Formulários:</strong> Sei capturar o evento submit
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>preventDefault:</strong> Consigo prevenir comportamento padrão
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Prática:</strong> Consegui fazer os exercícios de eventos
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retomada Semana 34 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                    <span>↩️</span>
+                    Retomada rápida da Semana 34
+                </h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Semana passada você aprendeu a <strong>mudar a aparência</strong> dos elementos usando <code
+                        class="bg-gray-200 px-2 py-1 rounded">classList</code> e propriedades <code
+                        class="bg-gray-200 px-2 py-1 rounded">style</code>. Agora vamos aprender a <strong>capturar
+                        ações do usuário</strong> para tornar a página interativa de verdade.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- O que são Eventos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-gray-900 mb-8">
+                O que são Eventos?
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 mb-8">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    <strong>Eventos</strong> são ações que acontecem na página e que o JavaScript pode "escutar" e
+                    reagir. Por exemplo:
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                        <p class="text-4xl mb-3">🖱️</p>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Cliques</h3>
+                        <p class="text-gray-700 text-sm">Usuário clica em botões, links, imagens...</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                        <p class="text-4xl mb-3">⌨️</p>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Teclado</h3>
+                        <p class="text-gray-700 text-sm">Usuário digita ou pressiona teclas</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+                        <p class="text-4xl mb-3">📝</p>
+                        <h3 class="font-bold text-lg text-gray-900 mb-2">Formulários</h3>
+                        <p class="text-gray-700 text-sm">Usuário envia um formulário</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- onclick vs addEventListener -->
+    <section id="exemplo1" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    🖱️ Exemplo 1 — Capturando Cliques
+                </h2>
+                <p class="text-xl opacity-95">
+                    Existem duas formas principais de capturar cliques.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Forma 1: onclick</h3>
+                    <div class="code-block text-sm mb-4">
+                        <span class="text-purple-400">const</span> btn = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">querySelector</span>(<span
+                            class="text-orange-400">"#botao"</span>);<br>
+                        <br>
+                        btn.<span class="text-yellow-400">onclick</span> = <span
+                            class="text-purple-400">function</span>() {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">alert</span>(<span
+                            class="text-orange-400">"Clicou!"</span>);<br>
+                        };
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded">
+                        <p class="text-sm text-gray-700">✅ Simples e direto</p>
+                        <p class="text-sm text-gray-700">⚠️ Só aceita uma função por vez</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Forma 2: addEventListener</h3>
+                    <div class="code-block text-sm mb-4">
+                        <span class="text-purple-400">const</span> btn = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">querySelector</span>(<span
+                            class="text-orange-400">"#botao"</span>);<br>
+                        <br>
+                        btn.<span class="text-yellow-400">addEventListener</span>(<span
+                            class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                        {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">alert</span>(<span
+                            class="text-orange-400">"Clicou!"</span>);<br>
+                        });
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded">
+                        <p class="text-sm text-gray-700">✅ Mais flexível</p>
+                        <p class="text-sm text-gray-700">✅ Pode ter múltiplos listeners</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-50 rounded p-6 border-l-4 border-ifrn-green-500">
+                <p class="font-bold text-ifrn-green-900 mb-2">💡 Recomendação:</p>
+                <p class="text-ifrn-green-800">
+                    Use <code class="bg-white px-2 py-1 rounded">addEventListener</code> sempre que possível. É a forma
+                    moderna e mais poderosa de trabalhar com eventos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exemplo Completo de Click -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                Exemplo completo: Botão que muda texto
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;p id="mensagem"&gt;Texto original&lt;/p&gt;<br>
+                            &lt;button id="btn"&gt;Mudar texto&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> mensagem = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#mensagem"</span>);<br>
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#btn"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">addEventListener</span>(<span
+                                class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                            {<br>
+                            &nbsp;&nbsp;mensagem.<span class="text-yellow-400">innerText</span> = <span
+                                class="text-orange-400">"Texto mudou!"</span>;<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Quando você clica no botão, o texto do parágrafo muda de "Texto original" para
+                        "Texto mudou!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eventos de Teclado -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ⌨️ Exemplo 2 — Eventos de Teclado
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                Você pode capturar quando o usuário pressiona teclas usando eventos de teclado:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">keydown</h3>
+                    <p class="text-gray-700 text-sm mb-3">Dispara quando a tecla é pressionada</p>
+                    <div class="code-block text-sm">
+                        elemento.<span class="text-yellow-400">addEventListener</span>(<span
+                            class="text-orange-400">"keydown"</span>, <span class="text-purple-400">function</span>()
+                        {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Tecla
+                            pressionada"</span>);<br>
+                        });
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">keyup</h3>
+                    <p class="text-gray-700 text-sm mb-3">Dispara quando a tecla é solta</p>
+                    <div class="code-block text-sm">
+                        elemento.<span class="text-yellow-400">addEventListener</span>(<span
+                            class="text-orange-400">"keyup"</span>, <span class="text-purple-400">function</span>()
+                        {<br>
+                        &nbsp;&nbsp;<span class="text-green-400">console.log</span>(<span class="text-orange-400">"Tecla
+                            solta"</span>);<br>
+                        });
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo: Capturar o que o usuário digita</h3>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;input type="text" id="campo" placeholder="Digite algo..."&gt;<br>
+                            &lt;p id="resultado"&gt;&lt;/p&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> campo = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#campo"</span>);<br>
+                            <span class="text-purple-400">const</span> resultado = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#resultado"</span>);<br>
+                            <br>
+                            campo.<span class="text-yellow-400">addEventListener</span>(<span
+                                class="text-orange-400">"keyup"</span>, <span class="text-purple-400">function</span>()
+                            {<br>
+                            &nbsp;&nbsp;resultado.<span class="text-yellow-400">innerText</span> = campo.<span
+                                class="text-yellow-400">value</span>;<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Conforme você digita no input, o texto aparece em tempo real no parágrafo abaixo
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Eventos de Formulário -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📝 Exemplo 3 — Eventos de Formulário
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                O evento <code class="bg-gray-200 px-2 py-1 rounded">submit</code> dispara quando um formulário é
+                enviado (botão submit ou Enter).
+            </p>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo: Validar formulário antes de enviar</h3>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;form id="formulario"&gt;<br>
+                            &nbsp;&nbsp;&lt;input type="text" id="nome" placeholder="Nome"&gt;<br>
+                            &nbsp;&nbsp;&lt;button type="submit"&gt;Enviar&lt;/button&gt;<br>
+                            &lt;/form&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> form = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#formulario"</span>);<br>
+                            <span class="text-purple-400">const</span> nome = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#nome"</span>);<br>
+                            <br>
+                            form.<span class="text-yellow-400">addEventListener</span>(<span
+                                class="text-orange-400">"submit"</span>, <span
+                                class="text-purple-400">function</span>(event) {<br>
+                            &nbsp;&nbsp;<span class="text-purple-400">if</span> (nome.<span
+                                class="text-yellow-400">value</span> === <span class="text-orange-400">""</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;event.<span class="text-yellow-400">preventDefault</span>();<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-green-400">alert</span>(<span
+                                class="text-orange-400">"Preencha o nome!"</span>);<br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Se o campo estiver vazio, o formulário NÃO é enviado e aparece um alerta. Se
+                        estiver preenchido, o formulário é enviado normalmente.</p>
+                </div>
+            </div>
+
+            <div class="bg-red-50 rounded p-6 border-l-4 border-red-500">
+                <p class="font-bold text-red-900 mb-2">🔑 event.preventDefault()</p>
+                <p class="text-red-800">
+                    Esta função <strong>impede o comportamento padrão</strong> de um evento. No caso do formulário,
+                    impede que a página recarregue. Muito importante para validações!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objeto event -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📦 O objeto event
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    Quando um evento acontece, o JavaScript passa um objeto <code
+                        class="bg-gray-100 px-2 py-1 rounded">event</code> (ou <code
+                        class="bg-gray-100 px-2 py-1 rounded">e</code>) com informações sobre o evento:
+                </p>
+
+                <div class="code-block mb-6">
+                    elemento.<span class="text-yellow-400">addEventListener</span>(<span
+                        class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>(event)
+                    {<br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(event.<span
+                        class="text-yellow-400">type</span>);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-gray-500">// "click"</span><br>
+                    &nbsp;&nbsp;<span class="text-green-400">console.log</span>(event.<span
+                        class="text-yellow-400">target</span>);&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">//
+                        elemento clicado</span><br>
+                    &nbsp;&nbsp;event.<span
+                        class="text-yellow-400">preventDefault</span>();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="text-gray-500">// previne comportamento padrão</span><br>
+                    });
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 rounded p-4">
+                        <p class="font-bold text-gray-900 mb-1">event.type</p>
+                        <p class="text-sm text-gray-700">Tipo do evento ("click", "keyup"...)</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded p-4">
+                        <p class="font-bold text-gray-900 mb-1">event.target</p>
+                        <p class="text-sm text-gray-700">Elemento que disparou o evento</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded p-4">
+                        <p class="font-bold text-gray-900 mb-1">event.preventDefault()</p>
+                        <p class="text-sm text-gray-700">Impede ação padrão</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios em Sala -->
+    <section id="exercicios" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🏃‍♂️ Exercícios em Sala
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Botão que muda texto</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code class="bg-gray-100 px-2 py-1 rounded">&lt;p&gt;</code> com texto
+                                    inicial</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um botão que, ao ser clicado, muda o texto do parágrafo</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Use <code
+                                        class="bg-gray-100 px-2 py-1 rounded">addEventListener("click", ...)</code></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar eventos de clique com addEventListener</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Capturar digitação</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;input type="text"&gt;</code></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code class="bg-gray-100 px-2 py-1 rounded">&lt;p&gt;</code> que mostra o que
+                                    está sendo digitado em tempo real</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Use <code
+                                        class="bg-gray-100 px-2 py-1 rounded">addEventListener("keyup", ...)</code></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar eventos de teclado e <code
+                            class="bg-white px-2 py-1 rounded">.value</code></p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Validar formulário</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code class="bg-gray-100 px-2 py-1 rounded">&lt;form&gt;</code> com input de
+                                    nome e botão submit</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>JavaScript que verifica se o campo está vazio</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Se vazio, use <code
+                                        class="bg-gray-100 px-2 py-1 rounded">event.preventDefault()</code> e mostre
+                                    alerta</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar evento submit e preventDefault</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarefa de Casa -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    🏠 Tarefa para enviar em sala
+                </h2>
+                <p class="text-xl opacity-95 mb-6">
+                    Faça este exercício e envie ainda hoje:
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6">
+                    <p class="text-lg mb-4 font-bold">
+                        Criar um contador com dois botões: + e –
+                    </p>
+                    <p class="text-lg mb-4">O contador deve ter:</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span>Um <code class="bg-white bg-opacity-20 px-2 py-1 rounded">&lt;p&gt;</code> mostrando o
+                                número (começa em 0)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span>Botão <strong>"+"</strong> que aumenta o contador em 1</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span>Botão <strong>"–"</strong> que diminui o contador em 1</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">4.</span>
+                            <span>Use <code class="bg-white bg-opacity-20 px-2 py-1 rounded">addEventListener</code>
+                                para os dois botões</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Consolidar eventos de clique, manipulação de conteúdo e lógica
+                        simples com variáveis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-sm opacity-75">
+                Autoria Web | IFRN | Semana 35 — Eventos no DOM
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana35-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

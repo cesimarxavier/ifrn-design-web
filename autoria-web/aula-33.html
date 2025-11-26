@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 33 — Manipulação de Conteúdo | Autoria Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #d1d5db;
+            border: 2px solid #374151;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
+                    /
+                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
+                        4</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 33</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                ✏️ Manipulação de Conteúdo
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 33 — Manipulação de Conteúdo
+            </h1>
+
+            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Agora que você sabe selecionar elementos, vamos aprender a modificar o conteúdo deles: trocar textos,
+                inserir HTML e alterar atributos dinamicamente.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#exemplo1" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Começar pelos exemplos
+                </a>
+                <a href="#exercicios"
+                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
+                    Ver exercícios em sala
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Foco</p>
+                    <p class="text-sm text-gray-600">Texto, HTML interno e atributos</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
+                    <p class="text-sm text-gray-600">Aplicar / Analisar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Aprender a modificar o conteúdo de elementos HTML dinamicamente: alterar textos,
+                                    inserir HTML e manipular atributos como src, href e value usando JavaScript.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                ✅ Critérios de sucesso
+            </h2>
+            <p class="text-gray-700 mb-6">
+                Marque conforme você for dominando cada conceito:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>innerText e textContent:</strong> Sei alterar textos de elementos
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>innerHTML:</strong> Consigo inserir HTML dinamicamente
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Atributos:</strong> Sei usar setAttribute() e getAttribute()
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Propriedades:</strong> Consigo alterar .src, .href e .value diretamente
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Diferenças:</strong> Entendo quando usar texto vs HTML
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-gray-800">
+                        <strong>Prática:</strong> Consegui fazer os exercícios de manipulação
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Retomada Semana 32 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                    <span>↩️</span>
+                    Retomada rápida da Semana 32
+                </h3>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Semana passada você aprendeu a <strong>selecionar elementos</strong> usando <code
+                        class="bg-gray-200 px-2 py-1 rounded">getElementById()</code>, <code
+                        class="bg-gray-200 px-2 py-1 rounded">querySelector()</code> e <code
+                        class="bg-gray-200 px-2 py-1 rounded">querySelectorAll()</code>. Agora vamos dar o próximo
+                    passo: <strong>modificar o conteúdo</strong> desses elementos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manipulando Texto -->
+    <section id="exemplo1" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    📝 Exemplo 1 — Alterando Texto
+                </h2>
+                <p class="text-xl opacity-95">
+                    Existem 3 formas de alterar o texto de um elemento.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">innerText</h3>
+                    <p class="text-gray-700 text-sm mb-3">Texto visível (respeitando CSS)</p>
+                    <div class="code-block text-sm">
+                        elemento.<span class="text-yellow-400">innerText</span> = <span class="text-orange-400">"Novo
+                            texto"</span>;
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">textContent</h3>
+                    <p class="text-gray-700 text-sm mb-3">Todo o texto (ignora CSS)</p>
+                    <div class="code-block text-sm">
+                        elemento.<span class="text-yellow-400">textContent</span> = <span class="text-orange-400">"Novo
+                            texto"</span>;
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-2">innerHTML</h3>
+                    <p class="text-gray-700 text-sm mb-3">Texto + HTML</p>
+                    <div class="code-block text-sm">
+                        elemento.<span class="text-yellow-400">innerHTML</span> = <span
+                            class="text-orange-400">"&lt;b&gt;Negrito&lt;/b&gt;"</span>;
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo completo:</h3>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;h1 id="titulo"&gt;Texto antigo&lt;/h1&gt;<br>
+                            &lt;button id="btn"&gt;Mudar&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#btn"</span>);<br>
+                            <span class="text-purple-400">const</span> h1 = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#titulo"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">onclick</span> = <span
+                                class="text-purple-400">function</span>() {<br>
+                            &nbsp;&nbsp;h1.<span class="text-yellow-400">innerText</span> = <span
+                                class="text-orange-400">"Texto novo!"</span>;<br>
+                            };
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
+                    <p class="text-sm">Quando você clica no botão, o texto do h1 muda de "Texto antigo" para "Texto
+                        novo!"</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded p-6 border-l-2 border-gray-400">
+                <p class="font-bold text-gray-900 mb-2">💡 Quando usar cada um:</p>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• <strong>innerText:</strong> Use na maioria dos casos (texto simples)</li>
+                    <li>• <strong>textContent:</strong> Mais rápido, mas não considera CSS</li>
+                    <li>• <strong>innerHTML:</strong> Quando precisa inserir tags HTML</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- innerHTML -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                Exemplo 2 — Inserindo HTML Dinamicamente
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
+                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
+                    Com <code class="bg-gray-100 px-2 py-1 rounded">innerHTML</code> você pode inserir <strong>HTML
+                        completo</strong>, não apenas texto.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;div id="caixa"&gt;&lt;/div&gt;<br>
+                            &lt;button id="adicionar"&gt;Adicionar&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> caixa = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#caixa"</span>);<br>
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#adicionar"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">onclick</span> = <span
+                                class="text-purple-400">function</span>() {<br>
+                            &nbsp;&nbsp;caixa.<span class="text-yellow-400">innerHTML</span> = <span
+                                class="text-orange-400">"&lt;strong&gt;Conteúdo gerado
+                                dinamicamente&lt;/strong&gt;"</span>;<br>
+                            };
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 text-white p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-3">🎬 Resultado:</p>
+                    <p class="text-sm mb-2">Antes do clique: &lt;div id="caixa"&gt;&lt;/div&gt;</p>
+                    <p class="text-sm">Depois do clique: &lt;div id="caixa"&gt;&lt;strong&gt;Conteúdo gerado
+                        dinamicamente&lt;/strong&gt;&lt;/div&gt;</p>
+                </div>
+            </div>
+
+            <div class="bg-red-50 rounded p-6 border-l-4 border-red-500">
+                <p class="font-bold text-red-900 mb-2">⚠️ Cuidado com innerHTML:</p>
+                <p class="text-red-800">
+                    <code class="bg-white px-2 py-1 rounded">innerHTML</code> substitui TODO o conteúdo anterior. Se
+                    você quiser adicionar (não substituir), use <code class="bg-white px-2 py-1 rounded">+=</code> ou
+                    métodos como <code class="bg-white px-2 py-1 rounded">appendChild()</code>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atributos -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                Exemplo 3 — Manipulando Atributos
+            </h2>
+
+            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                Atributos são as propriedades das tags HTML: <code class="bg-gray-200 px-2 py-1 rounded">src</code>,
+                <code class="bg-gray-200 px-2 py-1 rounded">href</code>, <code
+                    class="bg-gray-200 px-2 py-1 rounded">value</code>, <code
+                    class="bg-gray-200 px-2 py-1 rounded">class</code>, etc.
+            </p>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Método 1: setAttribute() e getAttribute()</h3>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">HTML:</p>
+                        <div class="code-block text-sm">
+                            &lt;img id="foto" src="foto1.jpg"&gt;<br>
+                            &lt;button id="trocar"&gt;Trocar&lt;/button&gt;
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
+                        <div class="code-block text-sm">
+                            <span class="text-purple-400">const</span> foto = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#foto"</span>);<br>
+                            <span class="text-purple-400">const</span> btn = <span
+                                class="text-blue-400">document</span>.<span
+                                class="text-yellow-400">querySelector</span>(<span
+                                class="text-orange-400">"#trocar"</span>);<br>
+                            <br>
+                            btn.<span class="text-yellow-400">onclick</span> = <span
+                                class="text-purple-400">function</span>() {<br>
+                            &nbsp;&nbsp;foto.<span class="text-yellow-400">setAttribute</span>(<span
+                                class="text-orange-400">"src"</span>, <span
+                                class="text-orange-400">"foto2.jpg"</span>);<br>
+                            };
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Método 2: Propriedades diretas (mais comum)</h3>
+
+                <div class="code-block mb-4">
+                    <span class="text-gray-500">// Trocar imagem</span><br>
+                    foto.<span class="text-yellow-400">src</span> = <span
+                        class="text-orange-400">"foto2.jpg"</span>;<br>
+                    <br>
+                    <span class="text-gray-500">// Trocar link</span><br>
+                    link.<span class="text-yellow-400">href</span> = <span
+                        class="text-orange-400">"https://ifrn.edu.br"</span>;<br>
+                    <br>
+                    <span class="text-gray-500">// Pegar valor de input</span><br>
+                    <span class="text-purple-400">const</span> valor = input.<span class="text-yellow-400">value</span>;
+                </div>
+
+                <div class="bg-ifrn-green-50 rounded-xl p-4 border-l-4 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Recomendação:</p>
+                    <p class="text-ifrn-green-800">
+                        Use propriedades diretas (<code class="bg-white px-2 py-1 rounded">.src</code>, <code
+                            class="bg-white px-2 py-1 rounded">.href</code>, <code
+                            class="bg-white px-2 py-1 rounded">.value</code>) sempre que possível. É mais simples e
+                        direto.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tabela Comparativa -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 overflow-x-auto">
+                <h3 class="font-bold text-xl text-gray-900 mb-4">📊 Atributos Comuns</h3>
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 border-gray-300">
+                            <th class="pb-4 pr-4 font-bold text-gray-900">Elemento</th>
+                            <th class="pb-4 pr-4 font-bold text-gray-900">Atributo</th>
+                            <th class="pb-4 font-bold text-gray-900">Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">&lt;img&gt;</code></td>
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">src</code></td>
+                            <td class="py-4"><code class="text-sm">img.src = "foto.jpg"</code></td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">&lt;a&gt;</code></td>
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">href</code></td>
+                            <td class="py-4"><code class="text-sm">link.href = "https://..."</code></td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">&lt;input&gt;</code></td>
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">value</code></td>
+                            <td class="py-4"><code class="text-sm">input.value = "texto"</code></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-4">Qualquer</td>
+                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">class</code></td>
+                            <td class="py-4"><code class="text-sm">div.className = "ativo"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferença Texto x HTML -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ⚖️ Diferença: Texto vs HTML
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Inserindo TEXTO</h3>
+                    <div class="code-block text-sm mb-4">
+                        elemento.<span class="text-yellow-400">innerText</span> = <span
+                            class="text-orange-400">"&lt;strong&gt;teste&lt;/strong&gt;"</span>;
+                    </div>
+                    <p class="font-bold text-gray-900 mb-2">Resultado na tela:</p>
+                    <div class="bg-white p-4 rounded border-2 border-gray-300">
+                        &lt;strong&gt;teste&lt;/strong&gt;
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">As tags aparecem como texto literal</p>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Inserindo HTML</h3>
+                    <div class="code-block text-sm mb-4">
+                        elemento.<span class="text-yellow-400">innerHTML</span> = <span
+                            class="text-orange-400">"&lt;strong&gt;teste&lt;/strong&gt;"</span>;
+                    </div>
+                    <p class="font-bold text-gray-900 mb-2">Resultado na tela:</p>
+                    <div class="bg-white p-4 rounded border-2 border-gray-300">
+                        <strong>teste</strong>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">As tags são interpretadas e aplicadas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios em Sala -->
+    <section id="exercicios" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🏃‍♂️ Exercícios em Sala
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">1</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Alterar texto de um h1</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie um HTML com:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;h1 id="titulo"&gt;Título Original&lt;/h1&gt;</code></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code class="bg-gray-100 px-2 py-1 rounded">&lt;button&gt;</code> que ao clicar
+                                    muda o texto do h1</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar <code class="bg-white px-2 py-1 rounded">innerText</code>
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">2</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Substituir conteúdo de uma div</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie uma <code
+                                class="bg-gray-100 px-2 py-1 rounded">&lt;div id="caixa"&gt;Conteúdo antigo&lt;/div&gt;</code>
+                            e um botão que substitui o conteúdo por HTML novo:
+                        </p>
+                        <div class="code-block text-sm">
+                            caixa.<span class="text-yellow-400">innerHTML</span> = <span
+                                class="text-orange-400">"&lt;p&gt;Novo
+                                parágrafo&lt;/p&gt;&lt;strong&gt;Negrito&lt;/strong&gt;"</span>;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar <code class="bg-white px-2 py-1 rounded">innerHTML</code>
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">3</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Trocar src de uma imagem</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie:
+                        </p>
+                        <ul class="space-y-2 text-gray-700 mb-4">
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um <code
+                                        class="bg-gray-100 px-2 py-1 rounded">&lt;img id="foto" src="foto1.jpg"&gt;</code></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                <span>Um botão que troca para "foto2.jpg" quando clicado</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Praticar manipulação de atributos (<code
+                            class="bg-white px-2 py-1 rounded">.src</code>)</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <div class="flex gap-4 items-start mb-6">
+                    <div class="step-number">4</div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">Inserir HTML dinamicamente</h3>
+                        <p class="text-gray-700 mb-4">
+                            Crie uma div vazia e um botão. Ao clicar, insira este HTML:
+                        </p>
+                        <div class="code-block text-sm">
+                            caixa.<span class="text-yellow-400">innerHTML</span> = <span
+                                class="text-orange-400">"&lt;strong&gt;Conteúdo gerado
+                                dinamicamente&lt;/strong&gt;"</span>;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
+                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
+                    <p class="text-ifrn-green-800">Consolidar <code class="bg-white px-2 py-1 rounded">innerHTML</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarefa de Casa -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    🏠 Tarefa de Casa
+                </h2>
+                <p class="text-xl opacity-95 mb-6">
+                    Para fixar o conteúdo, faça esta tarefa até a próxima aula:
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6">
+                    <p class="text-lg mb-4 font-bold">
+                        Criar um pequeno banner dinâmico
+                    </p>
+                    <p class="text-lg mb-4">O banner deve ter:</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span>Um <code class="bg-white bg-opacity-20 px-2 py-1 rounded">h2</code> com um
+                                título</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span>Uma <code class="bg-white bg-opacity-20 px-2 py-1 rounded">img</code> com uma
+                                foto</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span>Um <code class="bg-white bg-opacity-20 px-2 py-1 rounded">button</code> que, ao
+                                clicar:</span>
+                        </li>
+                    </ul>
+                    <div class="ml-8 mt-3 space-y-2">
+                        <p>• Muda o título para outro texto</p>
+                        <p>• Troca a imagem (src) para outra foto</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Juntar tudo que você aprendeu: seleção, manipulação de texto e
+                        atributos num projeto pequeno.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-sm opacity-75">
+                Autoria Web | IFRN | Semana 33 — Manipulação de Conteúdo
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana33-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

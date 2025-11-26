@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 39 — Projeto Integrado 2 | Autoria Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #d1d5db;
+            border: 2px solid #374151;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2f6b48, #1f4a32);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .project-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
+                    /
+                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
+                        4</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 39</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                🚀 Projeto Integrado 2
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 39 — Projeto Integrado 2
+            </h1>
+
+            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Leve suas habilidades ao próximo nível! Escolha um dos 4 projetos e crie um componente interativo
+                completo: galeria, abas, carrossel ou sistema de comentários.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#projetos" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Escolher projeto
+                </a>
+                <a href="#requisitos"
+                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
+                    Ver requisitos
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Tipo</p>
+                    <p class="text-sm text-gray-600">Projeto interativo avançado</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
+                    <p class="text-sm text-gray-600">Criar / Avaliar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Criar um componente web interativo completo, aplicando manipulação avançada do DOM,
+                                    gerenciamento de estados com classes CSS e responsividade, demonstrando domínio dos
+                                    conceitos aprendidos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Escolha Seu Projeto -->
+    <section id="projetos" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-bold text-4xl text-gray-900 mb-4">
+                    🎨 Escolha Seu Projeto
+                </h2>
+                <p class="text-xl text-gray-700">
+                    Selecione UM dos 4 projetos abaixo para desenvolver
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Projeto 1: Galeria -->
+                <div class="project-card bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="text-6xl mb-4">🖼️</div>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4">Galeria de Imagens</h3>
+                    <p class="text-gray-700 mb-6">
+                        Uma galeria com miniaturas clicáveis que trocam a imagem principal dinamicamente.
+                    </p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <p class="font-bold text-gray-900 mb-2 text-sm">Funcionalidades:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Miniaturas clicáveis</li>
+                            <li>• Imagem principal muda ao clicar</li>
+                            <li>• Miniatura ativa destacada</li>
+                            <li>• Botões anterior/próximo (opcional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full">Médio</span>
+                        <span>•</span>
+                        <span>Recomendado para iniciantes</span>
+                    </div>
+                </div>
+
+                <!-- Projeto 2: Sistema de Abas -->
+                <div class="project-card bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="text-6xl mb-4">📑</div>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4">Sistema de Abas (Tabs)</h3>
+                    <p class="text-gray-700 mb-6">
+                        Conteúdo organizado em abas, mostrando apenas uma por vez.
+                    </p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <p class="font-bold text-gray-900 mb-2 text-sm">Funcionalidades:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• 3-5 abas (botões)</li>
+                            <li>• Mostrar apenas conteúdo ativo</li>
+                            <li>• Aba ativa destacada</li>
+                            <li>• Transições suaves</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">Fácil</span>
+                        <span>•</span>
+                        <span>Bom para praticar classes</span>
+                    </div>
+                </div>
+
+                <!-- Projeto 3: Carrossel -->
+                <div class="project-card bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="text-6xl mb-4">🎠</div>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4">Carrossel Simples</h3>
+                    <p class="text-gray-700 mb-6">
+                        Slideshow com botões de navegação para passar imagens ou cards.
+                    </p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <p class="font-bold text-gray-900 mb-2 text-sm">Funcionalidades:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Botões anterior/próximo</li>
+                            <li>• Mostrar um item por vez</li>
+                            <li>• Indicadores (bolinhas)</li>
+                            <li>• Loop automático (opcional)</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full">Médio+</span>
+                        <span>•</span>
+                        <span>Requer lógica de índice</span>
+                    </div>
+                </div>
+
+                <!-- Projeto 4: Sistema de Comentários -->
+                <div class="project-card bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="text-6xl mb-4">💬</div>
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4">Sistema de Comentários</h3>
+                    <p class="text-gray-700 mb-6">
+                        Interface para adicionar, visualizar e remover comentários (sem backend).
+                    </p>
+
+                    <div class="bg-gray-50 rounded-xl p-4 mb-6">
+                        <p class="font-bold text-gray-900 mb-2 text-sm">Funcionalidades:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Formulário nome + comentário</li>
+                            <li>• Adicionar comentário na lista</li>
+                            <li>• Botão excluir em cada um</li>
+                            <li>• Timestamp (data/hora)</li>
+                        </ul>
+                    </div>
+
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full">Médio</span>
+                        <span>•</span>
+                        <span>Mais completo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requisitos Gerais -->
+    <section id="requisitos" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📋 Requisitos para TODOS os Projetos
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">1</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Seletores Corretos</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Use <code class="bg-gray-100 px-2 py-1 rounded">querySelector</code> / <code
+                                            class="bg-gray-100 px-2 py-1 rounded">querySelectorAll</code></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>IDs e classes organizadas</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Nomes semânticos (ex: <code
+                                            class="bg-gray-100 px-2 py-1 rounded">tabActive</code>, <code
+                                            class="bg-gray-100 px-2 py-1 rounded">mainImage</code>)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">2</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Criar e Remover Elementos</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Use <code class="bg-gray-100 px-2 py-1 rounded">createElement</code> quando
+                                        necessário</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span><code class="bg-gray-100 px-2 py-1 rounded">append</code> / <code
+                                            class="bg-gray-100 px-2 py-1 rounded">remove</code> para manipular
+                                        DOM</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Validações antes de criar (ex: campo vazio)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">3</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Classes para Estados</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Use <code class="bg-gray-100 px-2 py-1 rounded">classList.add</code> / <code
+                                            class="bg-gray-100 px-2 py-1 rounded">remove</code> / <code
+                                            class="bg-gray-100 px-2 py-1 rounded">toggle</code></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>CSS para <code class="bg-gray-100 px-2 py-1 rounded">.active</code>, <code
+                                            class="bg-gray-100 px-2 py-1 rounded">.hidden</code>, <code
+                                            class="bg-gray-100 px-2 py-1 rounded">.selected</code></span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Evite manipular estilos inline (use classes!)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                    <div class="flex gap-4 items-start">
+                        <div class="step-number">4</div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-xl text-gray-900 mb-3">Responsividade CSS</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Funcione bem em mobile (320px+)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Media queries quando necessário</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
+                                    <span>Flexbox ou Grid para layouts</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dicas por Projeto -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                💡 Dicas Específicas por Projeto
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Galeria -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                        <span>🖼️</span>
+                        Galeria de Imagens
+                    </h3>
+                    <div class="code-block text-sm mb-4">
+                        <span class="text-gray-500">// Trocar imagem principal</span><br>
+                        miniaturas.<span class="text-yellow-400">forEach</span>(mini =&gt; {<br>
+                        &nbsp;&nbsp;mini.<span class="text-yellow-400">addEventListener</span>(<span
+                            class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Trocar src da imagem principal</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;imagemPrincipal.<span class="text-yellow-400">src</span> = <span
+                            class="text-purple-400">this</span>.<span class="text-yellow-400">src</span>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Remover active de todas</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;miniaturas.<span class="text-yellow-400">forEach</span>(m =&gt; m.<span
+                            class="text-yellow-400">classList</span>.<span class="text-blue-400">remove</span>(<span
+                            class="text-orange-400">"active"</span>));<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Adicionar active nesta</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">this</span>.<span
+                            class="text-yellow-400">classList</span>.<span class="text-blue-400">add</span>(<span
+                            class="text-orange-400">"active"</span>);<br>
+                        &nbsp;&nbsp;});<br>
+                        });
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        <strong>Dica:</strong> Use placeholder.com ou unsplash.com para imagens de teste.
+                    </p>
+                </div>
+
+                <!-- Abas -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                        <span>📑</span>
+                        Sistema de Abas
+                    </h3>
+                    <div class="code-block text-sm mb-4">
+                        <span class="text-gray-500">// Estrutura HTML sugerida</span><br>
+                        <span class="text-gray-500">// &lt;button class="tab" data-tab="1"&gt;Aba
+                            1&lt;/button&gt;</span><br>
+                        <span class="text-gray-500">// &lt;div class="content" id="content-1"&gt;Conteúdo
+                            1&lt;/div&gt;</span><br>
+                        <br>
+                        tabs.<span class="text-yellow-400">forEach</span>(tab =&gt; {<br>
+                        &nbsp;&nbsp;tab.<span class="text-yellow-400">addEventListener</span>(<span
+                            class="text-orange-400">"click"</span>, <span class="text-purple-400">function</span>()
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">const</span> targetId = <span
+                            class="text-purple-400">this</span>.<span class="text-yellow-400">dataset</span>.<span
+                            class="text-yellow-400">tab</span>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Esconder todos os conteúdos</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;contents.<span class="text-yellow-400">forEach</span>(c =&gt; c.<span
+                            class="text-yellow-400">classList</span>.<span class="text-blue-400">add</span>(<span
+                            class="text-orange-400">"hidden"</span>));<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-500">// Mostrar apenas o target</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">querySelector</span>(<span
+                            class="text-orange-400">`#content-${targetId}`</span>).<span
+                            class="text-yellow-400">classList</span>.<span class="text-blue-400">remove</span>(<span
+                            class="text-orange-400">"hidden"</span>);<br>
+                        &nbsp;&nbsp;});<br>
+                        });
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        <strong>Dica:</strong> Use <code class="bg-gray-100 px-2 py-1 rounded">data-</code> attributes
+                        para conectar abas e conteúdos.
+                    </p>
+                </div>
+
+                <!-- Carrossel -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                        <span>🎠</span>
+                        Carrossel Simples
+                    </h3>
+                    <div class="code-block text-sm mb-4">
+                        <span class="text-purple-400">let</span> currentIndex = <span
+                            class="text-blue-400">0</span>;<br>
+                        <span class="text-purple-400">const</span> items = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">querySelectorAll</span>(<span
+                            class="text-orange-400">".carousel-item"</span>);<br>
+                        <br>
+                        <span class="text-purple-400">function</span> <span class="text-blue-400">showItem</span>(index)
+                        {<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Esconder todos</span><br>
+                        &nbsp;&nbsp;items.<span class="text-yellow-400">forEach</span>(item =&gt; item.<span
+                            class="text-yellow-400">classList</span>.<span class="text-blue-400">add</span>(<span
+                            class="text-orange-400">"hidden"</span>));<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Mostrar apenas o index</span><br>
+                        &nbsp;&nbsp;items[index].<span class="text-yellow-400">classList</span>.<span
+                            class="text-blue-400">remove</span>(<span class="text-orange-400">"hidden"</span>);<br>
+                        }<br>
+                        <br>
+                        btnNext.<span class="text-yellow-400">onclick</span> = <span class="text-purple-400">()
+                            =&gt;</span> {<br>
+                        &nbsp;&nbsp;currentIndex = (currentIndex + <span class="text-blue-400">1</span>) % items.<span
+                            class="text-yellow-400">length</span>; <span class="text-gray-500">// Loop</span><br>
+                        &nbsp;&nbsp;<span class="text-blue-400">showItem</span>(currentIndex);<br>
+                        };
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        <strong>Dica:</strong> Use operador módulo <code class="bg-gray-100 px-2 py-1 rounded">%</code>
+                        para fazer loop infinito.
+                    </p>
+                </div>
+
+                <!-- Comentários -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
+                        <span>💬</span>
+                        Sistema de Comentários
+                    </h3>
+                    <div class="code-block text-sm mb-4">
+                        btnEnviar.<span class="text-yellow-400">onclick</span> = <span
+                            class="text-purple-400">function</span>() {<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">const</span> nome = inputNome.<span
+                            class="text-yellow-400">value</span>;<br>
+                        &nbsp;&nbsp;<span class="text-purple-400">const</span> texto = inputTexto.<span
+                            class="text-yellow-400">value</span>;<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Validar</span><br>
+                        &nbsp;&nbsp;<span class="text-purple-400">if</span> (!nome || !texto) <span
+                            class="text-purple-400">return</span>;<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Criar comentário</span><br>
+                        &nbsp;&nbsp;<span class="text-purple-400">const</span> div = <span
+                            class="text-blue-400">document</span>.<span
+                            class="text-yellow-400">createElement</span>(<span
+                            class="text-orange-400">"div"</span>);<br>
+                        &nbsp;&nbsp;div.<span class="text-yellow-400">innerHTML</span> = <span
+                            class="text-orange-400">`</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span
+                            class="text-orange-400">&lt;strong&gt;${nome}&lt;/strong&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-orange-400">&lt;p&gt;${texto}&lt;/p&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-orange-400">&lt;small&gt;${new
+                            Date().toLocaleString()}&lt;/small&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-orange-400">&lt;button
+                            onclick="this.parentElement.remove()"&gt;✕&lt;/button&gt;</span><br>
+                        &nbsp;&nbsp;<span class="text-orange-400">`</span>;<br>
+                        &nbsp;&nbsp;<br>
+                        &nbsp;&nbsp;listaComentarios.<span class="text-yellow-400">prepend</span>(div); <span
+                            class="text-gray-500">// Mais recente primeiro</span><br>
+                        };
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        <strong>Dica:</strong> Use <code
+                            class="bg-gray-100 px-2 py-1 rounded">new Date().toLocaleString()</code> para timestamp.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarefa: README -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="bg-gradient-to-r from-ifrn-red-600 to-ifrn-red-500 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
+                <h2 class="font-bold text-4xl mb-4">
+                    🏠 Tarefa de Casa
+                </h2>
+                <p class="text-xl opacity-95 mb-6">
+                    Documente seu projeto:
+                </p>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6">
+                    <p class="text-lg mb-4 font-bold">
+                        Escrever um README.md explicando o projeto
+                    </p>
+                    <p class="text-lg mb-4">O README deve conter:</p>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span><strong>Título e descrição</strong> do projeto</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span><strong>Funcionalidades</strong> implementadas</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span><strong>Tecnologias</strong> usadas (HTML, CSS, JavaScript)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">4.</span>
+                            <span><strong>Decisões de design:</strong> Por que escolheu cores, layout, etc</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">5.</span>
+                            <span><strong>Desafios:</strong> O que foi difícil e como resolveu</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">6.</span>
+                            <span><strong>Melhorias futuras:</strong> O que faria diferente ou adicionaria</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-4 border-l-4 border-white">
+                    <p class="text-sm opacity-90">
+                        <strong>Objetivo:</strong> Praticar documentação técnica e reflexão sobre o próprio código.
+                        Essencial para portfólio!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ✅ Checklist de Entrega
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Projeto escolhido funciona completamente</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Usei seletores corretos e organizados</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Manipulei DOM com createElement/append/remove</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Usei classes CSS para estados (active, hidden, etc)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Projeto é responsivo (funciona no celular)</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Código está limpo e comentado</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ README.md está completo e bem escrito</span>
+                    </label>
+
+                    <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <input type="checkbox" class="mt-1">
+                        <span class="text-gray-800">✅ Testei em diferentes navegadores/tamanhos de tela</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-xl mb-4 font-bold">🚀 Mostre suas habilidades!</p>
+            <p class="text-sm opacity-75">
+                Autoria Web | IFRN | Semana 39 — Projeto Integrado 2
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `semana39-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+    </script>
+</body>
+
+</html>

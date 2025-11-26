@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Princípios de Design — Fundamentos para Interfaces Visuais | IFRN</title>
+    <meta name="description"
+        content="Disciplina de fundamentos visuais para ensino médio. Gestalt, tipografia, cor, grid e composição aplicados a interfaces.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="font-bold text-xl text-ifrn-green-800">Princípios de Design</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="text-ifrn-green-700 hover:text-ifrn-ifrn-red-500 transition">Sobre</a>
+                    <a href="#metodologia"
+                        class="text-ifrn-green-700 hover:text-ifrn-ifrn-red-500 transition">Metodologia</a>
+                    <a href="#plano" class="text-ifrn-green-700 hover:text-ifrn-ifrn-red-500 transition">Plano</a>
+                    <a href="#avaliacoes"
+                        class="text-ifrn-green-700 hover:text-ifrn-ifrn-red-500 transition">Avaliações</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                    Fundamentos Visuais • 60 horas • 4 Bimestres
+                </div>
+
+                <h1 class="font-bold text-5xl md:text-7xl text-ifrn-green-800 mb-6 leading-tight">
+                    Princípios de Design
+                </h1>
+
+                <p class="text-2xl md:text-3xl text-ifrn-green-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    Fundamentos para Interfaces Visuais
+                </p>
+
+                <p class="text-lg text-ifrn-green-950 mb-12 max-w-3xl mx-auto">
+                    Nesta disciplina você vai aprender os fundamentos visuais que estruturam interfaces bem-feitas
+                    através de uma progressão pedagógica intencional: primeiro dominando o Figma como ferramenta, depois
+                    os princípios de Gestalt, em seguida tipografia e hierarquia, e finalmente cor, grid e composição
+                    completa.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16 hidden">
+                    <a href="#plano" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg inline-block">
+                        Ver plano por bimestre
+                    </a>
+                    <a href="#metodologia" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg inline-block">
+                        Entender metodologia
+                    </a>
+                </div>
+            </div>
+
+            <!-- O que você vai dominar -->
+            <div class="bg-white rounded-3xl p-10 md:p-12 shadow-xl border border-ifrn-green-100">
+                <h2 class="font-bold text-3xl text-ifrn-green-800 mb-10 text-center">
+                    Ao final da disciplina você será capaz de
+                </h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Princípios de Design</h3>
+                            <p class="text-ifrn-green-600">Aplicar proximidade, alinhamento, contraste e hierarquia em
+                                interfaces gráficas</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Tipografia para Telas</h3>
+                            <p class="text-ifrn-green-600">Escolher e combinar fontes adequadas com hierarquia visual
+                                clara</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Cor e Acessibilidade</h3>
+                            <p class="text-ifrn-green-600">Usar paletas de cores com contraste adequado e padrões WCAG
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Protótipos Profissionais</h3>
+                            <p class="text-ifrn-green-600">Desenvolver protótipos visuais em Figma com grids e
+                                composição</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Sobre a Disciplina
+            </h2>
+
+            <div class="space-y-8">
+                <div class="bg-ifrn-green-50 rounded-xl p-8 border border-ifrn-green-100">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Para quem é</h3>
+                    <p class="text-lg text-ifrn-green-800 leading-relaxed">
+                        Esta é uma disciplina introdutória de fundamentos visuais, voltada para estudantes de ensino
+                        médio que muitas vezes nunca estudaram design formalmente. O foco não é "desenho artístico",
+                        mas projetar interfaces claras e funcionais, a partir dos fundamentos do design e seus
+                        princípcios básicos.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8"><svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="132" r="8" />
+                                <circle cx="172" cy="132" r="8" />
+                                <circle cx="84" cy="172" r="8" />
+                                <circle cx="128" cy="172" r="8" />
+                                <circle cx="172" cy="172" r="8" />
+                            </svg></div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Duração</h3>
+                        <p class="text-ifrn-green-700">
+                            60 horas ao longo do ano, distribuídas em 4 bimestres
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8"><svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <rect x="16" y="104" width="48" height="48" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <rect x="152" y="40" width="64" height="64" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <rect x="152" y="152" width="64" height="64" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="64" y1="128" x2="112" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <path d="M152,184H128a16,16,0,0,1-16-16V88a16,16,0,0,1,16-16h24" fill="none"
+                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="8" />
+                            </svg></div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Estrutura</h3>
+                        <p class="text-ifrn-green-700">
+                            10 semanas por bimestre, 2 aulas geminadas por semana
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8"><svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <line x1="128" y1="232" x2="128" y2="200" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="128" r="88" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="128" y1="24" x2="128" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="24" y1="128" x2="56" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="232" y1="128" x2="200" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="128" r="32" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            </svg></div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Objetivo</h3>
+                        <p class="text-ifrn-green-700">
+                            Desenvolver olhar crítico e capacidade de análise visual
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-xl p-8 text-white">
+                    <h3 class="font-bold text-2xl mb-4">Progressão pedagógica intencional</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 1: Figma e Fundamentos</strong>
+                                <p class="text-light opacity-75"> domínio da ferramenta através da
+                                    prática, replicação e análise</p>
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 2: Gestalt</strong>
+                                <p class="text-light opacity-75"> princípios visuais aplicados conscientemente
+                                    (proximidade, alinhamento, contraste, hierarquia)</p>
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 3: Tipografia</strong>
+                                <p class="text-light opacity-75"> hierarquia tipográfica, legibilidade e
+                                    combinação de fontes com Text Styles</p>
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 4: Cor, Grid e Composição</strong>
+                                <p class="text-light opacity-75"> toolkit completo integrando
+                                    todos os conceitos em protótipos profissionais</p>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia -->
+    <section id="metodologia" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 text-center">
+                Como você aprende aqui?
+            </h2>
+            <p class="text-ifrn-green-800 p-8 max-w-2xl mx-auto block mb-12">
+                As aulas geralmente possuem dois momentos. O primeiro de instrução mais teórica e o segundo de aplicação
+                prática.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl"><svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 256 256">
+                                    <rect width="256" height="256" fill="none" />
+                                    <line x1="96" y1="128" x2="160" y2="128" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="96" y1="160" x2="160" y2="160" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <path
+                                        d="M48,40H208a0,0,0,0,1,0,0V200a24,24,0,0,1-24,24H72a24,24,0,0,1-24-24V40A0,0,0,0,1,48,40Z"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="8" />
+                                    <line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="128" y1="24" x2="128" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                </svg></span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Aula com teoria + exemplos</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Exposição teórica curta (20-30min) dos conceitos fundamentais, seguida de análise de exemplos
+                        reais de interfaces.
+                    </p>
+                    <ul class="space-y-2 text-ifrn-green-700">
+                        <li>• Apresentação de princípios visuais</li>
+                        <li>• Análise crítica de casos reais</li>
+                        <li>• Discussão em grupo</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl"><svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 256 256">
+                                    <rect width="256" height="256" fill="none" />
+                                    <rect x="32" y="48" width="192" height="144" rx="16"
+                                        transform="translate(256 240) rotate(180)" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="160" y1="224" x2="96" y2="224" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="32" y1="152" x2="224" y2="152" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="128" y1="192" x2="128" y2="224" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                </svg></span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Aula com prática guiada</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Trabalho prático em laboratório com exercícios de composição, estudos tipográficos e criação de
+                        protótipos.
+                    </p>
+                    <ul class="space-y-2 text-ifrn-green-700">
+                        <li>• Exercícios práticos individuais</li>
+                        <li>• Suporte personalizado do professor</li>
+                        <li>• Feedback imediato sobre produção</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Link para Teorias -->
+            <div class="bg-white rounded-xl p-8 mb-12">
+                <div class="flex items-start gap-6">
+                    <div class="text-5xl"><svg class="h-10 text-gray-800" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none" />
+                            <rect x="48" y="40" width="64" height="176" rx="8" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <path
+                                d="M217.67,205.77l-46.81,10a8,8,0,0,1-9.5-6.21L128.18,51.8a8.07,8.07,0,0,1,6.15-9.57l46.81-10a8,8,0,0,1,9.5,6.21L223.82,196.2A8.07,8.07,0,0,1,217.67,205.77Z"
+                                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="8" />
+                            <line x1="48" y1="72" x2="112" y2="72" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="48" y1="184" x2="112" y2="184" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="133.16" y1="75.48" x2="195.61" y2="62.06" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="139.79" y1="107.04" x2="202.25" y2="93.62" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="156.39" y1="185.94" x2="218.84" y2="172.52" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                        </svg></div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-2xl text-green-900 mb-4">Fundamentação Teórica</h3>
+                        <p class="text-green-800 leading-relaxed mb-6">
+                            Nossa metodologia é fundamentada em <strong>três pilares teóricos</strong> que se
+                            complementam: <strong>Taxonomia de Bloom</strong> (progressão cognitiva),
+                            <strong>Aprendizagem Visível</strong> de John Hattie (práticas baseadas em evidências) e
+                            <strong>BNCC</strong> (competências nacionais).
+                        </p>
+                        <a href="teorias-aprendizagem.html"
+                            class="inline-flex items-center gap-2 px-6 py-3 border border-green-600 hover:bg-green-50 text-base font-bold rounded transition shadow-lg">
+                            <span>Entender as Teorias de Aprendizagem</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-6 flex items-center gap-3">
+                    <span class="text-3xl">
+                        <svg class="h-10 text-ifrn-green-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none" />
+                            <polyline points="48 176 104 176 104 136 152 136 152 96 208 96" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <rect x="48" y="32" width="160" height="192" rx="8" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="104" y1="176" x2="208" y2="176" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="152" y1="136" x2="208" y2="136" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                        </svg>
+                    </span>Progressão Cognitiva (Bloom)
+                </h3>
+                <p class="text-ifrn-green-700 leading-relaxed mb-6">
+                    A disciplina segue uma progressão pedagógica estruturada, garantindo que o aprendizado evolua de
+                    forma consistente:
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">1-2. Lembrar e Compreender</h4>
+                        <p class="text-sm text-ifrn-green-800">Identificar princípios visuais em interfaces existentes
+                        </p>
+                    </div>
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">3-4. Aplicar e Analisar</h4>
+                        <p class="text-sm text-ifrn-green-800">Usar princípios em exercícios e avaliar qualidade</p>
+                    </div>
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">5-6. Avaliar e Criar</h4>
+                        <p class="text-sm text-ifrn-green-800">Desenvolver protótipos e justificar decisões</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Aprendizagem Visível</h3>
+                    <p class="text-ifrn-green-700">
+                        Objetivos claros e critérios de sucesso compartilhados desde o início
+                    </p>
+                </div>
+
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Prática Espaçada</h3>
+                    <p class="text-ifrn-green-700">
+                        Conceitos revisitados em contextos diferentes ao longo dos bimestres
+                    </p>
+                </div>
+
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Mini-Projetos</h3>
+                    <p class="text-ifrn-green-700">
+                        Entregas incrementais que constroem repertório visual progressivamente
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano por Bimestre -->
+    <section id="plano" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
+                Plano Completo — 4 Bimestres, 40 Semanas
+            </h2>
+            <p class="text-xl text-ifrn-green-600 mb-12 text-center max-w-3xl mx-auto">
+                Cada bimestre tem 10 semanas. Cada semana tem 2 aulas geminadas.
+            </p>
+
+            <div class="space-y-6">
+                <!-- BIMESTRE 1 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary class="p-8 cursor-pointer hover:bg-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    1
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 1: Figma e Fundamentos
+                                        Visuais Básicos</h3>
+                                    <p class="text-sm text-ifrn-green-600">Semanas 1-10 · Lembrar/Compreender</p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded p-6 mb-4 border border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Dominar o Figma como ferramenta de design e desenvolver senso crítico visual através da
+                                prática, replicação e análise de interfaces
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-2 mb-8">
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Figma interface, frames, shapes, texto, cores, imagens, layers, organizaçã,
+                                    componentes básicos, replicação de designs
+                                </p>
+                            </div>
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                    Artefato de Aprendizagem
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Portfólio de 5 telas replicadas + 1 tela original simples demonstrando domínio das
+                                    ferramentas básicas do Figma
+                                </p>
+                            </div>
+                        </div>
+
+                        <h4 class="mb-8">Cronograma</h4>
+                        <!-- Semanas Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Semana 1 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 1</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Primeiros passos no Figma
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> O que é design de interface, Figma como ferramenta.
+                                    <strong>Prática:</strong> Criar conta, navegar interface, criar frames, usar
+                                    ferramentas básicas (R, O, L).
+                                    <strong>Exercício:</strong> Recriar 3 ícones simples de interfaces conhecidas
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Lembrar / Compreender
+                                </p>
+                            </div>
+
+                            <!-- Semana 2 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 2</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Formas, cores e organização
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Elementos visuais básicos. <strong>Prática:</strong> Shapes
+                                    avançadas, fills (sólido/gradiente), layers, grupos, naming.
+                                    <strong>Exercício:</strong> Composição abstrata usando formas geométricas e cores
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Lembrar / Compreender
+                                </p>
+                            </div>
+
+                            <!-- Semana 3 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 3</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Texto e tipografia básica
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Texto em interfaces. <strong>Prática:</strong> Text tool
+                                    (T), font selection, size, weight, Google Fonts.
+                                    <strong>Exercício:</strong> Replicar card de produto com imagem + título + descrição
+                                    + preço
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Compreender / Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 4 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 4</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Imagens e máscaras
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Uso de imagens em UI. <strong>Prática:</strong> Image fill,
+                                    place image (Ctrl+Shift+K), crop, mask com shapes.
+                                    <strong>Exercício:</strong> Hero section com imagem + 6 thumbnails com máscaras
+                                    circulares
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 5 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 5</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Layout e alinhamento
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Organização espacial. <strong>Prática:</strong> Alignment
+                                    tools, distribute spacing, layout grids básicos.
+                                    <strong>Exercício:</strong> Replicar tela de app conhecido (ex: Instagram profile,
+                                    Netflix card)
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 6 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 6</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Componentes e reutilização
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Reuso e consistência. <strong>Prática:</strong> Criar
+                                    components, instances, detach when needed.
+                                    <strong>Exercício:</strong> Kit de 4 componentes (button, input, card, badge) e usar
+                                    em mockup
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 7 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 7</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Auto Layout e responsividade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Layouts flexíveis. <strong>Prática:</strong> Auto Layout,
+                                    spacing, padding, resizing behavior.
+                                    <strong>Exercício:</strong> Card com Auto Layout que se adapta a diferentes tamanhos
+                                    de conteúdo
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 8 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 8</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Replicação completa de interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Análise de interfaces. <strong>Prática:</strong> Replicar
+                                    interface complexa pixel-perfect.
+                                    <strong>Exercício:</strong> Escolher tela real (app/site) e replicar completamente
+                                    no Figma
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 9 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 9</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Criação original simples
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Teoria:</strong> Do exemplo à criação. <strong>Prática:</strong> Usar todo
+                                    conhecimento acumulado livremente.
+                                    <strong>Exercício:</strong> Criar tela original simples (landing section ou perfil)
+                                    sem replicar
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 10 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 10</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Checkpoint B1: Prova + Portfólio Figma
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    <strong>Dia 1:</strong> Prova teórica (interface Figma, ferramentas, workflow, boas
+                                    práticas).
+                                    <strong>Dia 2:</strong> Apresentar portfólio: 5 telas replicadas + 1 tela original +
+                                    explicar processo e decisões
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Criar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- BIMESTRE 2 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary class="p-8 cursor-pointer hover:bg-ifrn-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    2
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 2: Tipografia +
+                                        Hierarquia</h3>
+                                    <p class="text-sm text-ifrn-green-600">Semanas 11-20 · Compreender/Aplicar/Analisar
+                                    </p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded-xl p-6 mb-8 border-l-4 border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Dominar tipografia consciente para telas: legibilidade, hierarquia tipográfica e
+                                combinação de fontes
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-green-600">
+                                <h4 class="font-bold text-lg text-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Anatomia de fontes, classificação tipográfica, hierarquia, legibilidade,
+                                    microtipografia, combinação de fontes, ícones
+                                </p>
+                            </div>
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-orange-600">
+                                <h4 class="font-bold text-lg text-orange-900 mb-3 flex items-centeifrn-green2">
+                                    Artefato de Aprendizagem
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    ifrn-redesign tipográfico de interface existente com justificativa das escolhas de
+                                    fontes
+                                    e hierarquia
+                                </p>
+                            </div>
+                        </div>
+
+                        <h4 class="mb-8">Cronograma</h4>
+
+                        <!-- Semanas Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Semana 11 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 11</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Papel da tipografia em interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Importância da tipografia em UIs. Diferença entre display e texto. Exemplos de boas
+                                    e más escolhas tipográficas
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Compreender
+                                </p>
+                            </div>
+
+                            <!-- Semana 12 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 12</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Anatomia e classificação de fontes
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Serifadas, sem serifa, monoespaçadas, script. Altura-x, ascendentes, descendentes.
+                                    Exercícios de identificação
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Lembrar / Compreender
+                                </p>
+                            </div>
+
+                            <!-- Semana 13 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 13</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Hierarquia tipográfica
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Níveis de informação: h1, h2, body, caption. Escala tipográfica. Exercício de
+                                    hierarquizar conteúdo em mockup
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 14 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 14</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Legibilidade e leiturabilidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Line-height, letter-spacing, tamanho mínimo para tela. Testes A/B de legibilidade.
+                                    Analisar interfaces reais
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 15 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 15</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Tipografia em componentes de UI
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Botões, inputs, labels, cards, menus. Aplicar tipografia em componentes básicos de
+                                    interface
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 16 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 16</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Microtipografia e alinhamento
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Alinhamento óptico, ajustes finos, kerning. Viúvas e órfãs. Polimento de layouts
+                                    tipográficos
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Avaliar
+                                </p>
+                            </div>
+
+                            <!-- Semana 17 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 17</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Combinação de fontes
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Pares harmônicos e contrastantes. Display + body. Criar kit tipográfico com 2-3
+                                    fontes e aplicar em mockup
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 18 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 18</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Tipografia + ícones
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Integração texto-ícone. Alinhamento vertical. Criar componentes com ícones e texto
+                                    balanceados
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 19 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 19</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Análise crítica tipográfica
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Avaliar tipografia de apps e sites reais. Identificar problemas e propor melhorias.
+                                    Fichamento crítico
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Avaliar
+                                </p>
+                            </div>
+
+                            <!-- Semana 20 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 20</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Checkpoint: ifrn-redesign Tipográfico
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Revisão + prova teórica. ifrn-redesign tipográfico completo de interface existente
+                                    com
+                                    justificativa das decisões
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Criar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- BIMESTRE 3 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary class="p-8 cursor-pointer hover:bg-ifrn-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    3
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 3: Cor, Grid e
+                                        Composição</h3>
+                                    <p class="text-sm text-ifrn-green-600">Semanas 21-30 · Aplicar/Analisar/Criar</p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded-xl p-6 mb-8 border-l-4 border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-orange-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Completar o toolkit visual: cor aplicada à UI, sistema de grid, imagens/vetores e
+                                composição consistente
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-green-600">
+                                <h4 class="font-bold text-lg text-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Teoria da cor, esquemas cromáticos, contraste WCAG, grid de 12 colunas, imagens,
+                                    vetores, ícones, composição
+                                </p>
+                            </div>
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-orange-600">
+                                <h4 class="font-bold text-lg text-orange-900 mb-3 flex items-centeifrn-green2">
+                                    Artefato de Aprendizagem
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Landing page completa integrando cor + tipografia + grid + imagens com identidade
+                                    visual coesa
+                                </p>
+                            </div>
+                        </div>
+
+                        <h2 class="mb-8">Cronograma</h2>
+                        <!-- Semanas Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Semana 21 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 21</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Fundamentos de cor
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    RGB vs CMYK, matiz, saturação, luminosidade. Círculo cromático. Temperatura de cor.
+                                    Exercícios de identificação
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Compreender / Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 22 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 22</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Esquemas cromáticos e função da cor
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Monocromático, análogo, complementar, tríade. Cor primária, secundária, acento.
+                                    Criar paletas para interface
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 23 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 23</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Cor e acessibilidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Contraste WCAG AA/AAA. Ferramentas de teste. Daltonismo e cor. Analisar e corrigir
+                                    problemas de contraste
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Avaliar
+                                </p>
+                            </div>
+
+                            <!-- Semana 24 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 24</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Introdução a grid (12 colunas)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Sistema de 12 colunas, gutters, margins. Grid responsivo. Exercício de desenhar
+                                    wireframe sobre grid
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Compreender / Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 25 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 25</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Grid aplicado a interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Criar layouts com grid de 12 colunas. Alinhamento consistente. Exercício de montar
+                                    página em 3 breakpoints
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 26 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 26</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Imagens em interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Proporção, crop, tratamento. Hero images, thumbnails. Integrar imagens em mockup
+                                    mantendo hierarquia
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 27 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 27</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Vetores e ícones para UI
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Criar/adaptar ícones simples. Consistência de estilo. Biblioteca de ícones. Montar
+                                    icon set coeso
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 28 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 28</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Composição avançada de tela
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Integrar todos os elementos: grid + tipografia + cor + imagens. Criar composição
+                                    complexa e balanceada
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 29 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 29</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Análise crítica de composições
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Avaliar landing pages reais. Identificar uso de cor, grid, hierarquia. Propor
+                                    melhorias fundamentadas
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Avaliar
+                                </p>
+                            </div>
+
+                            <!-- Semana 30 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 30</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Checkpoint: Landing Page Completa
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Revisão + prova teórica. Landing page completa integrando cor + tipografia + grid +
+                                    imagens com identidade visual coesa
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Criar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- BIMESTRE 4 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary class="p-8 cursor-pointer hover:bg-ifrn-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    4
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-ifrn-green-800">Bimestre 4: Protótipos em
+                                        Figma
+                                    </h3>
+                                    <p class="text-sm text-ifrn-ifrn-green-600">Semanas 31-40 · Analisar/Avaliar/Criar
+                                    </p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded-xl p-6 mb-8 border-l-4 border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Montar interfaces completas: sistema de telas, protótipo consistente e apresentável em
+                                Figma
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Figma completo, wireframes, componentes, consistência visual, fluxos de navegação,
+                                    estados, apresentação profissional
+                                </p>
+                            </div>
+                            <div class="bg-white rounded-xl p-6 border-l-4 border-orange-600">
+                                <h4 class="font-bold text-lg text-orange-900 mb-3 flex items-center gap-2">
+                                    Entrega Final
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Protótipo completo (3-5 telas) integrando todos os conceitos dos 4 bimestres +
+                                    apresentação com justificativas
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Semanas Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Semana 31 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 31</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Introdução ao Figma
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Interface, frames, layers, ferramentas básicas. Auto-layout simples. Criar
+                                    primeiros elementos e organizar layers
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Compreender / Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 32 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 32</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Wireframes de baixa fidelidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Estrutura antes de estética. Wireframes cinza. Definir arquitetura de informação.
+                                    Criar 2-3 telas low-fi
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 33 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 33</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Aplicar tipografia no protótipo
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Text styles no Figma. Escala tipográfica consistente. Aplicar hierarquia nos
+                                    wireframes anteriores
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 34 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 34</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Aplicar cor e kit visual
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Color styles no Figma. Paleta consistente. Definir cores primária, secundária,
+                                    acento, neutros. Aplicar no protótipo
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Aplicar / Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 35 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 35</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Componentes e consistência
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Criar components no Figma. Botões, inputs, cards reutilizáveis. Variants. Aplicar
+                                    em todas as telas
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar / Analisar
+                                </p>
+                            </div>
+
+                            <!-- Semana 36 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 36</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Fluxos de navegação e estados
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Prototyping no Figma. Links entre telas. Estados: hover, active, disabled, loading.
+                                    Criar fluxo navegável
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Analisar / Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 37 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 37</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Microajustes e polimento
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Refinamento visual. Alinhamento pixel-perfect. Espaçamentos consistentes.
+                                    Acessibilidade. Polish final
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Aplicar
+                                </p>
+                            </div>
+
+                            <!-- Semana 38 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 38</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Preparar apresentação
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Slides de apresentação. Justificar decisões de design. Process book: mostrar
+                                    evolução. Preparar demo
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Criar / Avaliar
+                                </p>
+                            </div>
+
+                            <!-- Semana 39 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 39</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Apresentações e feedback
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    Apresentações parciais. Feedback de pares e professor. Ajustes finais baseados em
+                                    critique session
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Criar
+                                </p>
+                            </div>
+
+                            <!-- Semana 40 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Semana 40</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Entrega Final + Reflexão
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    Entrega do protótipo completo. Apresentações finais. Retrospectiva: o que aprendi,
+                                    evolução, próximos passos
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    <strong>Bloom:</strong> Avaliar / Criar
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Legenda -->
+            <div class="mt-12 rounded p-6 border border-ifrn-green-200">
+                <h3 class="font-bold text-lg text-ifrn-green-800 mb-4">Legenda dos Artefatos</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">S</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Simples:</strong> Reprodução guiada, foco na
+                            sintaxe</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">I</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Intermediário:</strong> Variações com
+                            autonomia</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">C</span>
+                        <span class="text-sm text-ifrn-green-700"><strong>Complexo:</strong> Criação autônoma
+                            completa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section id="avaliacoes" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Avaliação e Projetos
+            </h2>
+
+            <div class="bg-white rounded-xl p-8 mb-8 shadow-lg border border-ifrn-green-100">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Método de Avaliação</h3>
+                <p class="text-ifrn-green-700 text-lg leading-relaxed mb-4">
+                    A disciplina adota <strong>avaliação diagnóstica, somativa e formativa</strong> ao longo dos 4
+                    bimestres, com foco na <strong>evolução visível</strong> do aluno.
+                </p>
+                <p class="text-ifrn-green-700 leading-relaxed">
+                    O foco não é "nota pela nota", mas sim o <strong>desenvolvimento progressivo</strong> da capacidade
+                    de projetar interfaces claras e funcionais, e capacidade de refletir sobre conceitos visuais e dos
+                    princípios e fundamentos básicos do design.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Componentes da Nota</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">15%</span>
+                            <span>Participação, assiduidade, urbanidade e
+                                compromisso.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">35%</span>
+                            <span>Listas de exercícios práticos e atividades em sala de
+                                aula</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">30%</span>
+                            <span>Mini-projetos por bimestre</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">30%</span>
+                            <span>Provas teóricas (até o 3º bimestre) e Projeto
+                                final de protótipo (4º bimestre)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Critérios de qualidade nas avalições</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Aplicação correta</strong> dos princípios visuais</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Hierarquia clara</strong> e legibilidade</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Consistência visual</strong> e identidade mantida</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Acessibilidade</strong> (contraste, legibilidade)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Justificativa</strong> das decisões de design</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-8 text-green-950 border border-green-800">
+                <h3 class="font-bold text-2xl mb-2">Verificações bimestrais</h3>
+                <p class="text-lg mb-6 opacity-95">
+                    Ao final de cada bimestre, você entrega um projeto que demonstra domínio do conteúdo:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white mt-4 bg-opacity-10 backdrop-blur rounded-xl">
+                        <p class="font-bold">B1: Tela com Princípios</p>
+                        <p class="opacity-90">Aplicação de 4+ princípios de Gestalt</p>
+                    </div>
+                    <div class="bg-white mt-4 bg-opacity-10 backdrop-blur rounded-xl">
+                        <p class="font-bold">B2: ifrn-redesign Tipográfico</p>
+                        <p class="opacity-90">Hierarquia tipográfica e combinação de fontes</p>
+                    </div>
+                    <div class="bg-white mt-4 bg-opacity-10 backdrop-blur rounded-xl">
+                        <p class="font-bold">B3: Landing Page</p>
+                        <p class="opacity-90">Cor + Grid + Composição integrados</p>
+                    </div>
+                    <div class="bg-white mt-4 bg-opacity-10 backdrop-blur rounded-xl">
+                        <p class="font-bold">B4: Protótipo Completo</p>
+                        <p class="opacity-90">Sistema de 3-5 telas em Figma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Recursos para Estudar
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Figma</h3>
+                    <p class="text-sm text-ifrn-green-600">Ferramenta profissional de prototipação</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Design para quem não é designer</h3>
+                    <p class="text-ifrn-green-600">Robin Williams - Livro fundamental</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Gestalt do Objeto</h3>
+                    <p class="text-ifrn-green-600">João Gomes Filho - Teoria da Gestalt</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Sintaxe da Linguagem Visual</h3>
+                    <p class="text-ifrn-green-600">Donis A. Dondis - Fundamentos visuais</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Novos Fundamentos de Design</h3>
+                    <p class="text-ifrn-green-600">Ellen Lupton - Design contemporâneo</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">WCAG Guidelines</h3>
+                    <p class="text-ifrn-green-600">Padrões de acessibilidade web</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-ifrn-green-50 rounded-xl p-8 border border-ifrn-green-100 text-center">
+                <div class="text-4xl mb-4">📂</div>
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-3">Material de Apoio do Professor</h3>
+                <p class="text-ifrn-green-700 mb-4">
+                    Slides, exemplos e exercícios organizados por bimestre
+                </p>
+                <a href="#" class="inline-block btn-cta text-white font-bold py-3 px-6 rounded-full">
+                    Acessar Materiais
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50 hidden">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Perguntas Frequentes
+            </h2>
+
+            <div class="space-y-4">
+                <details class="bg-white rounded-xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Preciso saber desenhar para fazer esta disciplina?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p>
+                            <strong>Não!</strong> Esta disciplina não é sobre desenho artístico. O foco está em
+                            entender e aplicar princípios visuais para criar interfaces claras e funcionais. Você vai
+                            trabalhar com ferramentas digitais profissionais (como Figma) que facilitam a criação sem
+                            exigir habilidades de desenho manual.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Esta disciplina é mais teórica ou prática?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p>
+                            É <strong>equilibrada</strong>. Cada semana tem uma aula teórica (Aula 1) que apresenta
+                            conceitos e exemplos, e uma aula prática (Aula 2) onde você aplica os conhecimentos em
+                            exercícios e projetos. A teoria serve como base para a prática, mas o foco está em
+                            <strong>fazer</strong>.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Como essa disciplina se conecta com Autoria Web e Design Web?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Princípios de Design é a <strong>base visual</strong> para as outras disciplinas. Em
+                            <strong>Autoria Web</strong> você vai aplicar tipografia, cor e grid no código HTML/CSS. Em
+                            <strong>Design Web</strong> você vai criar interfaces completas. Sem os fundamentos
+                            aprendidos aqui, fica muito mais difícil criar interfaces profissionais.
+                        </p>
+                    </div>
+                </details>
+
+                <details class="bg-white rounded-xl shadow-lg border border-ifrn-green-100 overflow-hidden">
+                    <summary
+                        class="p-6 cursor-pointer font-bold text-lg text-ifrn-green-800 hover:bg-ifrn-green-50 transition">
+                        Quanto tempo de estudo fora da aula?
+                    </summary>
+                    <div class="px-6 pb-6 text-ifrn-green-700">
+                        <p class="mb-3">
+                            Idealmente, 2–3 horas por semana fora da sala de aula para:
+                        </p>
+                        <ul class="space-y-2 list-disc list-inside">
+                            <li>Completar exercícios práticos</li>
+                            <li>Desenvolver mini-projetos</li>
+                            <li>Estudar análises de interfaces</li>
+                            <li>Trabalhar no protótipo final (4º bimestre)</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="font-bold text-3xl mb-6">
+                Fundamentos sólidos para interfaces profissionais
+            </h2>
+            <p class="text-xl mb-8 opacity-95 max-w-3xl mx-auto">
+                Esta disciplina combina teoria e prática com metodologia pedagógica intencional. Do vocabulário visual
+                básico até protótipos completos em Figma, você constrói competências progressivamente ao longo de 40
+                semanas.
+            </p>
+
+            <div class="border-t border-white border-opacity-20 pt-8 mt-12">
+                <p class="text-lg mb-2" id="dados-professor-nome"></p>
+                <p class="mb-2" id="dados-campus-nome"></p>
+                <p class="mb-6" id="dados-curso-periodo"></p>
+                <p class="text-sm opacity-75">
+                    Princípios de Design • IFRN • 60 horas • 40 semanas
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active state navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+
+                if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('text-ifrn-ifrn-red-500');
+                        link.classList.add('text-ifrn-green-700');
+                    });
+                    navLink.classList.remove('text-ifrn-green-700');
+                    navLink.classList.add('text-ifrn-ifrn-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Teorias de Aprendizagem aplicadas nas disciplinas de Design e Desenvolvimento Web — IFRN">
+    <title>Teorias de Aprendizagem | IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ifrn-green': {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+                            500: '#2f6b48', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d',
+                        },
+                        'ifrn-red': { 500: '#e63946', 600: '#d62828' }
+                    },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .accordion-content.active {
+            max-height: 3000px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.active {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                            TA
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">Teorias de Aprendizagem</h1>
+                            <p class="text-sm text-gray-600">Fundamentos Pedagógicos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#bloom" class="text-gray-700 hover:text-ifrn-green-600 transition">Bloom</a>
+                    <a href="#visivel" class="text-gray-700 hover:text-ifrn-green-600 transition">Aprendizagem
+                        Visível</a>
+                    <a href="#bncc" class="text-gray-700 hover:text-ifrn-green-600 transition">BNCC</a>
+                    <a href="#pratica" class="text-gray-700 hover:text-ifrn-green-600 transition">Na Prática</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section
+        class="relative bg-gradient-to-br from-ifrn-green-800 via-ifrn-green-700 to-ifrn-green-600 text-white py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-6">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-ifrn-green-500 rounded-full text-sm font-semibold">
+                    📚 Fundamentos Pedagógicos
+                </span>
+            </div>
+
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Teorias de Aprendizagem Aplicadas
+            </h1>
+
+            <p class="text-xl md:text-2xl text-ifrn-green-50 mb-8 leading-relaxed max-w-3xl">
+                Como a Taxonomia de Bloom, Aprendizagem Visível e BNCC fundamentam nossa prática pedagógica nas
+                disciplinas de Design e Desenvolvimento Web.
+            </p>
+
+            <div
+                class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8 border border-white border-opacity-20">
+                <h2 class="text-2xl font-bold mb-4">Por que isso importa?</h2>
+                <p class="text-lg leading-relaxed">
+                    Não basta "dar aula". Precisamos de <strong>intencionalidade pedagógica</strong> fundamentada em
+                    teorias que comprovadamente funcionam. Nossas disciplinas integram três pilares teóricos que se
+                    complementam para garantir aprendizagem profunda e significativa.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Taxonomia de Bloom -->
+    <section id="bloom" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl">
+                    📊
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">Taxonomia de Bloom</h2>
+                    <p class="text-lg text-gray-600">Hierarquia de complexidade cognitiva</p>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-8 mb-12 border-l-4 border-blue-600">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">O que é?</h3>
+                <p class="text-lg text-blue-800 leading-relaxed mb-4">
+                    A Taxonomia de Bloom (criada por Benjamin Bloom em 1956 e revisada em 2001) é uma
+                    <strong>classificação hierárquica de objetivos educacionais</strong> que organiza o processo de
+                    aprendizagem em seis níveis de complexidade crescente.
+                </p>
+                <p class="text-blue-800 leading-relaxed">
+                    Cada nível representa um tipo diferente de pensamento, desde o mais simples (memorizar informações)
+                    até o mais complexo (criar algo novo). A ideia é que os alunos progridam pelos níveis de forma
+                    estruturada.
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Os 6 Níveis da Taxonomia</h3>
+
+            <div class="space-y-4 mb-12">
+                <!-- Nível 1 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-blue-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom1')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-bold">Nível
+                                    1</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Lembrar</h4>
+                            </div>
+                            <p class="text-gray-600">Recuperar informações da memória</p>
+                        </div>
+                        <svg id="icon-bloom1" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom1" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-blue-50 rounded-xl p-6 mb-4">
+                                <p class="text-blue-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-blue-800">Definir, listar, nomear, identificar, reconhecer, relembrar,
+                                    descrever</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Capacidade de recordar fatos, termos, conceitos básicos e
+                                respostas aprendidas anteriormente. É o nível mais básico de conhecimento.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-blue-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Listar os 5 princípios de Gestalt" ou "Definir o que é
+                                    tipografia serifada"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nível 2 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-purple-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom2')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-purple-600 text-white rounded-full text-sm font-bold">Nível
+                                    2</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Compreender</h4>
+                            </div>
+                            <p class="text-gray-600">Explicar ideias ou conceitos com suas próprias palavras</p>
+                        </div>
+                        <svg id="icon-bloom2" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom2" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-purple-50 rounded-xl p-6 mb-4">
+                                <p class="text-purple-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-purple-800">Explicar, interpretar, resumir, parafrasear, ilustrar,
+                                    exemplificar, comparar</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Demonstrar entendimento construindo significado a partir do
+                                que foi aprendido. O aluno consegue explicar com suas próprias palavras.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-purple-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Explicar por que proximidade ajuda na organização visual" ou
+                                    "Comparar fontes serifadas e sem serifas para uso em tela"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nível 3 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-green-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom3')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-green-600 text-white rounded-full text-sm font-bold">Nível
+                                    3</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Aplicar</h4>
+                            </div>
+                            <p class="text-gray-600">Usar conhecimento em novas situações</p>
+                        </div>
+                        <svg id="icon-bloom3" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom3" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-green-50 rounded-xl p-6 mb-4">
+                                <p class="text-green-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-green-800">Executar, implementar, usar, demonstrar, aplicar, resolver,
+                                    modificar</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Capacidade de usar procedimentos aprendidos em situações
+                                específicas ou concretas. O aluno pega o conceito e faz algo com ele.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-green-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Redesenhar uma tela aplicando princípio de alinhamento" ou
+                                    "Usar hierarquia tipográfica em uma página web"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nível 4 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-orange-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom4')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-orange-600 text-white rounded-full text-sm font-bold">Nível
+                                    4</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Analisar</h4>
+                            </div>
+                            <p class="text-gray-600">Decompor informação em partes e entender relações</p>
+                        </div>
+                        <svg id="icon-bloom4" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom4" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-orange-50 rounded-xl p-6 mb-4">
+                                <p class="text-orange-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-orange-800">Diferenciar, organizar, atribuir, distinguir, comparar,
+                                    contrastar, examinar</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Quebrar material em partes constituintes e determinar como as
+                                partes se relacionam entre si. Requer pensamento crítico.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-orange-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Analisar por que uma interface tem boa hierarquia visual" ou
+                                    "Identificar problemas de contraste e legibilidade em uma tela"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nível 5 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-pink-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom5')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-pink-600 text-white rounded-full text-sm font-bold">Nível
+                                    5</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Avaliar</h4>
+                            </div>
+                            <p class="text-gray-600">Fazer julgamentos baseados em critérios</p>
+                        </div>
+                        <svg id="icon-bloom5" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom5" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-pink-50 rounded-xl p-6 mb-4">
+                                <p class="text-pink-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-pink-800">Verificar, criticar, julgar, justificar, argumentar, defender,
+                                    testar</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Fazer julgamentos fundamentados sobre o valor de ideias ou
+                                materiais baseando-se em critérios estabelecidos. Envolve pensamento crítico avançado.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-pink-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Criticar a escolha tipográfica de uma interface com base em
+                                    critérios de legibilidade" ou "Justificar por que uma paleta de cores funciona
+                                    melhor que outra"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nível 6 -->
+                <div class="bg-white rounded-2xl shadow-lg border-2 border-indigo-200 overflow-hidden">
+                    <button onclick="toggleAccordion('bloom6')"
+                        class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <span class="px-3 py-1 bg-indigo-600 text-white rounded-full text-sm font-bold">Nível
+                                    6</span>
+                                <h4 class="text-2xl font-bold text-gray-900">Criar</h4>
+                            </div>
+                            <p class="text-gray-600">Produzir algo novo e original</p>
+                        </div>
+                        <svg id="icon-bloom6" class="accordion-icon w-6 h-6 text-gray-400 flex-shrink-0 ml-4"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-bloom6" class="accordion-content">
+                        <div class="px-6 pb-6">
+                            <div class="bg-indigo-50 rounded-xl p-6 mb-4">
+                                <p class="text-indigo-900 font-bold mb-2">Verbos de ação:</p>
+                                <p class="text-indigo-800">Gerar, planejar, produzir, projetar, construir, formular,
+                                    desenvolver, inventar</p>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                <strong>O que é:</strong> Juntar elementos para formar algo novo e coerente. É o nível
+                                mais alto de pensamento cognitivo, onde o aluno cria soluções originais.
+                            </p>
+                            <div class="bg-gray-50 rounded-xl p-6 border-l-4 border-indigo-600">
+                                <p class="font-bold text-gray-900 mb-2">Exemplo em Princípios de Design:</p>
+                                <p class="text-gray-700">"Projetar um protótipo completo de interface aplicando todos os
+                                    princípios" ou "Desenvolver um sistema visual original para um produto digital"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-8 border-l-4 border-blue-600">
+                <h3 class="text-xl font-bold text-blue-900 mb-4">Por que Bloom importa na nossa prática?</h3>
+                <ul class="space-y-3 text-blue-800">
+                    <li class="flex items-start gap-3">
+                        <span class="text-blue-600 font-bold">✓</span>
+                        <span><strong>Progressão estruturada:</strong> Os alunos não pulam de "lembrar" para "criar" sem
+                            passar pelos níveis intermediários</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-blue-600 font-bold">✓</span>
+                        <span><strong>Objetivos claros:</strong> Cada atividade tem intencionalidade cognitiva
+                            específica</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-blue-600 font-bold">✓</span>
+                        <span><strong>Avaliação justa:</strong> Sabemos exatamente que nível de pensamento estamos
+                            avaliando</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-blue-600 font-bold">✓</span>
+                        <span><strong>Diferenciação:</strong> Podemos oferecer atividades de diferentes complexidades
+                            conforme a necessidade</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aprendizagem Visível -->
+    <section id="visivel" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl">
+                    👁️
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">Aprendizagem Visível (Visible Learning)</h2>
+                    <p class="text-lg text-gray-600">John Hattie — Evidências que funcionam</p>
+                </div>
+            </div>
+
+            <div class="bg-green-50 rounded-2xl p-8 mb-12 border-l-4 border-green-600">
+                <h3 class="text-2xl font-bold text-green-900 mb-4">O que é?</h3>
+                <p class="text-lg text-green-800 leading-relaxed mb-4">
+                    Aprendizagem Visível é uma meta-análise de <strong>mais de 1.200 estudos</strong> conduzida pelo
+                    pesquisador neozelandês John Hattie, identificando <strong>o que realmente funciona na
+                        educação</strong> com base em evidências científicas.
+                </p>
+                <p class="text-green-800 leading-relaxed">
+                    A premissa central é: tornar o aprendizado <strong>visível para os professores</strong> (entender o
+                    que os alunos estão aprendendo) e <strong>visível para os alunos</strong> (entender seu próprio
+                    progresso e objetivos).
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Princípios-chave que aplicamos</h3>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-2xl">
+                        🎯
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Objetivos de Aprendizagem Claros</h4>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        <strong>Tamanho do efeito: 0.50</strong> (acima da média)
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        Alunos precisam saber <strong>exatamente o que devem aprender</strong> e <strong>como será
+                            avaliado</strong>. Sem mistério, sem adivinhação.
+                    </p>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-green-900"><strong>Na prática:</strong> Cada semana tem "Objetivo da
+                            semana" explícito e Critérios de Sucesso compartilhados no início.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-2xl">
+                        💬
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Feedback Formativo</h4>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        <strong>Tamanho do efeito: 0.70</strong> (alto impacto!)
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        Feedback <strong>durante o processo</strong>, não apenas no final. O aluno precisa saber "onde
+                        estou, para onde vou e como chegar lá".
+                    </p>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-green-900"><strong>Na prática:</strong> Mini-projetos com feedback antes
+                            da entrega final. Revisões em aula. Rubricas compartilhadas.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-2xl">
+                        🔄
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Prática Espaçada e Deliberada</h4>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        <strong>Tamanho do efeito: 0.71</strong> (alto impacto!)
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        Revisar conceitos <strong>ao longo do tempo</strong>, em contextos diferentes, solidifica o
+                        aprendizado. Prática única não é suficiente.
+                    </p>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-green-900"><strong>Na prática:</strong> Princípios de Gestalt aparecem no
+                            B1, são reaplicados em B2 (tipografia), B3 (composição) e B4 (protótipo).</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-2xl">
+                        📈
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 mb-3">Autoavaliação e Metacognição</h4>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        <strong>Tamanho do efeito: 0.60</strong> (alto impacto)
+                    </p>
+                    <p class="text-gray-700 leading-relaxed mb-3">
+                        Alunos que <strong>monitoram seu próprio aprendizado</strong> e refletem sobre ele aprendem mais
+                        e melhor.
+                    </p>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <p class="text-sm text-green-900"><strong>Na prática:</strong> Critérios de Sucesso como
+                            checklist. Reflexões ao final de cada bimestre. Apresentações que exigem justificativa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 rounded-2xl p-8 border-l-4 border-green-600">
+                <h3 class="text-xl font-bold text-green-900 mb-4">O que NÃO fazemos (baixo impacto segundo Hattie)</h3>
+                <ul class="space-y-3 text-green-800">
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-600 font-bold">✗</span>
+                        <span><strong>Aulas puramente expositivas:</strong> Tamanho de efeito 0.30 (abaixo da média) —
+                            por isso temos Aula 1 + Aula 2</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-600 font-bold">✗</span>
+                        <span><strong>Estilos de aprendizagem (visual/auditivo):</strong> Tamanho de efeito 0.22
+                            (baixíssimo) — não baseamos metodologia nisso</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-red-600 font-bold">✗</span>
+                        <span><strong>Avaliação apenas somativa:</strong> Avaliamos durante o processo, não só no
+                            fim</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- BNCC -->
+    <section id="bncc" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-3xl">
+                    📜
+                </div>
+                <div>
+                    <h2 class="text-4xl font-bold text-gray-900">BNCC — Base Nacional Comum Curricular</h2>
+                    <p class="text-lg text-gray-600">Alinhamento com competências nacionais</p>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 rounded-2xl p-8 mb-12 border-l-4 border-yellow-600">
+                <h3 class="text-2xl font-bold text-yellow-900 mb-4">O que é?</h3>
+                <p class="text-lg text-yellow-800 leading-relaxed mb-4">
+                    A BNCC é um <strong>documento normativo</strong> que define o conjunto de aprendizagens essenciais
+                    que todos os alunos devem desenvolver ao longo da Educação Básica. Para o Ensino Médio, foca em
+                    <strong>competências gerais e específicas</strong> por área de conhecimento.
+                </p>
+                <p class="text-yellow-800 leading-relaxed">
+                    Nossas disciplinas de Design e Desenvolvimento Web se alinham principalmente com as
+                    <strong>Competências Gerais da BNCC</strong> e com competências específicas da área de
+                    <strong>Linguagens e suas Tecnologias</strong>.
+                </p>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">Competências Gerais da BNCC aplicadas</h3>
+
+            <div class="space-y-6 mb-12">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-blue-900">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Pensamento Científico, Crítico e Criativo
+                            </h4>
+                            <p class="text-gray-700 leading-relaxed mb-3">
+                                "Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências [...]
+                                para investigar causas, elaborar e testar hipóteses, formular e resolver problemas e
+                                criar soluções."
+                            </p>
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <p class="text-sm text-blue-900"><strong>Na prática:</strong> Análises críticas de
+                                    interfaces reais. Projetos onde alunos testam soluções visuais e justificam
+                                    decisões.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-green-600">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-green-900">
+                            4
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Comunicação</h4>
+                            <p class="text-gray-700 leading-relaxed mb-3">
+                                "Utilizar diferentes linguagens [...] para se expressar e partilhar informações,
+                                experiências, ideias e sentimentos em diferentes contextos e produzir sentidos que levem
+                                ao entendimento mútuo."
+                            </p>
+                            <div class="bg-green-50 rounded-lg p-4">
+                                <p class="text-sm text-green-900"><strong>Na prática:</strong> Linguagem visual como
+                                    forma de comunicação. Apresentações de projetos. Justificativas visuais.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-purple-600">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-purple-900">
+                            5
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Cultura Digital</h4>
+                            <p class="text-gray-700 leading-relaxed mb-3">
+                                "Compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma
+                                crítica, significativa, reflexiva e ética [...] para se comunicar, acessar e disseminar
+                                informações, produzir conhecimentos, resolver problemas."
+                            </p>
+                            <div class="bg-purple-50 rounded-lg p-4">
+                                <p class="text-sm text-purple-900"><strong>Na prática:</strong> Uso de ferramentas
+                                    digitais profissionais (Figma). Protótipos de interfaces. Design responsivo e
+                                    acessível.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-orange-600">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-orange-900">
+                            6
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-3">Trabalho e Projeto de Vida</h4>
+                            <p class="text-gray-700 leading-relaxed mb-3">
+                                "Valorizar a diversidade de saberes e vivências culturais [...] e fazer escolhas
+                                alinhadas ao exercício da cidadania e ao seu projeto de vida, com liberdade, autonomia,
+                                consciência crítica e responsabilidade."
+                            </p>
+                            <div class="bg-orange-50 rounded-lg p-4">
+                                <p class="text-sm text-orange-900"><strong>Na prática:</strong> Habilidades de design
+                                    aplicáveis ao mercado de trabalho. Portfólio de projetos. Autonomia criativa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 rounded-2xl p-8 border-l-4 border-yellow-600">
+                <h3 class="text-xl font-bold text-yellow-900 mb-4">Itinerários Formativos e Formação Técnica</h3>
+                <p class="text-yellow-800 leading-relaxed mb-4">
+                    Como disciplinas do <strong>Ensino Médio Integrado</strong> ao Técnico em Informática para Internet,
+                    também atendemos aos objetivos dos itinerários formativos da área de <strong>Linguagens e suas
+                        Tecnologias</strong>, especialmente no eixo de produção e fruição de linguagens digitais.
+                </p>
+                <p class="text-yellow-800 leading-relaxed">
+                    As competências desenvolvidas em Princípios de Design, Autoria Web e Design Web são
+                    <strong>competências técnicas específicas</strong> da formação profissional, mas fundamentadas nas
+                    competências gerais da BNCC.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integração na Prática -->
+    <section id="pratica" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12 text-center">Como tudo isso se integra na prática?</h2>
+
+            <div class="bg-gradient-to-br from-ifrn-green-50 to-blue-50 rounded-3xl p-12 shadow-2xl mb-12">
+                <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">Exemplo Concreto: Semana 4 — Proximidade e
+                    Alinhamento</h3>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-2xl p-6 shadow-lg">
+                        <div class="text-3xl mb-3">📊</div>
+                        <h4 class="font-bold text-gray-900 mb-2">Bloom</h4>
+                        <p class="text-sm text-gray-700">Nível: <strong>Aplicar/Analisar</strong></p>
+                        <p class="text-sm text-gray-600 mt-2">Alunos não apenas entendem os conceitos, mas os aplicam em
+                            redesign e analisam resultados</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg">
+                        <div class="text-3xl mb-3">👁️</div>
+                        <h4 class="font-bold text-gray-900 mb-2">Aprendizagem Visível</h4>
+                        <p class="text-sm text-gray-700"><strong>Objetivo claro:</strong> "Redesenhar tela aplicando
+                            proximidade"</p>
+                        <p class="text-sm text-gray-600 mt-2">Feedback na Aula 2 sobre o antes/depois. Critérios de
+                            sucesso explícitos.</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg">
+                        <div class="text-3xl mb-3">📜</div>
+                        <h4 class="font-bold text-gray-900 mb-2">BNCC</h4>
+                        <p class="text-sm text-gray-700">Competências: <strong>2</strong> (pensamento crítico),
+                            <strong>4</strong> (comunicação visual)</p>
+                        <p class="text-sm text-gray-600 mt-2">Análise crítica de interface + produção de solução visual
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8">
+                    <h4 class="font-bold text-gray-900 mb-4 text-xl">Fluxo da Semana</h4>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                1</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Aula 1 (Teoria)</p>
+                                <p class="text-gray-700 text-sm">Professor apresenta princípios de proximidade e
+                                    alinhamento com exemplos reais de interfaces (boas e ruins)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                2</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Aula 2 (Prática)</p>
+                                <p class="text-gray-700 text-sm">Alunos recebem tela "bagunçada" e redesenham aplicando
+                                    os princípios. <strong>Feedback formativo</strong> durante o processo.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                3</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Avaliação</p>
+                                <p class="text-gray-700 text-sm">Comparação antes/depois usando <strong>rubrica
+                                        clara</strong>. Aluno vê exatamente onde acertou e onde precisa melhorar.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-8 h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                4</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Reforço Espaçado</p>
+                                <p class="text-gray-700 text-sm">Proximidade e alinhamento <strong>reaparecerão</strong>
+                                    em B2 (tipografia), B3 (composição) e B4 (protótipo). Não é "ensinar e esquecer".
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-50 rounded-2xl p-8 border-l-4 border-ifrn-green-600">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Resultado desta integração</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span><strong>Alunos sabem exatamente o que aprender</strong> (objetivos claros da Aprendizagem
+                            Visível)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span><strong>Progridem em complexidade cognitiva</strong> (níveis de Bloom estruturados)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span><strong>Desenvolvem competências da BNCC</strong> (pensamento crítico, comunicação,
+                            cultura digital)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span><strong>Recebem feedback contínuo</strong> (avaliação formativa, não apenas
+                            somativa)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-ifrn-green-600 font-bold">✓</span>
+                        <span><strong>Consolidam aprendizado ao longo do tempo</strong> (prática espaçada e
+                            deliberada)</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referências -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-bold text-gray-900 mb-12">Referências Fundamentais</h2>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Taxonomia de Bloom</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• ANDERSON, L. W.; KRATHWOHL, D. R. (Eds.). <strong>A Taxonomy for Learning, Teaching, and
+                                Assessing: A Revision of Bloom's Taxonomy of Educational Objectives.</strong> New York:
+                            Longman, 2001.</li>
+                        <li>• BLOOM, B. S. et al. <strong>Taxonomy of Educational Objectives: The Classification of
+                                Educational Goals.</strong> New York: David McKay Company, 1956.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Aprendizagem Visível</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• HATTIE, John. <strong>Visible Learning: A Synthesis of Over 800 Meta-Analyses Relating to
+                                Achievement.</strong> London: Routledge, 2009.</li>
+                        <li>• HATTIE, John. <strong>Visible Learning for Teachers: Maximizing Impact on
+                                Learning.</strong> London: Routledge, 2012.</li>
+                        <li>• HATTIE, John; ZIERER, Klaus. <strong>10 Mindframes for Visible Learning.</strong> London:
+                            Routledge, 2018.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">BNCC</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• BRASIL. Ministério da Educação. <strong>Base Nacional Comum Curricular.</strong> Brasília:
+                            MEC, 2018. Disponível em: http://basenacionalcomum.mec.gov.br/</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Teorias de Aprendizagem</h3>
+                    <p class="text-gray-400 text-sm">Fundamentos pedagógicos das disciplinas de Design e Desenvolvimento
+                        Web</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Instituto</h3>
+                    <p class="text-gray-400 text-sm">Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande
+                        do Norte</p>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Disciplinas Relacionadas</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="principios-design-disciplina.html" class="hover:text-white transition">Princípios
+                                de Design</a></li>
+                        <li><a href="#" class="hover:text-white transition">Autoria Web</a></li>
+                        <li><a href="#" class="hover:text-white transition">Design Web</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 IFRN. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAccordion(id) {
+            const content = document.getElementById(`content-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
