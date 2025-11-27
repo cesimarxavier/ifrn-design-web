@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 34 — Cor e Kit Visual | Princípios de Design IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        /* Modo Apresentação */
+        .presentation-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 9999;
+            overflow: auto;
+            display: none;
+        }
+
+        .presentation-mode.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .presentation-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .presentation-section {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .presentation-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
+        }
+
+        .presentation-nav button {
+            background: white;
+            color: #1f2937;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .presentation-nav button:hover {
+            background: #2f6b48;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .presentation-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .presentation-counter {
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+
+        .activate-presentation {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #2f6b48 0%, #1f4a32 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(47, 107, 72, 0.35);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .activate-presentation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.45);
+        }
+
+        .tag-pratica {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Swatches de cores */
+        .color-swatch {
+            width: 100%;
+            height: 120px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section data-section="1" data-title="Dados da Aula"
+        class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../principios-design-disciplina.html" class="hover:text-ifrn-red-500 transition">Princípios
+                        de Design</a> /
+                    <a href="../principios-design-disciplina.html#plano"
+                        class="hover:text-ifrn-red-500 transition">Bimestre 3</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 34</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div class="inline-block mb-6 px-4 py-2 bg-purple-100 text-purple-800 rounded-full font-semibold text-sm">
+                🎨 Aula Prática em Grupo
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 34 — Cor e Kit Visual
+            </h1>
+
+            <p class="text-xl md:text-2xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Crie um sistema de cores consistente e profissional usando Color Styles do Figma. Defina paleta completa
+                e aplique no protótipo.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#psicologia" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Começar aula
+                </a>
+                <a href="#atividade" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Ir para atividade
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas (3h40min)</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Tipo</p>
+                    <p class="text-sm text-gray-600">Prática em Grupo (3 pessoas)</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Bloom</p>
+                    <p class="text-sm text-gray-600">Aplicar / Criar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Objetivo da Aula</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Criar um sistema de cores profissional e consistente usando Color Styles do Figma,
+                                    definindo paleta completa (primária, secundária, acento, neutros) e aplicando no
+                                    protótipo do projeto com propósito e intencionalidade.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Psicologia da Cor -->
+    <section data-section="2" data-title="Psicologia da Cor" id="psicologia"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🧠 Psicologia da Cor: Cores Comunicam
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-lg text-gray-700 mb-6">
+                    Cor não é decoração — é <strong>comunicação</strong>. Cada cor evoca emoções e associações
+                    culturais. Escolher cores é escolher como seu produto será percebido.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #EF4444; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Vermelho</p>
+                                <p class="text-sm text-gray-700">Energia, urgência, paixão, perigo. Acelera batimentos
+                                    cardíacos.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: CTAs, alertas, promoções</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #3B82F6; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Azul</p>
+                                <p class="text-sm text-gray-700">Confiança, calma, profissionalismo, segurança.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Bancos, corporativo, saúde</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #10B981; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Verde</p>
+                                <p class="text-sm text-gray-700">Crescimento, saúde, natureza, equilíbrio, dinheiro.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Sustentabilidade, finanças, bem-estar</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #F59E0B; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Laranja</p>
+                                <p class="text-sm text-gray-700">Criatividade, entusiasmo, diversão, acessível.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Tech startups, produtos jovens</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #8B5CF6; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Roxo</p>
+                                <p class="text-sm text-gray-700">Luxo, criatividade, espiritualidade, sofisticação.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Beleza, premium, inovação</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #EC4899; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Rosa</p>
+                                <p class="text-sm text-gray-700">Romance, feminilidade, juventude, carinho.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Moda, cosméticos, entretenimento</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #F59E0B; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Amarelo</p>
+                                <p class="text-sm text-gray-700">Otimismo, felicidade, atenção, aviso.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Entretenimento, food, infantil</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <div class="color-swatch"
+                                style="background: #000000; color: white; width: 80px; height: 80px; flex-shrink: 0;">
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-900">Preto</p>
+                                <p class="text-sm text-gray-700">Elegância, poder, sofisticação, mistério.</p>
+                                <p class="text-xs text-gray-500 mt-1">Uso: Luxo, moda, premium</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-6 border-l-4 border-blue-500">
+                <p class="text-lg text-blue-900">
+                    <strong>💡 Insight:</strong> Grandes marcas investem milhões em pesquisa de cor. O azul do Facebook
+                    não é acaso — foi escolhido porque Mark Zuckerberg é daltônico para vermelho-verde, e azul é a cor
+                    que ele vê melhor. Mas também porque azul transmite confiança.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anatomia de uma Paleta -->
+    <section data-section="3" data-title="Anatomia de uma Paleta de Cores" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎨 Anatomia de uma Paleta de Cores
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-lg text-gray-700 mb-6">
+                    Uma paleta profissional não é "cores que combinam" — é um <strong>sistema organizado</strong> com
+                    propósito claro para cada cor.
+                </p>
+
+                <div class="space-y-6">
+                    <!-- Primária -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-20 h-20 rounded-lg flex-shrink-0" style="background: #2f6b48;"></div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-2">1. Cor Primária</h3>
+                                <p class="text-gray-700 mb-2">
+                                    <strong>É a identidade da marca.</strong> Aparece em logos, CTAs principais,
+                                    elementos importantes. Deve ser única e memorável.
+                                </p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Geralmente 1 cor + variações de tom (50-900)</li>
+                                    <li>• Exemplo: Verde IFRN, Azul Facebook, Vermelho Coca-Cola</li>
+                                    <li>• Uso: 40-60% do design</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secundária -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-20 h-20 rounded-lg flex-shrink-0" style="background: #3B82F6;"></div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-2">2. Cor Secundária (opcional)</h3>
+                                <p class="text-gray-700 mb-2">
+                                    <strong>Complementa a primária.</strong> Usada em elementos de suporte, seções
+                                    alternadas, fundos.
+                                </p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Deve harmonizar com primária (não competir)</li>
+                                    <li>• Pode ser análoga ou complementar</li>
+                                    <li>• Uso: 20-30% do design</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acento -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-20 h-20 rounded-lg flex-shrink-0" style="background: #EF4444;"></div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-2">3. Cor de Acento</h3>
+                                <p class="text-gray-700 mb-2">
+                                    <strong>Chama atenção.</strong> Botões importantes, alertas, notificações, elementos
+                                    interativos críticos.
+                                </p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Contrasta fortemente com primária</li>
+                                    <li>• Geralmente vibrante (vermelho, laranja, roxo)</li>
+                                    <li>• Uso: 5-10% do design (pouco mas poderoso)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Neutros -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex gap-2 flex-shrink-0">
+                                <div class="w-12 h-20 rounded-lg"
+                                    style="background: #FFFFFF; border: 2px solid #E5E7EB;"></div>
+                                <div class="w-12 h-20 rounded-lg" style="background: #F3F4F6;"></div>
+                                <div class="w-12 h-20 rounded-lg" style="background: #6B7280;"></div>
+                                <div class="w-12 h-20 rounded-lg" style="background: #1F2937;"></div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-2">4. Neutros (Cinzas)</h3>
+                                <p class="text-gray-700 mb-2">
+                                    <strong>A fundação invisível.</strong> Textos, fundos, bordas, sombras. Cria
+                                    hierarquia sem cor.
+                                </p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Escala de 50-900 (do quase branco ao quase preto)</li>
+                                    <li>• Pelo menos 5-7 tons diferentes</li>
+                                    <li>• Uso: 40-50% do design</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Semânticas -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <div class="flex items-start gap-4">
+                            <div class="flex gap-2 flex-shrink-0">
+                                <div class="w-12 h-20 rounded-lg" style="background: #10B981;"></div>
+                                <div class="w-12 h-20 rounded-lg" style="background: #F59E0B;"></div>
+                                <div class="w-12 h-20 rounded-lg" style="background: #EF4444;"></div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-xl text-gray-900 mb-2">5. Semânticas (Sucesso, Aviso, Erro)
+                                </h3>
+                                <p class="text-gray-700 mb-2">
+                                    <strong>Comunicam estado.</strong> Feedback visual imediato sobre ações do usuário.
+                                </p>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Verde: Sucesso, confirmação, positivo</li>
+                                    <li>• Amarelo/Laranja: Aviso, atenção</li>
+                                    <li>• Vermelho: Erro, destrutivo, crítico</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contraste e Acessibilidade -->
+    <section data-section="4" data-title="Contraste e Acessibilidade (WCAG)"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ♿ Contraste e Acessibilidade (WCAG)
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-lg text-gray-700 mb-6">
+                    Cores bonitas não bastam — elas precisam ser <strong>legíveis</strong>. WCAG (Web Content
+                    Accessibility Guidelines) define padrões mínimos de contraste.
+                </p>
+
+                <div class="bg-yellow-50 rounded-xl p-6 mb-6 border-l-4 border-yellow-500">
+                    <p class="font-bold text-yellow-900 mb-2">⚠️ Regra de Ouro</p>
+                    <p class="text-yellow-800">
+                        <strong>Ratio mínimo:</strong> 4.5:1 para texto normal, 3:1 para texto grande (18pt+). Nível AA
+                        do WCAG.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Bom contraste -->
+                    <div>
+                        <p class="font-bold text-gray-900 mb-3">✅ Bom Contraste (Legível)</p>
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-lg" style="background: #1F2937; color: #FFFFFF;">
+                                <p class="font-semibold">Texto branco em fundo escuro</p>
+                                <p class="text-sm">Ratio: 15.8:1 — Excelente!</p>
+                            </div>
+                            <div class="p-4 rounded-lg"
+                                style="background: #FFFFFF; color: #1F2937; border: 2px solid #E5E7EB;">
+                                <p class="font-semibold">Texto escuro em fundo branco</p>
+                                <p class="text-sm">Ratio: 15.8:1 — Excelente!</p>
+                            </div>
+                            <div class="p-4 rounded-lg" style="background: #2f6b48; color: #FFFFFF;">
+                                <p class="font-semibold">Texto branco em verde IFRN</p>
+                                <p class="text-sm">Ratio: 5.2:1 — Aprovado AA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mau contraste -->
+                    <div>
+                        <p class="font-bold text-gray-900 mb-3">❌ Mau Contraste (Ilegível)</p>
+                        <div class="space-y-3">
+                            <div class="p-4 rounded-lg"
+                                style="background: #FFFFFF; color: #D1D5DB; border: 2px solid #E5E7EB;">
+                                <p class="font-semibold">Texto cinza claro em branco</p>
+                                <p class="text-sm">Ratio: 1.8:1 — Reprovado!</p>
+                            </div>
+                            <div class="p-4 rounded-lg" style="background: #F59E0B; color: #FFFFFF;">
+                                <p class="font-semibold" style="color: #FEF3C7;">Amarelo claro em laranja</p>
+                                <p class="text-sm" style="color: #FFFFFF;">Ratio: 1.4:1 — Reprovado!</p>
+                            </div>
+                            <div class="p-4 rounded-lg" style="background: #10B981; color: #34D399;">
+                                <p class="font-semibold">Verde claro em verde</p>
+                                <p class="text-sm" style="color: #FFFFFF;">Ratio: 1.7:1 — Reprovado!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
+                    <p class="text-sm text-blue-900">
+                        <strong>🔧 Ferramentas:</strong> Use <a href="https://webaim.org/resources/contrastchecker/"
+                            target="_blank" class="underline font-semibold">WebAIM Contrast Checker</a> ou plugin
+                        <strong>Stark</strong> no Figma para verificar contraste automaticamente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regra 60-30-10 -->
+    <section data-section="5" data-title="Regra 60-30-10" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📊 Regra 60-30-10
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-lg text-gray-700 mb-6">
+                    Proporção clássica de design de interiores que funciona perfeitamente para UI:
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gray-50 rounded-xl p-6 border-t-4 border-gray-400">
+                        <p class="font-bold text-4xl text-gray-900 mb-2">60%</p>
+                        <p class="font-bold text-gray-900 mb-2">Cor Dominante</p>
+                        <p class="text-sm text-gray-700">Geralmente neutros (brancos, cinzas). Fundos, containers, áreas
+                            grandes.</p>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-xl p-6 border-t-4 border-blue-500">
+                        <p class="font-bold text-4xl text-blue-600 mb-2">30%</p>
+                        <p class="font-bold text-gray-900 mb-2">Cor Secundária</p>
+                        <p class="text-sm text-gray-700">Primária ou secundária da paleta. Headers, sidebars, seções
+                            destacadas.</p>
+                    </div>
+
+                    <div class="bg-red-50 rounded-xl p-6 border-t-4 border-red-500">
+                        <p class="font-bold text-4xl text-red-600 mb-2">10%</p>
+                        <p class="font-bold text-gray-900 mb-2">Cor de Acento</p>
+                        <p class="text-sm text-gray-700">Acento vibrante. Botões, links, elementos interativos críticos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-500">
+                    <p class="font-bold text-purple-900 mb-2">Exemplo Prático:</p>
+                    <ul class="space-y-1 text-purple-800">
+                        <li>• <strong>60%:</strong> Branco/cinza claro (fundos, cards)</li>
+                        <li>• <strong>30%:</strong> Verde IFRN (header, sidebar, títulos importantes)</li>
+                        <li>• <strong>10%:</strong> Vermelho (botão "Inscrever", alertas importantes)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Color Styles no Figma -->
+    <section data-section="6" data-title="Color Styles no Figma" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎨 Color Styles no Figma
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <p class="text-lg text-gray-700 mb-6">
+                    Color Styles são <strong>cores reutilizáveis e sincronizadas</strong>. Mude uma vez, atualiza em
+                    todo projeto.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-red-50 rounded-xl p-6 border-l-4 border-red-500">
+                        <p class="font-bold text-red-900 mb-2">❌ Sem Color Styles:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Pintar cada elemento manualmente</li>
+                            <li>• Verde #2f6b48 aqui, #2e6a47 ali (inconsistência)</li>
+                            <li>• Mudar paleta = atualizar 200+ elementos</li>
+                            <li>• Time usa cores diferentes</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                        <p class="font-bold text-green-900 mb-2">✅ Com Color Styles:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Aplicar "Primary/500" com 1 clique</li>
+                            <li>• Exatamente o mesmo verde sempre</li>
+                            <li>• Mudar o style = atualiza tudo automaticamente</li>
+                            <li>• Time inteiro usa paleta sincronizada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passo a passo -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200" data-section="7"
+                data-title="PRÁTICA: Como Criar Color Styles">
+                <span class="tag-pratica">✨ PRÁTICA</span>
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">📝 Como Criar Color Styles no Figma</h3>
+
+                <div class="space-y-6">
+                    <!-- Passo 1 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            1</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Crie uma forma e pinte</h4>
+                            <p class="text-gray-700 mb-2">Pressione <kbd class="px-2 py-1 bg-gray-200 rounded">R</kbd>
+                                (retângulo), desenhe e pinte com sua cor primária.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 2 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            2</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Acesse Fill properties</h4>
+                            <p class="text-gray-700">Com a forma selecionada, vá no painel <strong>Design</strong> →
+                                seção <strong>Fill</strong> → clique nos <strong>4 pontos (••••)</strong> ao lado da
+                                cor.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            3</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Crie o Style</h4>
+                            <p class="text-gray-700 mb-2">Clique em <strong>"+" (Create style)</strong>. Nomeie usando
+                                convenção:</p>
+                            <div class="bg-gray-50 rounded-lg p-4 mt-2 font-mono text-sm">
+                                <p>Primary/500</p>
+                                <p>Primary/600</p>
+                                <p>Secondary/500</p>
+                                <p>Accent/500</p>
+                                <p>Neutral/50</p>
+                                <p>Neutral/100</p>
+                                <p>Success/500</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">💡 Use "/" para criar categorias. Números 50-900 =
+                                claro para escuro.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 4 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            4</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Aplique em outros elementos</h4>
+                            <p class="text-gray-700">Selecione qualquer elemento → Fill → dropdown de styles → escolha o
+                                Color Style.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 5 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            5</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Edite e sincronize</h4>
+                            <p class="text-gray-700 mb-2">Para mudar uma cor:</p>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                                <li>1. Selecione elemento com o style</li>
+                                <li>2. Clique no ícone do style (painel Fill)</li>
+                                <li>3. Escolha "Edit style"</li>
+                                <li>4. Mude a cor</li>
+                                <li>5. Todos elementos com esse style atualizam! ✨</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sistema Recomendado -->
+    <section data-section="8" data-title="Sistema de Color Styles Recomendado"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-300">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">💎 Sistema de Color Styles Recomendado</h3>
+                <p class="text-gray-700 mb-4">Para o projeto de vocês, criem pelo menos esta estrutura básica:</p>
+
+                <div class="bg-purple-50 rounded-xl p-6 overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-purple-200">
+                                <th class="text-left py-2 font-bold">Nome do Style</th>
+                                <th class="text-left py-2 font-bold">Hex</th>
+                                <th class="text-left py-2 font-bold">Uso</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-purple-100">
+                            <tr>
+                                <td class="py-2 font-mono font-bold" colspan="3">Primary (Cor da marca)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Primary/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #2f6b48;"></div>
+                                </td>
+                                <td>Botões primários, links, destaques</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Primary/600</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #1f4a32;"></div>
+                                </td>
+                                <td>Hover de botões primários</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Primary/50</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded border-2" style="background: #e6f2ea;"></div>
+                                </td>
+                                <td>Fundos sutis, highlights</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono font-bold pt-4" colspan="3">Neutral (Cinzas)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/50</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded border-2" style="background: #F9FAFB;"></div>
+                                </td>
+                                <td>Fundos de página</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/100</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #F3F4F6;"></div>
+                                </td>
+                                <td>Fundos de cards</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/300</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #D1D5DB;"></div>
+                                </td>
+                                <td>Bordas, divisores</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #6B7280;"></div>
+                                </td>
+                                <td>Texto secundário</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/700</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #374151;"></div>
+                                </td>
+                                <td>Texto terciário</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Neutral/900</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #111827;"></div>
+                                </td>
+                                <td>Títulos, texto principal</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono font-bold pt-4" colspan="3">Accent (Ação)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Accent/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #EF4444;"></div>
+                                </td>
+                                <td>CTAs críticos, notificações</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono font-bold pt-4" colspan="3">Semânticas</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Success/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #10B981;"></div>
+                                </td>
+                                <td>Confirmações, sucesso</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Warning/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #F59E0B;"></div>
+                                </td>
+                                <td>Avisos, atenção</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono pl-4">Error/500</td>
+                                <td>
+                                    <div class="w-12 h-6 rounded" style="background: #EF4444;"></div>
+                                </td>
+                                <td>Erros, ações destrutivas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
+                    <p class="text-sm text-blue-900">
+                        <strong>💡 Dica:</strong> Use <a href="https://tailwindcss.com/docs/customizing-colors"
+                            target="_blank" class="underline">Tailwind Colors</a> ou <a href="https://uicolors.app"
+                            target="_blank" class="underline">UI Colors</a> para gerar escalas de 50-900 automaticamente
+                        a partir de uma cor base.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Escolher Cores -->
+    <section data-section="9" data-title="Como Escolher Cores para o Projeto"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎯 Como Escolher Cores para o Projeto
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <div class="space-y-6">
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">1️⃣ Comece pela IDENTIDADE</h4>
+                        <p class="text-gray-700 mb-2">Que emoção/mensagem seu produto quer passar?</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                            <li>• E-commerce de luxo → Preto, dourado, roxo</li>
+                            <li>• App de bem-estar → Verde, azul claro, bege</li>
+                            <li>• Fintech → Azul, verde, branco (confiança)</li>
+                            <li>• App infantil → Cores primárias vibrantes</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">2️⃣ Pesquise CONCORRENTES</h4>
+                        <p class="text-gray-700 text-sm">Veja o que outros no mesmo setor usam. Não para copiar, mas
+                            para entender convenções e se diferenciar estrategicamente.</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">3️⃣ Use FERRAMENTAS</h4>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>
+                                <a href="https://coolors.co" target="_blank"
+                                    class="text-blue-600 underline font-semibold">Coolors</a> — Gerar paletas aleatórias
+                            </li>
+                            <li>
+                                <a href="https://mycolor.space" target="_blank"
+                                    class="text-blue-600 underline font-semibold">ColorSpace</a> — Gerar gradientes e
+                                paletas
+                            </li>
+                            <li>
+                                <a href="https://color.adobe.com" target="_blank"
+                                    class="text-blue-600 underline font-semibold">Adobe Color</a> — Roda de cores,
+                                harmonia
+                            </li>
+                            <li>
+                                <a href="https://www.happyhues.co" target="_blank"
+                                    class="text-blue-600 underline font-semibold">Happy Hues</a> — Ver paletas em
+                                contexto
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">4️⃣ TESTE em contexto</h4>
+                        <p class="text-gray-700 text-sm">Aplique em algumas telas do wireframe. Veja se funciona. Ajuste
+                            até sentir que "encaixou".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aplicando no Protótipo -->
+    <section data-section="10" data-title="Aplicando Cores no Protótipo" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🖌️ Aplicando Cores no Protótipo
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Fluxo de Trabalho</h3>
+
+                <div class="space-y-4">
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">1️⃣ Defina ONDE cada cor vai</h4>
+                        <p class="text-gray-700 mb-2">Antes de pintar, decida o propósito:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                            <li>• <strong>Primary/500:</strong> Logo, botões principais, links</li>
+                            <li>• <strong>Neutral/50:</strong> Fundo de página</li>
+                            <li>• <strong>Neutral/100:</strong> Fundo de cards</li>
+                            <li>• <strong>Neutral/900:</strong> Títulos</li>
+                            <li>• <strong>Accent/500:</strong> CTAs críticos ("Comprar", "Inscrever")</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">2️⃣ Aplique de forma CONSISTENTE</h4>
+                        <p class="text-gray-700 text-sm">Botões primários sempre Primary/500. Headers sempre
+                            Neutral/900. Sem exceções arbitrárias.</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">3️⃣ Use a regra 60-30-10</h4>
+                        <p class="text-gray-700 text-sm">Maioria neutros (fundos), primária em destaque médio, acento em
+                            pequenos toques.</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">4️⃣ Teste CONTRASTE</h4>
+                        <p class="text-gray-700 text-sm">Use plugin Stark ou WebAIM para garantir que textos são
+                            legíveis em todos fundos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exemplo Visual -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Exemplo: Aplicação em Página</h3>
+
+                <div class="border-2 border-gray-200 rounded-xl overflow-hidden">
+                    <div class="p-4" style="background: #2f6b48; color: white;">
+                        <p class="font-bold">Header (Primary/500)</p>
+                    </div>
+                    <div class="p-8" style="background: #F9FAFB;">
+                        <div class="bg-white p-6 rounded-lg shadow-md border-2 border-gray-200 mb-4">
+                            <h2 class="font-bold text-2xl mb-2" style="color: #111827;">Título Principal (Neutral/900)
+                            </h2>
+                            <p style="color: #6B7280;">Texto secundário (Neutral/500)</p>
+                        </div>
+                        <button class="px-6 py-3 rounded-lg font-bold" style="background: #EF4444; color: white;">
+                            CTA Importante (Accent/500)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atividade -->
+    <section data-section="11" data-title="Atividade em Grupo" id="atividade"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    👥 Atividade em Grupo (3 pessoas)
+                </h2>
+                <p class="text-xl opacity-95">
+                    Criem uma paleta de cores completa com Color Styles e apliquem no protótipo.
+                </p>
+            </div>
+
+            <!-- Instruções -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">📋 Instruções</h3>
+
+                <div class="space-y-6">
+                    <!-- Parte 1 -->
+                    <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-500">
+                        <h4 class="font-bold text-lg text-purple-900 mb-3">Parte 1: Definir Paleta (40min)</h4>
+                        <p class="text-gray-700 mb-3">Trabalho colaborativo — decidam juntos:</p>
+                        <ol class="space-y-2 text-gray-700">
+                            <li><strong>1.</strong> Pesquisem referências (Coolors, concorrentes, dribbble)</li>
+                            <li><strong>2.</strong> Escolham cor primária (ligada à identidade do produto)</li>
+                            <li><strong>3.</strong> Definam cor de acento (contraste com primária)</li>
+                            <li><strong>4.</strong> Gerem escala de neutros (50-900)</li>
+                            <li><strong>5.</strong> Definam semânticas (sucesso, aviso, erro)</li>
+                            <li><strong>6.</strong> Criem página "🎨 Color Palette" com swatches</li>
+                        </ol>
+                    </div>
+
+                    <!-- Parte 2 -->
+                    <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
+                        <h4 class="font-bold text-lg text-blue-900 mb-3">Parte 2: Criar Color Styles (30min)</h4>
+                        <p class="text-gray-700 mb-3">Dividam o trabalho:</p>
+                        <ol class="space-y-2 text-gray-700">
+                            <li><strong>1.</strong> Pessoa 1: Cria styles Primary (50, 500, 600)</li>
+                            <li><strong>2.</strong> Pessoa 2: Cria styles Neutral (50, 100, 300, 500, 700, 900)</li>
+                            <li><strong>3.</strong> Pessoa 3: Cria styles Accent e Semânticas</li>
+                            <li><strong>4.</strong> Juntos: Revisem nomenclatura e organização</li>
+                        </ol>
+                    </div>
+
+                    <!-- Parte 3 -->
+                    <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                        <h4 class="font-bold text-lg text-green-900 mb-3">Parte 3: Aplicar no Protótipo (100min)</h4>
+                        <p class="text-gray-700 mb-3">Cada pessoa pega telas:</p>
+                        <ol class="space-y-2 text-gray-700">
+                            <li><strong>1.</strong> Apliquem Color Styles em TODOS elementos (fundos, textos, bordas,
+                                botões)</li>
+                            <li><strong>2.</strong> Sigam regra 60-30-10</li>
+                            <li><strong>3.</strong> Testem contraste (Stark plugin)</li>
+                            <li><strong>4.</strong> Garantam consistência entre telas</li>
+                        </ol>
+                    </div>
+
+                    <!-- Parte 4 -->
+                    <div class="bg-yellow-50 rounded-xl p-6 border-l-4 border-yellow-500">
+                        <h4 class="font-bold text-lg text-yellow-900 mb-3">Parte 4: Revisão (30min)</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Revisem juntos todas as telas</li>
+                            <li>• Verifiquem consistência</li>
+                            <li>• Ajustem contrastes problemáticos</li>
+                            <li>• Garantam que Color Styles estão aplicados (não cores soltas)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">✅ Checklist de Entrega</h3>
+
+                <div class="space-y-2">
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Definimos paleta completa (primária, acento, neutros,
+                            semânticas)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Criamos pelo menos 12 Color Styles no Figma</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Temos página "Color Palette" documentando swatches</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Aplicamos Color Styles em TODOS elementos do protótipo</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Seguimos regra 60-30-10</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Testamos contraste (ratio mínimo 4.5:1 para textos)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Cores são consistentes entre todas as telas</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Paleta reflete identidade do produto</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section data-section="12" data-title="Recursos e Ferramentas" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎁 Recursos e Ferramentas
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Ferramentas -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">🔧 Ferramentas</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://coolors.co" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">Coolors</a>
+                            <p class="text-sm text-gray-600">Gerador de paletas rápido</p>
+                        </li>
+                        <li>
+                            <a href="https://uicolors.app" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">UI Colors</a>
+                            <p class="text-sm text-gray-600">Gerar escala 50-900 de qualquer cor</p>
+                        </li>
+                        <li>
+                            <a href="https://webaim.org/resources/contrastchecker/" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">WebAIM Contrast Checker</a>
+                            <p class="text-sm text-gray-600">Testar contraste WCAG</p>
+                        </li>
+                        <li>
+                            <a href="https://www.happyhues.co" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">Happy Hues</a>
+                            <p class="text-sm text-gray-600">Ver paletas aplicadas em UI</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Plugins Figma -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">🔌 Plugins Figma</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <strong class="text-gray-900">Stark</strong> — Testar contraste e acessibilidade
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Color Styleguide</strong> — Visualizar todos Color Styles
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Material Design Color Tool</strong> — Paletas Material
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão Apresentação -->
+    <button class="activate-presentation" onclick="activatePresentation()">
+        🎯 Modo Apresentação
+    </button>
+
+    <!-- Overlay Apresentação -->
+    <div id="presentationMode" class="presentation-mode">
+        <div class="presentation-content">
+            <div class="presentation-section" id="presentationSection"></div>
+        </div>
+        <div class="presentation-nav">
+            <button onclick="previousSection()" id="btnPrevious">← Anterior</button>
+            <div class="presentation-counter">
+                <span id="currentSection">1</span> / <span id="totalSections">12</span>
+            </div>
+            <button onclick="nextSection()" id="btnNext">Próximo →</button>
+            <button onclick="deactivatePresentation()" style="background: #e63946; color: white;">✕ Sair</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-gray-400 text-center text-sm">
+        <p>
+            <a href="../principios-design-disciplina.html">Princípios de Design</a> •
+            Semana 34 — Cor e Kit Visual •
+            IFRN © 2025
+        </p>
+    </footer>
+
+    <script>
+        // Estado da apresentação
+        let currentSectionIndex = 0;
+        let sections = [];
+        let presentationActive = false;
+
+        function initSections() {
+            sections = Array.from(document.querySelectorAll('[data-section]'));
+            document.getElementById('totalSections').textContent = sections.length;
+        }
+
+        function activatePresentation() {
+            initSections();
+            presentationActive = true;
+            currentSectionIndex = 0;
+            document.getElementById('presentationMode').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            showSection(0);
+        }
+
+        function deactivatePresentation() {
+            presentationActive = false;
+            document.getElementById('presentationMode').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showSection(index) {
+            if (index < 0 || index >= sections.length) return;
+
+            currentSectionIndex = index;
+            const section = sections[index];
+            const sectionClone = section.cloneNode(true);
+
+            const presentationSection = document.getElementById('presentationSection');
+            presentationSection.innerHTML = '';
+            presentationSection.appendChild(sectionClone);
+
+            document.getElementById('currentSection').textContent = index + 1;
+            document.getElementById('btnPrevious').disabled = index === 0;
+            document.getElementById('btnNext').disabled = index === sections.length - 1;
+
+            presentationSection.scrollTop = 0;
+        }
+
+        function previousSection() {
+            if (currentSectionIndex > 0) {
+                showSection(currentSectionIndex - 1);
+            }
+        }
+
+        function nextSection() {
+            if (currentSectionIndex < sections.length - 1) {
+                showSection(currentSectionIndex + 1);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!presentationActive) return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSection();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSection();
+            } else if (e.key === 'Escape') {
+                deactivatePresentation();
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                if (presentationActive) return;
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `design-s34-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', initSections);
+    </script>
+</body>
+
+</html>

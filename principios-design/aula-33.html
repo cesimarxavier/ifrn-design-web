@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 33 — Tipografia e Hierarquia Visual | Princípios de Design IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'ifrn': {
+                            'green': {
+                                50: '#e6f2ea',
+                                100: '#c4e2d1',
+                                500: '#2f6b48',
+                                700: '#1f4a32',
+                                800: '#143021',
+                            },
+                            'red': {
+                                500: '#e63946',
+                                600: '#d62828',
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        /* Modo Apresentação */
+        .presentation-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 9999;
+            overflow: auto;
+            display: none;
+        }
+
+        .presentation-mode.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .presentation-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .presentation-section {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        /* Controles de navegação */
+        .presentation-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(10px);
+        }
+
+        .presentation-nav button {
+            background: white;
+            color: #1f2937;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .presentation-nav button:hover {
+            background: #2f6b48;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .presentation-nav button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .presentation-counter {
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            font-size: 1rem;
+        }
+
+        /* Botão para ativar modo apresentação */
+        .activate-presentation {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #2f6b48 0%, #1f4a32 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(47, 107, 72, 0.35);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .activate-presentation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.45);
+        }
+
+        /* Tag de prática */
+        .tag-pratica {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #2f6b48;
+            color: #2f6b48;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #2f6b48;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #e6f2ea;
+            border-color: #2f6b48;
+        }
+
+        /* Demonstração de Hierarquia */
+        .hierarchy-demo-bad {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #000;
+        }
+
+        .hierarchy-demo-good h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .hierarchy-demo-good h2 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 16px;
+        }
+
+        .hierarchy-demo-good p {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Hero -->
+    <section data-section="1" data-title="Dados da Aula"
+        class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-5xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8">
+                <p class="text-sm text-gray-600">
+                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
+                    <a href="../principios-design-disciplina.html" class="hover:text-ifrn-red-500 transition">Princípios
+                        de Design</a> /
+                    <a href="../principios-design-disciplina.html#plano"
+                        class="hover:text-ifrn-red-500 transition">Bimestre 3</a> /
+                    <span class="font-semibold text-ifrn-green-700">Semana 33</span>
+                </p>
+            </div>
+
+            <!-- Tag -->
+            <div class="inline-block mb-6 px-4 py-2 bg-purple-100 text-purple-800 rounded-full font-semibold text-sm">
+                📝 Aula Prática em Grupo
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
+                Semana 33 — Tipografia e Hierarquia Visual
+            </h1>
+
+            <p class="text-xl md:text-2xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Aprenda a criar sistemas tipográficos consistentes e aplicar hierarquia visual para guiar a atenção do
+                usuário através do conteúdo.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                <a href="#conceitos" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Começar aula
+                </a>
+                <a href="#atividade" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Ir para atividade
+                </a>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Duração</p>
+                    <p class="text-sm text-gray-600">2 aulas geminadas (3h40min)</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Tipo</p>
+                    <p class="text-sm text-gray-600">Prática em Grupo (3 pessoas)</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                    <p class="font-bold text-gray-900 mb-1">Bloom</p>
+                    <p class="text-sm text-gray-600">Aplicar / Analisar</p>
+                </div>
+            </div>
+
+            <!-- Intenção de Aprendizagem -->
+            <section class="py-12 bg-white">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div>
+                                <h2 class="font-bold text-3xl mb-4">Objetivo da Aula</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Ao final desta aula, você será capaz de criar um sistema tipográfico consistente
+                                    usando Text Styles do Figma e aplicar hierarquia visual efetiva nos wireframes do
+                                    seu projeto, guiando a atenção do usuário através do conteúdo de forma intencional.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- O Problema -->
+    <section data-section="2" data-title="O Problema: Por que Hierarquia Importa?"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🤔 O Problema: Por que Hierarquia Importa?
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- SEM Hierarquia -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-red-300">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">❌</span>
+                        <h3 class="font-bold text-xl text-gray-900">SEM Hierarquia</h3>
+                    </div>
+                    <div class="hierarchy-demo-bad bg-gray-50 rounded-xl p-6">
+                        <p>Título Principal do Conteúdo</p>
+                        <p>Subtítulo explicativo</p>
+                        <p>Este é o parágrafo de conteúdo principal que o usuário precisa ler para entender a mensagem.
+                            Todas as informações têm o mesmo peso visual.</p>
+                        <p>Chamada para ação importante</p>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-700">
+                        <p class="font-semibold text-red-600 mb-2">Problemas:</p>
+                        <ul class="space-y-1">
+                            <li>• Tudo tem a mesma importância</li>
+                            <li>• Usuário não sabe por onde começar</li>
+                            <li>• Difícil de escanear rapidamente</li>
+                            <li>• Não guia a atenção</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- COM Hierarquia -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-500">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-3xl">✅</span>
+                        <h3 class="font-bold text-xl text-gray-900">COM Hierarquia</h3>
+                    </div>
+                    <div class="hierarchy-demo-good bg-gray-50 rounded-xl p-6">
+                        <h1>Título Principal</h1>
+                        <h2>Subtítulo explicativo</h2>
+                        <p>Este é o parágrafo de conteúdo principal que o usuário precisa ler para entender a mensagem.
+                            A hierarquia visual guia naturalmente.</p>
+                        <button class="mt-4 bg-ifrn-red-500 text-white px-6 py-2 rounded-lg font-bold">Chamada para
+                            Ação</button>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-700">
+                        <p class="font-semibold text-green-600 mb-2">Benefícios:</p>
+                        <ul class="space-y-1">
+                            <li>• Clara ordem de importância</li>
+                            <li>• Olho vai direto pro título</li>
+                            <li>• Fácil de escanear</li>
+                            <li>• Guia o fluxo de leitura</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-2xl p-6 border-l-4 border-blue-500">
+                <p class="text-lg text-blue-900">
+                    <strong>💡 Insight:</strong> Hierarquia visual não é "deixar bonito" — é sobre <strong>comunicação
+                        efetiva</strong>. Você está literalmente desenhando o caminho que o olho do usuário vai seguir.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conceitos Fundamentais -->
+    <section data-section="3" data-title="Conceito: O que é Hierarquia Visual?" id="conceitos"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📚 Conceito: O que é Hierarquia Visual?
+            </h2>
+
+            <!-- 1. O que é Hierarquia -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">O que é Hierarquia Visual?</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    Hierarquia visual é a <strong>organização e priorização de elementos</strong> para indicar sua
+                    importância relativa. Você usa tamanho, peso, cor, espaçamento e posição para criar uma
+                    <strong>ordem de leitura intencional</strong>.
+                </p>
+
+                <div class="bg-gray-50 rounded-xl p-6 mb-4">
+                    <p class="font-bold text-gray-900 mb-3">3 Níveis Básicos de Hierarquia:</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                                1</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Primário</p>
+                                <p class="text-gray-700 text-sm">Título principal, logo, CTA principal — deve chamar
+                                    atenção imediata</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                                2</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Secundário</p>
+                                <p class="text-gray-700 text-sm">Subtítulos, descrições importantes, CTAs secundários
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-700 font-bold flex-shrink-0">
+                                3</div>
+                            <div>
+                                <p class="font-bold text-gray-900">Terciário</p>
+                                <p class="text-gray-700 text-sm">Corpo de texto, metadados, informações de suporte</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Escala Tipográfica -->
+    <section data-section="4" data-title="Conceito: Escala Tipográfica" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📐 Conceito: Escala Tipográfica
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Escala Tipográfica</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    Uma escala tipográfica é um <strong>sistema de tamanhos de fonte harmoniosamente
+                        relacionados</strong>. Em vez de escolher tamanhos aleatórios (16px, 19px, 23px...), você usa
+                    uma escala matemática.
+                </p>
+
+                <div class="bg-purple-50 rounded-xl p-6 mb-4">
+                    <p class="font-bold text-purple-900 mb-3">Escala Comum: 1.250 (Major Third)</p>
+                    <div class="space-y-2 font-mono">
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">12px</span>
+                            <span style="font-size: 12px;">Texto muito pequeno</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">14px</span>
+                            <span style="font-size: 14px;">Texto pequeno</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">16px</span>
+                            <span style="font-size: 16px;">Corpo de texto (base)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">20px</span>
+                            <span style="font-size: 20px;">Texto destacado</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">24px</span>
+                            <span style="font-size: 24px;">Subtítulo (H3)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">32px</span>
+                            <span style="font-size: 32px;">Título seção (H2)</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-xs text-gray-600 w-20">40px</span>
+                            <span style="font-size: 40px; font-weight: 700;">Título principal (H1)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-4 border-l-4 border-blue-500">
+                    <p class="text-sm text-blue-900">
+                        <strong>💡 Dica:</strong> Use ferramentas como <a href="https://typescale.com" target="_blank"
+                            class="underline">typescale.com</a> ou <a href="https://www.modularscale.com"
+                            target="_blank" class="underline">modularscale.com</a> para gerar sua escala.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peso e Estilo -->
+    <section data-section="5" data-title="Conceito: Peso e Estilo da Fonte" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                ⚖️ Conceito: Peso e Estilo da Fonte
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Peso e Estilo da Fonte</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    Tamanho não é a única ferramenta. <strong>Peso (weight)</strong> e <strong>estilo</strong> também
+                    criam hierarquia.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <p class="font-bold text-gray-900 mb-3">Pesos Comuns:</p>
+                        <div class="space-y-2">
+                            <p style="font-weight: 300;">Light (300) — Textos leves</p>
+                            <p style="font-weight: 400;">Regular (400) — Corpo de texto</p>
+                            <p style="font-weight: 500;">Medium (500) — Destaque sutil</p>
+                            <p style="font-weight: 600;">Semibold (600) — Subtítulos</p>
+                            <p style="font-weight: 700;">Bold (700) — Títulos</p>
+                            <p style="font-weight: 800;">Extrabold (800) — Títulos hero</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <p class="font-bold text-gray-900 mb-3">Regra Prática:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>Títulos grandes:</strong> podem ser Bold ou mais</li>
+                            <li>• <strong>Corpo de texto:</strong> Regular (400)</li>
+                            <li>• <strong>Legendas/labels:</strong> Medium (500-600)</li>
+                            <li>• <strong>Destaque:</strong> combinar tamanho + peso</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Espaçamento -->
+    <section data-section="6" data-title="Conceito: Espaçamento e Line Height"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📏 Conceito: Espaçamento e Line Height
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Espaçamento e Line Height</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    Espaçamento adequado é <strong>crucial</strong> para legibilidade e hierarquia.
+                </p>
+
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <p class="font-bold text-gray-900 mb-3">Regras de Line Height (altura de linha):</p>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• <strong>Títulos grandes:</strong> 1.0 - 1.2 (mais apertado)</li>
+                        <li>• <strong>Títulos médios:</strong> 1.2 - 1.3</li>
+                        <li>• <strong>Corpo de texto:</strong> 1.5 - 1.6 (mais espaçoso)</li>
+                        <li>• <strong>Textos longos:</strong> até 1.8</li>
+                    </ul>
+
+                    <div class="mt-4 p-4 bg-white rounded-lg border-2 border-gray-200">
+                        <p class="text-sm text-gray-600 mb-2">Exemplo visual:</p>
+                        <p style="line-height: 1.0;" class="mb-4 text-2xl font-bold">Título com line-height 1.0<br>fica
+                            bem apertado</p>
+                        <p style="line-height: 1.6;">Corpo de texto com line-height 1.6 é muito mais confortável para
+                            ler. O espaço entre as linhas permite que o olho descanse e flua naturalmente de uma linha
+                            para outra.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Text Styles no Figma -->
+    <section data-section="7" data-title="Text Styles no Figma" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎨 Text Styles no Figma
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">O que são Text Styles?</h3>
+                <p class="text-lg text-gray-700 mb-6">
+                    Text Styles (Estilos de Texto) no Figma são <strong>estilos reutilizáveis</strong> que você define
+                    uma vez e aplica em múltiplos textos. Mudar o estilo atualiza todos os textos que o usam. É o
+                    <strong>sistema de design tipográfico</strong>.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-red-50 rounded-xl p-6 border-l-4 border-red-500">
+                        <p class="font-bold text-red-900 mb-2">❌ Sem Text Styles:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Formatar cada texto manualmente</li>
+                            <li>• Inconsistências (32px aqui, 34px ali)</li>
+                            <li>• Mudar o design = atualizar tudo manualmente</li>
+                            <li>• Trabalho em grupo = bagunça</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                        <p class="font-bold text-green-900 mb-2">✅ Com Text Styles:</p>
+                        <ul class="space-y-1 text-sm text-gray-700">
+                            <li>• Aplicar estilos com 1 clique</li>
+                            <li>• Consistência automática</li>
+                            <li>• Mudar o estilo = atualiza tudo</li>
+                            <li>• Time inteiro usa os mesmos estilos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Como Criar Text Styles -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8" data-section="8"
+                data-title="PRÁTICA: Como Criar Text Styles">
+                <span class="tag-pratica">✨ PRÁTICA</span>
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">📝 Como Criar Text Styles no Figma</h3>
+
+                <div class="space-y-6">
+                    <!-- Passo 1 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            1</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Crie um text box e formate</h4>
+                            <p class="text-gray-700 mb-2">Pressione <kbd class="px-2 py-1 bg-gray-200 rounded">T</kbd> e
+                                crie um texto. Formate com:</p>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                                <li>• Fonte (ex: Inter)</li>
+                                <li>• Tamanho (ex: 40px)</li>
+                                <li>• Peso (ex: Bold 700)</li>
+                                <li>• Line height (ex: 120%)</li>
+                                <li>• Cor (opcional, mas recomendado)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Passo 2 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            2</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Acesse Text Properties</h4>
+                            <p class="text-gray-700">Com o texto selecionado, no painel direito (Design), veja a seção
+                                <strong>Text</strong>. Clique no ícone de <strong>4 pontos</strong> (•••) ao lado de
+                                "Type details".</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            3</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Crie o Style</h4>
+                            <p class="text-gray-700 mb-2">Clique no ícone <strong>+</strong> ou em <strong>"Create
+                                    style"</strong>. Dê um nome descritivo:</p>
+                            <div class="bg-gray-50 rounded-lg p-4 mt-2 font-mono text-sm">
+                                <p>Heading/H1</p>
+                                <p>Heading/H2</p>
+                                <p>Heading/H3</p>
+                                <p>Body/Regular</p>
+                                <p>Body/Bold</p>
+                                <p>Caption/Small</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">💡 Use "/" para criar categorias (hierarquia no menu)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 4 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            4</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Aplique em outros textos</h4>
+                            <p class="text-gray-700">Selecione qualquer texto e, no painel Text, clique no dropdown de
+                                estilos. Escolha o style criado. Pronto!</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 5 -->
+                    <div class="flex gap-4">
+                        <div
+                            class="w-12 h-12 bg-ifrn-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                            5</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-900 mb-2">Edite e atualize</h4>
+                            <p class="text-gray-700 mb-2">Para editar um style:</p>
+                            <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                                <li>1. Selecione texto com o style aplicado</li>
+                                <li>2. Mude propriedades (tamanho, peso, etc)</li>
+                                <li>3. Clique no ícone de •••</li>
+                                <li>4. Escolha "Update style"</li>
+                                <li>5. Todos os textos com esse style atualizam automaticamente! ✨</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sistema Recomendado -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-300" data-section="9"
+                data-title="Sistema de Text Styles Recomendado">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">💎 Sistema de Text Styles Recomendado</h3>
+                <p class="text-gray-700 mb-4">Para o projeto de vocês, criem pelo menos estes estilos:</p>
+
+                <div class="bg-purple-50 rounded-xl p-6">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b-2 border-purple-200">
+                                <th class="text-left py-2 font-bold">Nome do Style</th>
+                                <th class="text-left py-2 font-bold">Tamanho</th>
+                                <th class="text-left py-2 font-bold">Peso</th>
+                                <th class="text-left py-2 font-bold">Line Height</th>
+                                <th class="text-left py-2 font-bold">Uso</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-purple-100">
+                            <tr>
+                                <td class="py-2 font-mono">Heading/H1</td>
+                                <td>40-48px</td>
+                                <td>Bold (700-800)</td>
+                                <td>110-120%</td>
+                                <td>Título principal da página</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Heading/H2</td>
+                                <td>32px</td>
+                                <td>Semibold (600)</td>
+                                <td>120%</td>
+                                <td>Títulos de seções</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Heading/H3</td>
+                                <td>24px</td>
+                                <td>Semibold (600)</td>
+                                <td>130%</td>
+                                <td>Subtítulos</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Body/Regular</td>
+                                <td>16px</td>
+                                <td>Regular (400)</td>
+                                <td>150%</td>
+                                <td>Texto principal</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Body/Bold</td>
+                                <td>16px</td>
+                                <td>Semibold (600)</td>
+                                <td>150%</td>
+                                <td>Destaques no texto</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Caption</td>
+                                <td>14px</td>
+                                <td>Regular (400)</td>
+                                <td>140%</td>
+                                <td>Legendas, metadados</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-mono">Button/Text</td>
+                                <td>16px</td>
+                                <td>Semibold (600)</td>
+                                <td>100%</td>
+                                <td>Texto em botões</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aplicando Hierarquia -->
+    <section data-section="10" data-title="Aplicando Hierarquia nos Wireframes"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎯 Aplicando Hierarquia nos Wireframes
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">Fluxo de Trabalho</h3>
+
+                <div class="space-y-4">
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">1️⃣ Identifique a hierarquia de informação</h4>
+                        <p class="text-gray-700 mb-2">Antes de mexer no Figma, analise cada tela:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                            <li>• Qual é a informação MAIS importante? (nível 1)</li>
+                            <li>• O que vem em segundo lugar? (nível 2)</li>
+                            <li>• O que é informação de suporte? (nível 3)</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">2️⃣ Aplique os Text Styles correspondentes</h4>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4">
+                            <li>• <strong>Nível 1:</strong> H1 ou H2</li>
+                            <li>• <strong>Nível 2:</strong> H3 ou Body/Bold</li>
+                            <li>• <strong>Nível 3:</strong> Body/Regular ou Caption</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">3️⃣ Use espaçamento para reforçar</h4>
+                        <p class="text-gray-700 text-sm">Elementos mais importantes devem ter mais espaço ao redor. Isso
+                            os isola visualmente e atrai atenção.</p>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3">4️⃣ Teste escaneabilidade</h4>
+                        <p class="text-gray-700 text-sm">Afaste-se do monitor ou desfoque os olhos. O que você vê
+                            primeiro? É o que deveria ser mais importante?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exemplo Prático -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200" data-section="11"
+                data-title="Exemplo: Página de Produto">
+                <h3 class="font-bold text-2xl text-gray-900 mb-4">📱 Exemplo: Página de Produto</h3>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-bold text-gray-900 mb-3">Análise de Hierarquia:</p>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-gray-900">1.</span>
+                                <div>
+                                    <p class="font-bold">Nome do Produto</p>
+                                    <p class="text-gray-600">H1 (40px, Bold)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-gray-900">2.</span>
+                                <div>
+                                    <p class="font-bold">Preço</p>
+                                    <p class="text-gray-600">H2 (32px, Semibold) + Cor</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-gray-900">3.</span>
+                                <div>
+                                    <p class="font-bold">Descrição curta</p>
+                                    <p class="text-gray-600">Body/Regular (16px)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-gray-900">4.</span>
+                                <div>
+                                    <p class="font-bold">Botão "Comprar"</p>
+                                    <p class="text-gray-600">Button/Text + Cor destacada</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-gray-900">5.</span>
+                                <div>
+                                    <p class="font-bold">Especificações técnicas</p>
+                                    <p class="text-gray-600">Caption (14px, cinza)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <p class="font-bold text-gray-900 mb-3">Resultado Visual:</p>
+                        <div class="bg-white rounded-lg p-6 border-2 border-gray-200">
+                            <h1 class="text-4xl font-bold mb-2">iPhone 15 Pro</h1>
+                            <p class="text-3xl font-semibold text-blue-600 mb-4">R$ 7.299</p>
+                            <p class="text-base text-gray-700 mb-4">Titânio forjado em aeroespacial. Chip A17 Pro com
+                                GPU de 6 núcleos.</p>
+                            <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold mb-4">Comprar
+                                agora</button>
+                            <p class="text-sm text-gray-500">Tela: 6.1" | Câmera: 48MP | 5G</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Atividade em Grupo -->
+    <section data-section="12" data-title="Atividade em Grupo" id="atividade"
+        class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-8 text-white shadow-xl mb-8">
+                <h2 class="font-bold text-3xl mb-4">
+                    👥 Atividade em Grupo (3 pessoas)
+                </h2>
+                <p class="text-xl opacity-95">
+                    Criem um sistema tipográfico completo e apliquem hierarquia visual nos wireframes do projeto.
+                </p>
+            </div>
+
+            <!-- Instruções -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">📋 Instruções</h3>
+
+                <div class="space-y-6">
+                    <!-- Parte 1 -->
+                    <div class="bg-purple-50 rounded-xl p-6 border-l-4 border-purple-500">
+                        <h4 class="font-bold text-lg text-purple-900 mb-3">Parte 1: Criar Sistema de Text Styles (45min)
+                        </h4>
+                        <p class="text-gray-700 mb-3">Trabalho colaborativo — todos no mesmo arquivo Figma:</p>
+                        <ol class="space-y-2 text-gray-700">
+                            <li><strong>1.</strong> Pessoa 1: Cria página "📝 Text Styles" no arquivo do projeto</li>
+                            <li><strong>2.</strong> Defina sua escala tipográfica (use typescale.com se precisar)</li>
+                            <li><strong>3.</strong> Pessoa 2: Cria os Text Styles de Headings (H1, H2, H3)</li>
+                            <li><strong>4.</strong> Pessoa 3: Cria os Text Styles de Body e Caption</li>
+                            <li><strong>5.</strong> Juntos: Revisem e ajustem para consistência</li>
+                            <li><strong>6.</strong> Criem um "Type Specimen" — página mostrando todos os estilos</li>
+                        </ol>
+                    </div>
+
+                    <!-- Parte 2 -->
+                    <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
+                        <h4 class="font-bold text-lg text-blue-900 mb-3">Parte 2: Aplicar Hierarquia nos Wireframes
+                            (90min)</h4>
+                        <p class="text-gray-700 mb-3">Dividam as telas entre vocês:</p>
+                        <ol class="space-y-2 text-gray-700">
+                            <li><strong>1.</strong> Cada pessoa pega 2-3 wireframes do projeto</li>
+                            <li><strong>2.</strong> Para cada tela, identifique os 3 níveis de hierarquia</li>
+                            <li><strong>3.</strong> Aplique os Text Styles apropriados</li>
+                            <li><strong>4.</strong> Ajuste espaçamentos para reforçar hierarquia</li>
+                            <li><strong>5.</strong> Revise: o olho vai primeiro para o mais importante?</li>
+                        </ol>
+                    </div>
+
+                    <!-- Parte 3 -->
+                    <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-500">
+                        <h4 class="font-bold text-lg text-green-900 mb-3">Parte 3: Revisão em Grupo (30min)</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Apresentem as telas uns para os outros</li>
+                            <li>• Teste de escaneabilidade: o que você vê primeiro em cada tela?</li>
+                            <li>• Ajustem inconsistências</li>
+                            <li>• Garantam que todas as telas usam os mesmos Text Styles</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <h3 class="font-bold text-2xl text-gray-900 mb-6">✅ Checklist de Entrega</h3>
+
+                <div class="space-y-2">
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Criamos pelo menos 7 Text Styles (H1, H2, H3, Body/Regular,
+                            Body/Bold, Caption, Button)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Temos uma página "Type Specimen" mostrando todos os estilos</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Nossa escala tipográfica é harmoniosa (não tamanhos
+                            aleatórios)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Aplicamos Text Styles em TODOS os textos dos wireframes</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Cada tela tem clara hierarquia visual (1º, 2º, 3º nível)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Usamos espaçamento para reforçar hierarquia</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Todas as telas são consistentes (mesmos estilos para mesmos
+                            elementos)</span>
+                    </label>
+
+                    <label
+                        class="checkbox-item flex items-center gap-3 p-4 rounded-lg border-2 border-gray-200 cursor-pointer">
+                        <input type="checkbox" class="w-5 h-5 text-purple-600 rounded">
+                        <span class="text-gray-800">Fizemos o teste de escaneabilidade (afastar/desfocar)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos e Dicas -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                🎁 Recursos e Dicas
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Ferramentas -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">🔧 Ferramentas Úteis</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="https://typescale.com" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">
+                                typescale.com
+                            </a>
+                            <p class="text-sm text-gray-600">Gere escalas tipográficas harmoniosas</p>
+                        </li>
+                        <li>
+                            <a href="https://www.modularscale.com" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">
+                                modularscale.com
+                            </a>
+                            <p class="text-sm text-gray-600">Calculadora de escala modular</p>
+                        </li>
+                        <li>
+                            <a href="https://fonts.google.com" target="_blank"
+                                class="text-blue-600 hover:underline font-semibold">
+                                Google Fonts
+                            </a>
+                            <p class="text-sm text-gray-600">Fontes gratuitas e profissionais</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Referências -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-gray-200">
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">📚 Para Ler Depois</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="https://www.designsystems.com/typography-guides/" target="_blank"
+                                class="text-blue-600 hover:underline">
+                                Typography in Design Systems
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://material.io/design/typography" target="_blank"
+                                class="text-blue-600 hover:underline">
+                                Material Design - Typography
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.smashingmagazine.com/2020/07/css-techniques-legibility/"
+                                target="_blank" class="text-blue-600 hover:underline">
+                                Typography Techniques for Legibility
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Dicas Rápidas -->
+                <div class="bg-yellow-50 rounded-2xl p-6 border-2 border-yellow-300 md:col-span-2">
+                    <h3 class="font-bold text-xl text-yellow-900 mb-4">💡 Dicas para o Grupo</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div>
+                            <p class="font-semibold mb-1">Comunicação:</p>
+                            <ul class="space-y-1">
+                                <li>• Decidam juntos a escala antes de criar styles</li>
+                                <li>• Use comentários no Figma para feedback</li>
+                                <li>• Teste em tempo real enquanto o colega trabalha</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold mb-1">Organização:</p>
+                            <ul class="space-y-1">
+                                <li>• Nomeiem os styles de forma consistente</li>
+                                <li>• Usem "/" para criar hierarquia no menu</li>
+                                <li>• Criem uma página só para os estilos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avaliação -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl text-gray-900 mb-8">
+                📊 Como Será Avaliado
+            </h2>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
+                <div class="space-y-6">
+                    <div class="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Sistema de Text Styles Completo</p>
+                            <p class="text-sm text-gray-600">Pelo menos 7 estilos bem definidos e nomeados</p>
+                        </div>
+                        <span class="font-bold text-purple-600 ml-4">25%</span>
+                    </div>
+
+                    <div class="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Escala Tipográfica Harmoniosa</p>
+                            <p class="text-sm text-gray-600">Tamanhos proporcionais, não aleatórios</p>
+                        </div>
+                        <span class="font-bold text-purple-600 ml-4">15%</span>
+                    </div>
+
+                    <div class="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Hierarquia Visual Clara</p>
+                            <p class="text-sm text-gray-600">3 níveis distinguíveis em cada tela</p>
+                        </div>
+                        <span class="font-bold text-purple-600 ml-4">30%</span>
+                    </div>
+
+                    <div class="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Consistência</p>
+                            <p class="text-sm text-gray-600">Mesmos estilos aplicados em todos os wireframes</p>
+                        </div>
+                        <span class="font-bold text-purple-600 ml-4">20%</span>
+                    </div>
+
+                    <div class="flex justify-between items-start p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-1">
+                            <p class="font-bold text-gray-900">Organização e Documentação</p>
+                            <p class="text-sm text-gray-600">Type Specimen página + estilos bem organizados</p>
+                        </div>
+                        <span class="font-bold text-purple-600 ml-4">10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão Ativar Modo Apresentação -->
+    <button class="activate-presentation" onclick="activatePresentation()">
+        🎯 Modo Apresentação
+    </button>
+
+    <!-- Overlay de Apresentação -->
+    <div id="presentationMode" class="presentation-mode">
+        <div class="presentation-content">
+            <div class="presentation-section" id="presentationSection"></div>
+        </div>
+        <div class="presentation-nav">
+            <button onclick="previousSection()" id="btnPrevious">← Anterior</button>
+            <div class="presentation-counter">
+                <span id="currentSection">1</span> / <span id="totalSections">12</span>
+            </div>
+            <button onclick="nextSection()" id="btnNext">Próximo →</button>
+            <button onclick="deactivatePresentation()" style="background: #e63946; color: white;">✕ Sair</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+        class="py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-gray-400 text-center text-sm">
+        <p>
+            <a href="../principios-design-disciplina.html">Princípios de Design</a> •
+            Semana 33 — Tipografia e Hierarquia Visual •
+            IFRN © 2025
+        </p>
+    </footer>
+
+    <script>
+        // Estado da apresentação
+        let currentSectionIndex = 0;
+        let sections = [];
+        let presentationActive = false;
+
+        // Inicializar seções
+        function initSections() {
+            sections = Array.from(document.querySelectorAll('[data-section]'));
+            document.getElementById('totalSections').textContent = sections.length;
+        }
+
+        // Ativar modo apresentação
+        function activatePresentation() {
+            initSections();
+            presentationActive = true;
+            currentSectionIndex = 0;
+            document.getElementById('presentationMode').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            showSection(0);
+        }
+
+        // Desativar modo apresentação
+        function deactivatePresentation() {
+            presentationActive = false;
+            document.getElementById('presentationMode').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Mostrar seção específica
+        function showSection(index) {
+            if (index < 0 || index >= sections.length) return;
+
+            currentSectionIndex = index;
+            const section = sections[index];
+            const sectionClone = section.cloneNode(true);
+
+            // Limpar e inserir novo conteúdo
+            const presentationSection = document.getElementById('presentationSection');
+            presentationSection.innerHTML = '';
+            presentationSection.appendChild(sectionClone);
+
+            // Atualizar contador
+            document.getElementById('currentSection').textContent = index + 1;
+
+            // Atualizar botões
+            document.getElementById('btnPrevious').disabled = index === 0;
+            document.getElementById('btnNext').disabled = index === sections.length - 1;
+
+            // Scroll para o topo
+            presentationSection.scrollTop = 0;
+        }
+
+        // Navegar para seção anterior
+        function previousSection() {
+            if (currentSectionIndex > 0) {
+                showSection(currentSectionIndex - 1);
+            }
+        }
+
+        // Navegar para próxima seção
+        function nextSection() {
+            if (currentSectionIndex < sections.length - 1) {
+                showSection(currentSectionIndex + 1);
+            }
+        }
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', (e) => {
+            if (!presentationActive) return;
+
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSection();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSection();
+            } else if (e.key === 'Escape') {
+                deactivatePresentation();
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                if (presentationActive) return; // Não fazer scroll em modo apresentação
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Save checkbox state
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            const key = `design-s33-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            checkbox.checked = localStorage.getItem(key) === 'true';
+
+            checkbox.addEventListener('change', e => {
+                localStorage.setItem(key, e.target.checked);
+            });
+        });
+
+        // Inicializar ao carregar
+        document.addEventListener('DOMContentLoaded', initSections);
+    </script>
+</body>
+
+</html>
