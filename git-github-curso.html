@@ -348,8 +348,11 @@
                                 class="bg-green-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
                                 NÍVEL 1
                             </div>
-                            <h3 class="font-bold text-2xl text-ifrn-green-800"><a href="git/aula-1.html">Primeiro
-                                    Repositório <small>Acessar a aula 1</small></a></h3>
+                            <h3 class="font-bold text-2xl text-ifrn-green-800" title="acessar aula 1"><a
+                                    href="git/aula-1.html" class="hover:underline">Primeiro
+                                    Repositório <small class="mx-3 font-normal"><span>Acessar a aula 1</span> <i
+                                            class="ph-light ph-arrow-right mrl-3"></i></small></a>
+                            </h3>
                         </div>
                     </div>
 
@@ -419,18 +422,21 @@
                                 class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
                                 NÍVEL 2
                             </div>
-                            <h3 class="font-bold text-2xl text-ifrn-blue-800">Conectando ao GitHub</h3>
+                            <h3 class="font-bold text-2xl text-blue-800" title="acessar aula 1"><a
+                                    href="git/aula-2.html" class="hover:underline">Conectando ao GitHub<small
+                                        class="mx-3 font-normal"><span>Acessar a aula 2</span> <i
+                                            class="ph-light ph-arrow-right mrl-3"></i></small></a>
                         </div>
                     </div>
 
                     <details class="bg-white rounded-xl p-6 overflow-hidden">
-                        <summary class="font-bold text-ifrn-blue-800 cursor-pointer text-lg">
+                        <summary class="font-bold cursor-pointer text-lg">
                             Ver comandos e conceitos
                         </summary>
                         <div class="mt-6 space-y-6">
-                            <div>
-                                <h4 class="font-bold text-ifrn-blue-800 mb-3">Conceitos deste nível:</h4>
-                                <ul class="space-y-2 text-ifrn-blue-700">
+                            <div class=" text-gray-700">
+                                <h4 class="font-bold mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2">
                                     <li>• <strong>Remote:</strong> repositório remoto (GitHub)</li>
                                     <li>• <strong>Origin:</strong> nome padrão do remote principal</li>
                                     <li>• <strong>Push:</strong> enviar commits para o remote</li>
@@ -439,20 +445,20 @@
                             </div>
 
                             <div>
-                                <h4 class="font-bold text-ifrn-blue-800 mb-3">Passo a passo:</h4>
+                                <h4 class="font-bold text-gray-700 mb-3">Passo a passo:</h4>
                                 <div class="space-y-4">
                                     <div>
                                         <p class="text-sm font-semibold mb-2">1. Criar repositório no GitHub:</p>
-                                        <p class="text-sm text-ifrn-blue-700 mb-2">• Acesse github.com/new</p>
-                                        <p class="text-sm text-ifrn-blue-700 mb-2">• Escolha um nome</p>
-                                        <p class="text-sm text-ifrn-blue-700">• NÃO inicialize com README (você já tem
+                                        <p class="text-sm mb-2">• Acesse github.com/new</p>
+                                        <p class="text-sm mb-2">• Escolha um nome</p>
+                                        <p class="text-sm">• NÃO inicialize com README (você já tem
                                             localmente)</p>
                                     </div>
 
                                     <div>
                                         <p class="text-sm font-semibold mb-2">2. Conectar repositório local ao GitHub:
                                         </p>
-                                        <div class="bg-gray-900 text-blue-400 p-3 rounded font-mono text-sm">
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
                                             $ git remote add origin https://github.com/seu-usuario/seu-repo.git<br>
                                             $ git branch -M main<br>
                                             $ git push -u origin main
@@ -482,18 +488,22 @@
                                 class="bg-purple-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
                                 NÍVEL 3
                             </div>
-                            <h3 class="font-bold text-2xl text-ifrn-green-800">Branches: Desenvolvimento Paralelo</h3>
+                            <h3 class="font-bold text-2xl text-purple-800" title="acessar aula 1"><a
+                                    href="git/aula-3.html" class="hover:underline">Branches: Desenvolvimento
+                                    Paralelo<small class="mx-3 font-normal"><span>Acessar a aula 3</span> <i
+                                            class="ph-light ph-arrow-right mrl-3"></i></small></a>
+
                         </div>
                     </div>
 
                     <details class="bg-white rounded-xl p-6 overflow-hidden">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                        <summary class="font-bold text-purple-800 cursor-pointer text-lg">
                             Ver comandos e conceitos
                         </summary>
                         <div class="mt-6 space-y-6">
                             <div>
-                                <h4 class="font-bold text-ifrn-green-800 mb-3">Conceitos deste nível:</h4>
-                                <ul class="space-y-2 text-ifrn-green-700">
+                                <h4 class="font-bold text-gray-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-gray-700">
                                     <li>• <strong>Branch:</strong> linha de desenvolvimento independente</li>
                                     <li>• <strong>Checkout:</strong> trocar de branch</li>
                                     <li>• <strong>Merge:</strong> juntar branches</li>
@@ -503,7 +513,7 @@
                             </div>
 
                             <div>
-                                <h4 class="font-bold text-ifrn-green-800 mb-3">Comandos de branches:</h4>
+                                <h4 class="font-bold text-gray-800 mb-3">Comandos de branches:</h4>
                                 <div class="space-y-4">
                                     <div>
                                         <p class="text-sm font-semibold mb-2">Criar e mudar para nova branch:</p>
@@ -557,18 +567,21 @@
                                 class="bg-yellow-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
                                 NÍVEL 4
                             </div>
-                            <h3 class="font-bold text-2xl text-ifrn-green-800">Colaboração em Equipe</h3>
+                            <h3 class="font-bold text-2xl text-yellow-800" title="acessar aula 1"><a
+                                    href="git/aula-4.html" class="hover:underline">Colaboração em Equipe<small
+                                        class="mx-3 font-normal"><span>Acessar a aula 4</span> <i
+                                            class="ph-light ph-arrow-right mrl-3"></i></small></a>
                         </div>
                     </div>
 
                     <details class="bg-white rounded-xl p-6 overflow-hidden">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                        <summary class="font-bold text-yellow-800 cursor-pointer text-lg">
                             Ver comandos e conceitos
                         </summary>
                         <div class="mt-6 space-y-6">
                             <div>
-                                <h4 class="font-bold text-ifrn-green-800 mb-3">Conceitos deste nível:</h4>
-                                <ul class="space-y-2 text-ifrn-green-700">
+                                <h4 class="font-bold text-gray-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-gray-700">
                                     <li>• <strong>Clone:</strong> copiar repositório remoto</li>
                                     <li>• <strong>Pull:</strong> baixar e integrar mudanças remotas</li>
                                     <li>• <strong>Pull Request (PR):</strong> proposta de mudança no GitHub</li>
@@ -577,7 +590,7 @@
                             </div>
 
                             <div>
-                                <h4 class="font-bold text-ifrn-green-800 mb-3">Fluxo de trabalho em equipe:</h4>
+                                <h4 class="font-bold text-gray-800 mb-3">Fluxo de trabalho em equipe:</h4>
                                 <div class="space-y-4">
                                     <div>
                                         <p class="text-sm font-semibold mb-2">1. Clonar projeto da equipe:</p>
@@ -604,13 +617,13 @@
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <p class="text-sm font-semibold mb-2">4. Criar Pull Request no GitHub:</p>
-                                        <p class="text-sm text-ifrn-green-700">• Acesse o repositório no GitHub</p>
-                                        <p class="text-sm text-ifrn-green-700">• Clique em "Compare & pull request"</p>
-                                        <p class="text-sm text-ifrn-green-700">• Descreva suas mudanças</p>
-                                        <p class="text-sm text-ifrn-green-700">• Aguarde revisão da equipe</p>
-                                    </div>
+                                    <ul class="text-gray-800">
+                                        <li class="font-semibold mb-2">4. Criar Pull Request no GitHub:</li>
+                                        <li>• Acesse o repositório no GitHub</li>
+                                        <li>• Clique em "Compare & pull request"</li>
+                                        <li>• Descreva suas mudanças</li>
+                                        <li>• Aguarde revisão da equipe</li>
+                                    </ul>
                                 </div>
                             </div>
 
@@ -636,75 +649,80 @@
                                 class="bg-orange-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
                                 NÍVEL 5
                             </div>
-                            <h3 class="font-bold text-2xl text-ifrn-green-800">Resolvendo Problemas</h3>
+
+                            <h3 class="font-bold text-2xl text-orange-800" title="acessar aula 1"><a
+                                    href="git/aula-5.html" class="hover:underline">Resolvendo Problemas<small
+                                        class="mx-3 font-normal"><span>Acessar a aula 5</span> <i
+                                            class="ph-light ph-arrow-right mrl-3"></i></small></a>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 overflow-hidden">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                    <details class="bg-white/80 rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-orange-800 cursor-pointer text-lg">
                             Ver comandos e conceitos
                         </summary>
                         <div class="mt-6 space-y-6">
                             <div>
-                                <h4 class="font-bold text-ifrn-green-800 mb-3">Situações comuns e soluções:</h4>
+                                <h4 class="font-bold text-gray-800 mb-3">Situações comuns e soluções:</h4>
 
                                 <div class="space-y-6">
-                                    <div class="bg-red-50 p-4 rounded-xl">
-                                        <p class="font-bold text-red-800 mb-3">🔥 Desfazer último commit (mantendo
+                                    <div class="bg-gray-50 p-4 rounded-xl">
+                                        <p class="font-bold mb-3">Desfazer último commit (mantendo
                                             mudanças):</p>
                                         <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
                                             $ git reset --soft HEAD~1
                                         </div>
-                                        <p class="text-sm text-red-700 mt-2">Isso "desfaz" o commit mas mantém os
+                                        <p class="text-sm text-gray-700 mt-2">Isso "desfaz" o commit mas mantém os
                                             arquivos modificados</p>
                                     </div>
 
                                     <div class="bg-blue-50 p-4 rounded-xl">
-                                        <p class="font-bold text-blue-800 mb-3">📝 Alterar mensagem do último commit:
+                                        <p class="font-bold  mb-3">Alterar mensagem do último commit:
                                         </p>
                                         <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
                                             $ git commit --amend -m "Nova mensagem"
                                         </div>
                                     </div>
 
-                                    <div class="bg-purple-50 p-4 rounded-xl">
-                                        <p class="font-bold text-purple-800 mb-3">⚔️ Resolver conflitos de merge:</p>
-                                        <p class="text-sm text-purple-700 mb-2">Quando Git mostra
+                                    <div class="bg-red-50 p-4 rounded-xl">
+                                        <p class="font-bold text-red-800 mb-3">⚔️ Resolver conflitos de merge:</p>
+                                        <p class="text-sm text-red-700 mb-2">Quando Git mostra
                                             &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;:</p>
-                                        <ol class="text-sm space-y-1 ml-4 text-purple-700">
+                                        <ol class="text-sm space-y-2 ml-4 text-red-700">
                                             <li>1. Abra o arquivo no editor</li>
                                             <li>2. Escolha qual código manter (ou combine ambos)</li>
                                             <li>3. Delete as marcações (&lt;&lt;&lt;, ===, &gt;&gt;&gt;)</li>
                                             <li>4. Adicione: <code
-                                                    class="bg-white px-2 py-1 rounded">git add arquivo.txt</code></li>
+                                                    class="bg-red-900 text-red-50 px-2 py-1 rounded">git add arquivo.txt</code>
+                                            </li>
                                             <li>5. Finalize: <code
-                                                    class="bg-white px-2 py-1 rounded">git commit -m "Resolve conflito"</code>
+                                                    class="bg-red-900 text-red-50 px-2 py-1 rounded">git commit -m "Resolve conflito"</code>
                                             </li>
                                         </ol>
                                     </div>
 
-                                    <div class="bg-green-50 p-4 rounded-xl">
+                                    <div class="bg-gray-50 p-4 rounded-xl">
                                         <p class="font-bold text-green-800 mb-3">🔍 Ver histórico de commits:</p>
                                         <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
                                             $ git log --oneline --graph --all
                                         </div>
                                     </div>
 
-                                    <div class="bg-orange-50 p-4 rounded-xl">
-                                        <p class="font-bold text-orange-800 mb-3">↩️ Descartar mudanças não commitadas:
+                                    <div class="bg-gray-50 p-4 rounded-xl">
+                                        <p class="font-bold mb-3">↩️ Descartar mudanças não commitadas:
                                         </p>
                                         <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
                                             $ git checkout -- arquivo.txt
                                         </div>
-                                        <p class="text-sm text-orange-700 mt-2">⚠️ Cuidado: isso deleta as mudanças
+                                        <p class="text-sm  mt-2">⚠️ Cuidado: isso deleta as mudanças
                                             permanentemente!</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="bg-orange-50 p-4 rounded-xl border-2 border-orange-400">
-                                <p class="font-bold text-orange-800 mb-2">🏆 Parabéns!</p>
-                                <p class="text-sm text-orange-700">Você completou os 5 níveis e está pronto para
+                            <div class="bg-ifrn-green-50 p-4 rounded-xl border-2 border-ifrn-green-400">
+                                <p class="font-bold text-ifrn-green-800 mb-2">🏆 Parabéns!</p>
+                                <p class="text-sm text-ifrn-green-700">Você completou os 5 níveis e está pronto para
                                     trabalhar profissionalmente com Git e GitHub!</p>
                             </div>
                         </div>
