@@ -56,7 +56,7 @@
     title: "Design Web",
     description: "Disciplina intermediária focada em Tailwind CSS, DaisyUI e Alpine.js. Para quem já domina HTML/CSS básico e quer acelerar desenvolvimento com frameworks modernos.",
     tags: ["Tailwind CSS", "DaisyUI", "Alpine.js", "GitHub"],
-    audience: "Ensino Médio Integrado",
+    audience: "Alunos com experiência em autoria web",
     ctaLabel: "Acessar disciplina"
   },
   {
@@ -67,6 +67,16 @@
     description: "Disciplina introdutória de fundamentos visuais, voltada para estudantes de ensino médio que muitas vezes nunca estudaram design formalmente.",
     tags: ["Figma", "Cores", "Tipografia", "Grid"],
     audience: "Todos os níveis",
+    ctaLabel: "Acessar disciplina"
+  },
+  {
+    href: "projeto-interface-disciplina.html",
+    badgeText: "60h • 80a • Anual",
+    badgeClasses: "px-3 py-1 bg-ifrn-green-200 text-ifrn-green-700 rounded-full text-xs font-bold",
+    title: "Projeto de Interface",
+    description: "Aprende tanto a parte técnica (Figma profissional) quanto a metodologia de design centrado no usuário, preparando-se para criar produtos digitais reais.",
+    tags: ["Figma", "Design Thinking", "Visual Design", "UX"],
+    audience: "Alunos avançados",
     ctaLabel: "Acessar disciplina"
   },
   {

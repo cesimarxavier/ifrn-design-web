@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design de Interfaces — UI/UX e Processo de Design | IFRN</title>
+    <meta name="description"
+        content="Disciplina de Design de Interfaces para ensino médio. Visual design no Figma + processo de design centrado no ser humano.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="font-bold text-xl text-ifrn-green-800">Design de Interfaces</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Sobre</a>
+                    <a href="#metodologia"
+                        class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Metodologia</a>
+                    <a href="#plano" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Plano</a>
+                    <a href="#avaliacoes" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Avaliações</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                    UI/UX Design • 40 horas • 2 Bimestres
+                </div>
+
+                <h1 class="font-bold text-5xl md:text-7xl text-ifrn-green-800 mb-6 leading-tight">
+                    Design de Interfaces
+                </h1>
+
+                <p class="text-2xl md:text-3xl text-ifrn-green-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    UI/UX e Processo de Design Centrado no Ser Humano
+                </p>
+
+                <p class="text-lg text-ifrn-green-950 mb-12 max-w-3xl mx-auto">
+                    Nesta disciplina você vai dominar o Figma como ferramenta profissional de design, aprender a criar
+                    interfaces visuais consistentes e acessíveis, e mergulhar no processo completo de design centrado no
+                    usuário: da pesquisa ao protótipo testado e refinado.
+                </p>
+            </div>
+
+            <!-- O que você vai dominar -->
+            <div class="bg-white rounded-3xl p-10 md:p-12 shadow-xl border border-ifrn-green-100">
+                <h2 class="font-bold text-3xl text-ifrn-green-800 mb-10 text-center">
+                    Ao final da disciplina você será capaz de
+                </h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Domínio do Figma</h3>
+                            <p class="text-ifrn-green-600">Criar interfaces profissionais com componentes, estilos,
+                                auto-layout e protótipos navegáveis</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Visual Design Consistente</h3>
+                            <p class="text-ifrn-green-600">Aplicar hierarquia visual, tipografia, cor e espaçamento com
+                                acessibilidade WCAG</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Processo de Design</h3>
+                            <p class="text-ifrn-green-600">Conduzir pesquisa com usuários, criar personas, mapear
+                                jornadas e testar soluções</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Projeto Completo</h3>
+                            <p class="text-ifrn-green-600">Desenvolver projeto de interface do problema à solução
+                                testada e documentada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Sobre a Disciplina
+            </h2>
+
+            <div class="space-y-8">
+                <div class="bg-ifrn-green-50 rounded-xl p-8 border border-ifrn-green-100">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Para quem é</h3>
+                    <p class="text-lg text-ifrn-green-800 leading-relaxed">
+                        Esta disciplina é ideal para estudantes que já possuem conhecimentos básicos de design visual e
+                        querem mergulhar no mundo do design de interfaces digitais. Você vai aprender tanto a parte
+                        técnica (Figma profissional) quanto a metodologia de design centrado no usuário, preparando-se
+                        para criar produtos digitais reais.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8">
+                            <svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="132" r="8" />
+                                <circle cx="172" cy="132" r="8" />
+                                <circle cx="84" cy="172" r="8" />
+                                <circle cx="128" cy="172" r="8" />
+                                <circle cx="172" cy="172" r="8" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Duração</h3>
+                        <p class="text-ifrn-green-700">
+                            40 horas distribuídas em 2 bimestres (20 aulas cada)
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8">
+                            <svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <rect x="16" y="104" width="48" height="48" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <rect x="152" y="40" width="64" height="64" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <rect x="152" y="152" width="64" height="64" rx="8" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="64" y1="128" x2="112" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <path d="M152,184H128a16,16,0,0,1-16-16V88a16,16,0,0,1,16-16h24" fill="none"
+                                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="8" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Estrutura</h3>
+                        <p class="text-ifrn-green-700">
+                            Bimestre 1: Visual Design / Bimestre 2: Processo de Design
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                        <div class="text-4xl mb-8">
+                            <svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                <rect width="256" height="256" fill="none" />
+                                <line x1="128" y1="232" x2="128" y2="200" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="128" r="88" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="128" y1="24" x2="128" y2="56" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="24" y1="128" x2="56" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <line x1="232" y1="128" x2="200" y2="128" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                <circle cx="128" cy="128" r="32" fill="none" stroke="currentColor"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            </svg>
+                        </div>
+                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Objetivo</h3>
+                        <p class="text-ifrn-green-700">
+                            Dominar ferramentas e processos profissionais de UI/UX Design
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-xl p-8 text-white">
+                    <h3 class="font-bold text-2xl mb-4">Dois bimestres complementares</h3>
+                    <ul class="space-y-3 text-lg">
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 1: Visual Design de Interfaces no Figma (20 aulas)</strong>
+                                <p class="text-light opacity-75">Domínio completo do Figma: hierarquia visual,
+                                    tipografia, cor, espaçamento, componentes, estados, responsividade e prototipação.
+                                    Objetivo: criar interfaces limpas, coerentes e acessíveis.</p>
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span><strong>Bimestre 2: Processo de Design e Projeto (20 aulas)</strong>
+                                <p class="text-light opacity-75">Design centrado no ser humano: pesquisa, personas,
+                                    jornadas, arquitetura de informação, prototipação, testes de usabilidade e redesign
+                                    iterativo. Objetivo: projeto completo documentado.</p>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodologia -->
+    <section id="metodologia" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 text-center">
+                Como você aprende aqui?
+            </h2>
+            <p class="text-ifrn-green-800 p-8 max-w-2xl mx-auto block mb-12">
+                A disciplina combina aulas teóricas curtas com prática intensiva em laboratório. Cada aula tem uma
+                tarefa para casa que consolida o aprendizado.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl">
+                                <svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 256 256">
+                                    <rect width="256" height="256" fill="none" />
+                                    <line x1="96" y1="128" x2="160" y2="128" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="96" y1="160" x2="160" y2="160" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <path
+                                        d="M48,40H208a0,0,0,0,1,0,0V200a24,24,0,0,1-24,24H72a24,24,0,0,1-24-24V40A0,0,0,0,1,48,40Z"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="8" />
+                                    <line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="128" y1="24" x2="128" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Teoria + Exemplos</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Exposição teórica focada nos conceitos essenciais, com análise de exemplos reais de interfaces e
+                        demonstrações práticas no Figma.
+                    </p>
+                    <ul class="space-y-2 text-ifrn-green-700">
+                        <li>• Conceitos fundamentais de UI/UX</li>
+                        <li>• Demonstrações ao vivo no Figma</li>
+                        <li>• Análise de casos reais</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 bg-ifrn-green-100 rounded-xl flex items-center justify-center">
+                            <span class="text-3xl">
+                                <svg class="h-10 text-green-800" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 256 256">
+                                    <rect width="256" height="256" fill="none" />
+                                    <rect x="32" y="48" width="192" height="144" rx="16"
+                                        transform="translate(256 240) rotate(180)" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="160" y1="224" x2="96" y2="224" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="32" y1="152" x2="224" y2="152" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                    <line x1="128" y1="192" x2="128" y2="224" fill="none" stroke="currentColor"
+                                        stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Prática Intensiva</h3>
+                    </div>
+                    <p class="text-ifrn-green-700 mb-4">
+                        Trabalho hands-on no Figma com exercícios progressivos, feedback individualizado e construção
+                        incremental de projetos reais.
+                    </p>
+                    <ul class="space-y-2 text-ifrn-green-700">
+                        <li>• Exercícios práticos individuais/grupo</li>
+                        <li>• Acompanhamento personalizado</li>
+                        <li>• Tarefas para casa que consolidam</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-6 flex items-center gap-3">
+                    <span class="text-3xl">
+                        <svg class="h-10 text-ifrn-green-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                            <rect width="256" height="256" fill="none" />
+                            <polyline points="48 176 104 176 104 136 152 136 152 96 208 96" fill="none"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <rect x="48" y="32" width="160" height="192" rx="8" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="104" y1="176" x2="208" y2="176" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                            <line x1="152" y1="136" x2="208" y2="136" fill="none" stroke="currentColor"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="8" />
+                        </svg>
+                    </span>
+                    Progressão Incremental
+                </h3>
+                <p class="text-ifrn-green-700 leading-relaxed mb-6">
+                    A disciplina segue uma progressão cuidadosa: do simples ao complexo, do guiado ao autônomo, sempre
+                    construindo sobre o que foi aprendido anteriormente.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">Semanas 1-10</h4>
+                        <p class="text-sm text-ifrn-green-800">Fundamentos técnicos: Figma, hierarquia, tipografia, cor,
+                            espaçamento, componentes</p>
+                    </div>
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">Semanas 11-20</h4>
+                        <p class="text-sm text-ifrn-green-800">Integração: responsividade, formulários, UI kit,
+                            acessibilidade, protótipo navegável</p>
+                    </div>
+                    <div class="bg-ifrn-green-50 rounded p-6">
+                        <h4 class="font-bold text-ifrn-green-900 mb-2">Semanas 21-40</h4>
+                        <p class="text-sm text-ifrn-green-800">Processo completo: pesquisa, personas, jornadas,
+                            wireframes, testes, redesign, documentação</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Aprender Fazendo</h3>
+                    <p class="text-ifrn-green-700">
+                        Cada conceito é imediatamente aplicado em exercícios práticos
+                    </p>
+                </div>
+
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Feedback Contínuo</h3>
+                    <p class="text-ifrn-green-700">
+                        Revisões frequentes com critérios claros de qualidade
+                    </p>
+                </div>
+
+                <div class="bg-white rounded p-6 border border-ifrn-green-300 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">Projeto Real</h3>
+                    <p class="text-ifrn-green-700">
+                        Entregável final é um projeto completo do problema à solução testada
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano por Bimestre -->
+    <section id="plano" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
+                Plano Completo — 2 Bimestres, 40 Aulas
+            </h2>
+            <p class="text-xl text-ifrn-green-600 mb-12 text-center max-w-3xl mx-auto">
+                Cada bimestre tem 20 aulas. Cada aula tem prática em sala + tarefa para casa.
+            </p>
+
+            <div class="space-y-6">
+                <!-- BIMESTRE 1 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden open">
+                    <summary class="p-8 cursor-pointer hover:bg-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    1
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 1: Visual Design de
+                                        Interfaces no Figma</h3>
+                                    <p class="text-sm text-ifrn-green-600">Aulas 1-20 · Fundamentos + UI Kit + Protótipo
+                                    </p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded p-6 mb-4 border border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Dar repertório visual + domínio básico de Figma para construir interfaces limpas,
+                                coerentes e minimamente acessíveis, preparando terreno para o projeto do 2º bimestre.
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-2 mb-8">
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Figma completo, hierarquia visual, tipografia, cor e contraste WCAG, espaçamento,
+                                    componentes, variantes, estados, responsividade, prototipação
+                                </p>
+                            </div>
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                    Entregável do Bimestre
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Arquivo Figma organizado com UI Kit v1 + pelo menos 2 telas (desktop + mobile) +
+                                    protótipo navegável simples
+                                </p>
+                            </div>
+                        </div>
+
+                        <h4 class="mb-8 font-bold text-xl">Cronograma Aula a Aula</h4>
+
+                        <!-- Semanas Grid -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Aula 1 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 1</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Kick-off</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Kick-off + visão geral
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Apresentar disciplina, projeto anual, diferenças UI/UX.
+                                    Criar conta Figma, tour de interface. Ver exemplos de boas e péssimas interfaces.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Levantar 3 interfaces (sites/apps) que gostam e 3 que
+                                    odeiam, com print e 1 frase justificando cada.
+                                </p>
+                            </div>
+
+                            <!-- Aula 2 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 2</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Fundamentos</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Hierarquia visual + frames
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Conceitos de hierarquia, alinhamento, proximidade. No
+                                    Figma: criar frames, grid simples e replicar layout estático fornecido.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Finalizar a tela-referência se não concluir em aula.
+                                </p>
+                            </div>
+
+                            <!-- Aula 3 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 3</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Tipografia</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Tipografia em interfaces
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Legibilidade x leiturabilidade, hierarquia tipográfica,
+                                    uso de poucas fontes. No Figma: criar estilos de texto (títulos, subtítulo, corpo,
+                                    legenda).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Aplicar os estilos de texto em uma tela simples (ex.:
+                                    página de notícia) usando as fontes indicadas.
+                                </p>
+                            </div>
+
+                            <!-- Aula 4 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 4</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Cor</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Cor e contraste
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Teoria básica de cor para UI, contraste e estados. No
+                                    Figma: criar estilos de cor (primária, secundária, neutros, feedback:
+                                    sucesso/erro/aviso). Testar contraste com plugin.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Ajustar paleta para garantir contraste mínimo em pelo menos
+                                    2 combinações (texto x fundo). Printar antes/depois.
+                                </p>
+                            </div>
+
+                            <!-- Aula 5 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 5</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Espaçamento</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Espaçamento e grid
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Conceito de ritmo visual, grid 8pt. Introdução ao Auto
+                                    Layout para alinhamento e espaçamento.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Refazer um pequeno card usando Auto Layout, mantendo
+                                    espaçamentos coerentes.
+                                </p>
+                            </div>
+
+                            <!-- Aula 6 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 6</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Componentes</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Componentes básicos
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Definir o que é componente. No Figma: criar botões
+                                    (primário/secundário), campos de formulário e cards simples como componentes.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Criar uma pequena "prateleira" com 3 variações de card
+                                    usando os componentes.
+                                </p>
+                            </div>
+
+                            <!-- Aula 7 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 7</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Estados</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Estados de interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Falar de estados (default, hover, pressed, disabled,
+                                    erro). No Figma: usar variantes para criar estados de um botão e de um campo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Montar uma mini "tabela de estados": 1 botão + 1 campo com
+                                    todos os estados organizados.
+                                </p>
+                            </div>
+
+                            <!-- Aula 8 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 8</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">Wireframe</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Wireframe de baixa fidelidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Conceito de low-fi: foco na estrutura, não na beleza. No
+                                    Figma: criar wireframe cinza (sem cor) de uma tela principal (ex.: home de app
+                                    simples).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar o wireframe, garantindo hierarquia de informação
+                                    (título, seções, CTA claro).
+                                </p>
+                            </div>
+
+                            <!-- Aula 9 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 9</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">Hi-Fi</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Layout visual de uma tela
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Transformar o wireframe da aula anterior em tela de alta
+                                    fidelidade, usando tipografia e cores definidos.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Refinar a tela, ajustar alinhamentos, espaçamentos e
+                                    textos.
+                                </p>
+                            </div>
+
+                            <!-- Aula 10 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 10</h5>
+                                    <span
+                                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Review</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Crítica guiada (design review)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Apresentações rápidas das telas em duplas/grupos.
+                                    Discussão guiada sobre hierarquia, contraste, alinhamento. Apontar padrões de erro.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Revisar a própria tela com base no feedback, registrar 3
+                                    melhorias realizadas.
+                                </p>
+                            </div>
+
+                            <!-- Aula 11 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 11</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Responsivo</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Responsividade – visão geral
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Conceitos básicos de design responsivo. No Figma: mostrar
+                                    constraints, layout grid e frames de diferentes tamanhos (mobile/desktop).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Escolher a tela principal e esboçar a versão mobile
+                                    (low-fi) em um frame separado.
+                                </p>
+                            </div>
+
+                            <!-- Aula 12 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 12</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Responsivo</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Responsividade – prática
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Transformar o low-fi mobile em layout visual. Ajustar
+                                    tipografia, espaçamentos e hierarquia para o formato menor.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Revisar ambas as versões (desktop e mobile) e listar 3
+                                    adaptações importantes entre elas.
+                                </p>
+                            </div>
+
+                            <!-- Aula 13 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 13</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Padrões</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Listas, cards e leitura
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Padrões de listas, cards e "scanability". No Figma: criar
+                                    uma tela de listagem (ex.: lista de cursos, produtos ou contatos) usando cards
+                                    repetidos.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar a tela de listagem e garantir consistência entre
+                                    os cards (mesmas medidas, alinhamentos).
+                                </p>
+                            </div>
+
+                            <!-- Aula 14 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 14</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Formulários</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Formulários
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Boas práticas de formulários: label, placeholder,
+                                    mensagens de erro, ajuda. No Figma: desenhar um formulário simples (ex.: cadastro
+                                    básico).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Escrever mensagens de erro claras e humanas para 3 campos
+                                    (nome, e-mail, senha) direto na interface.
+                                </p>
+                            </div>
+
+                            <!-- Aula 15 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 15</h5>
+                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">UI
+                                        Kit</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Mini UI kit (v1)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Consolidar tudo: cores, tipografia, botões, campos, cards,
+                                    mensagens. No Figma: montar uma página "UI Kit – v1" com todos os elementos
+                                    organizados.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar o UI kit e nomear os estilos e componentes de
+                                    forma padronizada.
+                                </p>
+                            </div>
+
+                            <!-- Aula 16 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 16</h5>
+                                    <span
+                                        class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold">Organização</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Organização do arquivo
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Naming, páginas (cover, UI kit, screens), seções, uso de
+                                    grids consistentes. No Figma: reorganizar o arquivo da turma conforme um padrão
+                                    definido.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Fazer print da estrutura de páginas e layers para entregar
+                                    como registro de organização.
+                                </p>
+                            </div>
+
+                            <!-- Aula 17 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 17</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">A11y</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Acessibilidade visual
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Retomar contraste, tamanho mínimo de fontes e foco.
+                                    Mostrar exemplos bons e ruins. Ajustar 1 tela para ficar mais acessível.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Entregar antes/depois de uma tela onde melhorou
+                                    acessibilidade (fonte, contraste, espaçamento).
+                                </p>
+                            </div>
+
+                            <!-- Aula 18 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 18</h5>
+                                    <span
+                                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Studio</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Revisão orientada + ajustes
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Acompanhamento em estúdio: circular, fazer micro-reviews,
+                                    ajustar detalhes. Foco em deixar 2 telas "apresentáveis" (desktop + mobile).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Finalizar telas e garantir que tudo esteja usando
+                                    componentes e estilos, não elementos "soltos".
+                                </p>
+                            </div>
+
+                            <!-- Aula 19 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 19</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Protótipo</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Protótipo navegável
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Introdução à prototipação no Figma (links, hotspots,
+                                    transições simples). Criar fluxo básico entre 3–4 telas (ex.: home → lista →
+                                    detalhes → formulário).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Testar o próprio protótipo em casa/celular e anotar 3
+                                    pontos que confundem ou podem melhorar.
+                                </p>
+                            </div>
+
+                            <!-- Aula 20 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 20</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">Entrega</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Apresentação + fechamento do bimestre
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    <strong>Em sala:</strong> Pitches rápidos (2–3 min) por grupo/aluno, mostrando UI
+                                    kit + protótipo. Feedback estruturado: pontos fortes, melhorias, aderência ao
+                                    processo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-white rounded p-2 border-2 border-ifrn-red-300">
+                                    <strong>Tarefa:</strong> Autoavaliação escrita (o que aprendeu, onde ainda está
+                                    travado). Sem tarefa pesada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- BIMESTRE 2 -->
+                <details class="bg-white rounded-xl shadow-lg border-2 border-ifrn-green-200 overflow-hidden">
+                    <summary class="p-8 cursor-pointer hover:bg-ifrn-green-50 transition">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold">
+                                    2
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-2xl text-ifrn-green-800">Bimestre 2: Processo de Design e
+                                        Projeto</h3>
+                                    <p class="text-sm text-ifrn-green-600">Aulas 21-40 · Design Centrado no Ser Humano
+                                    </p>
+                                </div>
+                            </div>
+                            <svg class="chevron w-6 h-6 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </summary>
+                    <div class="p-8 bg-ifrn-green-50 border-t-2 border-ifrn-green-200">
+                        <!-- Objetivo do Bimestre -->
+                        <div class="bg-white rounded p-6 mb-4 border border-ifrn-green-600">
+                            <h4 class="font-bold text-xl text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                Objetivo do Bimestre
+                            </h4>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Sair do "layout bonito" e entrar em processo de design centrado no ser humano: problema
+                                → pesquisa → síntese → solução → teste → redesign, culminando em um mini projeto
+                                documentado.
+                            </p>
+                        </div>
+
+                        <!-- Habilidades e competências -->
+                        <div class="grid md:grid-cols-2 gap-2 mb-8">
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-green-900 mb-3 flex items-center gap-2">
+                                    Habilidades e competências
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Briefing, pesquisa qualitativa, entrevistas, personas, jornadas do usuário, task
+                                    flows, arquitetura de informação, wireframes, testes de usabilidade, iteração,
+                                    documentação de processo
+                                </p>
+                            </div>
+                            <div class="bg-white rounded p-6 border border-ifrn-green-600">
+                                <h4 class="font-bold text-lg text-ifrn-green-900 mb-3 flex items-center gap-2">
+                                    Entregável do Bimestre
+                                </h4>
+                                <p class="text-sm text-gray-700">
+                                    Um mini projeto completo: Problema + contexto + personas/jornada + Fluxos principais
+                                    + mapa de telas + Protótipo navegável em Figma + Ajustes pós-teste + Documentação
+                                    enxuta (1 slide deck / one-pager)
+                                </p>
+                            </div>
+                        </div>
+
+                        <h4 class="mb-8 font-bold text-xl">Cronograma Aula a Aula</h4>
+
+                        <!-- Aulas do Bimestre 2 -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Aula 21 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 21</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Kick-off</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Visão de processo + briefing
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Apresentar projeto do bimestre. Explicar design centrado
+                                    no ser humano e ciclo iterativo. Em grupo, escolher tema/problema (ex.: app simples
+                                    para contexto escolar/local).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Refinar o problema em 1 parágrafo e listar 3 hipóteses
+                                    sobre o usuário.
+                                </p>
+                            </div>
+
+                            <!-- Aula 22 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 22</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Contexto</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Contexto e stakeholders
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Mapear contexto, stakeholders e objetivos de
+                                    negócio/serviço. Construir um mini canvas (problema, público, objetivos,
+                                    restrições).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Entrevistar 1 pessoa (ou simulação guiada) sobre o tema,
+                                    anotando respostas-chave.
+                                </p>
+                            </div>
+
+                            <!-- Aula 23 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 23</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Pesquisa</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Métodos de coleta (entrevista/questionário)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Explicar entrevistas e questionários simples. Em sala:
+                                    preparar roteiro de 5–7 perguntas abertas para entender necessidades.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Aplicar o roteiro com pelo menos 2 pessoas (ou usar dados
+                                    fornecidos, se não for viável).
+                                </p>
+                            </div>
+
+                            <!-- Aula 24 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 24</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Síntese</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Análise e síntese
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Trazer dados coletados. Em sala: agrupar respostas em
+                                    padrões (post-its ou Figma FigJam), identificar dores, necessidades e oportunidades.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Registrar 3 insights principais e 3 oportunidades de
+                                    solução.
+                                </p>
+                            </div>
+
+                            <!-- Aula 25 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 25</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Personas</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Personas simples
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Explicar persona (não estereótipo, mas síntese). Em sala:
+                                    criar 1–2 personas básicas com base nos dados.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Ajustar personas e escrever um pequeno texto: "Um dia na
+                                    vida de [persona] usando/sem usar a solução".
+                                </p>
+                            </div>
+
+                            <!-- Aula 26 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 26</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Jornada</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Jornada do usuário
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Explicar jornada (etapas, ações, dores, emoções). Em sala:
+                                    construir jornada da persona para um cenário específico.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar jornada e destacar em outra cor os pontos de dor
+                                    prioritários.
+                                </p>
+                            </div>
+
+                            <!-- Aula 27 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 27</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">Fluxos</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Task flows + requisitos
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Explicar task flow e requisitos funcionais. Em sala:
+                                    definir 1–2 fluxos principais (ex.: cadastrar, buscar, enviar algo) e listar
+                                    requisitos mínimos.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Produzir versão limpa dos fluxos em Figma/diagramador, com
+                                    início, passos e resultado.
+                                </p>
+                            </div>
+
+                            <!-- Aula 28 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 28</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">IA</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Arquitetura de informação
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Apresentar sitemap/fluxo de telas. Em sala: desenhar mapa
+                                    de telas mínimo da solução (sem detalhar UI).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Ajustar mapa de telas e validar se cobre os fluxos
+                                    principais definidos.
+                                </p>
+                            </div>
+
+                            <!-- Aula 29 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 29</h5>
+                                    <span
+                                        class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold">Wireframe</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Wireframes de baixa fidelidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Voltar ao Figma: criar wireframes low-fi das principais
+                                    telas (sem polir visual). Foco em estrutura e priorização de conteúdo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar wireframes das telas principais, garantindo
+                                    coerência entre elas.
+                                </p>
+                            </div>
+
+                            <!-- Aula 30 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 30</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Hi-Fi</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Do wireframe ao visual (reuso do UI kit)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Conectar com 1º bimestre: aplicar UI kit v1 aos
+                                    wireframes. Ajustar se necessário (UI kit pode evoluir).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Refinar ao menos 3 telas-chave no visual final.
+                                </p>
+                            </div>
+
+                            <!-- Aula 31 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 31</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Protótipo</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Protótipo navegável (v2)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Ampliar protótipo no Figma para cobrir o fluxo principal
+                                    definido (ex.: cadastro completo, busca + detalhe).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Testar o protótipo com alguém em casa/colega e registrar
+                                    dificuldades observadas.
+                                </p>
+                            </div>
+
+                            <!-- Aula 32 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 32</h5>
+                                    <span
+                                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Testes</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Preparando testes de usabilidade
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Explicar teste de usabilidade simples: tarefas,
+                                    observação, anotações. Em sala: cada grupo define 3–4 tarefas para os usuários
+                                    testarem o protótipo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Preparar folha de anotações (em papel ou digital) com
+                                    tarefas e campos para observações.
+                                </p>
+                            </div>
+
+                            <!-- Aula 33 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 33</h5>
+                                    <span
+                                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Testes</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Testes em sala (entre pares)
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Rodar testes em duplas/grupos: um é "usuário", outro
+                                    observa. Registrar erros, dúvidas, cliques perdidos.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Consolidar achados em 5–7 problemas mais relevantes, com
+                                    exemplos.
+                                </p>
+                            </div>
+
+                            <!-- Aula 34 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 34</h5>
+                                    <span
+                                        class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">Priorizar</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Priorização de problemas
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Introduzir matriz impacto x esforço. Em sala: priorizar os
+                                    problemas encontrados e decidir o que será corrigido no redesign.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Escolher 3 problemas prioritários e escrever qual mudança
+                                    de interface pretende fazer para cada.
+                                </p>
+                            </div>
+
+                            <!-- Aula 35 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 35</h5>
+                                    <span
+                                        class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">Redesign</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Redesign
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Ajustar telas no Figma com base nos problemas priorizados.
+                                    Comparar versão antes/depois.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Finalizar redesign das telas escolhidas e atualizar o
+                                    protótipo navegável.
+                                </p>
+                            </div>
+
+                            <!-- Aula 36 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 36</h5>
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Microcopy</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Microcopy e feedbacks na interface
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Focar em texto da interface (labels, mensagens, estados
+                                    vazios, erros). Em sala: revisar textos nas telas principais para deixá-los claros e
+                                    consistentes.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Revisar todos os textos da solução e registrar 3 decisões
+                                    de microcopy que melhoraram a experiência.
+                                </p>
+                            </div>
+
+                            <!-- Aula 37 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 37</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">Docs</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Documentação enxuta do projeto
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Estruturar um "dossiê compacto": problema, público,
+                                    principais descobertas, solução proposta, fluxo principal, telas-chave, aprendizados
+                                    dos testes.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Completar a documentação (slide, one-pager ou página no
+                                    Figma) para apresentação final.
+                                </p>
+                            </div>
+
+                            <!-- Aula 38 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 38</h5>
+                                    <span
+                                        class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">Pitch</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Preparação do pitch
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Orientar storytelling: antes → problema → processo →
+                                    solução → evidências (testes) → próximos passos. Ensaiar pitches em grupo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Ajustar a apresentação/pitch com base no feedback recebido.
+                                </p>
+                            </div>
+
+                            <!-- Aula 39 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 39</h5>
+                                    <span
+                                        class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Apresentar</span>
+                                </div>
+                                <h6 class="font-bold text-base text-gray-800 mb-2">
+                                    Apresentações finais
+                                </h6>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    <strong>Em sala:</strong> Cada grupo apresenta o projeto (tempo cronometrado).
+                                    Feedback estruturado: pontos fortes, melhorias, aderência ao processo.
+                                </p>
+                                <p class="text-xs text-gray-700 bg-gray-50 rounded p-2">
+                                    <strong>Tarefa:</strong> Entregar versão final do arquivo Figma + documentação.
+                                </p>
+                            </div>
+
+                            <!-- Aula 40 -->
+                            <div class="bg-white rounded-xl p-6 shadow-sm border border-ifrn-red-200 bg-ifrn-red-50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="font-bold text-lg text-gray-900">Aula 40</h5>
+                                    <span
+                                        class="px-3 py-1 bg-ifrn-red-100 text-ifrn-red-700 rounded-full text-xs font-bold">Entrega
+                                        Final</span>
+                                </div>
+                                <h6 class="font-bold text-base text-ifrn-red-900 mb-2 flex items-center gap-2">
+                                    <span>🎯</span> Fechamento e reflexão
+                                </h6>
+                                <p class="text-sm text-gray-700 mb-3">
+                                    <strong>Em sala:</strong> Rodar uma retro: o que funcionou, o que não funcionou, o
+                                    que aprenderam de UI, UX e processo. Conectar com demais disciplinas (programação).
+                                </p>
+                                <p class="text-xs text-gray-700 bg-white rounded p-2 border-2 border-ifrn-red-300">
+                                    <strong>Tarefa:</strong> Autoavaliação escrita: onde se enxergam mais fortes
+                                    (visual, processo, pesquisa, protótipo etc.).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Avaliações -->
+    <section id="avaliacoes" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Avaliação e Projetos
+            </h2>
+
+            <div class="bg-white rounded-xl p-8 mb-8 shadow-lg border border-ifrn-green-100">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Método de Avaliação</h3>
+                <p class="text-ifrn-green-700 text-lg leading-relaxed mb-4">
+                    A disciplina adota <strong>avaliação formativa e somativa</strong> ao longo dos 2 bimestres, com
+                    foco na <strong>evolução do processo</strong> além do produto final.
+                </p>
+                <p class="text-ifrn-green-700 leading-relaxed">
+                    O objetivo é avaliar tanto o <strong>domínio técnico</strong> (Figma, visual design) quanto a
+                    <strong>capacidade de conduzir processo</strong> (pesquisa, teste, iteração, documentação).
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Componentes da Nota</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">20%</span>
+                            <span>Participação, assiduidade e tarefas para casa</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">30%</span>
+                            <span>Exercícios práticos em sala (progresso semanal)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">25%</span>
+                            <span>Entregável Bimestre 1: UI Kit + Protótipo navegável</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold flex-shrink-0">25%</span>
+                            <span>Entregável Bimestre 2: Projeto completo documentado</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-8 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-4">Critérios de Qualidade</h3>
+                    <ul class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Técnica:</strong> Uso correto de componentes, estilos, Auto Layout</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Visual:</strong> Hierarquia clara, contraste acessível, consistência</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Processo:</strong> Evidência de pesquisa, testes, iteração</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Documentação:</strong> Clareza na comunicação das decisões</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-xl flex-shrink-0">✓</span>
+                            <span><strong>Organização:</strong> Estrutura de arquivo limpa e profissional</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-8 text-green-950 border border-green-800">
+                <h3 class="font-bold text-2xl mb-2">Entregáveis por Bimestre</h3>
+                <p class="text-lg mb-6 opacity-95">
+                    Cada bimestre culmina em um entregável que demonstra domínio dos conceitos:
+                </p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                        <p class="font-bold text-lg mb-2">B1: UI Kit + Protótipo Navegável</p>
+                        <p class="opacity-90 text-sm">Arquivo Figma organizado com UI Kit v1 + 2 telas (desktop +
+                            mobile) + protótipo com links funcionais entre 3-4 telas</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                        <p class="font-bold text-lg mb-2">B2: Projeto Completo Documentado</p>
+                        <p class="opacity-90 text-sm">Problema + Pesquisa + Personas/Jornada + Wireframes + Protótipo
+                            testado + Redesign + Documentação (slide deck ou one-pager) + Pitch</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-white rounded-xl p-8 border-l-4 border-yellow-500">
+                <h3 class="font-bold text-xl text-gray-900 mb-3">💡 Dica Importante</h3>
+                <p class="text-gray-700 leading-relaxed">
+                    As <strong>tarefas para casa</strong> são essenciais para consolidar o aprendizado. Cada aula tem
+                    uma tarefa curta e focada que prepara para a próxima aula. Não deixe acumular — o aprendizado é
+                    incremental!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Recursos para Estudar
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Figma</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Ferramenta oficial da disciplina</p>
+                    <a href="https://www.figma.com" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">figma.com →</a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Figma Learn</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Tutoriais oficiais do Figma</p>
+                    <a href="https://help.figma.com" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">help.figma.com →</a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Design para quem não é designer</h3>
+                    <p class="text-sm text-ifrn-green-600">Robin Williams - Fundamentos visuais</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Não Me Faça Pensar</h3>
+                    <p class="text-sm text-ifrn-green-600">Steve Krug - Usabilidade na web</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">The Design of Everyday Things</h3>
+                    <p class="text-sm text-ifrn-green-600">Don Norman - Design centrado no usuário</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Laws of UX</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Jon Yablonski - Princípios de psicologia aplicados a UX
+                    </p>
+                    <a href="https://lawsofux.com" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">lawsofux.com →</a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">WCAG Guidelines</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Padrões de acessibilidade web</p>
+                    <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">w3.org/WAI →</a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Material Design</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Design system do Google</p>
+                    <a href="https://m3.material.io" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">material.io →</a>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card">
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Nielsen Norman Group</h3>
+                    <p class="text-sm text-ifrn-green-600 mb-3">Artigos e pesquisas sobre UX</p>
+                    <a href="https://www.nngroup.com" target="_blank"
+                        class="text-blue-600 hover:underline text-sm">nngroup.com →</a>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="bg-purple-50 rounded-xl p-8 border border-purple-200">
+                    <h3 class="font-bold text-2xl text-purple-900 mb-3">🎨 Ferramentas Úteis</h3>
+                    <ul class="space-y-2 text-sm text-purple-800">
+                        <li>• <strong>Coolors:</strong> Gerador de paletas de cores</li>
+                        <li>• <strong>WebAIM Contrast Checker:</strong> Teste de contraste WCAG</li>
+                        <li>• <strong>Unsplash/Pexels:</strong> Imagens gratuitas para mockups</li>
+                        <li>• <strong>Phosphor Icons:</strong> Biblioteca de ícones open-source</li>
+                        <li>• <strong>FigJam:</strong> Quadro branco colaborativo do Figma</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 rounded-xl p-8 border border-blue-200">
+                    <h3 class="font-bold text-2xl text-blue-900 mb-3">📺 Canais no YouTube</h3>
+                    <ul class="space-y-2 text-sm text-blue-800">
+                        <li>• <strong>Figma:</strong> Canal oficial com tutoriais</li>
+                        <li>• <strong>DesignCourse:</strong> UI/UX e Figma avançado</li>
+                        <li>• <strong>Flux:</strong> Design de produto e processo</li>
+                        <li>• <strong>The Futur:</strong> Design thinking e negócios</li>
+                        <li>• <strong>AJ&Smart:</strong> Design Sprint e workshops</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-50 rounded-xl p-8 border border-ifrn-green-100 text-center">
+                <div class="text-4xl mb-4">📂</div>
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-3">Material Complementar</h3>
+                <p class="text-ifrn-green-700 mb-4">
+                    Exercícios extras, templates do Figma, roteiros de pesquisa e exemplos de projetos anteriores
+                </p>
+                <a href="#" class="inline-block btn-cta text-white font-bold py-3 px-6 rounded-full">
+                    Acessar Materiais
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="max-w-5xl mx-auto text-center">
+        <h2 class="font-bold text-3xl mb-6">
+            Do Figma ao Design Thinking — Formação Completa em UI/UX
+        </h2>
+        <p class="text-xl mb-8 opacity-95 max-w-3xl mx-auto">
+            Esta disciplina combina domínio técnico de ferramentas profissionais com metodologia de design centrado no
+            ser humano. Ao final, você terá um projeto completo de interface testada e documentada no seu portfólio.
+        </p>
+
+        <div class="border-t border-white border-opacity-20 pt-8 mt-12">
+            <p class="text-lg mb-2" id="dados-professor-nome"></p>
+            <p class="mb-2" id="dados-campus-nome"></p>
+            <p class="mb-6" id="dados-curso-periodo"></p>
+            <p class="text-sm opacity-75">
+                Design de Interfaces • IFRN • 40 horas • 2 bimestres (40 aulas)
+            </p>
+        </div>
+    </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active state navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
+
+                if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('text-ifrn-red-500');
+                        link.classList.add('text-ifrn-green-700');
+                    });
+                    navLink.classList.remove('text-ifrn-green-700');
+                    navLink.classList.add('text-ifrn-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
