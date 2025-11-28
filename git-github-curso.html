@@ -4,89 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git & GitHub: Do Zero ao Commit! 🚀 | IFRN</title>
+    <title>Git & GitHub — Controle de Versão e Colaboração | IFRN</title>
+    <meta name="description"
+        content="Aprenda Git e GitHub do zero. Controle de versão, trabalho em equipe e boas práticas de desenvolvimento.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { 'display': ['Sora', 'sans-serif'], 'body': ['Work Sans', 'sans-serif'] },
-                    colors: {
-                        'ifrn-green': { 50: '#e6f2ea', 500: '#2f6b48', 700: '#1f4a32', 800: '#143021' },
-                        'ifrn-red': { 500: '#e63946' },
-                        'git-orange': { 500: '#f05032' }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Work Sans', sans-serif;
-            color: #0b1a12;
-        }
-
-        nav {
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.9);
-            border-bottom: 1px solid #c4e2d1;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .command-box {
-            background: #0b1a12;
-            border-radius: 12px;
-            padding: 1rem;
-            font-family: monospace;
-            color: #93b7a1;
-        }
-
-        .command-box::before {
-            content: '$ ';
-            color: #2f6b48;
-            font-weight: bold;
-        }
-
-        details summary {
-            cursor: pointer;
-            list-style: none;
-        }
-
-        .smooth-scroll {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body class="smooth-scroll">
+<body class="bg-white">
 
-    <nav class="fixed top-0 left-0 right-0 z-50">
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="font-display font-bold text-xl text-ifrn-green-700">Git & GitHub 🚀</div>
+            <div class="flex justify-between items-center h-16">
+                <a href="#" class="font-bold text-xl text-ifrn-green-800">Git & GitHub</a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#intro" class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium">Introdução</a>
-                    <a href="#instalacao" class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium">Instalação</a>
-                    <a href="#jornada" class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium">Jornada</a>
-                    <a href="#quiz" class="text-ifrn-green-700 hover:text-ifrn-red-500 font-medium">Quiz</a>
+                    <a href="#sobre" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Sobre</a>
+                    <a href="#preparacao" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Preparação</a>
+                    <a href="#jornada" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Jornada</a>
+                    <a href="#recursos" class="text-ifrn-green-700 hover:text-ifrn-red-500 transition">Recursos</a>
                 </div>
             </div>
         </div>
@@ -94,395 +33,678 @@
 
     <!-- Hero -->
     <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ifrn-green-50 to-white">
-        <div class="max-w-6xl mx-auto text-center">
-            <div class="text-7xl mb-6">🎮</div>
-            <h1 class="font-display font-extrabold text-5xl md:text-7xl text-ifrn-green-800 mb-6">
-                Git & GitHub
-            </h1>
-            <p class="font-display text-3xl text-git-orange-500 mb-4 font-bold">
-                Do Zero ao Commit!
-            </p>
-            <p class="text-xl text-ifrn-green-700 max-w-3xl mx-auto mb-12">
-                Aprenda a versionar seu código como um dev profissional! Trabalhe em equipe e se torne mestre do git
-                push 🚀
-            </p>
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                    Controle de Versão • Colaboração • Boas Práticas
+                </div>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <a href="#intro" class="btn-primary text-white font-bold py-4 px-8 rounded-full text-lg">
-                    🎯 Começar Jornada
-                </a>
-                <a href="#quiz"
-                    class="border-2 border-ifrn-green-600 text-ifrn-green-700 hover:bg-ifrn-green-600 hover:text-white font-bold py-4 px-8 rounded-full text-lg transition-all">
-                    🏆 Quiz Final
-                </a>
+                <h1 class="font-bold text-5xl md:text-7xl text-ifrn-green-800 mb-6 leading-tight">
+                    Git & GitHub
+                </h1>
+
+                <p class="text-2xl md:text-3xl text-ifrn-green-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+                    Do Zero ao Primeiro Commit
+                </p>
+
+                <p class="text-lg text-ifrn-green-950 mb-12 max-w-3xl mx-auto">
+                    Aprenda controle de versão profissional, trabalhe em equipe com eficiência e domine as ferramentas
+                    essenciais do desenvolvimento moderno.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-                <div class="bg-white rounded-2xl p-6 shadow-lg">
-                    <div class="text-4xl mb-2">⭐</div>
-                    <p class="font-bold text-ifrn-green-800">5 Níveis</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-lg">
-                    <div class="text-4xl mb-2">💻</div>
-                    <p class="font-bold text-ifrn-green-800">Prática Real</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-lg">
-                    <div class="text-4xl mb-2">👥</div>
-                    <p class="font-bold text-ifrn-green-800">Em Equipe</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-lg">
-                    <div class="text-4xl mb-2">🎯</div>
-                    <p class="font-bold text-ifrn-green-800">Quiz</p>
+            <!-- O que você vai dominar -->
+            <div class="bg-white rounded-3xl p-10 md:p-12 shadow-xl border border-ifrn-green-100">
+                <h2 class="font-bold text-3xl text-ifrn-green-800 mb-10 text-center">
+                    Ao final você será capaz de
+                </h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Controle de Versão</h3>
+                            <p class="text-ifrn-green-600">Versionar código com Git, criar commits significativos e
+                                navegar pelo histórico</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Trabalho em Equipe</h3>
+                            <p class="text-ifrn-green-600">Colaborar via GitHub, fazer pull requests e resolver
+                                conflitos de merge</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Branches e Fluxos</h3>
+                            <p class="text-ifrn-green-600">Criar branches, trabalhar em features isoladas e integrar
+                                código com segurança</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-ifrn-green-800 mb-1">Boas Práticas</h3>
+                            <p class="text-ifrn-green-600">Seguir convenções de commit, organizar repositórios e manter
+                                histórico limpo</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Introdução -->
-    <section id="intro" class="py-20 px-4 sm:px-6 lg:px-8">
+    <!-- Sobre -->
+    <section id="sobre" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
-            <h2 class="font-display font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
                 O que é Git e GitHub?
             </h2>
 
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div
-                    class="bg-gradient-to-br from-git-orange-500 to-git-orange-600 rounded-3xl p-8 text-white shadow-xl">
-                    <h3 class="font-display font-bold text-3xl mb-4">Git</h3>
-                    <p class="text-lg mb-4">É como uma <strong>máquina do tempo</strong> para seu código!</p>
-                    <p class="mb-4">Tipo salvar várias versões de um trabalho no Word, mas MUITO mais esperto.</p>
-                    <div class="bg-white bg-opacity-20 rounded-xl p-4">
-                        <p class="font-bold mb-2">🎯 Com Git você pode:</p>
-                        <ul class="space-y-1 text-sm">
-                            <li>✓ Voltar no tempo se errar</li>
-                            <li>✓ Ver o que mudou</li>
-                            <li>✓ Trabalhar em versões paralelas</li>
-                            <li>✓ Nunca perder trabalho</li>
-                        </ul>
+            <div class="space-y-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-8 text-white">
+                        <h3 class="font-bold text-2xl mb-4">Git</h3>
+                        <p class="text-lg mb-4 leading-relaxed">
+                            Sistema de controle de versão distribuído que rastreia mudanças no código ao longo do tempo.
+                        </p>
+                        <div class="bg-white bg-opacity-20 backdrop-blur rounded-xl p-4">
+                            <p class="font-bold mb-3">Com Git você pode:</p>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Salvar pontos na história do
+                                    projeto (commits)</li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Voltar a versões anteriores se
+                                    necessário</li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Trabalhar em múltiplas
+                                    features simultâneas</li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Manter histórico completo de
+                                    mudanças</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 text-white">
+                        <h3 class="font-bold text-2xl mb-4">GitHub</h3>
+                        <p class="text-lg mb-4 leading-relaxed">
+                            Plataforma de hospedagem de código que adiciona colaboração, revisão e gestão de projetos ao
+                            Git.
+                        </p>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
+                            <p class="font-bold mb-3">Com GitHub você pode:</p>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Hospedar repositórios na nuvem
+                                </li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Colaborar com desenvolvedores
+                                    do mundo todo</li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Fazer code review via Pull
+                                    Requests</li>
+                                <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Construir portfólio
+                                    profissional</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 text-white shadow-xl">
-                    <h3 class="font-display font-bold text-3xl mb-4">GitHub</h3>
-                    <p class="text-lg mb-4">É a <strong>rede social dos programadores</strong>!</p>
-                    <p class="mb-4">Tipo Google Drive, mas feito pra código. Guarda projetos na nuvem!</p>
-                    <div class="bg-white bg-opacity-10 rounded-xl p-4">
-                        <p class="font-bold mb-2">🎯 Com GitHub:</p>
-                        <ul class="space-y-1 text-sm">
-                            <li>✓ Guardar código na nuvem</li>
-                            <li>✓ Colaborar com pessoas</li>
-                            <li>✓ Mostrar projetos</li>
-                            <li>✓ Contribuir em open source</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-ifrn-green-50 rounded-3xl p-8 border-2 border-ifrn-green-200">
-                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6 text-center">
-                    🎮 Pensa como um jogo!
-                </h3>
-                <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div>
-                        <div class="text-5xl mb-3">💾</div>
-                        <p class="font-bold text-ifrn-green-800 mb-2">Save Points</p>
-                        <p class="text-sm text-ifrn-green-700">Git = pontos de salvamento (commits)</p>
-                    </div>
-                    <div>
-                        <div class="text-5xl mb-3">☁️</div>
-                        <p class="font-bold text-ifrn-green-800 mb-2">Cloud Save</p>
-                        <p class="text-sm text-ifrn-green-700">GitHub = salvar online</p>
-                    </div>
-                    <div>
-                        <div class="text-5xl mb-3">🎯</div>
-                        <p class="font-bold text-ifrn-green-800 mb-2">Multiplayer</p>
-                        <p class="text-sm text-ifrn-green-700">GitHub = jogar em time</p>
+                <div class="bg-ifrn-green-50 rounded-xl p-8 border border-ifrn-green-100">
+                    <h3 class="font-bold text-2xl text-ifrn-green-800 mb-6 text-center">
+                        Por que aprender Git e GitHub?
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl">
+                            <div class="text-4xl mb-4">
+                                <i class="ph-light ph-building-office"></i>
+                            </div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Mercado</h4>
+                            <p class="text-sm text-ifrn-green-700">Conhecimento essencial exigido por 99% das empresas
+                                de tecnologia</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl">
+                            <div class="text-4xl mb-4"><i class="ph-light ph-users-three"></i></div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Colaboração</h4>
+                            <p class="text-sm text-ifrn-green-700">Base para trabalho em equipe em qualquer projeto de
+                                software</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl">
+                            <div class="text-4xl mb-4"><i class="ph-light ph-shield-check"></i></div>
+                            <h4 class="font-bold text-ifrn-green-800 mb-2">Segurança</h4>
+                            <p class="text-sm text-ifrn-green-700">Nunca perca código, sempre tenha backup e histórico
+                                completo</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Instalação -->
-    <section id="instalacao" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-ifrn-green-50">
+    <!-- Preparação -->
+    <section id="preparacao" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
         <div class="max-w-5xl mx-auto">
-            <h2 class="font-display font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
-                ⚙️ Preparando o Setup
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Preparando o Ambiente
             </h2>
 
-            <div class="bg-white rounded-3xl shadow-xl p-8 mb-8">
-                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
-                    <span
-                        class="bg-ifrn-red-500 text-white w-10 h-10 rounded-full inline-flex items-center justify-center mr-3">1</span>
-                    Instalar Git
-                </h3>
-
-                <details class="bg-blue-50 rounded-2xl p-6 mb-4">
-                    <summary class="font-bold text-lg cursor-pointer">🪟 Windows</summary>
-                    <div class="mt-4">
-                        <p class="mb-4">1. Baixe: <a href="https://git-scm.com/download/win"
-                                class="text-git-orange-500 font-bold hover:underline">git-scm.com/download/win</a></p>
-                        <p class="mb-4">2. Instale clicando "Next" até o fim</p>
-                        <p class="mb-2">3. Teste no Git Bash:</p>
-                        <div class="command-box">git --version</div>
+            <div class="space-y-6">
+                <!-- Passo 1: Instalar Git -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                            1
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Instalar Git</h3>
                     </div>
-                </details>
 
-                <details class="bg-gray-50 rounded-2xl p-6 mb-4">
-                    <summary class="font-bold text-lg cursor-pointer">🍎 macOS</summary>
-                    <div class="mt-4">
-                        <p class="mb-2">Abra o Terminal:</p>
-                        <div class="command-box mb-4">git --version</div>
-                        <p class="text-sm">Se não tiver, instale: <code
-                                class="bg-gray-200 px-2 py-1 rounded">brew install git</code></p>
-                    </div>
-                </details>
+                    <div class="space-y-4">
+                        <details class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                            <summary class="font-bold text-lg text-ifrn-green-800 cursor-pointer">Windows</summary>
+                            <div class="mt-4 space-y-3">
+                                <p>1. Baixe o instalador: <a href="https://git-scm.com/download/win"
+                                        class="text-blue-600 hover:underline font-semibold">git-scm.com/download/win</a>
+                                </p>
+                                <p>2. Execute o instalador e siga as instruções (configurações padrão são adequadas)</p>
+                                <p>3. Após instalar, abra o <strong>Git Bash</strong> e teste:</p>
+                                <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm mt-2">
+                                    $ git --version
+                                </div>
+                            </div>
+                        </details>
 
-                <details class="bg-purple-50 rounded-2xl p-6">
-                    <summary class="font-bold text-lg cursor-pointer">🐧 Linux</summary>
-                    <div class="mt-4">
-                        <p class="mb-2">Ubuntu/Debian:</p>
-                        <div class="command-box">sudo apt-get install git</div>
-                    </div>
-                </details>
-            </div>
+                        <details class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                            <summary class="font-bold text-lg text-ifrn-green-800 cursor-pointer">macOS</summary>
+                            <div class="mt-4 space-y-3">
+                                <p>Git geralmente já vem instalado. Para verificar, abra o Terminal:</p>
+                                <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                    $ git --version
+                                </div>
+                                <p class="mt-3">Se não estiver instalado, instale via Homebrew:</p>
+                                <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                    $ brew install git
+                                </div>
+                            </div>
+                        </details>
 
-            <div class="bg-white rounded-3xl shadow-xl p-8 mb-8">
-                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
-                    <span
-                        class="bg-ifrn-red-500 text-white w-10 h-10 rounded-full inline-flex items-center justify-center mr-3">2</span>
-                    Criar Conta no GitHub
-                </h3>
-                <ol class="space-y-3 text-ifrn-green-700">
-                    <li>1. Acesse: <a href="https://github.com" class="text-git-orange-500 font-bold">github.com</a>
-                    </li>
-                    <li>2. Clique em "Sign up"</li>
-                    <li>3. Escolha um username legal</li>
-                    <li>4. Confirme email e pronto! 🎉</li>
-                </ol>
-            </div>
-
-            <div class="bg-white rounded-3xl shadow-xl p-8">
-                <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-6">
-                    <span
-                        class="bg-ifrn-red-500 text-white w-10 h-10 rounded-full inline-flex items-center justify-center mr-3">3</span>
-                    Configurar Git
-                </h3>
-                <p class="mb-4">Digite no terminal:</p>
-                <div class="space-y-4">
-                    <div>
-                        <p class="font-semibold mb-2">Seu nome:</p>
-                        <div class="command-box">git config --global user.name "Seu Nome"</div>
-                    </div>
-                    <div>
-                        <p class="font-semibold mb-2">Seu email:</p>
-                        <div class="command-box">git config --global user.email "email@exemplo.com"</div>
+                        <details class="bg-purple-50 rounded-xl p-6 border border-purple-200">
+                            <summary class="font-bold text-lg text-ifrn-green-800 cursor-pointer">Linux</summary>
+                            <div class="mt-4 space-y-3">
+                                <p><strong>Ubuntu/Debian:</strong></p>
+                                <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm mb-3">
+                                    $ sudo apt-get update<br>
+                                    $ sudo apt-get install git
+                                </div>
+                                <p><strong>Fedora:</strong></p>
+                                <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                    $ sudo dnf install git
+                                </div>
+                            </div>
+                        </details>
                     </div>
                 </div>
-                <div class="mt-6 bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
-                    <p class="font-bold text-green-700">✅ Tudo pronto pra começar!</p>
+
+                <!-- Passo 2: Criar Conta -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                            2
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Criar Conta no GitHub</h3>
+                    </div>
+
+                    <ol class="space-y-3 text-ifrn-green-700">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">1.</span>
+                            <span>Acesse <a href="https://github.com"
+                                    class="text-blue-600 hover:underline font-semibold">github.com</a> e clique em "Sign
+                                up"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">2.</span>
+                            <span>Escolha um username profissional (será seu identificador público)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">3.</span>
+                            <span>Use um email que você acessa regularmente</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold">4.</span>
+                            <span>Confirme o email e complete seu perfil</span>
+                        </li>
+                    </ol>
+
+                    <div class="mt-6 bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
+                        <p class="font-bold text-blue-800 mb-2">💡 Dica de Username</p>
+                        <p class="text-sm text-blue-700">Use um nome profissional (ex: joaosilva, maria-santos). Evite
+                            números aleatórios ou apelidos infantis — seu GitHub é seu portfólio!</p>
+                    </div>
+                </div>
+
+                <!-- Passo 3: Configurar -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-12 h-12 bg-ifrn-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                            3
+                        </div>
+                        <h3 class="font-bold text-2xl text-ifrn-green-800">Configurar Git</h3>
+                    </div>
+
+                    <p class="mb-4 text-ifrn-green-700">Configure sua identidade no Git (use os mesmos dados do GitHub):
+                    </p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold mb-2 text-ifrn-green-800">Seu nome:</p>
+                            <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                $ git config --global user.name "Seu Nome Completo"
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold mb-2 text-ifrn-green-800">Seu email (mesmo do GitHub):</p>
+                            <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                $ git config --global user.email "seuemail@exemplo.com"
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold mb-2 text-ifrn-green-800">Verificar configuração:</p>
+                            <div class="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm">
+                                $ git config --list
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
+                        <p class="font-bold text-green-800">✅ Ambiente configurado!</p>
+                        <p class="text-sm text-green-700 mt-1">Você está pronto para começar a versionar código.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Jornada: 5 Níveis -->
-    <section id="jornada" class="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="jornada" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-6xl mx-auto">
-            <h2 class="font-display font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
-                🎮 Jornada do Git - 5 Níveis
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
+                Jornada de Aprendizado
             </h2>
-            <p class="text-xl text-center text-ifrn-green-700 mb-16">
-                Desbloqueie novas habilidades em cada nível!
+            <p class="text-xl text-center text-ifrn-green-600 mb-16 max-w-3xl mx-auto">
+                Cinco níveis progressivos que te levam do zero ao domínio completo de Git e GitHub
             </p>
 
-            <div class="space-y-8">
+            <div class="space-y-6">
                 <!-- Nível 1 -->
-                <div
-                    class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-8 shadow-lg border-2 border-blue-300">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="text-5xl">🌱</div>
+                <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-8 border-2 border-green-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-2xl">
+                            1
+                        </div>
                         <div>
                             <div
-                                class="bg-blue-500 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
-                                NÍVEL 1</div>
-                            <h3 class="font-display font-bold text-3xl text-ifrn-green-800">
-                                Iniciante: Primeiro Repositório
-                            </h3>
+                                class="bg-green-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
+                                NÍVEL 1
+                            </div>
+                            <h3 class="font-bold text-2xl text-ifrn-green-800">Primeiro Repositório</h3>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 mt-4">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer">
-                            📚 Ver comandos
+                    <details class="bg-white rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                            Ver comandos e conceitos
                         </summary>
-                        <div class="mt-4 space-y-4">
+                        <div class="mt-6 space-y-6">
                             <div>
-                                <p class="font-semibold mb-2">1. Criar pasta e iniciar:</p>
-                                <div class="command-box mb-2">mkdir meu-projeto</div>
-                                <div class="command-box mb-2">cd meu-projeto</div>
-                                <div class="command-box">git init</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-ifrn-green-700">
+                                    <li>• <strong>Repositório:</strong> pasta que o Git monitora</li>
+                                    <li>• <strong>Commit:</strong> ponto de salvamento na história</li>
+                                    <li>• <strong>Working Directory:</strong> arquivos atuais</li>
+                                    <li>• <strong>Staging Area:</strong> preparação para commit</li>
+                                </ul>
                             </div>
+
                             <div>
-                                <p class="font-semibold mb-2">2. Criar arquivo e ver status:</p>
-                                <div class="command-box mb-2">echo "# Meu Projeto" > README.md</div>
-                                <div class="command-box">git status</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Comandos essenciais:</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Inicializar repositório:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ mkdir meu-projeto<br>
+                                            $ cd meu-projeto<br>
+                                            $ git init
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Verificar status:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git status
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Adicionar arquivo e fazer commit:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ echo "# Meu Projeto" > README.md<br>
+                                            $ git add README.md<br>
+                                            $ git commit -m "Adiciona README inicial"
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-semibold mb-2">3. Fazer primeiro commit:</p>
-                                <div class="command-box mb-2">git add README.md</div>
-                                <div class="command-box">git commit -m "Primeiro commit"</div>
+
+                            <div class="bg-green-50 p-4 rounded-xl">
+                                <p class="font-bold text-green-800 mb-2">🎯 Objetivo deste nível:</p>
+                                <p class="text-sm text-green-700">Entender o ciclo básico: modificar → adicionar (stage)
+                                    → commitar (save point)</p>
                             </div>
                         </div>
                     </details>
                 </div>
 
                 <!-- Nível 2 -->
-                <div
-                    class="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-8 shadow-lg border-2 border-green-300">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="text-5xl">🌿</div>
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 border-2 border-blue-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-2xl">
+                            2
+                        </div>
                         <div>
                             <div
-                                class="bg-green-500 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
-                                NÍVEL 2</div>
-                            <h3 class="font-display font-bold text-3xl text-ifrn-green-800">
-                                Conectando: Subindo pro GitHub
-                            </h3>
+                                class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
+                                NÍVEL 2
+                            </div>
+                            <h3 class="font-bold text-2xl text-ifrn-blue-800">Conectando ao GitHub</h3>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 mt-4">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer">
-                            📚 Ver comandos
+                    <details class="bg-white rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-ifrn-blue-800 cursor-pointer text-lg">
+                            Ver comandos e conceitos
                         </summary>
-                        <div class="mt-4 space-y-4">
-                            <p>1. Crie repo no GitHub (github.com/new)</p>
+                        <div class="mt-6 space-y-6">
                             <div>
-                                <p class="font-semibold mb-2">2. Conectar e enviar:</p>
-                                <div class="command-box mb-2">git remote add origin
-                                    https://github.com/seu-usuario/repo.git</div>
-                                <div class="command-box mb-2">git branch -M main</div>
-                                <div class="command-box">git push -u origin main</div>
+                                <h4 class="font-bold text-ifrn-blue-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-ifrn-blue-700">
+                                    <li>• <strong>Remote:</strong> repositório remoto (GitHub)</li>
+                                    <li>• <strong>Origin:</strong> nome padrão do remote principal</li>
+                                    <li>• <strong>Push:</strong> enviar commits para o remote</li>
+                                    <li>• <strong>Main/Master:</strong> branch principal</li>
+                                </ul>
                             </div>
-                            <div class="bg-green-50 p-4 rounded mt-4">
-                                <p class="font-bold text-green-700">🎉 Código agora tá na nuvem!</p>
+
+                            <div>
+                                <h4 class="font-bold text-ifrn-blue-800 mb-3">Passo a passo:</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">1. Criar repositório no GitHub:</p>
+                                        <p class="text-sm text-ifrn-blue-700 mb-2">• Acesse github.com/new</p>
+                                        <p class="text-sm text-ifrn-blue-700 mb-2">• Escolha um nome</p>
+                                        <p class="text-sm text-ifrn-blue-700">• NÃO inicialize com README (você já tem
+                                            localmente)</p>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">2. Conectar repositório local ao GitHub:
+                                        </p>
+                                        <div class="bg-gray-900 text-blue-400 p-3 rounded font-mono text-sm">
+                                            $ git remote add origin https://github.com/seu-usuario/seu-repo.git<br>
+                                            $ git branch -M main<br>
+                                            $ git push -u origin main
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 p-4 rounded-xl">
+                                <p class="font-bold text-blue-800 mb-2">🎯 Objetivo deste nível:</p>
+                                <p class="text-sm text-blue-700">Hospedar código na nuvem e entender a conexão local ↔
+                                    remoto</p>
                             </div>
                         </div>
                     </details>
                 </div>
 
                 <!-- Nível 3 -->
-                <div
-                    class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-8 shadow-lg border-2 border-purple-300">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="text-5xl">🌳</div>
+                <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-8 border-2 border-purple-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-2xl">
+                            3
+                        </div>
                         <div>
                             <div
-                                class="bg-purple-500 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
-                                NÍVEL 3</div>
-                            <h3 class="font-display font-bold text-3xl text-ifrn-green-800">
-                                Branches: Universos Paralelos
-                            </h3>
+                                class="bg-purple-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
+                                NÍVEL 3
+                            </div>
+                            <h3 class="font-bold text-2xl text-ifrn-green-800">Branches: Desenvolvimento Paralelo</h3>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 mt-4">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer">
-                            📚 Ver comandos
+                    <details class="bg-white rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                            Ver comandos e conceitos
                         </summary>
-                        <div class="mt-4 space-y-4">
+                        <div class="mt-6 space-y-6">
                             <div>
-                                <p class="font-semibold mb-2">Criar e usar branch:</p>
-                                <div class="command-box mb-2">git checkout -b nova-feature</div>
-                                <p class="text-sm text-gray-600 mb-2">Trabalhe normalmente, faça commits...</p>
-                                <div class="command-box mb-2">git checkout main</div>
-                                <div class="command-box">git merge nova-feature</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-ifrn-green-700">
+                                    <li>• <strong>Branch:</strong> linha de desenvolvimento independente</li>
+                                    <li>• <strong>Checkout:</strong> trocar de branch</li>
+                                    <li>• <strong>Merge:</strong> juntar branches</li>
+                                    <li>• <strong>Feature Branch:</strong> branch para desenvolver uma funcionalidade
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="bg-purple-50 p-4 rounded">
-                                <p class="text-sm"><strong>Branches</strong> deixam você testar coisas sem bagunçar o
-                                    código que funciona!</p>
+
+                            <div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Comandos de branches:</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Criar e mudar para nova branch:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git checkout -b feature/login
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Listar branches:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git branch
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Voltar para main e fazer merge:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git checkout main<br>
+                                            $ git merge feature/login
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">Deletar branch após merge:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git branch -d feature/login
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-purple-50 p-4 rounded-xl">
+                                <p class="font-bold text-purple-800 mb-2">🎯 Objetivo deste nível:</p>
+                                <p class="text-sm text-purple-700">Trabalhar em features isoladas sem afetar o código
+                                    principal</p>
                             </div>
                         </div>
                     </details>
                 </div>
 
                 <!-- Nível 4 -->
-                <div
-                    class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-3xl p-8 shadow-lg border-2 border-orange-300">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="text-5xl">👥</div>
+                <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-xl p-8 border-2 border-yellow-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-16 h-16 bg-yellow-600 text-white rounded-full flex items-center justify-center font-bold text-2xl">
+                            4
+                        </div>
                         <div>
                             <div
-                                class="bg-orange-500 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
-                                NÍVEL 4</div>
-                            <h3 class="font-display font-bold text-3xl text-ifrn-green-800">
-                                Colaboração: Trabalhando em Equipe
-                            </h3>
+                                class="bg-yellow-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
+                                NÍVEL 4
+                            </div>
+                            <h3 class="font-bold text-2xl text-ifrn-green-800">Colaboração em Equipe</h3>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 mt-4">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer">
-                            📚 Ver comandos
+                    <details class="bg-white rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                            Ver comandos e conceitos
                         </summary>
-                        <div class="mt-4 space-y-4">
+                        <div class="mt-6 space-y-6">
                             <div>
-                                <p class="font-semibold mb-2">Clonar projeto:</p>
-                                <div class="command-box">git clone https://github.com/usuario/repo.git</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Conceitos deste nível:</h4>
+                                <ul class="space-y-2 text-ifrn-green-700">
+                                    <li>• <strong>Clone:</strong> copiar repositório remoto</li>
+                                    <li>• <strong>Pull:</strong> baixar e integrar mudanças remotas</li>
+                                    <li>• <strong>Pull Request (PR):</strong> proposta de mudança no GitHub</li>
+                                    <li>• <strong>Code Review:</strong> revisão de código antes do merge</li>
+                                </ul>
                             </div>
+
                             <div>
-                                <p class="font-semibold mb-2">Atualizar antes de trabalhar:</p>
-                                <div class="command-box">git pull</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Fluxo de trabalho em equipe:</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">1. Clonar projeto da equipe:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git clone https://github.com/equipe/projeto.git<br>
+                                            $ cd projeto
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">2. SEMPRE atualizar antes de trabalhar:
+                                        </p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git pull origin main
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">3. Criar branch, trabalhar e enviar:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git checkout -b feature/minha-feature<br>
+                                            # ... trabalhe e faça commits ...<br>
+                                            $ git push origin feature/minha-feature
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <p class="text-sm font-semibold mb-2">4. Criar Pull Request no GitHub:</p>
+                                        <p class="text-sm text-ifrn-green-700">• Acesse o repositório no GitHub</p>
+                                        <p class="text-sm text-ifrn-green-700">• Clique em "Compare & pull request"</p>
+                                        <p class="text-sm text-ifrn-green-700">• Descreva suas mudanças</p>
+                                        <p class="text-sm text-ifrn-green-700">• Aguarde revisão da equipe</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="bg-orange-50 p-4 rounded">
-                                <p class="font-bold mb-2">⚠️ Regra de Ouro:</p>
-                                <p class="text-sm">Sempre faça <code class="bg-white px-2 py-1 rounded">git pull</code>
-                                    antes de começar a trabalhar!</p>
+
+                            <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
+                                <p class="font-bold text-yellow-800 mb-2">⚠️ Regra de Ouro:</p>
+                                <p class="text-sm text-yellow-700">SEMPRE faça <code
+                                        class="bg-white px-2 py-1 rounded">git pull</code> antes de começar a trabalhar
+                                    para evitar conflitos!</p>
                             </div>
                         </div>
                     </details>
                 </div>
 
                 <!-- Nível 5 -->
-                <div
-                    class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-3xl p-8 shadow-lg border-2 border-yellow-400">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="text-5xl">👑</div>
+                <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-8 border-2 border-orange-400">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div
+                            class="w-16 h-16 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-2xl">
+                            5
+                        </div>
                         <div>
                             <div
-                                class="bg-yellow-500 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
-                                NÍVEL 5</div>
-                            <h3 class="font-display font-bold text-3xl text-ifrn-green-800">
-                                Mestre: Resolvendo Problemas
-                            </h3>
+                                class="bg-orange-600 text-white px-4 py-1 rounded-full font-bold text-sm inline-block mb-2">
+                                NÍVEL 5
+                            </div>
+                            <h3 class="font-bold text-2xl text-ifrn-green-800">Resolvendo Problemas</h3>
                         </div>
                     </div>
 
-                    <details class="bg-white rounded-xl p-6 mt-4">
-                        <summary class="font-bold text-ifrn-green-800 cursor-pointer">
-                            📚 Ver comandos
+                    <details class="bg-white rounded-xl p-6 overflow-hidden">
+                        <summary class="font-bold text-ifrn-green-800 cursor-pointer text-lg">
+                            Ver comandos e conceitos
                         </summary>
-                        <div class="mt-4 space-y-4">
+                        <div class="mt-6 space-y-6">
                             <div>
-                                <p class="font-semibold mb-2">🔥 Desfazer último commit:</p>
-                                <div class="command-box">git reset --soft HEAD~1</div>
+                                <h4 class="font-bold text-ifrn-green-800 mb-3">Situações comuns e soluções:</h4>
+
+                                <div class="space-y-6">
+                                    <div class="bg-red-50 p-4 rounded-xl">
+                                        <p class="font-bold text-red-800 mb-3">🔥 Desfazer último commit (mantendo
+                                            mudanças):</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git reset --soft HEAD~1
+                                        </div>
+                                        <p class="text-sm text-red-700 mt-2">Isso "desfaz" o commit mas mantém os
+                                            arquivos modificados</p>
+                                    </div>
+
+                                    <div class="bg-blue-50 p-4 rounded-xl">
+                                        <p class="font-bold text-blue-800 mb-3">📝 Alterar mensagem do último commit:
+                                        </p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git commit --amend -m "Nova mensagem"
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-purple-50 p-4 rounded-xl">
+                                        <p class="font-bold text-purple-800 mb-3">⚔️ Resolver conflitos de merge:</p>
+                                        <p class="text-sm text-purple-700 mb-2">Quando Git mostra
+                                            &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;:</p>
+                                        <ol class="text-sm space-y-1 ml-4 text-purple-700">
+                                            <li>1. Abra o arquivo no editor</li>
+                                            <li>2. Escolha qual código manter (ou combine ambos)</li>
+                                            <li>3. Delete as marcações (&lt;&lt;&lt;, ===, &gt;&gt;&gt;)</li>
+                                            <li>4. Adicione: <code
+                                                    class="bg-white px-2 py-1 rounded">git add arquivo.txt</code></li>
+                                            <li>5. Finalize: <code
+                                                    class="bg-white px-2 py-1 rounded">git commit -m "Resolve conflito"</code>
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                    <div class="bg-green-50 p-4 rounded-xl">
+                                        <p class="font-bold text-green-800 mb-3">🔍 Ver histórico de commits:</p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git log --oneline --graph --all
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-orange-50 p-4 rounded-xl">
+                                        <p class="font-bold text-orange-800 mb-3">↩️ Descartar mudanças não commitadas:
+                                        </p>
+                                        <div class="bg-gray-900 text-green-400 p-3 rounded font-mono text-sm">
+                                            $ git checkout -- arquivo.txt
+                                        </div>
+                                        <p class="text-sm text-orange-700 mt-2">⚠️ Cuidado: isso deleta as mudanças
+                                            permanentemente!</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-semibold mb-2">⚔️ Resolver conflitos:</p>
-                                <p class="text-sm mb-2">Quando aparecer &lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======,
-                                    &gt;&gt;&gt;&gt;&gt;&gt;&gt;:</p>
-                                <ol class="text-sm space-y-1 ml-4">
-                                    <li>1. Abra o arquivo</li>
-                                    <li>2. Escolha qual código manter</li>
-                                    <li>3. Delete as marcações</li>
-                                    <li>4. <code class="bg-gray-100 px-2 py-1">git add .</code></li>
-                                    <li>5. <code class="bg-gray-100 px-2 py-1">git commit -m "Resolve conflito"</code>
-                                    </li>
-                                </ol>
-                            </div>
-                            <div class="bg-yellow-50 p-4 rounded">
-                                <p class="font-bold text-yellow-800">🏆 Parabéns, Mestre Git!</p>
+
+                            <div class="bg-orange-50 p-4 rounded-xl border-2 border-orange-400">
+                                <p class="font-bold text-orange-800 mb-2">🏆 Parabéns!</p>
+                                <p class="text-sm text-orange-700">Você completou os 5 níveis e está pronto para
+                                    trabalhar profissionalmente com Git e GitHub!</p>
                             </div>
                         </div>
                     </details>
@@ -491,195 +713,187 @@
         </div>
     </section>
 
-    <!-- Exercícios -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-ifrn-green-50">
+    <!-- Recursos -->
+    <section id="recursos" class="py-20 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="font-display font-bold text-4xl text-ifrn-green-800 mb-16 text-center">
-                🎯 Desafios Práticos
+            <h2 class="font-bold text-4xl text-ifrn-green-800 mb-12 text-center">
+                Recursos para Aprender
             </h2>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-300 hover:shadow-xl transition-all">
-                    <div class="text-5xl mb-4">🥉</div>
-                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">
-                        Desafio Bronze
-                    </h3>
-                    <p class="mb-4">Crie seu primeiro repositório completo e suba pro GitHub!</p>
-                    <a href="https://github.com/new" target="_blank"
-                        class="block text-center bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition">
-                        Começar →
-                    </a>
-                </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="https://git-scm.com/doc" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-file-text"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Documentação Git</h3>
+                    <p class="text-sm text-ifrn-green-600">Referência oficial completa</p>
+                </a>
 
-                <div class="bg-purple-50 rounded-2xl p-8 border-2 border-purple-300 hover:shadow-xl transition-all">
-                    <div class="text-5xl mb-4">🥈</div>
-                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">
-                        Desafio Prata
-                    </h3>
-                    <p class="mb-4">Pratique branches e merge. Resolva conflitos!</p>
-                    <button
-                        class="w-full bg-purple-500 text-white font-bold py-3 rounded-lg hover:bg-purple-600 transition">
-                        Ver Repo →
-                    </button>
-                </div>
+                <a href="https://learngitbranching.js.org/?locale=pt_BR" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-game-controller"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Learn Git Branching</h3>
+                    <p class="text-sm text-ifrn-green-600">Aprenda branches jogando</p>
+                </a>
 
-                <div class="bg-yellow-50 rounded-2xl p-8 border-2 border-yellow-400 hover:shadow-xl transition-all">
-                    <div class="text-5xl mb-4">🥇</div>
-                    <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">
-                        Desafio Ouro
-                    </h3>
-                    <p class="mb-4">Trabalhe em equipe! Fork, PR e code review.</p>
-                    <button
-                        class="w-full bg-yellow-500 text-white font-bold py-3 rounded-lg hover:bg-yellow-600 transition">
-                        Em Grupo →
-                    </button>
-                </div>
+                <a href="https://github.com/skills" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-target"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">GitHub Skills</h3>
+                    <p class="text-sm text-ifrn-green-600">Tutoriais interativos oficiais</p>
+                </a>
+
+                <a href="https://ohshitgit.com/pt_BR" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-bug"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Oh Shit, Git!?</h3>
+                    <p class="text-sm text-ifrn-green-600">Soluções para erros comuns</p>
+                </a>
+
+                <a href="https://github.com/git-tips/tips" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-lightbulb"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Git Tips</h3>
+                    <p class="text-sm text-ifrn-green-600">Dicas e truques avançados</p>
+                </a>
+
+                <a href="https://training.github.com/downloads/pt_BR/github-git-cheat-sheet/" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-clipboard-text"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Cheat Sheet</h3>
+                    <p class="text-sm text-ifrn-green-600">Comandos mais usados</p>
+                </a>
+
+                <a href="https://www.conventionalcommits.org/pt-br/" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-git-commit"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Conventional Commits</h3>
+                    <p class="text-sm text-ifrn-green-600">Padrão de mensagens</p>
+                </a>
+
+                <a href="https://gitexplorer.com/" target="_blank"
+                    class="bg-white rounded-xl p-6 shadow-lg border border-ifrn-green-100 card block">
+                    <div class="text-4xl mb-4"><i class="ph-light ph-github-logo"></i></div>
+                    <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Git Explorer</h3>
+                    <p class="text-sm text-ifrn-green-600">Encontre o comando certo</p>
+                </a>
             </div>
-        </div>
-    </section>
 
-    <!-- Quiz -->
-    <section id="quiz" class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="font-display font-bold text-4xl text-ifrn-green-800 mb-6 text-center">
-                🏆 Quiz Final
-            </h2>
-            <p class="text-xl text-center text-ifrn-green-700 mb-16">
-                10 perguntas pra testar seus conhecimentos. Precisa de 70% pra passar!
-            </p>
-
-            <div id="quiz-container" class="bg-white rounded-3xl shadow-xl p-8"></div>
-
-            <div id="quiz-result" class="hidden mt-8 bg-white rounded-3xl shadow-xl p-8 text-center">
-                <div id="result-icon" class="text-8xl mb-6"></div>
-                <h3 class="font-display font-bold text-3xl mb-4" id="result-title"></h3>
-                <p class="text-xl mb-6" id="result-message"></p>
-                <div class="text-5xl font-bold mb-6" id="result-score"></div>
-                <button onclick="restartQuiz()" class="btn-primary text-white font-bold py-4 px-8 rounded-full">
-                    🔄 Tentar Novamente
-                </button>
+            <div class="mt-12 bg-white rounded-xl p-8 border border-ifrn-green-100">
+                <h3 class="font-bold text-2xl text-ifrn-green-800 mb-6 text-center">
+                    Boas Práticas
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-ifrn-green-800 mb-3">Mensagens de Commit</h4>
+                        <ul class="space-y-2 text-sm text-ifrn-green-700">
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Use imperativo: "Adiciona", não
+                                "Adicionado"</li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Seja específico: "Corrige bug no
+                                login" vs "Correções"</li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Limite a 50 caracteres no título
+                            </li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Use convenções como feat:, fix:,
+                                docs:</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-ifrn-green-800 mb-3">Workflow</h4>
+                        <ul class="space-y-2 text-sm text-ifrn-green-700">
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Commits pequenos e frequentes</li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Uma feature = uma branch</li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Sempre pull antes de começar</li>
+                            <li><i class="ph-light ph-check-square mr-2 text-lg"></i> Teste antes de fazer push</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 px-4 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
         <div class="max-w-5xl mx-auto text-center">
-            <div class="text-6xl mb-6">🚀</div>
-            <h2 class="font-display font-bold text-3xl mb-4">
-                Você agora é um Git Master!
+            <h2 class="font-bold text-3xl mb-6">
+                Continue Praticando
             </h2>
-            <p class="text-xl mb-8 max-w-3xl mx-auto opacity-95">
-                Continue praticando, trabalhe em projetos reais e nunca pare de aprender!
+            <p class="text-xl mb-8 opacity-95 max-w-3xl mx-auto">
+                Git e GitHub são habilidades que se aprimoram com a prática constante. Trabalhe em projetos reais,
+                colabore com outras pessoas e nunca pare de aprender.
             </p>
 
-            <div class="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto text-left mb-8">
-                <a href="https://git-scm.com/doc" target="_blank" class="opacity-90 hover:opacity-100">
-                    📖 Documentação Git
-                </a>
-                <a href="https://learngitbranching.js.org/?locale=pt_BR" target="_blank"
-                    class="opacity-90 hover:opacity-100">
-                    🎮 Learn Git Branching
-                </a>
-                <a href="https://github.com/skills" target="_blank" class="opacity-90 hover:opacity-100">
-                    🎯 GitHub Skills
-                </a>
-                <a href="https://ohshitgit.com/pt_BR" target="_blank" class="opacity-90 hover:opacity-100">
-                    🆘 Oh Shit, Git!?
-                </a>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-2">
+                        <i class="ph-thin ph-laptop text-5xl"></i>
+                        <strong class="block mt-3">Projetos Pessoais</strong>
+                    </p>
+                    <p class="text-sm opacity-70">Use Git em TODOS seus projetos</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-2">
+                        <i class="ph-thin ph-users-three text-5xl"></i>
+                        <strong class="block mt-3">Open Source</strong>
+                    </p>
+                    <p class="text-sm opacity-70">Contribua com projetos públicos</p>
+                </div>
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-2xl">
+                    <p class="font-bold text-lg mb-2">
+                        <i class="ph-thin ph-student text-5xl"></i>
+                        <strong class="block mt-3">Estude</strong>
+                    </p>
+                    <p class="text-sm opacity-70">Explore recursos avançados</p>
+                </div>
             </div>
 
-            <div class="border-t border-white border-opacity-20 pt-8">
+            <div class="border-t border-white border-opacity-20 pt-8 mt-12">
+                <p class="text-lg mb-2" id="dados-professor-nome"></p>
+                <p class="mb-2" id="dados-campus-nome"></p>
+                <p class="mb-6" id="dados-curso-periodo"></p>
                 <p class="text-sm opacity-75">
-                    Git & GitHub: Do Zero ao Commit! | IFRN | 2024
+                    Git & GitHub • IFRN • Controle de Versão e Colaboração
                 </p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll
+        // Smooth scroll para âncoras
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', e => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(anchor.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
 
-        // Quiz
-        const questions = [
-            { q: "O que 'git init' faz?", opts: ["Baixa repo", "Inicializa repositório", "Deleta", "Backup"], correct: 1 },
-            { q: "Comando pra salvar mudanças?", opts: ["git save", "git push", "git commit", "git backup"], correct: 2 },
-            { q: "O que é branch?", opts: ["Pasta", "Linha de desenvolvimento", "Arquivo", "Comando"], correct: 1 },
-            { q: "Comando pra enviar pro GitHub?", opts: ["send", "upload", "push", "commit"], correct: 2 },
-            { q: "O que 'git pull' faz?", opts: ["Deleta", "Baixa mudanças", "Cria repo", "Renomeia"], correct: 1 },
-            { q: "Antes de trabalhar em equipe?", opts: ["push", "commit", "pull", "init"], correct: 2 },
-            { q: "O que é Pull Request?", opts: ["Erro", "Pedido pra juntar código", "Comando", "Deletar"], correct: 1 },
-            { q: "Criar E mudar pra branch?", opts: ["git branch", "git new", "git checkout -b", "git create"], correct: 2 },
-            { q: "&lt;&lt;&lt; === &gt;&gt;&gt; significa?", opts: ["Corrompido", "Vírus", "Conflito", "Comentário"], correct: 2 },
-            { q: "Melhor prática em equipe?", opts: ["Commitar na main", "Só push", "Branches por feature", "Commits gigantes"], correct: 2 }
-        ];
+        // Active state navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
 
-        let current = 0, score = 0, answers = [];
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`nav a[href="#${sectionId}"]`);
 
-        function loadQuiz() {
-            const container = document.getElementById('quiz-container');
-            if (current < questions.length) {
-                const q = questions[current];
-                container.innerHTML = `
-                    <p class="text-sm text-gray-600 mb-4">Pergunta ${current + 1}/${questions.length}</p>
-                    <h3 class="font-bold text-2xl mb-8">${q.q}</h3>
-                    <div class="space-y-4">
-                        ${q.opts.map((opt, i) => `
-                            <div class="p-4 rounded-xl border-2 cursor-pointer hover:border-ifrn-green-400 transition" onclick="selectAnswer(${i})">
-                                <label class="cursor-pointer flex items-center">
-                                    <input type="radio" name="answer" value="${i}" class="mr-3">
-                                    <span>${opt}</span>
-                                </label>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <button id="next" class="mt-8 w-full btn-primary text-white font-bold py-4 rounded-full opacity-50" disabled onclick="nextQ()">
-                        ${current === questions.length - 1 ? 'Finalizar' : 'Próxima →'}
-                    </button>
-                `;
-            }
-        }
-
-        function selectAnswer(i) {
-            answers[current] = i;
-            document.getElementById('next').disabled = false;
-            document.getElementById('next').classList.remove('opacity-50');
-        }
-
-        function nextQ() {
-            if (answers[current] === questions[current].correct) score++;
-            current++;
-            current < questions.length ? loadQuiz() : showResult();
-        }
-
-        function showResult() {
-            const pct = (score / questions.length) * 100;
-            const passed = pct >= 70;
-            document.getElementById('quiz-container').style.display = 'none';
-            document.getElementById('quiz-result').classList.remove('hidden');
-            document.getElementById('result-icon').textContent = passed ? '🏆' : '📚';
-            document.getElementById('result-title').textContent = passed ? 'Parabéns!' : 'Quase lá!';
-            document.getElementById('result-message').textContent = passed
-                ? 'Você dominou Git e GitHub!'
-                : 'Revise e tente de novo!';
-            document.getElementById('result-score').textContent = `${score}/${questions.length} (${pct.toFixed(0)}%)`;
-        }
-
-        function restartQuiz() {
-            current = score = 0;
-            answers = [];
-            document.getElementById('quiz-container').style.display = 'block';
-            document.getElementById('quiz-result').classList.add('hidden');
-            loadQuiz();
-        }
-
-        loadQuiz();
+                if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('text-ifrn-red-500');
+                        link.classList.add('text-ifrn-green-700');
+                    });
+                    navLink.classList.remove('text-ifrn-green-700');
+                    navLink.classList.add('text-ifrn-red-500');
+                }
+            });
+        });
     </script>
 </body>
 
