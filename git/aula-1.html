@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 1 — Meu Primeiro Repositório Git | IFRN</title>
+    <meta name="description"
+        content="Aprenda a criar seu primeiro repositório Git, fazer commits e entender o ciclo básico de versionamento.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 280px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 41;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .sidebar.collapsed+.sidebar-toggle {
+            left: 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-item:hover {
+            background: #f9fafb;
+            color: #059669;
+        }
+
+        .sidebar-item.active {
+            background: #ecfdf5;
+            color: #059669;
+            border-left-color: #059669;
+        }
+
+        .sidebar-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-item.active .sidebar-number {
+            background: #059669;
+            color: white;
+        }
+
+        .sidebar-item:hover .sidebar-number {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #2f6b48 0%, #1f4a32 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(47, 107, 72, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .command-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #10b981;
+            border: 1px solid #1e293b;
+        }
+
+        .command-box::before {
+            content: '$ ';
+            color: #34d399;
+            font-weight: bold;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Modo Apresentação */
+        .presentation-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .presentation-mode.active {
+            display: block;
+        }
+
+        .presentation-slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(47, 107, 72, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2f6b48 0%, #10b981 100%);
+            transition: width 0.3s ease;
+            z-index: 10000;
+        }
+
+        /* Checkpoint styles */
+        .checkpoint {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-left: 4px solid #047857;
+        }
+
+        /* Autoavaliação styles */
+        .nivel-box {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nivel-box:hover {
+            transform: scale(1.02);
+        }
+
+        /* Tag verde para práticas */
+        .tag-pratica {
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        /* Checklist styles */
+        input[type="checkbox"] {
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Barra de Progresso (Apresentação) -->
+    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="git-github-refatorado.html"
+                        class="font-bold text-lg text-green-800 hover:text-green-600 transition">← Git & GitHub</a>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#bloco1" class="text-gray-700 hover:text-green-600 transition">Objetivo</a>
+                    <a href="#bloco3" class="text-gray-700 hover:text-green-600 transition">Conceitos</a>
+                    <a href="#bloco5" class="text-gray-700 hover:text-green-600 transition">Prática</a>
+                    <a href="#bloco11" class="text-gray-700 hover:text-green-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão Modo Apresentação (fixo) -->
+    <button onclick="togglePresentation()"
+        class="fixed bottom-6 right-6 z-40 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
+        <i class="ph-light ph-presentation-chart text-3xl"></i><span id="presentation-btn-text"> Modo
+            Apresentação</span>
+    </button>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-green-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-green-100 text-green-800 rounded-full font-semibold text-sm">
+                Nível 1 • Fundamentos • Git
+            </div>
+            <h1 class="font-bold text-4xl md:text-6xl text-gray-900 mb-4">
+                Aula 1 — Meu Primeiro Repositório Git
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Aprenda o ciclo básico: modificar → adicionar → commitar
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-24">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="px-4 mb-4">
+                <h2 class="font-bold text-lg text-gray-900">Navegação da Aula</h2>
+                <p class="text-xs text-gray-500 mt-1">12 seções</p>
+            </div>
+            <nav>
+                <a href="#bloco1" class="sidebar-item" data-section="bloco1">
+                    <div class="sidebar-number">1</div>
+                    <span>Objetivo</span>
+                </a>
+                <a href="#bloco2" class="sidebar-item" data-section="bloco2">
+                    <div class="sidebar-number">2</div>
+                    <span>Conceitos</span>
+                </a>
+                <a href="#bloco3" class="sidebar-item" data-section="bloco3">
+                    <div class="sidebar-number">3</div>
+                    <span>Pré-requisitos</span>
+                </a>
+                <a href="#bloco4" class="sidebar-item" data-section="bloco4">
+                    <div class="sidebar-number">4</div>
+                    <span>Resultado</span>
+                </a>
+                <a href="#bloco5" class="sidebar-item" data-section="bloco5">
+                    <div class="sidebar-number">5</div>
+                    <span>Passo 0</span>
+                </a>
+                <a href="#bloco6" class="sidebar-item" data-section="bloco6">
+                    <div class="sidebar-number">6</div>
+                    <span>Passo 1-2</span>
+                </a>
+                <a href="#bloco7" class="sidebar-item" data-section="bloco7">
+                    <div class="sidebar-number">7</div>
+                    <span>Passo 3-4</span>
+                </a>
+                <a href="#bloco8" class="sidebar-item" data-section="bloco8">
+                    <div class="sidebar-number">8</div>
+                    <span>Passo 5-6</span>
+                </a>
+                <a href="#bloco9" class="sidebar-item" data-section="bloco9">
+                    <div class="sidebar-number">9</div>
+                    <span>Desafio</span>
+                </a>
+                <a href="#bloco10" class="sidebar-item" data-section="bloco10">
+                    <div class="sidebar-number">10</div>
+                    <span>Checklist</span>
+                </a>
+                <a href="#bloco11" class="sidebar-item" data-section="bloco11">
+                    <div class="sidebar-number">11</div>
+                    <span>Autoavaliação</span>
+                </a>
+                <a href="#bloco12" class="sidebar-item" data-section="bloco12">
+                    <div class="sidebar-number">12</div>
+                    <span>Próximos</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Botão Toggle Sidebar -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg id="toggle-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- BLOCO 1: O que você vai fazer -->
+        <section id="bloco1" class="content-block mx-auto mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    1. O que você vai fazer nesta aula
+                </h2>
+                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                    <p>Nesta aula você vai:</p>
+                    <ul class="space-y-3 ml-6">
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Criar uma pasta de projeto no computador</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Transformar essa pasta em um repositório Git</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Criar um arquivo README.md</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-green-600 font-bold">✓</span>
+                            <span>Entender e praticar o ciclo básico: <strong>modificar → adicionar (stage) → commitar
+                                    (save point)</strong></span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
+                        <p class="font-bold text-green-800">🎯 Meta da aula:</p>
+                        <p class="text-gray-700 mt-2">No final, você terá um repositório Git funcionando, com pelo menos
+                            um commit feito por você.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 2: Conceitos-chave -->
+        <section id="bloco2" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-100">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    2. Conceitos-chave (nível de hoje)
+                    <span class="tag-pratica">COLA OFICIAL</span>
+                </h2>
+                <p class="text-gray-600 mb-6">Use essa parte como referência rápida:</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">📁 Repositório</h3>
+                        <p class="text-gray-700">Pasta que o Git monitora</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">💾 Commit</h3>
+                        <p class="text-gray-700">Ponto de salvamento na história do projeto (um "save point")</p>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">📂 Working Directory</h3>
+                        <p class="text-gray-700">Seus arquivos atuais, na pasta do projeto</p>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3">📋 Staging Area</h3>
+                        <p class="text-gray-700">Área de preparação antes do commit. Tudo que vai entrar no commit passa
+                            por aqui</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 3: Pré-requisitos -->
+        <section id="bloco3" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    3. Pré-requisitos
+                </h2>
+                <p class="text-gray-700 mb-6">Antes de começar, verifique:</p>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-4 bg-yellow-50 rounded-xl">
+                        <span class="text-3xl">✅</span>
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">Você tem um terminal ou Prompt de Comando /
+                                PowerShell aberto?</p>
+                            <p class="text-sm text-gray-600">Windows: Busque por "Prompt de Comando" ou "PowerShell"<br>
+                                Mac: Procure por "Terminal" no Spotlight<br>
+                                Linux: Ctrl+Alt+T na maioria das distribuições</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-yellow-50 rounded-xl">
+                        <span class="text-3xl">✅</span>
+                        <div>
+                            <p class="font-bold text-gray-900 mb-2">O Git está instalado?</p>
+                            <p class="text-gray-600 mb-3">Rode no terminal:</p>
+                            <div class="command-box">git --version</div>
+                            <div class="mt-4 space-y-2 text-sm text-gray-600">
+                                <p><strong>Se aparecer um número de versão:</strong> você está pronto! 🎉</p>
+                                <p><strong>Se der erro:</strong> peça ajuda ao professor ou colega, ou volte para a
+                                    seção de instalação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 4: Resultado esperado -->
+        <section id="bloco4" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    4. Resultado esperado da aula
+                </h2>
+                <p class="text-gray-700 mb-6">Ao final, você deve ter:</p>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 p-4 bg-green-50 rounded-xl">
+                        <span class="text-2xl">📁</span>
+                        <div>
+                            <p class="font-bold text-gray-900">Pasta criada</p>
+                            <p class="text-sm text-gray-600">Uma pasta chamada <code
+                                    class="bg-white px-2 py-1 rounded">meu-projeto</code> (ou outro nome)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-green-50 rounded-xl">
+                        <span class="text-2xl">🔧</span>
+                        <div>
+                            <p class="font-bold text-gray-900">Repositório inicializado</p>
+                            <p class="text-sm text-gray-600">Com <code
+                                    class="bg-white px-2 py-1 rounded">git init</code></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-green-50 rounded-xl">
+                        <span class="text-2xl">📄</span>
+                        <div>
+                            <p class="font-bold text-gray-900">Arquivo README.md</p>
+                            <p class="text-sm text-gray-600">Com algum texto dentro</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-green-50 rounded-xl">
+                        <span class="text-2xl">💾</span>
+                        <div>
+                            <p class="font-bold text-gray-900">Pelo menos 1 commit</p>
+                            <p class="text-sm text-gray-600">Com mensagem clara</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-500">
+                    <p class="font-bold text-blue-800">✨ Se isso estiver ok, você bateu a meta da aula!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 5: Passo 0 -->
+        <section id="bloco5" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl p-8 text-white">
+                <div class="flex items-center gap-4 mb-6">
+                    <div
+                        class="w-16 h-16 bg-white text-blue-600 rounded-full flex items-center justify-center font-bold text-2xl">
+                        0
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-3xl">Passo 0 — Escolher onde o projeto vai ficar</h2>
+                        <p class="text-blue-100 text-sm mt-1">Preparação do ambiente</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl">
+                        <p class="mb-4 text-lg">1. Abra o terminal</p>
+                        <p class="mb-4">2. Vá até a pasta onde você quer criar o projeto. Exemplos:</p>
+                        <div class="command-box bg-gray-900 mb-2">cd Documents</div>
+                        <div class="command-box bg-gray-900">cd Desktop</div>
+                        <p class="text-sm text-blue-100 mt-4">💡 Se você não sabe em que pasta está, use <code
+                                class="bg-white bg-opacity-20 px-2 py-1 rounded">pwd</code> (Linux/Mac) ou veja no topo
+                            da janela (Windows).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 6: Passos 1-2 -->
+        <section id="bloco6" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    5. Passo 1 — Criar a pasta do projeto e inicializar o repositório
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <p class="font-bold text-gray-900 mb-4">No terminal, execute:</p>
+                        <div class="space-y-2">
+                            <div class="command-box">mkdir meu-projeto</div>
+                            <div class="command-box">cd meu-projeto</div>
+                            <div class="command-box">git init</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <p class="font-bold text-blue-900 mb-3">🤔 O que aconteceu aqui:</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><code class="bg-white px-2 py-1 rounded">mkdir meu-projeto</code>: cria uma pasta</li>
+                            <li><code class="bg-white px-2 py-1 rounded">cd meu-projeto</code>: entra na pasta</li>
+                            <li><code class="bg-white px-2 py-1 rounded">git init</code>: transforma a pasta em um
+                                repositório Git (o Git começa a monitorar)</li>
+                        </ul>
+                    </div>
+
+                    <div class="checkpoint text-white p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-3">✅ Checkpoint 1</p>
+                        <p class="mb-3">Rode:</p>
+                        <div class="command-box bg-gray-900">git status</div>
+                        <p class="mt-3 text-sm">Se aparecer algo como <em>"On branch master/main"</em> e <em>"No commits
+                                yet"</em>, está tudo certo!</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 2 — Ver o status do repositório</h3>
+                        <p class="text-gray-700 mb-3">Ainda dentro da pasta <code
+                                class="bg-white px-2 py-1 rounded">meu-projeto</code>, rode:</p>
+                        <div class="command-box mb-4">git status</div>
+                        <p class="text-gray-700 mb-2">Observe:</p>
+                        <p class="text-sm text-gray-600">Se não há nenhum arquivo, o Git deve dizer algo como:</p>
+                        <div class="bg-white p-3 rounded mt-2 text-sm text-gray-600 italic border-l-4 border-gray-300">
+                            nothing to commit (create/copy files and use "git add" to track)
+                        </div>
+                        <p class="text-sm text-gray-600 mt-3">Isso significa: você ainda não tem nada para salvar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 7: Passos 3-4 -->
+        <section id="bloco7" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    6. Passo 3 — Criar o primeiro arquivo (README.md)
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="bg-purple-50 p-6 rounded-xl">
+                        <p class="font-bold text-gray-900 mb-4">Agora vamos criar um arquivo simples:</p>
+
+                        <div class="mb-4">
+                            <p class="font-semibold mb-2">Se estiver em Linux/Mac:</p>
+                            <div class="command-box">echo "# Meu Projeto" > README.md</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="font-semibold mb-2">No Windows (PowerShell):</p>
+                            <div class="command-box">echo "# Meu Projeto" > README.md</div>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-700"><strong>Ou:</strong> crie o arquivo manualmente no editor
+                                de texto e salve como <code class="bg-white px-2 py-1 rounded">README.md</code> dentro
+                                da pasta <code class="bg-white px-2 py-1 rounded">meu-projeto</code>.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 p-6 rounded-xl">
+                        <p class="font-bold text-gray-900 mb-3">Depois, rode:</p>
+                        <div class="command-box mb-4">git status</div>
+                        <p class="text-gray-700 mb-2">Você deve ver algo como:</p>
+                        <div class="bg-white p-3 rounded border-l-4 border-red-400">
+                            <p class="text-sm text-gray-600 mb-1">Untracked files:</p>
+                            <p class="text-red-600 font-mono text-sm">README.md</p>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-3">👉 <strong>Isso significa:</strong> o arquivo existe no
+                            Working Directory, mas ainda não está na Staging Area.</p>
+                        <p class="text-sm text-gray-600 mt-2">Arquivos em <span
+                                class="text-red-600 font-bold">vermelho</span> = só no Working Directory</p>
+                    </div>
+
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 4 — Enviar o arquivo para a Staging Area
+                        </h3>
+                        <p class="text-gray-700 mb-3">Agora vamos dizer ao Git: "Esse arquivo entra no próximo commit".
+                        </p>
+                        <div class="command-box mb-4">git add README.md</div>
+                        <p class="text-gray-700 mb-2">Rode de novo:</p>
+                        <div class="command-box mb-4">git status</div>
+                        <p class="text-gray-700 mb-2">Agora o README.md deve aparecer em <span
+                                class="text-green-600 font-bold">verde</span>, na área de "Changes to be committed".</p>
+                        <div class="bg-white p-4 rounded mt-4 border-l-4 border-green-500">
+                            <p class="text-sm text-gray-700"><span class="text-red-600 font-bold">Vermelho</span> = só
+                                no Working Directory</p>
+                            <p class="text-sm text-gray-700"><span class="text-green-600 font-bold">Verde</span> = está
+                                na Staging Area</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 8: Passos 5-6 -->
+        <section id="bloco8" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    7. Passo 5 — Fazer o primeiro commit
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <p class="font-bold text-gray-900 mb-4">Hora de criar o primeiro save point:</p>
+                        <div class="command-box mb-4">git commit -m "Adiciona README inicial"</div>
+                        <p class="text-gray-700 mb-3">Depois, rode:</p>
+                        <div class="command-box mb-4">git status</div>
+                        <p class="text-gray-700 mb-2">Você deve ver algo como:</p>
+                        <div class="bg-white p-3 rounded border-l-4 border-green-500">
+                            <p class="text-sm text-gray-600 italic">nothing to commit, working tree clean</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <p class="font-bold text-gray-900 mb-3">E, se quiser ver o histórico:</p>
+                        <div class="command-box mb-3">git log --oneline</div>
+                        <p class="text-sm text-gray-600">Você deve ver um commit com a mensagem "Adiciona README
+                            inicial".</p>
+                    </div>
+
+                    <div class="checkpoint text-white p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-3">✅ Checkpoint 2</p>
+                        <p class="mb-2">Se você:</p>
+                        <ul class="space-y-1 text-sm ml-4">
+                            <li>✓ Criou o repositório</li>
+                            <li>✓ Criou o README.md</li>
+                            <li>✓ Fez <code class="bg-white bg-opacity-20 px-2 py-1 rounded">git add</code></li>
+                            <li>✓ Fez <code class="bg-white bg-opacity-20 px-2 py-1 rounded">git commit</code></li>
+                        </ul>
+                        <p class="mt-3 font-bold">Então já entendeu o fluxo básico: modificar → adicionar → commitar! 🎉
+                        </p>
+                    </div>
+
+                    <div class="bg-purple-50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 6 — Repetir o ciclo mais uma vez (para
+                            fixar)</h3>
+                        <p class="text-gray-700 mb-4">Agora, edite o arquivo README.md (pode ser no editor de texto) e
+                            adicione mais uma linha, por exemplo:</p>
+                        <div class="bg-white p-4 rounded mb-4 font-mono text-sm border">
+                            # Meu Projeto<br>
+                            Este é meu primeiro repositório usando Git.
+                        </div>
+                        <p class="text-gray-700 mb-3">Depois, no terminal:</p>
+                        <div class="space-y-2">
+                            <div class="command-box">git status # ver que o arquivo mudou</div>
+                            <div class="command-box">git add README.md</div>
+                            <div class="command-box">git commit -m "Atualiza descrição do README"</div>
+                        </div>
+                        <p class="text-gray-700 mt-4 mb-2">Rode:</p>
+                        <div class="command-box mb-3">git log --oneline</div>
+                        <p class="text-sm text-gray-600">Agora você deve ver <strong>dois commits</strong> na história.
+                            🎊</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 9: Mini-desafio -->
+        <section id="bloco9" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-8 text-white">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">🎯</span>
+                    <div>
+                        <h2 class="font-bold text-3xl">8. Mini-desafio final da aula</h2>
+                        <p class="text-orange-100 text-sm mt-1">Teste seu conhecimento SEM copiar o passo a passo</p>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl space-y-4">
+                    <p class="font-bold text-xl mb-4">Tente fazer sozinho:</p>
+                    <ol class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">1.</span>
+                            <span>Criar um novo arquivo <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">anotacoes.txt</code> com algum
+                                texto seu</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">2.</span>
+                            <span>Ver o status com <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git status</code></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">3.</span>
+                            <span>Colocar o arquivo em stage com <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git add anotacoes.txt</code></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">4.</span>
+                            <span>Fazer um commit com uma mensagem clara</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">5.</span>
+                            <span>Conferir no <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git log --oneline</code> se o
+                                commit apareceu</span>
+                        </li>
+                    </ol>
+
+                    <div class="bg-orange-700 bg-opacity-50 p-4 rounded-lg mt-6">
+                        <p class="text-sm">💡 Se você travar, volte nos passos anteriores e tente localizar onde errou
+                            (faltou git add? esqueceu de salvar o arquivo?).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 10: Checklist -->
+        <section id="bloco10" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    9. Checklist de Conclusão
+                </h2>
+                <p class="text-gray-600 mb-6">Marque cada item conforme você completa:</p>
+                <div class="space-y-3">
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Criei a pasta do projeto e inicializei com <code
+                                class="bg-white px-2 py-1 rounded text-sm">git init</code></span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Criei o arquivo README.md com algum texto</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Executei <code
+                                class="bg-white px-2 py-1 rounded text-sm">git add README.md</code> para adicionar à
+                            Staging Area</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Fiz meu primeiro commit com mensagem clara</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Editei o README.md novamente e fiz um segundo commit</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Vi o histórico com <code
+                                class="bg-white px-2 py-1 rounded text-sm">git log --oneline</code></span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Completei o mini-desafio (criar anotacoes.txt e commitar)</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-blue-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Entendo a diferença entre Working Directory, Staging Area e
+                            Commit</span>
+                    </label>
+                </div>
+
+                <div id="checklist-feedback" class="hidden mt-6 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+                    <p class="font-bold text-green-800 text-xl">🎉 Parabéns! Você completou todos os itens!</p>
+                    <p class="text-green-700 mt-2">Você está pronto para a próxima aula.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 11: Autoavaliação -->
+        <section id="bloco11" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    10. Autoavaliação rápida
+                </h2>
+                <p class="text-gray-600 mb-8">Marque mentalmente onde você está:</p>
+
+                <div class="space-y-4">
+                    <div
+                        class="nivel-box bg-gradient-to-r from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                0
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Não consegui</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Não consegui criar o repositório nem fazer o commit sozinho.</p>
+                        <div class="bg-red-200 p-3 rounded text-sm text-red-900">
+                            <strong>👉 Próximo passo:</strong> Refaça a parte de Passo 1 a 5 devagar, linha por linha.
+                        </div>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                1
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Só copiando</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consegui fazer tudo, mas só copiando os comandos sem entender bem.
+                        </p>
+                        <div class="bg-orange-200 p-3 rounded text-sm text-orange-900">
+                            <strong>👉 Próximo passo:</strong> Releia os "Conceitos-chave" e tente explicar cada comando
+                            em voz alta.
+                        </div>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                2
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Com ajuda</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consegui criar o repositório e fazer os commits, mas precisei
+                            olhar o roteiro o tempo todo ou pedir ajuda.</p>
+                        <div class="bg-yellow-200 p-3 rounded text-sm text-yellow-900">
+                            <strong>👉 Próximo passo:</strong> Tente o mini-desafio de novo sem olhar o passo a passo.
+                        </div>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                3
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Sozinho</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo repetir o processo inteiro sem olhar o roteiro (criar
+                            pasta, git init, criar arquivo, git add, git commit).</p>
+                        <div class="bg-green-200 p-3 rounded text-sm text-green-900">
+                            <strong>👉 Próximo passo:</strong> Você está pronto para a próxima aula! 🎉
+                        </div>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                4
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Consigo explicar</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Além de fazer sozinho, sou capaz de explicar para um colega o que
+                            são: Repositório, Commit, Working Directory e Staging Area.</p>
+                        <div class="bg-blue-200 p-3 rounded text-sm text-blue-900">
+                            <strong>👉 Próximo passo:</strong> Você dominou! Considere ajudar colegas que estão em
+                            níveis anteriores. 🏆
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 12: Próximos passos -->
+        <section id="bloco12" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl shadow-xl p-8 text-white">
+                <h2 class="font-bold text-3xl mb-6">
+                    11. Próximos passos (gancho para a próxima aula)
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-3">🎯 Se você concluiu tudo:</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-3">
+                                <span>✓</span>
+                                <span>Guarde essa pasta <code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">meu-projeto</code> — vamos
+                                    reutilizar</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-4">📚 Na próxima aula você vai:</p>
+                        <ul class="space-y-3 ml-4">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">📖</span>
+                                <span>Ler melhor o histórico de commits</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">⏰</span>
+                                <span>Entender como "voltar no tempo"</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl">☁️</span>
+                                <span>Caminhar na direção do GitHub (enviar seu repositório para a nuvem)</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="#"
+                            class="inline-block bg-white text-green-600 font-bold py-4 px-8 rounded-full hover:bg-green-50 transition-all hover:scale-105">
+                            📌 Ir para Aula 2 (em breve)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modo Apresentação -->
+    <div id="presentation-mode" class="presentation-mode">
+        <div id="presentation-content"></div>
+        <div class="slide-number" id="slide-number">1 / 12</div>
+        <div class="fixed bottom-6 left-6 space-x-4 z-50">
+            <button onclick="prevSlide()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ← Anterior
+            </button>
+            <button onclick="nextSlide()"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition">
+                Próximo →
+            </button>
+            <button onclick="togglePresentation()"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ✕ Sair
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-gradient-to-br from-green-800 to-green-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg mb-2">Git & GitHub • IFRN</p>
+            <p class="text-sm opacity-75">Aula 1 — Meu Primeiro Repositório Git</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const mainContent = document.querySelector('.main-content');
+
+        // Load saved sidebar state
+        const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+        if (sidebarCollapsed) {
+            sidebar.classList.add('collapsed');
+            mainContent.classList.add('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+        }
+
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+
+            // Update icon
+            if (isCollapsed) {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+            } else {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+            }
+
+            // Save state
+            localStorage.setItem('sidebar-collapsed', isCollapsed);
+        });
+
+        // Mobile: close sidebar when clicking a link
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+
+        // Scrollspy
+        const sections = document.querySelectorAll('.content-block');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+        function updateActiveSection() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 150; // Offset for better UX
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === currentSection) {
+                    item.classList.add('active');
+
+                    // Auto-scroll sidebar to show active item
+                    if (!sidebar.classList.contains('collapsed')) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            });
+        }
+
+        // Update on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveSection, 50);
+        });
+
+        // Initial update
+        updateActiveSection();
+
+        // Checklist feedback
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        const checklistFeedback = document.getElementById('checklist-feedback');
+
+        // Load saved checklist state
+        checklistItems.forEach((item, index) => {
+            const saved = localStorage.getItem(`checklist-${index}`);
+            if (saved === 'true') {
+                item.checked = true;
+            }
+        });
+
+        checklistItems.forEach((item, index) => {
+            item.addEventListener('change', () => {
+                localStorage.setItem(`checklist-${index}`, item.checked);
+                updateChecklistFeedback();
+            });
+        });
+
+        function updateChecklistFeedback() {
+            const allChecked = Array.from(checklistItems).every(item => item.checked);
+            if (allChecked) {
+                checklistFeedback.classList.remove('hidden');
+            } else {
+                checklistFeedback.classList.add('hidden');
+            }
+        }
+
+        updateChecklistFeedback();
+
+        // Modo Apresentação
+        let currentSlide = 0;
+        const slides = [
+            { title: "Aula 1 — Meu Primeiro Repositório Git", content: document.querySelector('#bloco1').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Conceitos-chave", content: document.querySelector('#bloco2').innerHTML, bg: "from-blue-50 to-white" },
+            { title: "Pré-requisitos", content: document.querySelector('#bloco3').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Resultado Esperado", content: document.querySelector('#bloco4').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Passo 0 — Escolher Pasta", content: document.querySelector('#bloco5').innerHTML, bg: "from-blue-50 to-white" },
+            { title: "Passos 1-2 — Criar e Inicializar", content: document.querySelector('#bloco6').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Passos 3-4 — Arquivo e Staging", content: document.querySelector('#bloco7').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Passos 5-6 — Commit e Repetir", content: document.querySelector('#bloco8').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Mini-desafio Final", content: document.querySelector('#bloco9').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Checklist de Conclusão", content: document.querySelector('#bloco10').innerHTML, bg: "from-blue-50 to-white" },
+            { title: "Autoavaliação", content: document.querySelector('#bloco11').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Próximos Passos", content: document.querySelector('#bloco12').innerHTML, bg: "from-green-50 to-white" }
+        ];
+
+        function togglePresentation() {
+            const presentationMode = document.getElementById('presentation-mode');
+            const isActive = presentationMode.classList.contains('active');
+
+            if (isActive) {
+                presentationMode.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                presentationMode.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                currentSlide = 0;
+                showSlide(currentSlide);
+            }
+        }
+
+        function showSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+            currentSlide = index;
+
+            const slide = slides[index];
+            const presentationContent = document.getElementById('presentation-content');
+
+            presentationContent.innerHTML = `
+                <div class="presentation-slide bg-gradient-to-b ${slide.bg}">
+                    <div class="max-w-5xl mx-auto">
+                        ${slide.content}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('slide-number').textContent = `${index + 1} / ${slides.length}`;
+
+            // Update progress bar
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation in presentation mode
+        document.addEventListener('keydown', (e) => {
+            const presentationMode = document.getElementById('presentation-mode');
+            if (presentationMode.classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    togglePresentation();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
