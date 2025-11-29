@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 4 — Colaboração em Equipe</title>
+    <meta name="description"
+        content="Aprenda o fluxo de trabalho profissional: clonar repositórios, sincronizar com git pull e enviar Pull Requests no GitHub.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons para ícones -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Globais e de Layout da Aula 1 - MANTIDOS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sidebar & Layout Styles */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 280px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 41;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .sidebar.collapsed+.sidebar-toggle {
+            left: 0;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Cores primárias da Aula 4: Yellow (Amarelo) / Amber */
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-item:hover {
+            background: #fffbe6;
+            color: #d97706;
+        }
+
+        .sidebar-item.active {
+            background: #fffdf0;
+            color: #d97706;
+            border-left-color: #d97706;
+        }
+
+        .sidebar-item:hover .sidebar-number {
+            background: #fde68a;
+            color: #d97706;
+        }
+
+        .sidebar-item.active .sidebar-number {
+            background: #d97706;
+            color: white;
+        }
+
+        .sidebar-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        /* Estilo do Terminal */
+        .command-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #fcd34d;
+            /* Amarelo claro para a saída */
+            border: 1px solid #1e293b;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .command-box::before {
+            content: '$ ';
+            color: #fbbf24;
+            /* Amarelo para o prompt */
+            font-weight: bold;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Checkpoint styles (usando amarelo forte/ambar) */
+        .checkpoint {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-left: 4px solid #b45309;
+        }
+
+        /* Tag prática */
+        .tag-pratica {
+            background: #d97706;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        /* Estilos do Modo Apresentação - GARANTIDO display: none */
+        .presentation-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .presentation-mode.active {
+            display: block;
+        }
+
+        .presentation-slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(217, 119, 6, 0.9);
+            /* Ambar */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+            transition: width 0.3s ease;
+            z-index: 10000;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Barra de Progresso (Apresentação) -->
+    <div class="progress-bar" id="progress-bar"
+        style="width: 0%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="#" class="font-bold text-lg text-gray-800 hover:text-yellow-600 transition">← Git &
+                        GitHub</a>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#bloco1" class="text-gray-700 hover:text-yellow-600 transition">Objetivo</a>
+                    <a href="#bloco2" class="text-gray-700 hover:text-yellow-600 transition">Conceitos</a>
+                    <a href="#bloco5" class="text-gray-700 hover:text-yellow-600 transition">Prática</a>
+                    <a href="#bloco9" class="text-gray-700 hover:text-yellow-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão Modo Apresentação (fixo) -->
+    <button onclick="togglePresentation()"
+        class="fixed bottom-6 right-6 z-40 bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
+        <i class="ph-light ph-presentation-chart text-3xl"></i><span id="presentation-btn-text"> Modo
+            Apresentação</span>
+    </button>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-yellow-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full font-semibold text-sm">
+                Nível 4 • Fluxo Profissional • Colaboração
+            </div>
+            <h1 class="font-bold text-4xl md:text-6xl text-gray-900 mb-4">
+                Aula 4 — Colaboração em Equipe
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Aprenda a sincronizar o trabalho, integrar mudanças de colegas e a criar seu primeiro Pull Request (PR).
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-24">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="px-4 mb-4">
+                <h2 class="font-bold text-lg text-gray-900">Navegação da Aula</h2>
+                <p class="text-xs text-gray-500 mt-1">10 seções</p>
+            </div>
+            <nav>
+                <a href="#bloco1" class="sidebar-item" data-section="bloco1">
+                    <div class="sidebar-number">1</div>
+                    <span>Objetivo</span>
+                </a>
+                <a href="#bloco2" class="sidebar-item" data-section="bloco2">
+                    <div class="sidebar-number">2</div>
+                    <span>Conceitos-chave</span>
+                </a>
+                <a href="#bloco3" class="sidebar-item" data-section="bloco3">
+                    <div class="sidebar-number">3</div>
+                    <span>Pré-requisitos</span>
+                </a>
+                <a href="#bloco4" class="sidebar-item" data-section="bloco4">
+                    <div class="sidebar-number">4</div>
+                    <span>Resultado</span>
+                </a>
+                <a href="#bloco5" class="sidebar-item" data-section="bloco5">
+                    <div class="sidebar-number">5</div>
+                    <span>Prática: Clone/Pull</span>
+                </a>
+                <a href="#bloco6" class="sidebar-item" data-section="bloco6">
+                    <div class="sidebar-number">6</div>
+                    <span>Prática: Pull Request</span>
+                </a>
+                <a href="#bloco7" class="sidebar-item" data-section="bloco7">
+                    <div class="sidebar-number">7</div>
+                    <span>Mini-desafio</span>
+                </a>
+                <a href="#bloco8" class="sidebar-item" data-section="bloco8">
+                    <div class="sidebar-number">8</div>
+                    <span>Checklist</span>
+                </a>
+                <a href="#bloco9" class="sidebar-item" data-section="bloco9">
+                    <div class="sidebar-number">9</div>
+                    <span>Autoavaliação</span>
+                </a>
+                <a href="#bloco10" class="sidebar-item" data-section="bloco10">
+                    <div class="sidebar-number">10</div>
+                    <span>Próximos Passos</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Botão Toggle Sidebar -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg id="toggle-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- BLOCO 1: O que você vai fazer -->
+        <section id="bloco1" class="content-block mx-auto mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    1. O que você vai fazer nesta aula
+                </h2>
+                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                    <p>Nesta aula você vai aprender o fluxo de trabalho em equipe:</p>
+                    <ul class="space-y-3 ml-6">
+                        <li class="flex items-start gap-3">
+                            <span class="text-yellow-600 font-bold">✓</span>
+                            <span>Clonar um repositório existente do GitHub usando <code
+                                    class="bg-gray-200 px-2 rounded">git clone</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-yellow-600 font-bold">✓</span>
+                            <span>Sincronizar seu projeto local com as mudanças de outros usando <code
+                                    class="bg-gray-200 px-2 rounded">git pull</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-yellow-600 font-bold">✓</span>
+                            <span>Entender o ciclo de **Pull Request** (PR), a base da colaboração.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-yellow-600 font-bold">✓</span>
+                            <span>Adotar a regra de ouro: **sempre sincronizar** antes de commitar.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                        <p class="font-bold text-yellow-800">🎯 Meta da aula:</p>
+                        <p class="text-gray-700 mt-2">Dominar os comandos necessários para ingressar e contribuir em
+                            qualquer projeto de código aberto ou em equipe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 2: Conceitos-chave -->
+        <section id="bloco2" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    2. Conceitos-chave (nível de hoje)
+                    <span class="tag-pratica bg-green-600">COLA RÁPIDA</span>
+                </h2>
+                <p class="text-gray-600 mb-6">Vocabulário essencial para a colaboração assíncrona:</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-copy text-yellow-600 mr-2"></i>Clone</h3>
+                        <p class="text-gray-700">Ação de **copiar** um repositório remoto para sua máquina local.
+                            Inicializa o Git e baixa os arquivos de uma vez.</p>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-arrow-down text-indigo-600 mr-2"></i>Pull</h3>
+                        <p class="text-gray-700">Ação de **baixar** as últimas mudanças do remote e **aplicá-las**
+                            imediatamente ao seu código local (Fetch + Merge).</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-git-pull-request text-red-600 mr-2"></i>Pull Request (PR)</h3>
+                        <p class="text-gray-700">Uma **proposta formal** de merge no GitHub. Permite revisão de código
+                            antes de ser aceita na branch principal.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-eye text-blue-600 mr-2"></i>Code Review</h3>
+                        <p class="text-gray-700">Processo onde outros desenvolvedores inspecionam o código de um PR para
+                            garantir qualidade, performance e ausência de bugs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Imagem conceitual de PR workflow - CORRIGIDO -->
+        <section class="mb-12">
+            <h3 class="font-bold text-2xl text-gray-900 mb-4 text-center">O Fluxo Profissional (Pull Request Workflow):
+            </h3>
+            <div class="bg-yellow-100 rounded-xl shadow-inner p-6 border-2 border-yellow-300">
+                <div class="text-center py-4">
+                    <i class="ph ph-git-fork text-6xl text-yellow-600 mb-3 block"></i>
+                    <p class="font-bold text-lg text-yellow-800">Fluxo Colaborativo: Branch → Commit → Pull Request →
+                        Merge</p>
+                    <p class="text-sm text-yellow-700 mt-1">O trabalho é isolado em branches e integrado de forma
+                        controlada via Pull Request, garantindo a qualidade da `main`.</p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 3: Pré-requisitos (simplificado) -->
+        <section id="bloco3" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    3. Pré-requisitos
+                </h2>
+                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                        <li>Dominar o ciclo de <code class="bg-white px-1 rounded">commit</code> e <code
+                                class="bg-white px-1 rounded">push</code> (Aula 1 & 2).</li>
+                        <li>Dominar a criação e merge de branches (Aula 3).</li>
+                        <li>Ter uma conta no GitHub ativa e autenticada no terminal.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 4: Resultado esperado -->
+        <section id="bloco4" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    4. Resultado esperado da aula
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-300">
+                        <span class="text-2xl text-yellow-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Projeto Clonado</p>
+                            <p class="text-sm text-gray-600">Copiar um projeto de terceiros para sua máquina.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-300">
+                        <span class="text-2xl text-yellow-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Sincronização Dominada</p>
+                            <p class="text-sm text-gray-600">Uso do <code class="bg-white px-1 rounded">git pull</code>
+                                para atualizar.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-300">
+                        <span class="text-2xl text-yellow-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Fluxo Colaborativo</p>
+                            <p class="text-sm text-gray-600">Entender o passo a passo de um Pull Request.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-300">
+                        <span class="text-2xl text-yellow-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Pronto para Equipe</p>
+                            <p class="text-sm text-gray-600">Pronto para trabalhar em projetos com múltiplos
+                                desenvolvedores.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 5: Prática 1 - Clonando e Puxando -->
+        <section id="bloco5" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    5. Prática: Clonando e Sincronizando
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Clonar o Repositório</h3>
+                <p class="text-gray-700 mb-3">Para entrar em um projeto existente, usamos <code
+                        class="bg-gray-200 px-1 rounded">git clone</code>. Substitua a URL por qualquer repositório
+                    público do GitHub:</p>
+                <div class="command-box">
+                    git clone https://github.com/usuario/nome-do-projeto.git <br>
+                    cd nome-do-projeto
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Isso cria a pasta local e já configura o remote <code
+                        class="bg-gray-200 px-1 rounded">origin</code> automaticamente.</p>
+
+                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Sincronizar (Pull)</h3>
+                <p class="text-gray-700 mb-3">Antes de começar a trabalhar, **sempre** verifique se há atualizações no
+                    remoto:</p>
+                <div class="command-box">git pull origin main</div>
+
+                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500 mt-4">
+                    <p class="font-bold text-yellow-800">⚠️ Regra de Ouro da Colaboração:</p>
+                    <p class="text-sm text-gray-700">SEMPRE faça um <code class="bg-white px-1 rounded">git pull</code>
+                        (ou <code class="bg-white px-1 rounded">git fetch</code> + <code
+                            class="bg-white px-1 rounded">git merge</code>) **antes** de criar uma nova branch ou
+                        começar a commitar. Isso previne conflitos.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOCO 6: Prática 2 - Pull Request (Conceitual) -->
+        <section id="bloco6" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    6. O Fluxo de Pull Request (PR)
+                    <span class="tag-pratica">FLUXO DE TRABALHO</span>
+                </h2>
+
+                <p class="text-gray-700 mb-6">O PR é a maneira como você propõe mudanças a outros. É um processo de 4
+                    etapas:</p>
+
+                <div class="space-y-6">
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">1. Isolar o Trabalho</h4>
+                        <p class="text-gray-700 mb-3">Crie sua branch de feature (ex: <code
+                                class="bg-gray-200 px-1 rounded">feature/checkout</code>) e faça todos os commits nela.
+                        </p>
+                        <div class="command-box">
+                            git checkout -b feature/minha-feature <br>
+                            git push -u origin feature/minha-feature
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">2. Abrir o Pull Request</h4>
+                        <p class="text-gray-700">No GitHub, ao ver o push da sua nova branch, clique em **"Compare &
+                            pull request"**. Descreva as mudanças claramente.</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">3. Code Review</h4>
+                        <p class="text-gray-700">A equipe revisa, comenta e solicita alterações. Você faz mais commits
+                            na sua branch local e faz **`git push`** novamente (o PR é atualizado automaticamente).</p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-300">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">4. Merge e Conclusão</h4>
+                        <p class="text-gray-700">Após a aprovação, o PR é "mergeado" na `main`. Lembre-se de deletar a
+                            branch remota e local para manter a limpeza.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 7: Mini-desafio -->
+        <section id="bloco7" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-8 text-white card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl"><i class="ph ph-lightning-fill text-white"></i></span>
+                    <div>
+                        <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Colaboração</h2>
+                        <p class="text-orange-100 text-sm mt-1">Pratique a sincronização e o envio de código.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl space-y-4">
+                    <p class="font-bold text-xl mb-4">Seu desafio é:</p>
+                    <ol class="space-y-4 text-white">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">1.</span>
+                            <span>Simule uma atualização remota: peço que um colega (ou você mesmo em outra máquina)
+                                faça um pequeno commit no GitHub diretamente na sua <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">main</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">2.</span>
+                            <span>Na sua máquina local, use <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git pull origin main</code> para
+                                trazer essa mudança.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">3.</span>
+                            <span>Crie uma nova feature branch, commite nela e faça <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git push</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">4.</span>
+                            <span>Tente deletar sua branch localmente.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 8: Checklist -->
+        <section id="bloco8" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    8. Checklist de Conclusão
+                </h2>
+                <div class="space-y-3">
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-yellow-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Entendi como o <code
+                                class="bg-white px-2 py-1 rounded text-sm">git clone</code> funciona.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-yellow-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Sei a diferença entre <code
+                                class="bg-white px-2 py-1 rounded text-sm">git push</code> (envia) e <code
+                                class="bg-white px-2 py-1 rounded text-sm">git pull</code> (baixa).</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-yellow-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Conheço o fluxo Pull -> Branch -> Commit -> Push -> PR.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-yellow-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Entendo a importância de fazer Pull antes de começar a codar.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-yellow-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Completei o mini-desafio com sucesso.</span>
+                    </label>
+                </div>
+
+                <div id="checklist-feedback" class="hidden mt-6 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+                    <p class="font-bold text-green-800 text-xl">🎉 Parabéns! Você completou todos os itens!</p>
+                    <p class="text-green-700 mt-2">Você está pronto para a próxima aula.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 9: Autoavaliação -->
+        <section id="bloco9" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    9. Autoavaliação rápida
+                </h2>
+                <p class="text-gray-600 mb-8">Marque mentalmente onde você está:</p>
+                <!-- Níveis 0-4 omitidos para brevidade, mantendo o padrão da Aula 2 -->
+                <div class="space-y-4">
+                    <div
+                        class="nivel-box bg-gradient-to-r from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                0
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Não consegui</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Não consegui clonar um repositório ou não entendi o <code
+                                class="bg-white px-1 rounded">git pull</code>.</p>
+                    </div>
+                    <div
+                        class="nivel-box bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                3
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Sozinho</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo entrar em um projeto existente, atualizar e contribuir com
+                            uma branch sozinho.</p>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                4
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Consigo explicar</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo explicar o fluxo do Pull Request, os benefícios do Code
+                            Review e a diferença entre <code class="bg-white px-1 rounded">pull</code> e <code
+                                class="bg-white px-1 rounded">fetch</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 10: Próximos passos -->
+        <section id="bloco10" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-yellow-700 to-yellow-800 rounded-2xl shadow-xl p-8 text-white card">
+                <h2 class="font-bold text-3xl mb-6">
+                    10. Próximos passos (gancho para a Aula 5)
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-4">📚 Na próxima aula você vai:</p>
+                        <ul class="space-y-3 ml-4">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-arrow-counter-clockwise text-white"></i></span>
+                                <span>Desfazer um commit ou mudar a mensagem (<code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">git amend</code> / <code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">git reset</code>)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-git-fork text-white"></i></span>
+                                <span>Resolver seu primeiro **conflito de merge** na prática.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-magnifying-glass text-white"></i></span>
+                                <span>Usar comandos avançados de histórico (como <code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">git log --graph</code>).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="aula_5_resolvendo_problemas.html"
+                            class="inline-block bg-white text-yellow-600 font-bold py-4 px-8 rounded-full hover:bg-yellow-50 transition-all hover:scale-105">
+                            📌 Ir para Aula 5 (Resolvendo Problemas)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modo Apresentação (JS e Estrutura) -->
+    <div id="presentation-mode" class="presentation-mode">
+        <div id="presentation-content"></div>
+        <div class="slide-number" id="slide-number">1 / 10</div>
+        <div class="fixed bottom-6 left-6 space-x-4 z-50">
+            <button onclick="prevSlide()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ← Anterior
+            </button>
+            <button onclick="nextSlide()"
+                class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition">
+                Próximo →
+            </button>
+            <button onclick="togglePresentation()"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ✕ Sair
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-gradient-to-br from-yellow-800 to-yellow-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg mb-2">Git & GitHub • IFRN</p>
+            <p class="text-sm opacity-75">Aula 4 — Colaboração em Equipe</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const mainContent = document.querySelector('.main-content');
+
+        // Load saved sidebar state - FIX: Garante o estado inicial do sidebar baseado em localStorage
+        const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+        if (sidebarCollapsed) {
+            sidebar.classList.add('collapsed');
+            mainContent.classList.add('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+        } else {
+            sidebar.classList.remove('collapsed');
+            mainContent.classList.remove('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+        }
+
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+
+            // Update icon
+            if (isCollapsed) {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+            } else {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+            }
+
+            // Save state
+            localStorage.setItem('sidebar-collapsed', isCollapsed);
+        });
+
+        // Mobile: close sidebar when clicking a link
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+
+        // Scrollspy
+        const sections = document.querySelectorAll('.content-block');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+        function updateActiveSection() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 150; // Offset for better UX
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === currentSection) {
+                    item.classList.add('active');
+
+                    // Auto-scroll sidebar to show active item
+                    if (!sidebar.classList.contains('collapsed')) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            });
+        }
+
+        // Update on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveSection, 50);
+        });
+
+        // Initial update
+        updateActiveSection();
+
+        // Checklist feedback (Customizado para Aula 4)
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        const checklistFeedback = document.getElementById('checklist-feedback');
+
+        // Load saved checklist state
+        checklistItems.forEach((item, index) => {
+            const saved = localStorage.getItem(`checklist-a4-${index}`);
+            if (saved === 'true') {
+                item.checked = true;
+            }
+        });
+
+        checklistItems.forEach((item, index) => {
+            item.addEventListener('change', () => {
+                localStorage.setItem(`checklist-a4-${index}`, item.checked);
+                updateChecklistFeedback();
+            });
+        });
+
+        function updateChecklistFeedback() {
+            const allChecked = Array.from(checklistItems).every(item => item.checked);
+            if (allChecked) {
+                checklistFeedback.classList.remove('hidden');
+            } else {
+                checklistFeedback.classList.add('hidden');
+            }
+        }
+
+        updateChecklistFeedback();
+
+        // Modo Apresentação (Customizado para Aula 4)
+        let currentSlide = 0;
+        const slides = [
+            { title: "Aula 4 — Colaboração em Equipe", content: document.querySelector('#bloco1').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Conceitos-chave", content: document.querySelector('#bloco2').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Pré-requisitos", content: document.querySelector('#bloco3').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Resultado Esperado", content: document.querySelector('#bloco4').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Prática: Clone/Pull", content: document.querySelector('#bloco5').innerHTML, bg: "from-indigo-50 to-white" },
+            { title: "Prática: Pull Request", content: document.querySelector('#bloco6').innerHTML, bg: "from-red-50 to-white" },
+            { title: "Mini-desafio", content: document.querySelector('#bloco7').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Checklist de Conclusão", content: document.querySelector('#bloco8').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Autoavaliação", content: document.querySelector('#bloco9').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Próximos Passos", content: document.querySelector('#bloco10').innerHTML, bg: "from-yellow-50 to-white" }
+        ];
+
+        function togglePresentation() {
+            const presentationMode = document.getElementById('presentation-mode');
+            const isActive = presentationMode.classList.contains('active');
+
+            if (isActive) {
+                presentationMode.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                presentationMode.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                currentSlide = 0;
+                showSlide(currentSlide);
+            }
+        }
+
+        function showSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+            currentSlide = index;
+
+            const slide = slides[index];
+            const presentationContent = document.getElementById('presentation-content');
+
+            presentationContent.innerHTML = `
+                <div class="presentation-slide bg-gradient-to-b ${slide.bg}">
+                    <div class="max-w-5xl mx-auto">
+                        ${slide.content}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('slide-number').textContent = `${index + 1} / ${slides.length}`;
+
+            // Update progress bar
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation in presentation mode
+        document.addEventListener('keydown', (e) => {
+            const presentationMode = document.getElementById('presentation-mode');
+            if (presentationMode.classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    togglePresentation();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

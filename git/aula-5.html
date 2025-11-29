@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 5 — Resolvendo Problemas e Desfazendo Erros</title>
+    <meta name="description"
+        content="Aprenda a desfazer commits, corrigir mensagens, resolver conflitos de merge e navegar pelo histórico de forma segura.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons para ícones -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Globais e de Layout da Aula 1 - MANTIDOS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sidebar & Layout Styles */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 280px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 41;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .sidebar.collapsed+.sidebar-toggle {
+            left: 0;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Cores primárias da Aula 5: Orange (Laranja) */
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-item:hover {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        .sidebar-item.active {
+            background: #fffcf8;
+            color: #ea580c;
+            border-left-color: #ea580c;
+        }
+
+        .sidebar-item:hover .sidebar-number {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .sidebar-item.active .sidebar-number {
+            background: #ea580c;
+            color: white;
+        }
+
+        .sidebar-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        /* Estilo do Terminal */
+        .command-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #fdba74;
+            /* Laranja suave para a saída */
+            border: 1px solid #1e293b;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .command-box::before {
+            content: '$ ';
+            color: #fb923c;
+            /* Laranja para o prompt */
+            font-weight: bold;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Checkpoint styles (usando laranja forte) */
+        .checkpoint {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-left: 4px solid #c2410c;
+        }
+
+        /* Tag prática */
+        .tag-pratica {
+            background: #ea580c;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        /* Estilos do Modo Apresentação - GARANTIDO display: none */
+        .presentation-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .presentation-mode.active {
+            display: block;
+        }
+
+        .presentation-slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(234, 88, 12, 0.9);
+            /* Laranja */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+            transition: width 0.3s ease;
+            z-index: 10000;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Barra de Progresso (Apresentação) -->
+    <div class="progress-bar" id="progress-bar"
+        style="width: 0%; background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="#" class="font-bold text-lg text-gray-800 hover:text-orange-600 transition">← Git &
+                        GitHub</a>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#bloco1" class="text-gray-700 hover:text-orange-600 transition">Objetivo</a>
+                    <a href="#bloco2" class="text-gray-700 hover:text-orange-600 transition">Conceitos</a>
+                    <a href="#bloco5" class="text-gray-700 hover:text-orange-600 transition">Prática</a>
+                    <a href="#bloco9" class="text-gray-700 hover:text-orange-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão Modo Apresentação (fixo) -->
+    <button onclick="togglePresentation()"
+        class="fixed bottom-6 right-6 z-40 bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
+        <i class="ph-light ph-presentation-chart text-3xl"></i><span id="presentation-btn-text"> Modo
+            Apresentação</span>
+    </button>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-orange-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-orange-100 text-orange-800 rounded-full font-semibold text-sm">
+                Nível 5 • Resolução de Conflitos • Resgate
+            </div>
+            <h1 class="font-bold text-4xl md:text-6xl text-gray-900 mb-4">
+                Aula 5 — Resolvendo Problemas e Desfazendo Erros
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Domine os comandos de emergência para corrigir commits, desfazer erros e resolver conflitos de merge
+                como um profissional.
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-24">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="px-4 mb-4">
+                <h2 class="font-bold text-lg text-gray-900">Navegação da Aula</h2>
+                <p class="text-xs text-gray-500 mt-1">10 seções</p>
+            </div>
+            <nav>
+                <a href="#bloco1" class="sidebar-item" data-section="bloco1">
+                    <div class="sidebar-number">1</div>
+                    <span>Objetivo</span>
+                </a>
+                <a href="#bloco2" class="sidebar-item" data-section="bloco2">
+                    <div class="sidebar-number">2</div>
+                    <span>Conceitos-chave</span>
+                </a>
+                <a href="#bloco3" class="sidebar-item" data-section="bloco3">
+                    <div class="sidebar-number">3</div>
+                    <span>Pré-requisitos</span>
+                </a>
+                <a href="#bloco4" class="sidebar-item" data-section="bloco4">
+                    <div class="sidebar-number">4</div>
+                    <span>Resultado</span>
+                </a>
+                <a href="#bloco5" class="sidebar-item" data-section="bloco5">
+                    <div class="sidebar-number">5</div>
+                    <span>Prática: Corrigindo</span>
+                </a>
+                <a href="#bloco6" class="sidebar-item" data-section="bloco6">
+                    <div class="sidebar-number">6</div>
+                    <span>Prática: Conflitos</span>
+                </a>
+                <a href="#bloco7" class="sidebar-item" data-section="bloco7">
+                    <div class="sidebar-number">7</div>
+                    <span>Mini-desafio</span>
+                </a>
+                <a href="#bloco8" class="sidebar-item" data-section="bloco8">
+                    <div class="sidebar-number">8</div>
+                    <span>Checklist</span>
+                </a>
+                <a href="#bloco9" class="sidebar-item" data-section="bloco9">
+                    <div class="sidebar-number">9</div>
+                    <span>Autoavaliação</span>
+                </a>
+                <a href="#bloco10" class="sidebar-item" data-section="bloco10">
+                    <div class="sidebar-number">10</div>
+                    <span>Conclusão</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Botão Toggle Sidebar -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg id="toggle-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- BLOCO 1: O que você vai fazer -->
+        <section id="bloco1" class="content-block mx-auto mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-orange-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    1. O que você vai fazer nesta aula
+                </h2>
+                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                    <p>Nesta aula de resgate, você vai:</p>
+                    <ul class="space-y-3 ml-6">
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-600 font-bold">✓</span>
+                            <span>Aprender a desfazer commits e corrigir mensagens usando <code
+                                    class="bg-gray-200 px-2 rounded">git reset</code> e <code
+                                    class="bg-gray-200 px-2 rounded">git commit --amend</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-600 font-bold">✓</span>
+                            <span>Identificar e resolver conflitos de merge (a temida **guerra** do Git).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-600 font-bold">✓</span>
+                            <span>Usar o <code class="bg-gray-200 px-2 rounded">git log --graph</code> para visualizar o
+                                histórico de forma avançada.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-600 font-bold">✓</span>
+                            <span>Descartar alterações não salvas de arquivos.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-500">
+                        <p class="font-bold text-orange-800">🎯 Meta da aula:</p>
+                        <p class="text-gray-700 mt-2">Transformar erros em aprendizado, garantindo que você nunca mais
+                            perca trabalho no Git.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 2: Conceitos-chave -->
+        <section id="bloco2" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    2. Conceitos-chave (nível de hoje)
+                    <span class="tag-pratica bg-green-600">COLA RÁPIDA</span>
+                </h2>
+                <p class="text-gray-600 mb-6">Conceitos avançados e comandos de emergência:</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-hand-pointing text-orange-600 mr-2"></i>HEAD</h3>
+                        <p class="text-gray-700">Ponteiro que aponta para o **último commit** na branch atual (o estado
+                            atual do seu repositório).</p>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-x-circle text-indigo-600 mr-2"></i>Conflict Markers</h3>
+                        <p class="text-gray-700">Linhas adicionadas pelo Git (<code
+                                class="bg-white px-2 rounded"><<<</code>, <code
+                                class="bg-white px-2 rounded">===</code>, <code
+                                class="bg-white px-2 rounded">>>></code>) para indicar onde o merge falhou.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-arrows-merge text-red-600 mr-2"></i>git reset</h3>
+                        <p class="text-gray-700">Comando poderoso para **mover o HEAD** para um commit anterior,
+                            desfazendo commits (ex: <code class="bg-white px-2 rounded">--soft</code>, <code
+                                class="bg-white px-2 rounded">--hard</code>).</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-pencil text-blue-600 mr-2"></i>git commit --amend</h3>
+                        <p class="text-gray-700">Permite **editar a mensagem** ou adicionar mais arquivos ao commit mais
+                            recente. Usado para corrigir erros rápidos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Imagem conceitual de reset modes - CORRIGIDO -->
+        <section class="mb-12">
+            <h3 class="font-bold text-2xl text-gray-900 mb-4 text-center">Os Modos do <code
+                    class="bg-gray-200 px-2 rounded">git reset</code>:</h3>
+            <div class="bg-orange-100 rounded-xl shadow-inner p-6 border-2 border-orange-300">
+                <div class="text-center py-4">
+                    <i class="ph ph-arrow-counter-clockwise text-6xl text-orange-600 mb-3 block"></i>
+                    <p class="font-bold text-lg text-orange-800">Visualização Conceitual do Git Reset</p>
+
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 text-center">Entender onde <code
+                    class="bg-gray-200 px-1 rounded">--soft</code>, <code
+                    class="bg-gray-200 px-1 rounded">--mixed</code> e <code
+                    class="bg-gray-200 px-1 rounded">--hard</code> movem os ponteiros (HEAD, Index, Working Directory) é
+                crucial para o resgate.</p>
+        </section>
+
+        <!-- BLOCO 3: Pré-requisitos (simplificado) -->
+        <section id="bloco3" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    3. Pré-requisitos
+                </h2>
+                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                        <li>Dominar o <code class="bg-white px-1 rounded">commit</code> e <code
+                                class="bg-white px-1 rounded">push</code>.</li>
+                        <li>Entender o conceito de <code class="bg-white px-1 rounded">HEAD</code> e como ele aponta
+                            para o último commit.</li>
+                        <li>**Atenção:** Os comandos desta aula são destrutivos. Use com cautela!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 4: Resultado esperado -->
+        <section id="bloco4" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-orange-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    4. Resultado esperado da aula
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-300">
+                        <span class="text-2xl text-orange-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Correção Imediata</p>
+                            <p class="text-sm text-gray-600">Corrigir erros no último commit sem criar um novo.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-300">
+                        <span class="text-2xl text-orange-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Histórico Visualizado</p>
+                            <p class="text-sm text-gray-600">Usar <code
+                                    class="bg-white px-1 rounded">git log --graph</code> para ver branches e merges.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-300">
+                        <span class="text-2xl text-orange-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Conflito Resolvido</p>
+                            <p class="text-sm text-gray-600">Identificar e resolver os markers de conflito manualmente.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-300">
+                        <span class="text-2xl text-orange-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Código Seguro</p>
+                            <p class="text-sm text-gray-600">Capacidade de desfazer alterações antes do commit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 5: Prática 1 - Desfazendo e Corrigindo -->
+        <section id="bloco5" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    5. Prática: Corrigindo o Passado Recente
+                    <span class="tag-pratica">COMANDOS AVANÇADOS</span>
+                </h2>
+
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Corrigindo a Mensagem do Último Commit</h3>
+                <p class="text-gray-700 mb-3">Se você cometeu um erro de digitação na mensagem, use <code
+                        class="bg-gray-200 px-1 rounded">--amend</code>:</p>
+                <div class="command-box">git commit --amend -m "feat: nova mensagem corrigida"</div>
+                <p class="text-sm text-gray-600 mt-2">O Git substitui o commit anterior por este, mantendo seu histórico
+                    limpo.</p>
+
+                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Desfazendo o Último Commit (Soft)</h3>
+                <p class="text-gray-700 mb-3">Se você committou, mas esqueceu de adicionar um arquivo, use <code
+                        class="bg-gray-200 px-1 rounded">--soft</code> para desfazer o commit **mantendo as alterações
+                    na Staging Area**:</p>
+                <div class="command-box">git reset --soft HEAD~1</div>
+                <p class="text-sm text-gray-600 mt-2">O <code class="bg-gray-200 px-1 rounded">HEAD~1</code> indica um
+                    commit antes do atual. Suas mudanças ainda estão salvas, prontas para um novo commit.</p>
+
+                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 3 — Descartando Mudanças Não Commitadas</h3>
+                <p class="text-gray-700 mb-3">Se você alterou um arquivo e quer jogá-lo fora (retornar ao estado do
+                    último commit):</p>
+                <div class="command-box">git checkout -- nome-do-arquivo.txt</div>
+
+                <div class="p-4 bg-red-50 rounded-xl border-l-4 border-red-500 mt-4">
+                    <p class="font-bold text-red-800">🚨 PERIGO - Desfazendo Tudo:</p>
+                    <p class="text-sm text-red-700">O comando <code
+                            class="bg-white px-1 rounded">git reset --hard HEAD~1</code> apaga o commit e **todas as
+                        alterações do seu código local permanentemente**.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOCO 6: Prática 2 - Resolução de Conflitos -->
+        <section id="bloco6" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    6. Resolução Manual de Conflitos (Merge)
+                    <span class="tag-pratica">PRÁTICA CRÍTICA</span>
+                </h2>
+
+                <p class="text-gray-700 mb-6">Conflitos ocorrem quando duas branches alteram a mesma linha de código. O
+                    Git pede sua ajuda para decidir qual manter:</p>
+
+                <div class="space-y-6">
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">1. Identificar o Conflito</h4>
+                        <p class="text-gray-700">Ao tentar um <code class="bg-gray-200 px-1 rounded">git merge</code> ou
+                            <code class="bg-gray-200 px-1 rounded">git pull</code>, o Git para e informa que há um
+                            conflito.</p>
+                        <div class="command-box">git status <span class="text-red-400"># Mostrará arquivos
+                                "unmerged"</span></div>
+
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">2. Resolver no Editor</h4>
+                        <p class="text-gray-700 mb-3">Abra o arquivo conflitante. Você verá as marcações:</p>
+                        <pre class="bg-gray-900 text-red-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <span class="text-gray-300 italic">(Seu código)</span>
+Função de Login V1
+=========<span class="text-gray-300 italic">(Separador)</span>
+Função de Login V2 (do colega)
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/colega</pre>
+                        <p class="text-gray-700 mt-3">Exclua as marcações e mantenha/combine o código que você deseja.
+                        </p>
+                    </div>
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                        <h4 class="font-bold text-xl text-gray-900 mb-3">3. Finalizar o Merge</h4>
+                        <p class="text-gray-700 mb-3">Após editar e salvar o arquivo, diga ao Git que a resolução está
+                            completa:</p>
+                        <div class="command-box">
+                            git add arquivo-conflitante.js <br>
+                            git commit -m "fix: resolve conflito na função de login"
+                        </div>
+                        <p class="text-sm text-gray-600 mt-2">O commit de merge é criado, e o conflito está resolvido!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 7: Mini-desafio -->
+        <section id="bloco7" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-8 text-white card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl"><i class="ph ph-lightning-fill text-white"></i></span>
+                    <div>
+                        <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Resgate</h2>
+                        <p class="text-orange-100 text-sm mt-1">Simule um erro e corrija-o.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl space-y-4">
+                    <p class="font-bold text-xl mb-4">Seu desafio é:</p>
+                    <ol class="space-y-4 text-white">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">1.</span>
+                            <span>Faça um commit com uma mensagem **errada** (ex: "typo: commit inicial").</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">2.</span>
+                            <span>Imediatamente, use <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git commit --amend -m "feat: primeira feature completa"</code>
+                                para corrigi-la.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">3.</span>
+                            <span>Faça um novo commit com a mensagem "fix: adiciona correção que nao funciona".</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">4.</span>
+                            <span>Use <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git reset --soft HEAD~1</code> para
+                                desfazer o último commit (mantendo as alterações).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">5.</span>
+                            <span>Verifique o <code class="bg-white bg-opacity-20 px-2 py-1 rounded">git status</code> e
+                                faça o commit novamente com a mensagem correta.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 8: Checklist -->
+        <section id="bloco8" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-orange-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    8. Checklist de Conclusão
+                </h2>
+                <div class="space-y-3">
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-orange-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Sei usar <code
+                                class="bg-white px-2 py-1 rounded text-sm">git commit --amend</code>.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-orange-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Entendo o que <code
+                                class="bg-white px-2 py-1 rounded text-sm">git reset --soft</code> faz.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-orange-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Consigo identificar os Conflict Markers.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-orange-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Sei descartar alterações não salvas (<code
+                                class="bg-white px-2 py-1 rounded text-sm">git checkout --</code>).</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-orange-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Resolvi o mini-desafio de correção de commit.</span>
+                    </label>
+                </div>
+
+                <div id="checklist-feedback" class="hidden mt-6 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+                    <p class="font-bold text-green-800 text-xl">🎉 Parabéns! Você completou todos os itens!</p>
+                    <p class="text-green-700 mt-2">Você está pronto para o próximo nível.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 9: Autoavaliação -->
+        <section id="bloco9" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    9. Autoavaliação rápida
+                </h2>
+                <p class="text-gray-600 mb-8">Marque mentalmente onde você está:</p>
+                <!-- Níveis 0-4 omitidos para brevidade, mantendo o padrão da Aula 2 -->
+                <div class="space-y-4">
+                    <div
+                        class="nivel-box bg-gradient-to-r from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                0
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Não consegui</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Tenho medo de tentar usar <code
+                                class="bg-white px-1 rounded">git reset</code> e apagar meu código.</p>
+                    </div>
+                    <div
+                        class="nivel-box bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                3
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Sozinho</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo desfazer um commit, corrigir a mensagem e resolver um
+                            conflito simples, seguindo os passos.</p>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                4
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Consigo explicar</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo explicar a diferença entre <code
+                                class="bg-white px-1 rounded">git reset --soft</code> e <code
+                                class="bg-white px-1 rounded">--hard</code> e orientar alguém na resolução de um
+                            conflito.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 10: Próximos passos -->
+        <section id="bloco10" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-orange-700 to-orange-800 rounded-2xl shadow-xl p-8 text-white card">
+                <h2 class="font-bold text-3xl mb-6">
+                    10. Conclusão do Curso: Você Dominou!
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl text-center">
+                        <p class="font-bold text-3xl mb-4">🏆 Missão Cumprida!</p>
+                        <p class="text-xl text-gray-200">Você concluiu os 5 níveis da jornada e agora possui o
+                            conhecimento fundamental para trabalhar com Git e GitHub em qualquer equipe profissional.
+                        </p>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="#"
+                            class="inline-block bg-white text-orange-600 font-bold py-4 px-8 rounded-full hover:bg-orange-50 transition-all hover:scale-105">
+                            ▲ Voltar ao topo e Revisar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modo Apresentação (JS e Estrutura) -->
+    <div id="presentation-mode" class="presentation-mode">
+        <div id="presentation-content"></div>
+        <div class="slide-number" id="slide-number">1 / 10</div>
+        <div class="fixed bottom-6 left-6 space-x-4 z-50">
+            <button onclick="prevSlide()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ← Anterior
+            </button>
+            <button onclick="nextSlide()"
+                class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition">
+                Próximo →
+            </button>
+            <button onclick="togglePresentation()"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ✕ Sair
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-gradient-to-br from-orange-800 to-orange-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg mb-2">Git & GitHub • IFRN</p>
+            <p class="text-sm opacity-75">Aula 5 — Resolvendo Problemas e Desfazendo Erros</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const mainContent = document.querySelector('.main-content');
+
+        // Load saved sidebar state - FIX: Garante o estado inicial do sidebar baseado em localStorage
+        const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+        if (sidebarCollapsed) {
+            sidebar.classList.add('collapsed');
+            mainContent.classList.add('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+        } else {
+            sidebar.classList.remove('collapsed');
+            mainContent.classList.remove('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+        }
+
+
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+
+            // Update icon
+            if (isCollapsed) {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+            } else {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+            }
+
+            // Save state
+            localStorage.setItem('sidebar-collapsed', isCollapsed);
+        });
+
+        // Mobile: close sidebar when clicking a link
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+
+        // Scrollspy
+        const sections = document.querySelectorAll('.content-block');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+        function updateActiveSection() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 150; // Offset for better UX
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === currentSection) {
+                    item.classList.add('active');
+
+                    // Auto-scroll sidebar to show active item
+                    if (!sidebar.classList.contains('collapsed')) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            });
+        }
+
+        // Update on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveSection, 50);
+        });
+
+        // Initial update
+        updateActiveSection();
+
+        // Checklist feedback (Customizado para Aula 5)
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        const checklistFeedback = document.getElementById('checklist-feedback');
+
+        // Load saved checklist state
+        checklistItems.forEach((item, index) => {
+            const saved = localStorage.getItem(`checklist-a5-${index}`);
+            if (saved === 'true') {
+                item.checked = true;
+            }
+        });
+
+        checklistItems.forEach((item, index) => {
+            item.addEventListener('change', () => {
+                localStorage.setItem(`checklist-a5-${index}`, item.checked);
+                updateChecklistFeedback();
+            });
+        });
+
+        function updateChecklistFeedback() {
+            const allChecked = Array.from(checklistItems).every(item => item.checked);
+            if (allChecked) {
+                checklistFeedback.classList.remove('hidden');
+            } else {
+                checklistFeedback.classList.add('hidden');
+            }
+        }
+
+        updateChecklistFeedback();
+
+        // Modo Apresentação (Customizado para Aula 5)
+        let currentSlide = 0;
+        const slides = [
+            { title: "Aula 5 — Resolvendo Problemas", content: document.querySelector('#bloco1').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Conceitos-chave", content: document.querySelector('#bloco2').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Pré-requisitos", content: document.querySelector('#bloco3').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Resultado Esperado", content: document.querySelector('#bloco4').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Prática: Corrigindo", content: document.querySelector('#bloco5').innerHTML, bg: "from-indigo-50 to-white" },
+            { title: "Prática: Conflitos", content: document.querySelector('#bloco6').innerHTML, bg: "from-red-50 to-white" },
+            { title: "Mini-desafio", content: document.querySelector('#bloco7').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Checklist de Conclusão", content: document.querySelector('#bloco8').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Autoavaliação", content: document.querySelector('#bloco9').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Conclusão", content: document.querySelector('#bloco10').innerHTML, bg: "from-orange-50 to-white" }
+        ];
+
+        function togglePresentation() {
+            const presentationMode = document.getElementById('presentation-mode');
+            const isActive = presentationMode.classList.contains('active');
+
+            if (isActive) {
+                presentationMode.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                presentationMode.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                currentSlide = 0;
+                showSlide(currentSlide);
+            }
+        }
+
+        function showSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+            currentSlide = index;
+
+            const slide = slides[index];
+            const presentationContent = document.getElementById('presentation-content');
+
+            presentationContent.innerHTML = `
+                <div class="presentation-slide bg-gradient-to-b ${slide.bg}">
+                    <div class="max-w-5xl mx-auto">
+                        ${slide.content}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('slide-number').textContent = `${index + 1} / ${slides.length}`;
+
+            // Update progress bar
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation in presentation mode
+        document.addEventListener('keydown', (e) => {
+            const presentationMode = document.getElementById('presentation-mode');
+            if (presentationMode.classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    togglePresentation();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

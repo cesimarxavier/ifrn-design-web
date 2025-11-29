@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 3 — Branches: Desenvolvimento Paralelo</title>
+    <meta name="description"
+        content="Aprenda a criar branches, desenvolver features isoladas e integrar o código usando merge, evitando conflitos na linha principal.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons para ícones -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Globais e de Layout da Aula 1 - MANTIDOS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Sidebar & Layout Styles */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 280px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 41;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-toggle:hover {
+            background: #f3f4f6;
+        }
+
+        .sidebar.collapsed+.sidebar-toggle {
+            left: 0;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Cores primárias da Aula 3: Purple (Roxo) */
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-item:hover {
+            background: #f3e8ff;
+            color: #9333ea;
+        }
+
+        .sidebar-item.active {
+            background: #f5f3ff;
+            color: #9333ea;
+            border-left-color: #9333ea;
+        }
+
+        .sidebar-item:hover .sidebar-number {
+            background: #e9d5ff;
+            color: #9333ea;
+        }
+
+        .sidebar-item.active .sidebar-number {
+            background: #9333ea;
+            color: white;
+        }
+
+        .sidebar-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        /* Estilo do Terminal */
+        .command-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: #a78bfa;
+            /* Cor de código suave */
+            border: 1px solid #1e293b;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .command-box::before {
+            content: '$ ';
+            color: #c4b5fd;
+            /* Roxo claro para o prompt */
+            font-weight: bold;
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Checkpoint styles (usando roxo forte) */
+        .checkpoint {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            border-left: 4px solid #6d28d9;
+        }
+
+        /* Tag prática */
+        .tag-pratica {
+            background: #9333ea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        /* Estilos do Modo Apresentação */
+        .presentation-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .presentation-mode.active {
+            display: block;
+        }
+
+        .presentation-slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(147, 51, 234, 0.9);
+            /* Roxo */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%);
+            transition: width 0.3s ease;
+            z-index: 10000;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Barra de Progresso (Apresentação) -->
+    <div class="progress-bar" id="progress-bar"
+        style="width: 0%; background: linear-gradient(90deg, #a855f7 0%, #7c3aed 100%);"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <a href="#" class="font-bold text-lg text-gray-800 hover:text-purple-600 transition">← Git &
+                        GitHub</a>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#bloco1" class="text-gray-700 hover:text-purple-600 transition">Objetivo</a>
+                    <a href="#bloco2" class="text-gray-700 hover:text-purple-600 transition">Conceitos</a>
+                    <a href="#bloco5" class="text-gray-700 hover:text-purple-600 transition">Prática</a>
+                    <a href="#bloco9" class="text-gray-700 hover:text-purple-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão Modo Apresentação (fixo) -->
+    <button onclick="togglePresentation()"
+        class="fixed bottom-6 right-6 z-40 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
+        <i class="ph-light ph-presentation-chart text-3xl"></i><span id="presentation-btn-text"> Modo
+            Apresentação</span>
+    </button>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-50 to-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-4 px-4 py-2 bg-purple-100 text-purple-800 rounded-full font-semibold text-sm">
+                Nível 3 • Branches • Desenvolvimento Paralelo
+            </div>
+            <h1 class="font-bold text-4xl md:text-6xl text-gray-900 mb-4">
+                Aula 3 — Branches: Desenvolvimento Paralelo
+            </h1>
+            <p class="text-xl text-gray-600 mb-8">
+                Aprenda a trabalhar em múltiplas funcionalidades de forma isolada e segura usando <code
+                    class="bg-gray-200 px-2 rounded">git branch</code> e <code
+                    class="bg-gray-200 px-2 rounded">git merge</code>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-24">
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="sidebar">
+            <div class="px-4 mb-4">
+                <h2 class="font-bold text-lg text-gray-900">Navegação da Aula</h2>
+                <p class="text-xs text-gray-500 mt-1">10 seções</p>
+            </div>
+            <nav>
+                <a href="#bloco1" class="sidebar-item" data-section="bloco1">
+                    <div class="sidebar-number">1</div>
+                    <span>Objetivo</span>
+                </a>
+                <a href="#bloco2" class="sidebar-item" data-section="bloco2">
+                    <div class="sidebar-number">2</div>
+                    <span>Conceitos-chave</span>
+                </a>
+                <a href="#bloco3" class="sidebar-item" data-section="bloco3">
+                    <div class="sidebar-number">3</div>
+                    <span>Pré-requisitos</span>
+                </a>
+                <a href="#bloco4" class="sidebar-item" data-section="bloco4">
+                    <div class="sidebar-number">4</div>
+                    <span>Resultado</span>
+                </a>
+                <a href="#bloco5" class="sidebar-item" data-section="bloco5">
+                    <div class="sidebar-number">5</div>
+                    <span>Prática: Branch</span>
+                </a>
+                <a href="#bloco6" class="sidebar-item" data-section="bloco6">
+                    <div class="sidebar-number">6</div>
+                    <span>Prática: Merge</span>
+                </a>
+                <a href="#bloco7" class="sidebar-item" data-section="bloco7">
+                    <div class="sidebar-number">7</div>
+                    <span>Mini-desafio</span>
+                </a>
+                <a href="#bloco8" class="sidebar-item" data-section="bloco8">
+                    <div class="sidebar-number">8</div>
+                    <span>Checklist</span>
+                </a>
+                <a href="#bloco9" class="sidebar-item" data-section="bloco9">
+                    <div class="sidebar-number">9</div>
+                    <span>Autoavaliação</span>
+                </a>
+                <a href="#bloco10" class="sidebar-item" data-section="bloco10">
+                    <div class="sidebar-number">10</div>
+                    <span>Próximos Passos</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Botão Toggle Sidebar -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg id="toggle-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- BLOCO 1: O que você vai fazer -->
+        <section id="bloco1" class="content-block mx-auto mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    1. O que você vai fazer nesta aula
+                </h2>
+                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                    <p>Nesta aula você vai dominar o desenvolvimento paralelo:</p>
+                    <ul class="space-y-3 ml-6">
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>Entender o que são branches e por que elas são essenciais.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>Criar, commitar e alternar entre branches usando <code
+                                    class="bg-gray-200 px-2 rounded">git checkout -b</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>Integrar código de volta à branch principal usando <code
+                                    class="bg-gray-200 px-2 rounded">git merge</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-purple-600 font-bold">✓</span>
+                            <span>Manter o repositório limpo, deletando branches concluídas.</span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-purple-50 rounded-xl border-l-4 border-purple-500">
+                        <p class="font-bold text-purple-800">🎯 Meta da aula:</p>
+                        <p class="text-gray-700 mt-2">Garantir que você consiga desenvolver features isoladas sem afetar
+                            a estabilidade da branch principal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 2: Conceitos-chave -->
+        <section id="bloco2" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    2. Conceitos-chave (nível de hoje)
+                    <span class="tag-pratica bg-green-600">COLA RÁPIDA</span>
+                </h2>
+                <p class="text-gray-600 mb-6">O vocabulário da colaboração e isolamento:</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div
+                        class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-git-branch text-purple-600 mr-2"></i>Branch</h3>
+                        <p class="text-gray-700">Uma linha independente de desenvolvimento. É como duplicar o projeto
+                            para trabalhar em segredo.</p>
+                    </div>
+                    <div
+                        class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-shuffle text-indigo-600 mr-2"></i>Checkout</h3>
+                        <p class="text-gray-700">Ação de **mudar** o seu `HEAD` (ponteiro) de uma branch para outra.
+                            Altera os arquivos na sua pasta.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-arrows-merge text-red-600 mr-2"></i>Merge</h3>
+                        <p class="text-gray-700">Ação de **juntar** o histórico de commits de uma branch para outra.</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                        <h3 class="font-bold text-xl text-gray-900 mb-3"><i
+                                class="ph ph-code-block text-blue-600 mr-2"></i>Feature Branch</h3>
+                        <p class="text-gray-700">Convenção de nomear branches para o desenvolvimento de uma
+                            funcionalidade específica (ex: <code class="bg-white px-2 rounded">feature/carrinho</code>).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Imagem conceitual de branches - CORRIGIDO -->
+        <section class="mb-12">
+            <h3 class="font-bold text-2xl text-gray-900 mb-4 text-center">Como o desenvolvimento paralelo funciona:</h3>
+            <div class="bg-purple-100 rounded-xl shadow-inner p-6 border-2 border-purple-300">
+                <div class="text-center py-4">
+                    <i class="ph ph-git-fork text-6xl text-purple-600 mb-3 block"></i>
+                    <p class="font-bold text-lg text-purple-800">Diagrama Conceitual de Branches</p>
+                    <p class="text-sm text-purple-700 mt-1">O fluxo começa na **main**, se divide em branches de
+                        feature, e se junta no **Merge**.</p>
+
+                </div>
+            </div>
+            <p class="text-sm text-gray-500 mt-3 text-center">Branches se separam da linha principal (<code
+                    class="bg-gray-200 px-1 rounded">main</code>), desenvolvem em paralelo, e se juntam (<code
+                    class="bg-gray-200 px-1 rounded">merge</code>) quando prontas.</p>
+        </section>
+
+
+        <!-- BLOCO 3: Pré-requisitos (simplificado) -->
+        <section id="bloco3" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    3. Pré-requisitos
+                </h2>
+                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                        <li>Ter concluído a Aula 2 (repositório local conectado ao GitHub).</li>
+                        <li>Estar no seu repositório local (<code class="bg-white px-1 rounded">meu-projeto</code>).
+                        </li>
+                        <li>Sua branch principal (<code class="bg-white px-1 rounded">main</code>) deve estar limpa
+                            (<code class="bg-white px-1 rounded">working tree clean</code>).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 4: Resultado esperado -->
+        <section id="bloco4" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-100 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    4. Resultado esperado da aula
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl border-l-4 border-purple-300">
+                        <span class="text-2xl text-purple-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Branch de Feature</p>
+                            <p class="text-sm text-gray-600">Criada e com commits exclusivos.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl border-l-4 border-purple-300">
+                        <span class="text-2xl text-purple-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Merge Bem-sucedido</p>
+                            <p class="text-sm text-gray-600">O código da feature integrado à <code
+                                    class="bg-white px-1 rounded">main</code>.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl border-l-4 border-purple-300">
+                        <span class="text-2xl text-purple-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Histórico Limpo</p>
+                            <p class="text-sm text-gray-600">A branch de feature foi deletada localmente.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-xl border-l-4 border-purple-300">
+                        <span class="text-2xl text-purple-600"><i class="ph ph-check-circle-fill"></i></span>
+                        <div>
+                            <p class="font-bold text-gray-900">Envio Remoto</p>
+                            <p class="text-sm text-gray-600">O novo commit de merge enviado ao GitHub.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 5: Prática 1 - Criando a Branch -->
+        <section id="bloco5" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    5. Prática: Criando e Trabalhando na Branch
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Criar a Nova Branch</h3>
+                <p class="text-gray-700 mb-3">O comando <code class="bg-gray-200 px-1 rounded">checkout -b</code> cria e
+                    já muda você para a nova branch:</p>
+                <div class="command-box">git checkout -b feature/nova-secao</div>
+                <p class="text-sm text-gray-600 mt-2">Você deve ver a confirmação de "Switched to a new branch
+                    'feature/nova-secao'".</p>
+
+                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Fazer o Trabalho e Commitar</h3>
+                <p class="text-gray-700 mb-3">Modifique o seu <code class="bg-gray-200 px-1 rounded">README.md</code>
+                    (ou crie um novo arquivo) e adicione o trabalho:</p>
+                <div class="command-box">
+                    echo "## Nova Seção de Contato" >> README.md <br>
+                    git add README.md <br>
+                    git commit -m "feat: adiciona rascunho da seção de contato"
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Este commit existe **apenas** na sua branch <code
+                        class="bg-gray-200 px-1 rounded">feature/nova-secao</code>.</p>
+
+                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                    <p class="font-bold text-xl mb-3">✅ Checkpoint 1: Visualização do Histórico</p>
+                    <p class="mb-3">Rode no terminal para ver o histórico (você verá o novo commit):</p>
+                    <div class="command-box bg-gray-900">git log --oneline</div>
+                    <p class="mt-3 text-sm">Agora, mude de volta para a main, e verá que o último commit sumiu (pois ele
+                        está apenas na branch!):</p>
+                    <div class="command-box bg-gray-900">git checkout main</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BLOCO 6: Prática 2 - Merge e Limpeza -->
+        <section id="bloco6" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    6. Prática: Integrando o Código (Merge)
+                    <span class="tag-pratica">PRÁTICA</span>
+                </h2>
+
+                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 3 — Unir a Branch (Merge)</h3>
+                <p class="text-gray-700 mb-3">Estando na branch principal (<code
+                        class="bg-gray-200 px-1 rounded">main</code>), puxe o trabalho da sua branch de feature:</p>
+                <div class="command-box">git merge feature/nova-secao</div>
+                <p class="text-sm text-gray-600 mt-2">O Git deve confirmar um "Fast-forward" ou um novo "Merge commit".
+                </p>
+
+                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 4 — Limpar e Enviar</h3>
+                <p class="text-gray-700 mb-3">Se a feature foi integrada com sucesso, a branch de feature não é mais
+                    necessária:</p>
+                <div class="command-box">
+                    git branch -d feature/nova-secao <span class="text-red-400"># Deleta a branch local</span><br>
+                    git push <span class="text-green-400"># Envia o merge para o GitHub</span>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">O comando <code
+                        class="bg-gray-200 px-1 rounded">git branch -d</code> só funciona se o merge foi feito
+                    corretamente. Use <code class="bg-gray-200 px-1 rounded">git branch -D</code> se precisar forçar a
+                    exclusão (CUIDADO!).</p>
+
+                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                    <p class="font-bold text-xl mb-3">✅ Checkpoint 2: Confirmação Final</p>
+                    <p class="mb-3">Se você rodar <code class="bg-gray-200 px-1 rounded">git log --oneline</code> na
+                        `main`, o commit de feature (ou o merge) deve aparecer. Seu repositório local e remoto estão
+                        sincronizados!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 7: Mini-desafio -->
+        <section id="bloco7" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-8 text-white card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl"><i class="ph ph-lightning-fill text-white"></i></span>
+                    <div>
+                        <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Bugfix</h2>
+                        <p class="text-orange-100 text-sm mt-1">Simule o reparo de um erro sem parar o desenvolvimento
+                            principal</p>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl space-y-4">
+                    <p class="font-bold text-xl mb-4">Seu desafio é:</p>
+                    <ol class="space-y-4 text-white">
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">1.</span>
+                            <span>Crie uma nova branch chamada <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">bugfix/ajusta-titulo</code>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">2.</span>
+                            <span>Edite um arquivo qualquer (ex: <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">README.md</code>), commite com a
+                                mensagem "fix: corrige título do readme".</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">3.</span>
+                            <span>Volte para a <code class="bg-white bg-opacity-20 px-2 py-1 rounded">main</code> e faça
+                                o <code class="bg-white bg-opacity-20 px-2 py-1 rounded">git merge</code> da branch de
+                                bugfix.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="font-bold text-xl">4.</span>
+                            <span>Deletar a branch de bugfix e fazer <code
+                                    class="bg-white bg-opacity-20 px-2 py-1 rounded">git push</code>.</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 8: Checklist -->
+        <section id="bloco8" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    8. Checklist de Conclusão
+                </h2>
+                <p class="text-gray-600 mb-6">Marque cada item conforme você completa:</p>
+                <div class="space-y-3">
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Entendo o que é uma branch.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Criei uma branch usando <code
+                                class="bg-white px-2 py-1 rounded text-sm">git checkout -b</code>.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Fiz commits na branch de feature.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Voltei para a main (<code
+                                class="bg-white px-2 py-1 rounded text-sm">git checkout main</code>).</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Integrei o trabalho com <code
+                                class="bg-white px-2 py-1 rounded text-sm">git merge</code>.</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">Deletei a branch local (<code
+                                class="bg-white px-2 py-1 rounded text-sm">git branch -d</code>).</span>
+                    </label>
+                    <label
+                        class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-purple-50 rounded-lg cursor-pointer transition">
+                        <input type="checkbox" class="checklist-item">
+                        <span class="text-gray-700">O commit de merge está no GitHub após o push.</span>
+                    </label>
+                </div>
+
+                <div id="checklist-feedback" class="hidden mt-6 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+                    <p class="font-bold text-green-800 text-xl">🎉 Parabéns! Você completou todos os itens!</p>
+                    <p class="text-green-700 mt-2">Você está pronto para a próxima aula.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 9: Autoavaliação -->
+        <section id="bloco9" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200 card">
+                <h2 class="font-bold text-3xl text-gray-900 mb-6">
+                    9. Autoavaliação rápida
+                </h2>
+                <p class="text-gray-600 mb-8">Marque mentalmente onde você está:</p>
+                <!-- Níveis 0-4 omitidos para brevidade, mantendo o padrão da Aula 2 -->
+                <div class="space-y-4">
+                    <div
+                        class="nivel-box bg-gradient-to-r from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                0
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Não consegui</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Não entendi a diferença entre <code
+                                class="bg-white px-1 rounded">main</code> e a branch de feature.</p>
+                    </div>
+                    <div
+                        class="nivel-box bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                3
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Sozinho</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo repetir o fluxo: criar branch, commitar, mergear e
+                            deletar, sem olhar o roteiro.</p>
+                    </div>
+
+                    <div
+                        class="nivel-box bg-gradient-to-r from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div
+                                class="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-xl">
+                                4
+                            </div>
+                            <h3 class="font-bold text-xl text-gray-900">Consigo explicar</h3>
+                        </div>
+                        <p class="text-gray-700 mb-3">Consigo explicar por que o desenvolvimento em branches é mais
+                            seguro e o que é um "Fast-forward merge".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 10: Próximos passos -->
+        <section id="bloco10" class="content-block mb-12 scroll-mt-32">
+            <div class="bg-gradient-to-br from-purple-700 to-purple-800 rounded-2xl shadow-xl p-8 text-white card">
+                <h2 class="font-bold text-3xl mb-6">
+                    10. Próximos passos (gancho para a Aula 4)
+                </h2>
+                <div class="space-y-6">
+                    <div class="bg-white bg-opacity-10 backdrop-blur p-6 rounded-xl">
+                        <p class="font-bold text-xl mb-4">📚 Na próxima aula você vai:</p>
+                        <ul class="space-y-3 ml-4">
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-copy text-white"></i></span>
+                                <span>Clonar um projeto de terceiros (<code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">git clone</code>)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-arrow-down text-white"></i></span>
+                                <span>Trazer atualizações de outros colaboradores (<code
+                                        class="bg-white bg-opacity-20 px-2 py-1 rounded">git pull</code>)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-2xl"><i class="ph ph-git-fork text-white"></i></span>
+                                <span>Entender o fluxo de Pull Request para colaborar em projetos abertos.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <a href="aula_4_colaboracao.html"
+                            class="inline-block bg-white text-purple-600 font-bold py-4 px-8 rounded-full hover:bg-purple-50 transition-all hover:scale-105">
+                            📌 Ir para Aula 4 (Colaboração em Equipe)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modo Apresentação (JS e Estrutura) -->
+    <div id="presentation-mode" class="presentation-mode">
+        <div id="presentation-content"></div>
+        <div class="slide-number" id="slide-number">1 / 10</div>
+        <div class="fixed bottom-6 left-6 space-x-4 z-50">
+            <button onclick="prevSlide()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ← Anterior
+            </button>
+            <button onclick="nextSlide()"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition">
+                Próximo →
+            </button>
+            <button onclick="togglePresentation()"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition">
+                ✕ Sair
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 bg-gradient-to-br from-purple-800 to-purple-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg mb-2">Git & GitHub • IFRN</p>
+            <p class="text-sm opacity-75">Aula 3 — Branches: Desenvolvimento Paralelo</p>
+        </div>
+    </footer>
+
+    <script>
+        // JS DA AULA 1 (mantido e adaptado para nova cor e checklist ID)
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const toggleIcon = document.getElementById('toggle-icon');
+        const mainContent = document.querySelector('.main-content');
+
+        // Load saved sidebar state
+        const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+        if (sidebarCollapsed) {
+            sidebar.classList.add('collapsed');
+            mainContent.classList.add('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+        } else {
+            // Garante que o estado inicial (aberto) é aplicado imediatamente
+            // Adicionado 'else' block para garantir o estado inicial explícito
+            sidebar.classList.remove('collapsed');
+            mainContent.classList.remove('expanded');
+            toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+        }
+
+
+        sidebarToggle.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+
+            // Update icon
+            if (isCollapsed) {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+            } else {
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+            }
+
+            // Save state
+            localStorage.setItem('sidebar-collapsed', isCollapsed);
+        });
+
+        // Mobile: close sidebar when clicking a link
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    sidebar.classList.remove('mobile-open');
+                });
+            });
+        }
+
+        // Scrollspy
+        const sections = document.querySelectorAll('.content-block');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+        function updateActiveSection() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 150; // Offset for better UX
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === currentSection) {
+                    item.classList.add('active');
+
+                    // Auto-scroll sidebar to show active item
+                    if (!sidebar.classList.contains('collapsed')) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }
+            });
+        }
+
+        // Update on scroll
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateActiveSection, 50);
+        });
+
+        // Initial update
+        updateActiveSection();
+
+        // Checklist feedback (Customizado para Aula 3)
+        const checklistItems = document.querySelectorAll('.checklist-item');
+        const checklistFeedback = document.getElementById('checklist-feedback');
+
+        // Load saved checklist state
+        checklistItems.forEach((item, index) => {
+            const saved = localStorage.getItem(`checklist-a3-${index}`);
+            if (saved === 'true') {
+                item.checked = true;
+            }
+        });
+
+        checklistItems.forEach((item, index) => {
+            item.addEventListener('change', () => {
+                localStorage.setItem(`checklist-a3-${index}`, item.checked);
+                updateChecklistFeedback();
+            });
+        });
+
+        function updateChecklistFeedback() {
+            const allChecked = Array.from(checklistItems).every(item => item.checked);
+            if (allChecked) {
+                checklistFeedback.classList.remove('hidden');
+            } else {
+                checklistFeedback.classList.add('hidden');
+            }
+        }
+
+        updateChecklistFeedback();
+
+        // Modo Apresentação (Customizado para Aula 3)
+        let currentSlide = 0;
+        const slides = [
+            { title: "Aula 3 — Branches: Desenvolvimento Paralelo", content: document.querySelector('#bloco1').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Conceitos-chave", content: document.querySelector('#bloco2').innerHTML, bg: "from-green-50 to-white" },
+            { title: "Pré-requisitos", content: document.querySelector('#bloco3').innerHTML, bg: "from-yellow-50 to-white" },
+            { title: "Resultado Esperado", content: document.querySelector('#bloco4').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Prática: Branch", content: document.querySelector('#bloco5').innerHTML, bg: "from-indigo-50 to-white" },
+            { title: "Prática: Merge", content: document.querySelector('#bloco6').innerHTML, bg: "from-red-50 to-white" },
+            { title: "Mini-desafio", content: document.querySelector('#bloco7').innerHTML, bg: "from-orange-50 to-white" },
+            { title: "Checklist de Conclusão", content: document.querySelector('#bloco8').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Autoavaliação", content: document.querySelector('#bloco9').innerHTML, bg: "from-purple-50 to-white" },
+            { title: "Próximos Passos", content: document.querySelector('#bloco10').innerHTML, bg: "from-purple-50 to-white" }
+        ];
+
+        function togglePresentation() {
+            const presentationMode = document.getElementById('presentation-mode');
+            const isActive = presentationMode.classList.contains('active');
+
+            if (isActive) {
+                presentationMode.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                presentationMode.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                currentSlide = 0;
+                showSlide(currentSlide);
+            }
+        }
+
+        function showSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+            currentSlide = index;
+
+            const slide = slides[index];
+            const presentationContent = document.getElementById('presentation-content');
+
+            presentationContent.innerHTML = `
+                <div class="presentation-slide bg-gradient-to-b ${slide.bg}">
+                    <div class="max-w-5xl mx-auto">
+                        ${slide.content}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('slide-number').textContent = `${index + 1} / ${slides.length}`;
+
+            // Update progress bar
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation in presentation mode
+        document.addEventListener('keydown', (e) => {
+            const presentationMode = document.getElementById('presentation-mode');
+            if (presentationMode.classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevSlide();
+                } else if (e.key === 'Escape') {
+                    togglePresentation();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
