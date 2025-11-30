@@ -9,31 +9,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'display': ['Sora', 'sans-serif'],
-                        'body': ['Work Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        'ifrn-green': {
-                            50: '#e6f2ea',
-                            100: '#c4e2d1',
-                            500: '#2f6b48',
-                            700: '#1f4a32',
-                            800: '#143021',
-                        },
-                        'ifrn-red': {
-                            500: '#e63946',
-                            600: '#d62828',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="../assets/js/script.js"></script>
+
+    <!-- Phosphor Icons para ícones -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
     <style>
         * {
             margin: 0;
@@ -163,120 +142,170 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="#sprint" class="btn-primary text-white font-bold py-5 px-8 rounded-full text-center">
-                    Ver sprint de amanhã →
+                <a href="https://daisyui.com/docs/themes/"
+                    class="btn-primary text-white font-bold py-5 px-8 rounded-full text-center">
+                    Docs de temas DaisyUI <i class="ph-bold ph-arrow-square-out text-lg ml-4"></i>
                 </a>
                 <a href="https://daisyui.com/docs/themes/" target="_blank"
-                    class="btn-secondary font-bold py-5 px-8 rounded-full text-center">
-                    📖 Docs de temas DaisyUI
+                    class="btn-secondary font-bold py-5 px-8 rounded-full text-center hidden">
+                    Ver sprint de amanhã →
                 </a>
             </div>
 
             <!-- Info Cards -->
             <div class="grid md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-                    <div class="text-3xl mb-3">⏱️</div>
+                    <div class="text-3xl mb-3"><i class="ph-light ph-timer"></i></div>
                     <p class="font-bold text-ifrn-green-800 mb-1">Duração</p>
                     <p class="text-sm text-ifrn-green-700">2 aulas (A37–A38)</p>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-                    <div class="text-3xl mb-3">🎯</div>
+                    <div class="text-3xl mb-3"><i class="ph-light ph-crosshair"></i></div>
                     <p class="font-bold text-ifrn-green-800 mb-1">Foco</p>
                     <p class="text-sm text-ifrn-green-700">Customização + Consistência</p>
                 </div>
                 <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-200">
-                    <div class="text-3xl mb-3">📊</div>
+                    <div class="text-3xl mb-3"><i class="ph-light ph-stairs"></i></div>
                     <p class="font-bold text-ifrn-green-800 mb-1">Bloom</p>
                     <p class="text-sm text-ifrn-green-700">Aplicar / Analisar</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Intenção de Aprendizagem -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="text-4xl">🎯</div>
-                    <div>
-                        <h2 class="font-display font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
-                        <p class="text-xl opacity-95 leading-relaxed">
-                            Customizar temas do DaisyUI e sobrescrever componentes sem perder consistência visual. Você
-                            vai criar um sistema coerente que funciona em múltiplas telas.
-                        </p>
+            <!-- Intenção de Aprendizagem -->
+            <section class="my-12">
+                <div class="mx-auto">
+                    <div
+                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl"><i class="ph-light ph-target"></i></div>
+                            <div>
+                                <h2 class="font-display font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
+                                <p class="text-xl opacity-95 leading-relaxed">
+                                    Customizar temas do DaisyUI e sobrescrever componentes sem perder consistência
+                                    visual. Você
+                                    vai criar um sistema coerente que funciona em múltiplas telas.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
+
     </section>
 
-    <!-- Critérios de Sucesso -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-purple-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
-                ✅ Critérios de Sucesso
-            </h2>
-            <p class="text-ifrn-green-700 mb-6">
-                Marque conforme dominar cada aspecto:
-            </p>
 
-            <div class="space-y-3">
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Tema ativado:</strong> Ativei um tema coerente no projeto que reflete identidade visual
-                        clara.
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Tokens customizados:</strong> Ajustei tokens visuais (cores primárias/neutras, base
-                        colors, border-radius).
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Override inteligente:</strong> Sobrescrevi um componente DaisyUI usando Tailwind sem
-                        quebrar o padrão.
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Consistência multi-tela:</strong> Minha UI mantém consistência visual em mais de uma
-                        tela.
-                    </span>
-                </label>
-            </div>
-        </div>
-    </section>
 
     <!-- Conceito Rápido -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-5xl mx-auto space-y-20">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                💡 Conceito Rápido
+                Conceito rápido
             </h2>
+
+            <section
+                class="py-16 rounded-2xl px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-700 to-ifrn-green-800 text-white">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="font-display font-bold text-4xl mb-6">
+                            Sistemas de design
+                        </h2>
+                        <p class="text-2xl opacity-95 mb-6">
+                            Antes de começar, precisamos entender algumas coisas.
+                        </p>
+                        <p class="text-lg opacity-90 max-w-2xl mx-auto">
+                            A organização dos projetos visuais acontecem da seguinte forma: design system → tokens →
+                            tema → Tailwind como base → DaisyUI como camada de componentes temáticos.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">Design System</p>
+                            <p class="text-sm opacity-90">regras, componentes e padrões visuais</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">Tokens de Design</p>
+                            <p class="text-sm opacity-90">valores atômicos do design system</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">Tema (Theme)</p>
+                            <p class="text-sm opacity-90">pacote de tokens aplicado em um contexto</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">Tailwind CSS</p>
+                            <p class="text-sm opacity-90">framework utilitário</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">DaisyUI</p>
+                            <p class="text-sm opacity-90">camada de componentes + temas em cima do Tailwind</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-6 text-center">
+                            <p class="font-bold text-lg mb-2">CSS Variables e Temas</p>
+                            <p class="text-sm opacity-90">CSS variables com valores diferentes</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="py-12 px-4 sm:px-6 lg:px-8 bg-ifrn-green-50">
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-ifrn-green-700 mb-6">
+                        Como cada um funciona?
+                    </p>
+
+                    <div
+                        class="space-y-6 items-start p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer mt-5">
+                        <label class="checkbox-item flex items-start gap-4 bg-white rounded-xl cursor-pointer">
+                            <span class="text-ifrn-green-800">
+                                <strong class="block mb-4">Design System:</strong> Conjunto organizado de regras,
+                                componentes e padrões visuais para garantir que o produto não pareça um "Frankenstein".
+                                Ajuda a manter a consistência e identidade visual.
+                            </span>
+                        </label>
+                        <ul class="mt-4 p-4 border border-ifrn-green-500 rounded bg-ifrn-green-50 space-y-2">
+                            <li>Inclui: paleta de cores, tipografia, espaçamentos, componentes (botões, cards, inputs).
+                            </li>
+                            <li>Objetivo: consistência e reuso, não “criatividade infinita por tela”.</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="space-y-6 items-start p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer mt-5">
+                        <label class="checkbox-item flex items-start gap-4 bg-white rounded-xl cursor-pointer">
+                            <span class="text-ifrn-green-800">
+                                <strong class="block mb-4">Tokens de Design:</strong> São os valores atômicos do design
+                                system.
+                            </span>
+                        </label>
+                        <ul class="mt-4 p-4 border border-ifrn-green-500 rounded bg-ifrn-green-50 space-y-2">
+                            <li>Exemplos: primary-color, border-radius-sm, spacing-md.</li>
+                            <li>Na prática viram variáveis (CSS, JSON etc.).</li>
+                            <li>Ideia: mudar o token, o sistema inteiro acompanha. Sem caça às bruxas no CSS.</li>
+                        </ul>
+                    </div>
+                    <div
+                        class="space-y-6 items-start p-5 bg-white rounded-xl border-2 border-ifrn-green-200 cursor-pointer mt-5">
+                        <label class="checkbox-item flex items-start gap-4 bg-white rounded-xl cursor-pointer">
+                            <span class="text-ifrn-green-800">
+                                <strong class="block mb-4">Tema (Theme):</strong> Tema = pacote de tokens aplicado em um
+                                contexto.
+                            </span>
+                        </label>
+                        <ul class="mt-4 p-4 border border-ifrn-green-500 rounded bg-ifrn-green-50 space-y-2">
+                            <li>Tema claro vs. tema escuro = mesmo layout, tokens de cor diferentes.</li>
+                            <li>Em DaisyUI: um tema é uma combinação de variáveis (cores principalmente) aplicada via
+                                data-theme.</li>
+                            <li>Em ambiente corporativo: tema ≈ identidade visual da marca (ou variações dela).</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <div
                     class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border-2 border-blue-300 card-hover">
-                    <div class="text-4xl mb-4">🎨</div>
                     <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">Tema</h3>
                     <p class="text-ifrn-green-700 text-lg mb-4">
                         Define identidade global do projeto.
@@ -294,14 +323,13 @@
                     </div>
                     <div class="mt-4 bg-blue-200 bg-opacity-50 p-4 rounded-xl">
                         <p class="text-sm font-semibold text-blue-800">
-                            💡 Uma vez configurado, todos os componentes seguem automaticamente.
+                            Uma vez configurado, todos os componentes seguem automaticamente.
                         </p>
                     </div>
                 </div>
 
                 <div
                     class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 border-2 border-purple-300 card-hover">
-                    <div class="text-4xl mb-4">🔧</div>
                     <h3 class="font-display font-bold text-2xl text-ifrn-green-800 mb-4">Override</h3>
                     <p class="text-ifrn-green-700 text-lg mb-4">
                         Ajuste pontual sem quebrar o padrão.
@@ -319,7 +347,7 @@
                     </div>
                     <div class="mt-4 bg-purple-200 bg-opacity-50 p-4 rounded-xl">
                         <p class="text-sm font-semibold text-purple-800">
-                            ⚠️ Use com critério. Override demais = bagunça.
+                            Use com critério. Override demais = bagunça.
                         </p>
                     </div>
                 </div>
@@ -327,7 +355,6 @@
 
             <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl">
                 <div class="flex items-start gap-4">
-                    <div class="text-3xl">📐</div>
                     <div>
                         <p class="font-bold text-yellow-800 mb-2">Regra de Ouro:</p>
                         <p class="text-yellow-700 text-lg">
@@ -340,11 +367,49 @@
         </div>
     </section>
 
+    <!-- GitHub CLI -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50/70">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
+                Vamos pra prática
+            </h2>
+
+            <p class="text-lg text-ifrn-green-700 mb-10">
+                Nossa missão de hoje é criar um tema customizado inspirado na identidade IFRN. Mas para isso, vamos
+                criar nossa nova branch.
+
+                <strong class="block mt-5 text-ifrn-red-500">Siga os passos abaixo.</strong>
+            </p>
+
+            <div class="bg-gray-900 rounded-2xl p-8 mb-6">
+                <p class="text-gray-300 mb-4 font-semibold">
+                    Crie uma branch nova pra essa integração de telas:
+                </p>
+                <div class="code-block text-sm space-y-2">
+                    <div><span class="text-green-400">$</span> git checkout -b semana10-daisyui-integracao</div>
+                    <div><span class="text-green-400">$</span> git add .</div>
+                    <div><span class="text-green-400">$</span> git commit -m "feat: cria tema custom e estrutura de
+                        telas"
+                    </div>
+                    <div><span class="text-green-400">$</span> git push -u origin semana10-daisyui-integracao</div>
+                </div>
+            </div>
+
+            <div class="bg-ifrn-green-100 text-ifrn-green-800 p-6">
+                <p class="font-bold mb-2">Estratégia:</p>
+                <p>
+                    Commite o tema customizado hoje. Amanhã você adiciona as telas integradas na mesma branch. A tarefa
+                    de amanhã depende da que faremos hoje.
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Demo Guiada -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-50 to-white">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-4">
-                👨‍💻 Demo Guiada: Criando Tema IFRN-like
+                Vamos pra prática: Criando Tema IFRN-like
             </h2>
             <p class="text-lg text-ifrn-green-700 mb-10">
                 Vamos criar um tema customizado inspirado na identidade IFRN. Siga os passos:
@@ -397,7 +462,7 @@
                         </div>
                         <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
                             <p class="text-sm text-green-800">
-                                ✅ Cores nomeadas semanticamente facilitam manutenção
+                                Cores nomeadas semanticamente facilitam manutenção
                             </p>
                         </div>
                     </div>
@@ -424,7 +489,7 @@
                         </p>
                         <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
                             <p class="text-sm text-blue-800">
-                                💡 <strong>Dica:</strong> Você pode ter múltiplos temas e trocar via JavaScript
+                                <strong>Dica:</strong> Você pode ter múltiplos temas e trocar via JavaScript
                             </p>
                         </div>
                     </div>
@@ -465,7 +530,7 @@
 
                         <div class="mt-4 bg-purple-50 p-4 rounded-xl border-l-4 border-purple-500">
                             <p class="text-sm text-purple-800">
-                                🎨 Classes DaisyUI + Tailwind = controle total
+                                Classes DaisyUI + Tailwind = controle total
                             </p>
                         </div>
                     </div>
@@ -484,7 +549,7 @@
 
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="bg-gray-50 p-4 rounded-xl">
-                                <p class="font-semibold text-ifrn-green-800 mb-3">🎨 Contraste</p>
+                                <p class="font-semibold text-ifrn-green-800 mb-3">Contraste</p>
                                 <ul class="space-y-2 text-sm text-ifrn-green-700">
                                     <li>• Texto sobre backgrounds legível</li>
                                     <li>• CTAs se destacam</li>
@@ -494,7 +559,7 @@
                             </div>
 
                             <div class="bg-gray-50 p-4 rounded-xl">
-                                <p class="font-semibold text-ifrn-green-800 mb-3">📱 Responsividade</p>
+                                <p class="font-semibold text-ifrn-green-800 mb-3">Responsividade</p>
                                 <ul class="space-y-2 text-sm text-ifrn-green-700">
                                     <li>• Mobile (375px) funcional</li>
                                     <li>• Tablet (768px) aproveitado</li>
@@ -506,7 +571,7 @@
 
                         <div class="mt-4 bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
                             <p class="text-sm text-yellow-800">
-                                ⚠️ Use ferramentas como <a href="https://webaim.org/resources/contrastchecker/"
+                                Use ferramentas como <a href="https://webaim.org/resources/contrastchecker/"
                                     class="font-semibold underline" target="_blank">WebAIM Contrast Checker</a>
                             </p>
                         </div>
@@ -520,7 +585,7 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-4">
-                📐 Padrão de Consistência entre Telas
+                Padrão de Consistência entre Telas
             </h2>
             <p class="text-lg text-ifrn-green-700 mb-8">
                 Para um produto parecer profissional, esses elementos precisam ser idênticos em todas as telas:
@@ -529,7 +594,6 @@
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div
                     class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border-2 border-blue-200 card-hover">
-                    <div class="text-3xl mb-3">📝</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Escala Tipográfica</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Mesmos tamanhos de fonte (H1, H2, body) em todas as páginas
@@ -538,7 +602,6 @@
 
                 <div
                     class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border-2 border-green-200 card-hover">
-                    <div class="text-3xl mb-3">📏</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Grid System</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Mesma estrutura de colunas e containers em todo o layout
@@ -547,7 +610,6 @@
 
                 <div
                     class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border-2 border-purple-200 card-hover">
-                    <div class="text-3xl mb-3">🧭</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Navegação</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Navbar idêntico, mesma hierarquia de links e posicionamento
@@ -556,7 +618,6 @@
 
                 <div
                     class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 border-2 border-red-200 card-hover">
-                    <div class="text-3xl mb-3">🎯</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">CTAs</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Botões primários sempre na mesma cor e tamanho relativo
@@ -565,7 +626,6 @@
 
                 <div
                     class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border-2 border-yellow-200 card-hover">
-                    <div class="text-3xl mb-3">📦</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Densidade Spacing</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Mesmos valores de padding/margin entre seções e componentes
@@ -574,7 +634,6 @@
 
                 <div
                     class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 border-2 border-pink-200 card-hover">
-                    <div class="text-3xl mb-3">🎨</div>
                     <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">Paleta</h3>
                     <p class="text-sm text-ifrn-green-700">
                         Cores usadas de forma consistente (primary, accent, neutrals)
@@ -583,7 +642,7 @@
             </div>
 
             <div class="mt-8 bg-gradient-to-r from-ifrn-green-800 to-ifrn-green-700 rounded-2xl p-8 text-white">
-                <p class="font-bold text-xl mb-3">✅ Checklist de Consistência</p>
+                <p class="font-bold text-xl mb-3"><i class="ph-light ph-list-checks"></i> Checklist de Consistência</p>
                 <p class="text-lg opacity-95">
                     Antes de commitar cada tela, abra side-by-side e confirme que esses 6 elementos estão alinhados. Se
                     não estão, não é produto — é protótipo.
@@ -596,7 +655,7 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-purple-50">
         <div class="max-w-4xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                🐙 GitHub CLI — Nova Branch
+                GitHub CLI — Nova Branch
             </h2>
 
             <div class="bg-gray-900 rounded-2xl p-8 mb-6">
@@ -618,6 +677,61 @@
                     Commite o tema customizado hoje. Amanhã você adiciona as telas integradas na mesma branch. PR final
                     fecha a semana 10.
                 </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Critérios de Sucesso -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-purple-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
+                <i class="ph-light ph-check-square"></i> Critérios de Sucesso
+            </h2>
+            <p class="text-ifrn-green-700 mb-6">
+                Marque conforme dominar cada aspecto:
+            </p>
+
+            <div class="space-y-3">
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Tema ativado:</strong> Ativei um tema coerente no projeto que reflete identidade visual
+                        clara.
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Tokens customizados:</strong> Ajustei tokens visuais (cores primárias/neutras, base
+                        colors, border-radius).
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Override inteligente:</strong> Sobrescrevi um componente DaisyUI usando Tailwind sem
+                        quebrar o padrão.
+                    </span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-purple-200 cursor-pointer">
+                    <input type="checkbox"
+                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
+                    <span class="text-ifrn-green-800">
+                        <strong>Consistência multi-tela:</strong> Minha UI mantém consistência visual em mais de uma
+                        tela.
+                    </span>
+                </label>
             </div>
         </div>
     </section>
@@ -704,7 +818,7 @@
             </div>
 
             <div class="mt-8 bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                <p class="font-bold text-red-800 mb-2">⚠️ Importante:</p>
+                <p class="font-bold text-red-800 mb-2"><i class="ph-light ph-warning text-xl"></i> Importante:</p>
                 <p class="text-red-700">
                     Amanhã isso vira entregável. Planeje hoje com clareza = execução rápida amanhã.
                 </p>
@@ -716,7 +830,7 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-purple-50">
         <div class="max-w-4xl mx-auto">
             <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
-                📊 Mini-Autoavaliação
+                <i class="ph-bold ph-list-checks"></i> Mini-Autoavaliação
             </h2>
             <p class="text-ifrn-green-700 mb-8">
                 Como você se sente em relação ao tema e customização?
@@ -776,10 +890,10 @@
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-8">
                 <h2 class="font-display font-bold text-4xl mb-6">
-                    ⚡ Amanhã é Sprint Day
+                    <i class="ph-light ph-lightning"></i> Amanhã é <i>sprint day</i>
                 </h2>
                 <p class="text-2xl opacity-95 mb-4">
-                    Se o tema estiver frouxo hoje, amanhã vira Frankenstein.
+                    Se o tema estiver bem organizado hoje, amanhã vira não conseguirá evoluir.
                 </p>
                 <p class="text-xl opacity-90">
                     Ajusta agora e ganha tempo depois.
@@ -789,7 +903,9 @@
             <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8">
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <p class="font-bold text-lg mb-2">✅ Checklist pra Dormir Tranquilo:</p>
+                        <p class="font-bold text-lg mb-2"><i class="ph-light ph-check-square-offset mr-2"></i>Checklist
+                            para dormir
+                            tranquilo:</p>
                         <ul class="space-y-2 text-sm opacity-95">
                             <li>• Tema IFRN configurado</li>
                             <li>• Testado em 2+ componentes</li>
@@ -799,7 +915,7 @@
                         </ul>
                     </div>
                     <div>
-                        <p class="font-bold text-lg mb-2">🚀 Amanhã Você Vai:</p>
+                        <p class="font-bold text-lg mb-2"><i class="ph-light ph-rocket mr-2"></i> Amanhã Você Vai:</p>
                         <ul class="space-y-2 text-sm opacity-95">
                             <li>• Construir 2-3 telas integradas</li>
                             <li>• Aplicar tema em tudo</li>
@@ -809,17 +925,12 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="bg-yellow-500 bg-opacity-20 rounded-xl p-4 border-2 border-yellow-400 text-center">
-                    <p class="font-bold text-lg">
-                        💪 A diferença entre estudante e profissional é consistência.
-                    </p>
-                </div>
             </div>
 
             <div class="mt-12 pt-8 border-t border-white border-opacity-20 text-center">
                 <p class="text-sm opacity-75">
-                    Design Web | IFRN | Semana 10 — Dia 1
+                    <a href="../design-web-disciplina.html" class="hover:underline">Design Web</a> | IFRN | Semana 10 —
+                    Dia 1
                 </p>
             </div>
         </div>
