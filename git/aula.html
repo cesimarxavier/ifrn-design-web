@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Carregando Aula...</title>
+    <meta name="description" content="Template genérico para aulas do curso Git & GitHub.">
+    <!-- Tailwind CDN para classes utilitárias -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS CUSTOMIZADO (LÓGICA style.css) -->
+    <style>
+        /* Estilos de Reset e Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f9fafb;
+        }
+
+        /* Componentes de Layout Fixos */
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 64px);
+            background: white;
+            border-right: 2px solid #e5e7eb;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            z-index: 40;
+            overflow-y: auto;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-280px);
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            top: 80px;
+            left: 280px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 41;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.collapsed+.sidebar-toggle {
+            left: 0;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Estilos de Base da Sidebar (Cores dinâmicas aplicadas via JS) */
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        /* Estilo do Terminal (Cores dinâmicas aplicadas via JS) */
+        .command-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #1e293b;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .command-box::before {
+            content: '$ ';
+            font-weight: bold;
+        }
+
+        /* Estilos do Modo Apresentação */
+        .presentation-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .presentation-mode.active {
+            display: block;
+        }
+
+        .presentation-slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-280px);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .sidebar-toggle {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Classes Dinâmicas injetadas pelo JS (ex: .bg-custom-main-600, .text-custom-main-600) */
+        /* Estas classes são definidas via JavaScript para carregar as cores do tema. */
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Barra de Progresso (Renderizada por JS) -->
+    <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+
+    <!-- Navbar (Genérica) -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div>
+                    <!-- Link para a primeira aula, iniciando a navegação -->
+                    <a href="aula_unica.html?aula=1"
+                        class="font-bold text-lg text-gray-800 hover:text-custom-main-600 transition">← Git & GitHub</a>
+                </div>
+                <!-- Links de navegação principais (Scrollspy) -->
+                <div class="hidden md:flex space-x-6 text-sm">
+                    <a href="#bloco1" class="text-gray-700 hover:text-custom-main-600 transition">Objetivo</a>
+                    <a href="#bloco2" class="text-gray-700 hover:text-custom-main-600 transition">Conceitos</a>
+                    <a href="#bloco5" class="text-gray-700 hover:text-custom-main-600 transition">Prática</a>
+                    <a href="#bloco9" class="text-gray-700 hover:text-custom-main-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botão Modo Apresentação (fixo) -->
+    <button onclick="togglePresentation()"
+        class="fixed bottom-6 right-6 z-40 bg-custom-main-600 hover:bg-custom-main-700 text-white font-bold py-3 px-6 rounded-full shadow-xl transition-all hover:scale-105 flex items-center gap-2">
+        <i class="ph-light ph-presentation-chart text-3xl"></i><span id="presentation-btn-text"> Modo
+            Apresentação</span>
+    </button>
+
+    <!-- Hero (Genérico - Títulos injetados pelo JS) -->
+    <section class="pt-32 pb-12 px-4 sm:px-6 lg:px-8" id="hero-section">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-block mb-4 px-4 py-2 text-custom-main-800 rounded-full font-semibold text-sm"
+                id="lesson-level">
+                Nível X
+            </div>
+            <h1 class="font-bold text-4xl md:text-6xl text-gray-900 mb-4" id="lesson-title">
+                Título da Aula
+            </h1>
+            <p class="text-xl text-gray-600 mb-8" id="lesson-subtitle">
+                Subtítulo da aula.
+            </p>
+        </div>
+    </section>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-24">
+
+        <!-- Sidebar Navigation (Links injetados pelo JS) -->
+        <aside id="sidebar" class="sidebar">
+            <div class="px-4 mb-4">
+                <h2 class="font-bold text-lg text-gray-900">Navegação da Aula</h2>
+                <p class="text-xs text-gray-500 mt-1" id="section-count">10 seções</p>
+            </div>
+            <nav id="sidebar-nav">
+                <!-- Links de navegação serão injetados aqui pelo JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Botão Toggle Sidebar (Fixado) -->
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg id="toggle-icon" class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <!-- CONTAINER PRINCIPAL: Onde o conteúdo de todos os blocos será renderizado -->
+        <div id="content-container">
+            <!-- As seções bloco1 a bloco10 serão injetadas aqui pelo JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Modo Apresentação (Estrutura Genérica) -->
+    <div id="presentation-mode" class="presentation-mode">
+        <div id="presentation-content"></div>
+        <div class="slide-number text-custom-main-900" id="slide-number">1 / 10</div>
+        <div class="fixed bottom-6 left-6 space-x-4 z-50">
+            <button onclick="prevSlide()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-full transition">←
+                Anterior</button>
+            <button onclick="nextSlide()"
+                class="bg-custom-main-600 hover:bg-custom-main-700 text-white font-bold py-3 px-6 rounded-full transition">Próximo
+                →</button>
+            <button onclick="togglePresentation()"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition">✕
+                Sair</button>
+        </div>
+    </div>
+
+    <!-- Footer (Genérico) -->
+    <footer class="py-12 px-4 bg-custom-dark-900 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-lg mb-2">Git & GitHub • IFRN</p>
+            <p class="text-sm opacity-75" id="lesson-footer-title">Aula X</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT E DADOS (LÓGICA script.js + JSON) -->
+    <script>
+        // --- 1. JSON DATA LAYER (Dados Consolidados das Aulas 1 a 5) ---
+        // ATENÇÃO: As chaves e valores string do objeto são cotados (usando aspas duplas) para evitar SyntaxError.
+        const ALL_LESSON_DATA = {
+            "colorMap": {
+                "green": {
+                    "main": "green",
+                    "light": "green-50",
+                    "dark": "green-800",
+                    "main_600": "bg-green-600",
+                    "main_700": "bg-green-700",
+                    "main_800": "bg-green-800",
+                    "main_900": "bg-green-900",
+                    "text_main_600": "text-green-600",
+                    "text_main_800": "text-green-800",
+                    "text_main_900": "text-green-900",
+                    "border_main": "border-green-300",
+                    "bg_main_50": "bg-green-50",
+                    "bg_main_100": "bg-green-100",
+                    "bg_main_200": "bg-green-200",
+                    "grad_from": "from-green-500",
+                    "grad_to": "to-green-600",
+                    "grad_dark_from": "from-green-800",
+                    "grad_dark_to": "to-green-900",
+                    "grad_soft_from": "from-green-50",
+                    "grad_soft_to": "to-white",
+                    "prompt_color": "#34d399",
+                    "output_color": "#10b981"
+                },
+                "blue": {
+                    "main": "blue",
+                    "light": "blue-50",
+                    "dark": "blue-800",
+                    "main_600": "bg-blue-600",
+                    "main_700": "bg-blue-700",
+                    "main_800": "bg-blue-800",
+                    "main_900": "bg-blue-900",
+                    "text_main_600": "text-blue-600",
+                    "text_main_800": "text-blue-800",
+                    "text_main_900": "text-blue-900",
+                    "border_main": "border-blue-300",
+                    "bg_main_50": "bg-blue-50",
+                    "bg_main_100": "bg-blue-100",
+                    "bg_main_200": "bg-blue-200",
+                    "grad_from": "from-blue-500",
+                    "grad_to": "to-blue-600",
+                    "grad_dark_from": "from-blue-800",
+                    "grad_dark_to": "to-blue-900",
+                    "grad_soft_from": "from-blue-50",
+                    "grad_soft_to": "to-white",
+                    "prompt_color": "#60a5fa",
+                    "output_color": "#3b82f6"
+                },
+                "purple": {
+                    "main": "purple",
+                    "light": "purple-50",
+                    "dark": "purple-800",
+                    "main_600": "bg-purple-600",
+                    "main_700": "bg-purple-700",
+                    "main_800": "bg-purple-800",
+                    "main_900": "bg-purple-900",
+                    "text_main_600": "text-purple-600",
+                    "text_main_800": "text-purple-800",
+                    "text_main_900": "text-purple-900",
+                    "border_main": "border-purple-300",
+                    "bg_main_50": "bg-purple-50",
+                    "bg_main_100": "bg-purple-100",
+                    "bg_main_200": "bg-purple-200",
+                    "grad_from": "from-purple-500",
+                    "grad_to": "to-purple-600",
+                    "grad_dark_from": "from-purple-800",
+                    "grad_dark_to": "to-purple-900",
+                    "grad_soft_from": "from-purple-50",
+                    "grad_soft_to": "to-white",
+                    "prompt_color": "#c4b5fd",
+                    "output_color": "#a78bfa"
+                },
+                "yellow": {
+                    "main": "yellow",
+                    "light": "yellow-50",
+                    "dark": "yellow-800",
+                    "main_600": "bg-yellow-600",
+                    "main_700": "bg-yellow-700",
+                    "main_800": "bg-yellow-800",
+                    "main_900": "bg-yellow-900",
+                    "text_main_600": "text-yellow-600",
+                    "text_main_800": "text-yellow-800",
+                    "text_main_900": "text-yellow-900",
+                    "border_main": "border-yellow-300",
+                    "bg_main_50": "bg-yellow-50",
+                    "bg_main_100": "bg-yellow-100",
+                    "bg_main_200": "bg-yellow-200",
+                    "grad_from": "from-yellow-500",
+                    "grad_to": "to-yellow-600",
+                    "grad_dark_from": "from-yellow-800",
+                    "grad_dark_to": "to-yellow-900",
+                    "grad_soft_from": "from-yellow-50",
+                    "grad_soft_to": "to-white",
+                    "prompt_color": "#fbbf24",
+                    "output_color": "#fcd34d"
+                },
+                "orange": {
+                    "main": "orange",
+                    "light": "orange-50",
+                    "dark": "orange-800",
+                    "main_600": "bg-orange-600",
+                    "main_700": "bg-orange-700",
+                    "main_800": "bg-orange-800",
+                    "main_900": "bg-orange-900",
+                    "text_main_600": "text-orange-600",
+                    "text_main_800": "text-orange-800",
+                    "text_main_900": "text-orange-900",
+                    "border_main": "border-orange-300",
+                    "bg_main_50": "bg-orange-50",
+                    "bg_main_100": "bg-orange-100",
+                    "bg_main_200": "bg-orange-200",
+                    "grad_from": "from-orange-500",
+                    "grad_to": "to-orange-600",
+                    "grad_dark_from": "from-orange-800",
+                    "grad_dark_to": "to-orange-900",
+                    "grad_soft_from": "from-orange-50",
+                    "grad_soft_to": "to-white",
+                    "prompt_color": "#fb923c",
+                    "output_color": "#fdba74"
+                }
+            },
+
+            "lessons": [
+                null, // Posição 0 (não usada, pois as aulas começam em 1)
+                {
+                    "id": 1,
+                    "colorName": "green",
+                    "title": "Aula 1 — Meu Primeiro Repositório Git",
+                    "subtitle": "Aprenda o ciclo básico: modificar → adicionar → commitar",
+                    "level": "Nível 1 • Fundamentos • Git",
+                    "nextLessonLink": "?aula=2",
+                    "blocks": [
+                        {
+                            "id": "bloco1", "sidebarTitle": "Objetivo", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">1. O que você vai fazer nesta aula</h2>
+                                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                                    <p>Nesta aula você vai:</p>
+                                    <ul class="space-y-3 ml-6">
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Criar uma pasta de projeto no computador</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Transformar essa pasta em um repositório Git</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Criar um arquivo README.md</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Entender e praticar o ciclo básico: <strong>modificar → adicionar (stage) → commitar (save point)</strong></span></li>
+                                    </ul>
+                                    <div class="mt-6 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-500">
+                                        <p class="font-bold text-custom-main-800">🎯 Meta da aula:</p>
+                                        <p class="text-gray-700 mt-2">No final, você terá um repositório Git funcionando, com pelo menos um commit feito por você.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco2", "sidebarTitle": "Conceitos", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">2. Conceitos-chave (nível de hoje) <span class="bg-custom-main-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COLA OFICIAL</span></h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200"><h3 class="font-bold text-xl text-gray-900 mb-3">📁 Repositório</h3><p class="text-gray-700">Pasta que o Git monitora</p></div>
+                                    <div class="bg-gradient-to-br from-custom-main-50 to-custom-main-100 p-6 rounded-xl border-2 border-custom-main-200"><h3 class="font-bold text-xl text-gray-900 mb-3">💾 Commit</h3><p class="text-gray-700">Ponto de salvamento na história do projeto (um "save point")</p></div>
+                                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl border-2 border-purple-200"><h3 class="font-bold text-xl text-gray-900 mb-3">📂 Working Directory</h3><p class="text-gray-700">Seus arquivos atuais, na pasta do projeto</p></div>
+                                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl border-2 border-orange-200"><h3 class="font-bold text-xl text-gray-900 mb-3">📋 Staging Area</h3><p class="text-gray-700">Área de preparação antes do commit. Tudo que vai entrar no commit passa por aqui</p></div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco3", "sidebarTitle": "Pré-requisitos", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">3. Pré-requisitos</h2>
+                                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                                        <li>Ter um terminal ou Prompt de Comando / PowerShell aberto.</li>
+                                        <li>Ter o Git instalado (<code class="bg-white px-1 rounded">git --version</code> deve funcionar).</li>
+                                        <li>Estar com o terminal aberto dentro da pasta do projeto.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco4", "sidebarTitle": "Resultado", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">4. Resultado esperado da aula</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600">📁</span>
+                                        <div><p class="font-bold text-gray-900">Pasta criada</p><p class="text-sm text-gray-600">Com <code class="bg-white px-2 py-1 rounded">meu-projeto</code> e inicializado com <code class="bg-white px-2 py-1 rounded">git init</code></p></div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600">💾</span>
+                                        <div><p class="font-bold text-gray-900">Pelo menos 1 commit</p><p class="text-sm text-gray-600">Com mensagem clara.</p></div>
+                                    </div>
+                                </div>
+                                <div class="mt-6 p-4 bg-blue-50 rounded-xl border-l-4 border-blue-500"><p class="font-bold text-blue-800">✨ Se isso estiver ok, você bateu a meta da aula!</p></div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco5", "sidebarTitle": "Passo 1-2 (Init)", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">5. Prática: Inicializando o Repositório</h2>
+                                <div class="bg-custom-main-50 p-6 rounded-xl">
+                                    <p class="font-bold text-gray-900 mb-4">No terminal, execute:</p>
+                                    <div class="space-y-2">
+                                        <div class="command-box text-custom-output-color">mkdir meu-projeto</div>
+                                        <div class="command-box text-custom-output-color">cd meu-projeto</div>
+                                        <div class="command-box text-custom-output-color">git init</div>
+                                    </div>
+                                </div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 1</p>
+                                    <p class="mb-3">Rode: <code class="command-box bg-gray-900 text-custom-output-color">git status</code></p>
+                                    <p class="mt-3 text-sm">Se aparecer <em>"On branch master/main"</em> e <em>"No commits yet"</em>, está tudo certo!</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco6", "sidebarTitle": "Passo 3-4 (Add)", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">6. Prática: Criando o Arquivo e a Staging Area</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 3 — Criar o README.md</h3>
+                                <div class="command-box text-custom-output-color">echo "# Meu Projeto" > README.md</div>
+                                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 4 — Adicionar à Staging Area</h3>
+                                <div class="command-box text-custom-output-color">git add README.md</div>
+                                <div class="mt-6 p-4 bg-orange-50 rounded-xl border-l-4 border-orange-500">
+                                    <p class="font-bold text-orange-800">⚠️ Verifique o Status:</p>
+                                    <div class="command-box bg-gray-900 text-custom-output-color mt-2">git status</div>
+                                    <p class="text-sm text-orange-700 mt-2">O arquivo deve estar em **verde** (Changes to be committed).</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco7", "sidebarTitle": "Passo 5-6 (Commit)", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">7. Prática: O Primeiro Commit</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 5 — Fazer o Primeiro Commit</h3>
+                                <div class="command-box text-custom-output-color">git commit -m "feat: adiciona README inicial"</div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 2</p>
+                                    <p class="mb-3">Rode <code class="command-box bg-gray-900 text-custom-output-color">git log --oneline</code>. Se vir o commit, missão cumprida!</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco8", "sidebarTitle": "Mini-desafio", "html": `
+                            <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl shadow-xl p-8 text-white card">
+                                <h2 class="font-bold text-3xl">8. Mini-desafio final da aula</h2>
+                                <p class="text-orange-100 text-sm mt-1">Repita o ciclo completo (add + commit) com um novo arquivo.</p>
+                            </div>
+                        `},
+                        { "id": "bloco9", "sidebarTitle": "Autoavaliação", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">9. Autoavaliação rápida</h2>` },
+                        { "id": "bloco10", "sidebarTitle": "Próximos Passos", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">10. Próximos passos (gancho para a Aula 2)</h2>` },
+                    ]
+                },
+                {
+                    "id": 2,
+                    "colorName": "blue",
+                    "title": "Aula 2 — Conectando Repositório ao GitHub",
+                    "subtitle": "Aprenda a levar seu código do local para a nuvem usando git push.",
+                    "level": "Nível 2 • Repositório Remoto • GitHub",
+                    "nextLessonLink": "?aula=3",
+                    "blocks": [
+                        {
+                            "id": "bloco1", "sidebarTitle": "Objetivo", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">1. O que você vai fazer nesta aula</h2>
+                                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                                    <p>Nesta aula você vai:</p>
+                                    <ul class="space-y-3 ml-6">
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Criar um **repositório remoto** no GitHub</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Conectar seu repositório local a esse repositório remoto</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Enviar seus commits para a nuvem usando <code class="bg-gray-200 px-2 rounded">git push</code></span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Entender a relação **local ↔ remoto**</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco2", "sidebarTitle": "Conceitos-chave", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">2. Conceitos-chave (nível de hoje) <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COLA RÁPIDA</span></h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-gradient-to-br from-custom-main-50 to-custom-main-100 p-6 rounded-xl border-2 border-custom-main-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-cloud text-custom-main-600 mr-2"></i>Remote</h3><p class="text-gray-700">Repositório remoto, geralmente hospedado em um serviço como o GitHub.</p></div>
+                                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-tag text-indigo-600 mr-2"></i>Origin</h3><p class="text-gray-700">O nome padrão dado ao remote principal (funciona como o "apelido" do repositório remoto).</p></div>
+                                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-arrow-up text-red-600 mr-2"></i>Push</h3><p class="text-gray-700">Ação de **enviar commits** do repositório local para o repositório remoto.</p></div>
+                                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-git-branch text-green-600 mr-2"></i>Main/Master</h3><p class="text-gray-700">A **branch principal** do projeto. Hoje, o padrão mais comum é <code class="bg-white px-2 py-1 rounded">main</code>.</p></div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco3", "sidebarTitle": "Pré-requisitos", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">3. Pré-requisitos</h2>
+                                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                                        <li>Ter concluído a Aula 1 (ter um repositório local com pelo menos 1 commit).</li>
+                                        <li>Estar com o terminal aberto dentro da pasta do projeto.</li>
+                                        <li>Ter uma conta no GitHub.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco4", "sidebarTitle": "Resultado", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">4. Resultado esperado da aula</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Repositório Remoto Criado</p><p class="text-sm text-gray-600">No site do GitHub.</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Primeiro Push</p><p class="text-sm text-gray-600">Os commits da Aula 1 estão visíveis no GitHub.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco5", "sidebarTitle": "Prática: Conexão", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">5. Prática: Criação e Conexão</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Criar o repositório no GitHub</h3>
+                                <p class="text-gray-700 mb-3">Acesse <a href="https://github.com/new" target="_blank" class="text-custom-main-600 hover:underline">github.com/new</a> e **NÃO** marque o README.</p>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4 mt-6">Passo 2 — Conectar o Repositório Local</h3>
+                                <div class="command-box text-custom-output-color">git remote add origin https://github.com/seu-usuario/seu-repo.git</div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 1: Conferir a Conexão</p>
+                                    <div class="command-box bg-gray-900 text-custom-output-color">git remote -v</div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco6", "sidebarTitle": "Prática: Push", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">6. Prática: Envio para a Nuvem (<code class="bg-gray-200 px-1 rounded">git push</code>)</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 3 — Padronizar a Branch Principal</h3>
+                                <div class="command-box text-custom-output-color">git branch -M main</div>
+                                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 4 — Fazer o Primeiro Push</h3>
+                                <div class="command-box text-custom-output-color">git push -u origin main</div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 2: Confirmação na Nuvem</p>
+                                    <p class="mb-3">Volte ao navegador e recarregue a página do GitHub.</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco7", "sidebarTitle": "Mini-desafio", "html": `
+                            <div class="bg-custom-grad-dark rounded-2xl shadow-xl p-8 text-white card">
+                                <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Colaboração</h2>
+                                <p class="text-custom-main-100 text-sm mt-1">Pratique o ciclo completo local → remoto novamente.</p>
+                            </div>
+                        `},
+                        { "id": "bloco8", "sidebarTitle": "Checklist", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">8. Checklist de Conclusão</h2>` },
+                        { "id": "bloco9", "sidebarTitle": "Autoavaliação", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">9. Autoavaliação rápida</h2>` },
+                        { "id": "bloco10", "sidebarTitle": "Próximos Passos", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">10. Próximos passos (gancho para a Aula 3)</h2>` },
+                    ]
+                },
+                {
+                    "id": 3,
+                    "colorName": "purple",
+                    "title": "Aula 3 — Branches: Desenvolvimento Paralelo",
+                    "subtitle": "Aprenda a trabalhar em múltiplas funcionalidades de forma isolada e segura.",
+                    "level": "Nível 3 • Branches • Desenvolvimento Paralelo",
+                    "nextLessonLink": "?aula=4",
+                    "blocks": [
+                        {
+                            "id": "bloco1", "sidebarTitle": "Objetivo", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">1. O que você vai fazer nesta aula</h2>
+                                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                                    <p>Nesta aula você vai dominar o desenvolvimento paralelo:</p>
+                                    <ul class="space-y-3 ml-6">
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Entender o que são branches e por que elas são essenciais.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Criar, commitar e alternar entre branches usando <code class="bg-gray-200 px-2 rounded">git checkout -b</code>.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Integrar código de volta à branch principal usando <code class="bg-gray-200 px-2 rounded">git merge</code>.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Manter o repositório limpo, deletando branches concluídas.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco2", "sidebarTitle": "Conceitos-chave", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">2. Conceitos-chave (nível de hoje) <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COLA RÁPIDA</span></h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-gradient-to-br from-custom-main-50 to-custom-main-100 p-6 rounded-xl border-2 border-custom-main-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-git-branch text-custom-main-600 mr-2"></i>Branch</h3><p class="text-gray-700">Uma linha independente de desenvolvimento. É como duplicar o projeto para trabalhar em segredo.</p></div>
+                                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-shuffle text-indigo-600 mr-2"></i>Checkout</h3><p class="text-gray-700">Ação de **mudar** o seu HEAD (ponteiro) de uma branch para outra.</p></div>
+                                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-arrows-merge text-red-600 mr-2"></i>Merge</h3><p class="text-gray-700">Ação de **juntar** o histórico de commits de uma branch para outra.</p></div>
+                                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-code-block text-blue-600 mr-2"></i>Feature Branch</h3><p class="text-gray-700">Convenção para nomear branches para uma funcionalidade (ex: <code class="bg-white px-2 rounded">feature/carrinho</code>).</p></div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco3", "sidebarTitle": "Pré-requisitos", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">3. Pré-requisitos</h2>
+                                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                                        <li>Ter concluído a Aula 2 (repositório conectado ao GitHub).</li>
+                                        <li>Sua branch principal (<code class="bg-white px-1 rounded">main</code>) deve estar limpa.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco4", "sidebarTitle": "Resultado", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">4. Resultado esperado da aula</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Branch de Feature</p><p class="text-sm text-gray-600">Criada e com commits exclusivos.</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Merge Bem-sucedido</p><p class="text-sm text-gray-600">O código integrado à <code class="bg-white px-1 rounded">main</code>.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco5", "sidebarTitle": "Prática: Branch", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">5. Prática: Criando e Trabalhando na Branch</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Criar a Nova Branch</h3>
+                                <div class="command-box text-custom-output-color">git checkout -b feature/nova-secao</div>
+                                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Fazer o Trabalho e Commitar</h3>
+                                <div class="command-box text-custom-output-color">
+                                    echo "## Nova Seção de Contato" >> README.md <br>
+                                    git add README.md <br>
+                                    git commit -m "feat: adiciona rascunho da seção de contato"
+                                </div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 1: Mudar de Contexto</p>
+                                    <p class="mb-3">Mude de volta para a main, e confira que o último commit sumiu:</p>
+                                    <div class="command-box bg-gray-900 text-custom-output-color">git checkout main</div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco6", "sidebarTitle": "Prática: Merge", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">6. Prática: Integrando o Código (Merge)</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 3 — Unir a Branch (Merge)</h3>
+                                <div class="command-box text-custom-output-color">git merge feature/nova-secao</div>
+                                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 4 — Limpar e Enviar</h3>
+                                <div class="command-box text-custom-output-color">
+                                    git branch -d feature/nova-secao <span class="text-red-400"># Deleta a branch local</span><br>
+                                    git push <span class="text-green-400"># Envia o merge para o GitHub</span>
+                                </div>
+                                <div class="checkpoint text-white p-6 rounded-xl mt-6">
+                                    <p class="font-bold text-xl mb-3">✅ Checkpoint 2: Confirmação Final</p>
+                                    <p class="mb-3">Se você rodar <code class="bg-gray-200 px-1 rounded">git log --oneline</code> na main, o commit de merge deve aparecer.</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco7", "sidebarTitle": "Mini-desafio", "html": `
+                            <div class="bg-custom-grad-dark rounded-2xl shadow-xl p-8 text-white card">
+                                <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Bugfix</h2>
+                                <p class="text-custom-main-100 text-sm mt-1">Simule o reparo de um erro sem parar o desenvolvimento principal.</p>
+                            </div>
+                        `},
+                        { "id": "bloco8", "sidebarTitle": "Checklist", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">8. Checklist de Conclusão</h2>` },
+                        { "id": "bloco9", "sidebarTitle": "Autoavaliação", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">9. Autoavaliação rápida</h2>` },
+                        { "id": "bloco10", "sidebarTitle": "Próximos Passos", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">10. Próximos passos (gancho para a Aula 4)</h2>` },
+                    ]
+                },
+                {
+                    "id": 4,
+                    "colorName": "yellow",
+                    "title": "Aula 4 — Colaboração em Equipe",
+                    "subtitle": "Aprenda a sincronizar o trabalho, integrar mudanças de colegas e a criar seu primeiro Pull Request (PR).",
+                    "level": "Nível 4 • Fluxo Profissional • Colaboração",
+                    "nextLessonLink": "?aula=5",
+                    "blocks": [
+                        {
+                            "id": "bloco1", "sidebarTitle": "Objetivo", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">1. O que você vai fazer nesta aula</h2>
+                                <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                                    <p>Nesta aula você vai aprender o fluxo de trabalho em equipe:</p>
+                                    <ul class="space-y-3 ml-6">
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Clonar um repositório existente do GitHub usando <code class="bg-gray-200 px-2 rounded">git clone</code>.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Sincronizar seu projeto local com as mudanças de outros usando <code class="bg-gray-200 px-2 rounded">git pull</code>.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Entender o ciclo de **Pull Request** (PR), a base da colaboração.</span></li>
+                                        <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Adotar a regra de ouro: **sempre sincronizar** antes de commitar.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco2", "sidebarTitle": "Conceitos-chave", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">2. Conceitos-chave (nível de hoje) <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COLA RÁPIDA</span></h2>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="bg-gradient-to-br from-custom-main-50 to-custom-main-100 p-6 rounded-xl border-2 border-custom-main-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-copy text-custom-main-600 mr-2"></i>Clone</h3><p class="text-gray-700">Ação de **copiar** um repositório remoto para sua máquina local.</p></div>
+                                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-arrow-down text-indigo-600 mr-2"></i>Pull</h3><p class="text-gray-700">Ação de **baixar** as últimas mudanças do remote e **aplicá-las** localmente.</p></div>
+                                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-git-pull-request text-red-600 mr-2"></i>Pull Request (PR)</h3><p class="text-gray-700">Uma **proposta formal** de merge no GitHub. Permite revisão de código.</p></div>
+                                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200"><h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-eye text-blue-600 mr-2"></i>Code Review</h3><p class="text-gray-700">Processo onde outros desenvolvedores inspecionam o código de um PR.</p></div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco3", "sidebarTitle": "Pré-requisitos", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">3. Pré-requisitos</h2>
+                                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                                    <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                                        <li>Dominar o ciclo de <code class="bg-white px-1 rounded">commit</code> e <code class="bg-white px-1 rounded">push</code> (Aula 1 & 2).</li>
+                                        <li>Dominar a criação e merge de branches (Aula 3).</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco4", "sidebarTitle": "Resultado", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">4. Resultado esperado da aula</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Projeto Clonado</p><p class="text-sm text-gray-600">Copiar um projeto de terceiros para sua máquina.</p></div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                        <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                        <div><p class="font-bold text-gray-900">Sincronização Dominada</p><p class="text-sm text-gray-600">Uso do <code class="bg-white px-1 rounded">git pull</code> para atualizar.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco5", "sidebarTitle": "Prática: Clone/Pull", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">5. Prática: Clonando e Sincronizando</h2>
+                                <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Clonar o Repositório</h3>
+                                <div class="command-box text-custom-output-color">git clone https://github.com/usuario/nome-do-projeto.git</div>
+                                <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Sincronizar (Pull)</h3>
+                                <div class="command-box text-custom-output-color">git pull origin main</div>
+                                <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500 mt-4">
+                                    <p class="font-bold text-yellow-800">⚠️ Regra de Ouro da Colaboração:</p>
+                                    <p class="text-sm text-gray-700">SEMPRE faça um <code class="bg-white px-1 rounded">git pull</code> antes de criar uma nova branch ou começar a commitar.</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco6", "sidebarTitle": "Prática: Pull Request", "html": `
+                            <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                                <h2 class="font-bold text-3xl text-gray-900 mb-6">6. O Fluxo de Pull Request (PR)</h2>
+                                <p class="text-gray-700 mb-6">O PR é a maneira como você propõe mudanças a outros (4 etapas):</p>
+                                <div class="space-y-4">
+                                    <p>1. **Isolar o Trabalho:** Crie sua branch de feature e faça <code class="command-box bg-gray-900 text-custom-output-color">git push -u origin feature/nome</code></p>
+                                    <p>2. **Abrir o PR:** No GitHub, clique em "Compare & pull request".</p>
+                                    <p>3. **Code Review:** Receba feedback e faça mais commits na sua branch.</p>
+                                    <p>4. **Merge e Conclusão:** Após aprovação, o PR é "mergeado" na <code class="bg-white px-1 rounded">main</code>.</p>
+                                </div>
+                            </div>
+                        `},
+                        {
+                            "id": "bloco7", "sidebarTitle": "Mini-desafio", "html": `
+                            <div class="bg-custom-grad-dark rounded-2xl shadow-xl p-8 text-white card">
+                                <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Colaboração</h2>
+                                <p class="text-custom-main-100 text-sm mt-1">Pratique a sincronização e o envio de código (pull + branch + push).</p>
+                            </div>
+                        `},
+                        { "id": "bloco8", "sidebarTitle": "Checklist", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">8. Checklist de Conclusão</h2>` },
+                        { "id": "bloco9", "sidebarTitle": "Autoavaliação", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">9. Autoavaliação rápida</h2>` },
+                        { "id": "bloco10", "sidebarTitle": "Próximos Passos", "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">10. Próximos passos (gancho para a Aula 5)</h2>` },
+                    ]
+                },
+                {
+                    "id": 5,
+                    "colorName": "orange",
+                    "title": "Aula 5 — Resolvendo Problemas e Desfazendo Erros",
+                    "subtitle": "Domine os comandos de emergência para corrigir commits, desfazer erros e resolver conflitos de merge como um profissional.",
+                    "level": "Nível 5 • Resolução de Conflitos • Resgate",
+                    "nextLessonLink": "#", // Última aula
+                    "blocks": [
+                        {
+                            "id": "bloco1",
+                            "sidebarTitle": "Objetivo",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">1. O que você vai fazer nesta aula</h2>
+                                    <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                                        <p>Nesta aula de resgate, você vai:</p>
+                                        <ul class="space-y-3 ml-6">
+                                            <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Aprender a desfazer commits e corrigir mensagens usando <code class="bg-gray-200 px-2 rounded">git reset</code> e <code class="bg-gray-200 px-2 rounded">git commit --amend</code>.</span></li>
+                                            <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Identificar e resolver conflitos de merge (a temida **guerra** do Git).</span></li>
+                                            <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Usar o <code class="bg-gray-200 px-2 rounded">git log --graph</code> para visualizar o histórico de forma avançada.</span></li>
+                                            <li class="flex items-start gap-3"><span class="text-custom-main-600 font-bold">✓</span><span>Descartar alterações não salvas de arquivos.</span></li>
+                                        </ul>
+                                        <div class="mt-6 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-500">
+                                            <p class="font-bold text-custom-main-800">🎯 Meta da aula:</p>
+                                            <p class="text-gray-700 mt-2">Transformar erros em aprendizado, garantindo que você nunca mais perca trabalho no Git.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+
+                        },
+                        {
+                            "id": "bloco2",
+                            "sidebarTitle": "Conceitos-chave",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">2. Conceitos-chave (nível de hoje) <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COLA RÁPIDA</span></h2>
+                                    <p class="text-gray-600 mb-6">Conceitos avançados e comandos de emergência:</p>
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <div class="bg-gradient-to-br from-custom-main-50 to-custom-main-100 p-6 rounded-xl border-2 border-custom-main-200">
+                                            <h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-hand-pointing text-custom-main-600 mr-2"></i>HEAD</h3>
+                                            <p class="text-gray-700">Ponteiro que aponta para o **último commit** na branch atual (o estado atual do seu repositório).</p>
+                                        </div>
+                                        <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-xl border-2 border-indigo-200">
+                                            <h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-x-circle text-indigo-600 mr-2"></i>Conflict Markers</h3>
+                                            <p class="text-gray-700">Linhas adicionadas pelo Git (<code class="bg-white px-2 rounded">&lt;&lt;&lt;</code>, <code class="bg-white px-2 rounded">===</code>, <code class="bg-white px-2 rounded">&gt;&gt;&gt;</code>) para indicar onde o merge falhou.</p>
+                                        </div>
+                                        <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl border-2 border-red-200">
+                                            <h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-arrows-merge text-red-600 mr-2"></i>git reset</h3>
+                                            <p class="text-gray-700">Comando poderoso para **mover o HEAD** para um commit anterior, desfazendo commits (ex: <code class="bg-white px-2 rounded">--soft</code>, <code class="bg-white px-2 rounded">--hard</code>).</p>
+                                        </div>
+                                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200">
+                                            <h3 class="font-bold text-xl text-gray-900 mb-3"><i class="ph ph-pencil text-blue-600 mr-2"></i>git commit --amend</h3>
+                                            <p class="text-gray-700">Permite **editar a mensagem** ou adicionar mais arquivos ao commit mais recente. Usado para corrigir erros rápidos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco3",
+                            "sidebarTitle": "Pré-requisitos",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-yellow-100 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">3. Pré-requisitos</h2>
+                                    <div class="p-4 bg-yellow-50 rounded-xl border-l-4 border-yellow-500">
+                                        <ul class="list-disc list-inside ml-4 text-sm text-gray-600 space-y-1">
+                                            <li>Dominar o <code class="bg-white px-1 rounded">commit</code> e <code class="bg-white px-1 rounded">push</code>.</li>
+                                            <li>Entender o conceito de <code class="bg-white px-1 rounded">HEAD</code> e como ele aponta para o último commit.</li>
+                                            <li>**Atenção:** Os comandos desta aula são destrutivos. Use com cautela!</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco4",
+                            "sidebarTitle": "Resultado",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-100 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">4. Resultado esperado da aula</h2>
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                            <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                            <div><p class="font-bold text-gray-900">Correção Imediata</p><p class="text-sm text-gray-600">Corrigir erros no último commit sem criar um novo.</p></div>
+                                        </div>
+                                        <div class="flex items-start gap-3 p-4 bg-custom-main-50 rounded-xl border-l-4 border-custom-main-300">
+                                            <span class="text-2xl text-custom-main-600"><i class="ph ph-check-circle-fill"></i></span>
+                                            <div><p class="font-bold text-gray-900">Histórico Visualizado</p><p class="text-sm text-gray-600">Usar <code class="bg-white px-1 rounded">git log --graph</code> para ver branches e merges.</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco5",
+                            "sidebarTitle": "Prática: Corrigindo",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-indigo-200 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">5. Prática: Corrigindo o Passado Recente <span class="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">COMANDOS AVANÇADOS</span></h2>
+                                    <h3 class="font-bold text-xl text-gray-900 mb-4">Passo 1 — Corrigindo a Mensagem do Último Commit</h3>
+                                    <div class="command-box text-custom-output-color">git commit --amend -m "feat: nova mensagem corrigida"</div>
+                                    <h3 class="font-bold text-xl text-gray-900 mt-6 mb-4">Passo 2 — Desfazendo o Último Commit (Soft)</h3>
+                                    <div class="command-box text-custom-output-color">git reset --soft HEAD~1</div>
+                                    <div class="p-4 bg-red-50 rounded-xl border-l-4 border-red-500 mt-4">
+                                        <p class="font-bold text-red-800">🚨 PERIGO - Desfazendo Tudo:</p>
+                                        <p class="text-sm text-red-700">O comando <code class="bg-white px-1 rounded">git reset --hard HEAD~1</code> apaga o commit e **todas as alterações do seu código local permanentemente**.</p>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco6",
+                            "sidebarTitle": "Prática: Conflitos",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-red-200 card">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">6. Resolução Manual de Conflitos (Merge) <span class="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold ml-2">PRÁTICA CRÍTICA</span></h2>
+                                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                                        <h4 class="font-bold text-xl text-gray-900 mb-3">2. Resolver no Editor</h4>
+                                        <p class="text-gray-700 mb-3">Abra o arquivo conflitante. Você verá as marcações:</p>
+                                        <pre class="bg-gray-900 text-red-400 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD <span class="text-gray-300 italic">(Seu código)</span>
+Função de Login V1
+=========<span class="text-gray-300 italic">(Separador)</span>
+Função de Login V2 (do colega)
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/colega</pre>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco7",
+                            "sidebarTitle": "Mini-desafio",
+                            "html": `
+                                <div class="bg-custom-grad-dark rounded-2xl shadow-xl p-8 text-white card">
+                                    <h2 class="font-bold text-3xl">7. Mini-desafio final da aula: Resgate</h2>
+                                    <p class="text-custom-main-100 text-sm mt-1">Simule um erro e corrija-o.</p>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco8",
+                            "sidebarTitle": "Checklist",
+                            "html": `
+                                <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-custom-main-200">
+                                    <h2 class="font-bold text-3xl text-gray-900 mb-6">8. Checklist de Conclusão</h2>
+                                    <p class="text-gray-600 mb-6">Marque cada item conforme você completa:</p>
+                                    <div class="space-y-3">
+                                        <label class="flex items-center gap-3 p-4 bg-gray-50 hover:bg-custom-main-50 rounded-lg cursor-pointer transition">
+                                            <input type="checkbox" class="checklist-item"><span class="text-gray-700">Sei usar <code class="bg-white px-2 py-1 rounded text-sm">git commit --amend</code>.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            `,
+                        },
+                        {
+                            "id": "bloco9",
+                            "sidebarTitle": "Autoavaliação",
+                            "html": `<h2 class="font-bold text-3xl text-gray-900 mb-6">9. Autoavaliação rápida</h2>`,
+                        },
+                        {
+                            "id": "bloco10",
+                            "sidebarTitle": "Conclusão",
+                            "html": `
+                                <div class="bg-custom-grad-dark rounded-2xl shadow-xl p-8 text-white card">
+                                    <h2 class="font-bold text-3xl mb-6">10. Conclusão do Curso: Você Dominou!</h2>
+                                    <p class="text-xl text-gray-200">Você concluiu os 5 níveis da jornada e agora possui o conhecimento fundamental para trabalhar com Git e GitHub em qualquer equipe profissional.</p>
+                                </div>
+                            `,
+                        },
+                    ],
+                },
+            ]
+        };
+
+        // --- 2. MOTOR DE ORQUESTRAÇÃO (script.js) ---
+
+        // Variável global para armazenar o tema de cores atual
+        let CURRENT_COLORS = ALL_LESSON_DATA.colorMap.green;
+
+        // Função para injetar estilos dinâmicos baseados na cor da aula
+        function injectDynamicStyles(colors) {
+            const style = document.createElement('style');
+            style.textContent = `
+                /* Injeção Dinâmica de Cores */
+                .text-custom-main-600 { color: ${colors.text_main_600.replace('text-', '#')}; }
+                .text-custom-main-800 { color: ${colors.text_main_800.replace('text-', '#')}; }
+                .bg-custom-main-50 { background-color: ${colors.bg_main_50.replace('bg-', '#')}; }
+                .bg-custom-main-100 { background-color: ${colors.bg_main_100.replace('bg-', '#')}; }
+                .bg-custom-main-600 { background-color: ${colors.main_600.replace('bg-', '#')}; }
+                .bg-custom-dark-900 { background-color: ${colors.grad_dark_to.replace('to-', '#')}; }
+                
+                .command-box { color: ${colors.output_color}; }
+                .command-box::before { color: ${colors.prompt_color}; }
+                
+                .sidebar-item:hover { background: ${colors.bg_main_50.replace('bg-', '#')}; color: ${colors.text_main_600.replace('text-', '#')}; }
+                .sidebar-item.active { background: ${colors.bg_main_50.replace('bg-', '#')}; color: ${colors.text_main_600.replace('text-', '#')}; border-left-color: ${colors.text_main_600.replace('text-', '#')}; }
+                .sidebar-item.active .sidebar-number { background: ${colors.text_main_600.replace('text-', '#')}; color: white; }
+                
+                #hero-section { background: linear-gradient(to bottom, ${colors.bg_main_50.replace('bg-', '#')}, white); }
+                .bg-custom-grad-dark { background: linear-gradient(135deg, ${colors.grad_dark_from.replace('from-', '#')} 0%, ${colors.grad_dark_to.replace('to-', '#')} 100%); }
+                .text-custom-main-100 { color: ${colors.light.replace('bg-', '#')}; }
+            `;
+            document.head.appendChild(style);
+
+            // Aplicar gradiente para barra de progresso (Presentation Mode)
+            document.getElementById('progress-bar').style.background = `linear-gradient(90deg, ${colors.grad_from.replace('from-', '#')} 0%, ${colors.grad_to.replace('to-', '#')} 100%)`;
+        }
+
+        // Função para obter o ID da aula a partir do URL
+        function getLessonId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Default para aula 1 se não for especificado ou for inválido
+            let id = parseInt(urlParams.get('aula')) || 1;
+            if (id < 1 || id >= ALL_LESSON_DATA.lessons.length) {
+                id = 1;
+            }
+            return id;
+        }
+
+        // Função para renderizar o HTML da aula selecionada
+        function renderLessonHTML(lessonData, colors) {
+            document.getElementById('page-title').textContent = lessonData.title;
+            document.getElementById('lesson-title').textContent = lessonData.title.split('—')[1].trim();
+            document.getElementById('lesson-subtitle').textContent = lessonData.subtitle;
+            document.getElementById('lesson-level').textContent = lessonData.level;
+            document.getElementById('lesson-footer-title').textContent = lessonData.title;
+            document.getElementById('section-count').textContent = `${lessonData.blocks.length} seções`;
+
+            const contentContainer = document.getElementById('content-container');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            contentContainer.innerHTML = ''; // Limpa o conteúdo anterior
+            sidebarNav.innerHTML = '';      // Limpa a navegação anterior
+
+            lessonData.blocks.forEach((block, index) => {
+                // 1. Criar a Seção Principal
+                const section = document.createElement('section');
+                section.id = block.id;
+                section.className = "content-block mx-auto mb-12 scroll-mt-32";
+
+                // Aplicar estilos de card e background baseados na classe e injetando o HTML
+                let blockHtml = block.html;
+
+                // Substituir placeholders de cor dentro do HTML do bloco
+                blockHtml = blockHtml.replace(/text-custom-main-600/g, colors.text_main_600);
+                blockHtml = blockHtml.replace(/text-custom-main-800/g, colors.text_main_800);
+                blockHtml = blockHtml.replace(/bg-custom-main-50/g, colors.bg_main_50);
+                blockHtml = blockHtml.replace(/bg-custom-main-100/g, colors.bg_main_100);
+                blockHtml = blockHtml.replace(/border-custom-main-100/g, colors.border_main.replace('border-', ''));
+                blockHtml = blockHtml.replace(/border-custom-main-300/g, colors.border_main);
+                blockHtml = blockHtml.replace(/bg-custom-grad-dark/g, `bg-gradient-to-br ${colors.grad_dark_from} ${colors.grad_dark_to}`);
+
+                const blockContent = document.createElement('div');
+                // Use a cor principal para definir a borda do card, exceto se for o bloco dark
+                const isDarkBlock = block.id === 'bloco7' || block.id === 'bloco10';
+
+                const defaultClasses = `p-8 rounded-2xl shadow-lg card ${isDarkBlock ? 'text-white' : 'bg-white border-2 border-custom-main-100'}`;
+
+                blockContent.className = defaultClasses.replace(/custom-main/g, colors.main);
+                blockContent.innerHTML = blockHtml;
+                section.appendChild(blockContent);
+                contentContainer.appendChild(section);
+
+                // 2. Criar o Link na Sidebar
+                const navLink = document.createElement('a');
+                navLink.href = `#${block.id}`;
+                navLink.className = "sidebar-item";
+                navLink.setAttribute('data-section', block.id);
+                navLink.innerHTML = `
+                    <div class="sidebar-number">${index + 1}</div>
+                    <span>${block.sidebarTitle}</span>
+                `;
+                sidebarNav.appendChild(navLink);
+            });
+
+            // 3. Ajustar link da próxima aula (Footer)
+            const nextLinkButton = document.querySelector('footer a');
+            if (nextLinkButton) {
+                if (lessonData.nextLessonLink === "#") {
+                    nextLinkButton.textContent = "▲ Voltar ao topo e Revisar";
+                    nextLinkButton.href = "#";
+                    nextLinkButton.className = nextLinkButton.className.replace(/bg-custom-main-600|bg-custom-main-700/g, 'bg-white').replace(/text-white/g, `text-${colors.main}-600`);
+                } else {
+                    nextLinkButton.textContent = `📌 Ir para Aula ${lessonData.id + 1}`;
+                    nextLinkButton.href = lessonData.nextLessonLink;
+                    nextLinkButton.className = nextLinkButton.className.replace(/bg-custom-main-600|bg-custom-main-700/g, `bg-${colors.main}-600`);
+                }
+            }
+        }
+
+        // --- 3. LÓGICA DO LAYOUT E USABILIDADE (Scrollspy, Toggle, etc.) ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Determinar qual aula carregar
+            const lessonId = getLessonId();
+            const lessonData = ALL_LESSON_DATA.lessons[lessonId];
+
+            if (!lessonData) {
+                document.body.innerHTML = '<div class="p-8 text-center text-red-600">Erro: Aula não encontrada. Carregando Aula 1.</div>';
+                // Note: Não chamamos loadLesson(1) diretamente para evitar loop ou complexidade, apenas exibimos o erro.
+                return;
+            }
+
+            // 2. Definir cores
+            CURRENT_COLORS = ALL_LESSON_DATA.colorMap[lessonData.colorName];
+
+            // 3. Injetar estilos e renderizar o HTML
+            injectDynamicStyles(CURRENT_COLORS);
+            renderLessonHTML(lessonData, CURRENT_COLORS);
+
+            // 4. Inicializar toda a lógica de layout e interatividade
+            initializeLayoutAndUsability(lessonData);
+        });
+
+        function initializeLayoutAndUsability(lessonData) {
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Sidebar Toggle
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const toggleIcon = document.getElementById('toggle-icon');
+            const mainContent = document.querySelector('.main-content');
+
+            // Load saved sidebar state - FIX: Garante o estado inicial do sidebar baseado em localStorage
+            const sidebarCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+                toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+            }
+
+
+            sidebarToggle.addEventListener('click', () => {
+                const isCollapsed = sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+
+                // Update icon
+                if (isCollapsed) {
+                    toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>';
+                } else {
+                    toggleIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>';
+                }
+
+                // Save state
+                localStorage.setItem('sidebar-collapsed', isCollapsed);
+            });
+
+            // Mobile: close sidebar when clicking a link
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.sidebar-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        sidebar.classList.remove('mobile-open');
+                    });
+                });
+            }
+
+            // Scrollspy
+            const sections = document.querySelectorAll('.content-block');
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+
+            function updateActiveSection() {
+                let currentSection = '';
+                const scrollPosition = window.scrollY + 150; // Offset for better UX
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                sidebarItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-section') === currentSection) {
+                        item.classList.add('active');
+
+                        // Auto-scroll sidebar to show active item
+                        if (!sidebar.classList.contains('collapsed')) {
+                            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    }
+                });
+            }
+
+            // Update on scroll
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateActiveSection, 50);
+            });
+
+            // Initial update
+            updateActiveSection();
+
+            // Lógica do Modo Apresentação (Simplificada, usando os blocos de dados)
+            let currentSlide = 0;
+            const slides = lessonData.blocks.map(b => ({ title: b.sidebarTitle, content: b.html, bg: 'bg-custom-main-50' }));
+
+            window.togglePresentation = function () {
+                const presentationMode = document.getElementById('presentation-mode');
+                const isActive = presentationMode.classList.contains('active');
+
+                if (isActive) {
+                    presentationMode.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                } else {
+                    presentationMode.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    currentSlide = 0;
+                    showSlide(currentSlide);
+                }
+            }
+
+            window.showSlide = function (index) {
+                if (index < 0) index = 0;
+                if (index >= slides.length) index = slides.length - 1;
+                currentSlide = index;
+
+                const slide = slides[index];
+                const presentationContent = document.getElementById('presentation-content');
+
+                presentationContent.innerHTML = `
+                    <div class="presentation-slide bg-gradient-to-b from-custom-main-50 to-white">
+                        <div class="max-w-5xl mx-auto p-4 bg-white rounded-lg shadow-xl">
+                            <h2 class="text-3xl font-bold mb-6">${slide.title}</h2>
+                            ${slide.content}
+                        </div>
+                    </div>
+                `.replace(/custom-main/g, CURRENT_COLORS.main);
+
+                document.getElementById('slide-number').textContent = `${index + 1} / ${slides.length}`;
+
+                const progress = ((index + 1) / slides.length) * 100;
+                document.getElementById('progress-bar').style.width = `${progress}%`;
+            }
+
+            window.nextSlide = function () {
+                if (currentSlide < slides.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            }
+
+            window.prevSlide = function () {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
