@@ -24,13 +24,13 @@ function createWeekCard(week, bimestre) {
   return `
     <div class="${cardBaseClasses}">
       <div class="flex items-center justify-between mb-3">
-        <h5 class="font-bold text-ifrn-green-800">
-          ${titleHtml}
+        <h5 class="font-bold text-ifrn-green-800 hover:underline">
+          <a href=""${week.link}" class="hover:underline">${titleHtml}</a>
         </h5> ${hasBadge ? `<span class="px-3 py-1 ${week.badgeClasses} rounded-full text-xs font-semibold">${week.badgeType}</span>`  : ""  }
       </div>
-      <p class="text-sm font-semibold text-ifrn-green-700 mb-2">
+      <a href="${week.link}" class="text-sm font-semibold text-ifrn-green-700 mb-2 hover:underline">
         ${week.summary}
-      </p>
+      </a>
       ${ hasDetails || hasBloom ? 
         `
         <div class="text-xs text-ifrn-green-600 space-y-1">

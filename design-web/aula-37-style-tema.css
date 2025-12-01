@@ -1,55 +1,46 @@
-/* Customizando o tema 'corporate' via CSS variables */
 [data-theme="ifrn"] {
-    /* Cores de marca */
-    --color-primary: #0f766e;
-    --color-primary-content: #ffffff;
+    /* Define se o tema é claro ou escuro para melhor acessibilidade do navegador */
+    color-scheme: light;
 
-    --color-secondary: #f97316;
-    --color-secondary-content: #000000;
+    /* 1. Cores Principais */
+    --p: oklch(28.272% 0.11564 279.984);
+    /* Primary: Azul escuro */
+    --s: oklch(41.127% 0.0992 149.322);
+    /* Secondary: Verde musgo */
+    --a: oklch(66.273% 0.21442 21.786);
+    /* Accent: Magenta */
+    --n: oklch(70% 0.05 250);
+    /* Neutral: Cinza neutro */
 
-    --color-accent: #22c55e;
-    --color-accent-content: #000000;
+    /* 2. Cores de Fundo e Texto */
+    --b1: oklch(18% 0.01 250);
+    /* Base 100 (Fundo principal): Escuro */
+    --b2: oklch(25% 0.01 250);
+    /* Base 200 (Fundo secundário): Um pouco mais claro */
+    --b3: oklch(35% 0.01 250);
+    /* Base 300 (Fundo terciário): Mais claro */
+    --bc: oklch(48.182% 0.06581 245.064);
+    /* Base Content (Cor do texto): Claro */
 
-    --color-neutral: #0f172a;
-    --color-neutral-content: #e5e7eb;
+    /* 3. Cores de Feedback (Status) */
+    --su: oklch(60% 0.15 130);
+    /* Success: Verde */
+    --wa: oklch(75% 0.15 90);
+    /* Warning: Amarelo/Laranja */
+    --er: oklch(60% 0.2 20);
+    /* Error: Vermelho */
 
-    /* Fundo e texto base */
-    --color-base-100: #0b1120;
-    /* fundo principal */
-    --color-base-200: #020617;
-    /* variação mais escura/clara */
-    --color-base-300: #020617;
-    --color-base-content: #e5e7eb;
-    /* texto padrão */
-
-    /* Estados de feedback */
-    --color-info: #38bdf8;
-    --color-info-content: #02131f;
-    --color-success: #22c55e;
-    --color-success-content: #02220f;
-    --color-warning: #facc15;
-    --color-warning-content: #1f1600;
-    --color-error: #f97373;
-    --color-error-content: #220101;
-
-    /* Border radius por tipo de componente */
-    --radius-selector: 999px;
-    /* checkbox, badge, toggle mais “pill” */
-    --radius-field: 0.25rem;
-    /* inputs, botões */
-    --radius-box: 0.5rem;
-    /* cards, modals, alerts */
-
-    /* Escala de componentes */
-    --size-selector: 0.25rem;
-    --size-field: 0.25rem;
-
-    /* Borda de tudo */
-    --border: 1px;
-
-    /* Efeitos globais */
-    --depth: 1;
-    /* relevo/sombra em alguns componentes */
-    --noise: 0;
-    /* ruído de fundo em temas mais “artísticos” */
+    /* 4. Variáveis Adicionais (Opcionais, mas úteis) */
+    --rounded-box: 1rem;
+    /* Arredondamento de cards/caixas */
+    --rounded-btn: 0.5rem;
+    /* Arredondamento de botões */
+    --rounded-badge: 1.9rem;
+    /* Arredondamento de badges */
+    --animation-btn: 0.25s;
+    /* Duração da animação de clique */
+    --tab-border: 1px;
+    /* Espessura da borda de abas */
+    --tab-radius: 0.5rem;
+    /* Arredondamento das abas */
 }

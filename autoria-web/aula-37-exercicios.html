@@ -4,111 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Exercícios — Semana 32 | Autoria Web IFRN</title>
-    <meta name="description" content="Lista de exercícios sobre DOM e Seletores - Semana 32">
+    <title>Lista de Exercícios — Semana 37 | Autoria Web IFRN</title>
+    <meta name="description" content="Lista de exercícios sobre Métodos de Array (Map, Filter, Reduce) - Semana 37">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Script Personalizado (Configurações Tailwind, etc) -->
     <script src="../assets/js/script.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
-
-        .exercise-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .exercise-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .exercise-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
-        }
-
-        .exercise-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* Cores por nível */
-        .level-basic::before {
-            background: #10b981;
-        }
-
-        .level-intermediate::before {
-            background: #f59e0b;
-        }
-
-        .level-advanced::before {
-            background: #ef4444;
-        }
-
-        .badge-basic {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-intermediate {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-advanced {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .checkbox-item {
-            transition: all 0.2s ease;
-        }
-
-        .checkbox-item:hover {
-            background: #f3f4f6;
-        }
-
-        .code-inline {
-            background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            color: #d63384;
-        }
-
-        /* Estilo extra para blocos de código */
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            overflow-x: auto;
-        }
-    </style>
+    <!-- Estilos Personalizados -->
+    <link rel="stylesheet" href="exercicios.css">
 </head>
 
 <body class="bg-gray-50">
@@ -123,9 +28,9 @@
                         ← Voltar para Autoria Web
                     </a>
                     <h1 class="font-bold text-2xl text-gray-900">
-                        <a href="aula-32.html" class="hover:underline">Lista de Exercícios — Semana 32</a>
+                        <a href="aula-37.html" class="hover:underline">Lista de Exercícios — Semana 37</a>
                     </h1>
-                    <p class="text-gray-600">DOM, Árvore de Elementos e Seletores</p>
+                    <p class="text-gray-600">Métodos de Array (Map, Filter, Reduce)</p>
                 </div>
                 <div class="text-right">
                     <div class="px-4 py-2 bg-ifrn-red-500 text-white rounded-lg font-bold text-sm">
@@ -142,8 +47,10 @@
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl mb-4">🎯 Objetivo da Lista</h2>
             <p class="text-xl mb-6 opacity-95">
-                Dominar a seleção de elementos HTML via JavaScript e compreender a estrutura de árvore do DOM,
-                utilizando métodos como getElementById, querySelector e propriedades de navegação.
+                Abandonar o "loop for" tradicional e dominar a manipulação de dados moderna. Você aprenderá a
+                transformar listas com <strong>map</strong>,
+                filtrar itens com <strong>filter</strong> e agregar valores com <strong>reduce</strong>. Essas são as
+                ferramentas essenciais de todo desenvolvedor Front-end.
             </p>
 
             <div class="grid md:grid-cols-3 gap-4">
@@ -153,7 +60,7 @@
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
                     <p class="font-bold text-lg mb-1">Tempo Estimado</p>
-                    <p class="text-3xl font-bold">3-4h</p>
+                    <p class="text-3xl font-bold">4-5h</p>
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
                     <p class="font-bold text-lg mb-1">Formato de Entrega</p>
@@ -162,19 +69,10 @@
             </div>
 
             <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
-                <h3 class="font-bold text-xl mb-3">Instruções Gerais</h3>
+                <h3 class="font-bold text-xl mb-3">Pré-requisitos (Aulas Anteriores)</h3>
                 <ul class="space-y-2 opacity-95">
-                    <li>✓ Crie um arquivo HTML para cada exercício (ex: <span
-                            class="code-inline bg-white bg-opacity-20 text-white">exercicio01.html</span>)</li>
-                    <li>✓ Inclua o HTML base necessário (tags h1, p, div, etc.) para ter o que selecionar.</li>
-                    <li>✓ Coloque todo código JavaScript dentro da tag <span
-                            class="code-inline bg-white bg-opacity-20 text-white">&lt;script&gt;</span> antes de fechar
-                        o <span class="code-inline bg-white bg-opacity-20 text-white">&lt;body&gt;</span>.</li>
-                    <li>✓ Use o <span class="code-inline bg-white bg-opacity-20 text-white">console.log()</span> para
-                        verificar se selecionou o elemento correto.</li>
-                    <li>✓ Nomeie o arquivo zip: <span
-                            class="code-inline bg-white bg-opacity-20 text-white">SEUNOME_semana32_exercicios.zip</span>
-                    </li>
+                    <li>✓ <strong>Aula 34:</strong> Arrays e Objetos (estrutura base).</li>
+                    <li>✓ <strong>Aula 36:</strong> Fetch API (usaremos dados simulados que viriam de APIs).</li>
                 </ul>
             </div>
         </div>
@@ -190,21 +88,21 @@
                         <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                         <span class="font-bold text-green-800">BÁSICO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Seleção direta por ID, Tag e Classe.</p>
+                    <p class="text-sm text-gray-700">Substituir 'for' por 'forEach' e 'map'. Transformações simples.</p>
                 </div>
                 <div class="border-2 border-yellow-300 rounded-xl p-4 bg-yellow-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
                         <span class="font-bold text-yellow-800">INTERMEDIÁRIO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Seletores CSS (querySelector) e atributos.</p>
+                    <p class="text-sm text-gray-700">Filtragem de dados (filter) e busca específica (find).</p>
                 </div>
                 <div class="border-2 border-red-300 rounded-xl p-4 bg-red-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-3 h-3 bg-red-500 rounded-full"></div>
                         <span class="font-bold text-red-800">AVANÇADO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Navegação na árvore DOM e manipulação composta.</p>
+                    <p class="text-sm text-gray-700">Agregação (reduce) e encadeamento de métodos (chaining).</p>
                 </div>
             </div>
         </div>
@@ -223,8 +121,8 @@
                             <span class="font-bold text-2xl text-green-700">01</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por ID</h3>
-                            <p class="text-gray-600">O método mais rápido do DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">forEach vs For</h3>
+                            <p class="text-gray-600">Iteração Funcional</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
@@ -235,48 +133,25 @@
                 </div>
 
                 <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
-                    <p class="font-bold text-blue-900 mb-2">Bloom: Lembrar</p>
-                    <p class="text-sm text-blue-800">Recuperar um elemento único usando seu identificador exclusivo.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
-                    <div class="grid md:grid-cols-2 gap-3">
-                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
-                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
-                            <ul class="text-gray-700 space-y-1">
-                                <li>• Atributo HTML <code class="code-inline">id</code></li>
-                                <li>• Método <code class="code-inline">document.getElementById()</code></li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
-                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
-                            <ul class="text-gray-700 space-y-1">
-                                <li>• Criar elementos identificáveis</li>
-                                <li>• Capturar elemento em variável</li>
-                                <li>• Inspecionar objeto Element no console</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender</p>
+                    <p class="text-sm text-blue-800">Entender a sintaxe de callback function para percorrer arrays.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie um arquivo <code class="code-inline">exercicio01.html</code>. No HTML, crie uma <code
-                            class="code-inline">&lt;div&gt;</code> com o id <code class="code-inline">"resultado"</code>
-                        e o texto "Aqui está o resultado".
-                        <br><br>
-                        No JavaScript, use <code class="code-inline">getElementById</code> para selecionar essa div e
-                        exibi-la no <code class="code-inline">console.log()</code>.
+                        Crie <code class="code-inline">exercicio01.html</code>. Declare um array de números: <code
+                            class="code-inline">[10, 20, 30, 40, 50]</code>.
+                        <br>
+                        Use o método <code class="code-inline">.forEach()</code> para percorrer o array e imprimir no
+                        console cada número.
+                        <br>
+                        Compare mentalmente como isso seria feito com um <code class="code-inline">for</code>
+                        tradicional.
                     </p>
-                    <div class="code-block">
-                        &lt;div id="resultado"&gt;Texto inicial&lt;/div&gt;
-                        &lt;script&gt;
-                        // Seu código aqui
-                        const elemento = ...
-                        console.log(elemento);
-                        &lt;/script&gt;</div>
+                    <div class="code-block">numeros.forEach((numero) => {
+                        console.log(numero);
+                        });</div>
                 </div>
 
                 <div class="mb-6">
@@ -285,17 +160,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei a div com id correto</span>
+                            <span class="text-gray-800">Usei arrow function dentro do forEach</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei document.getElementById('resultado')</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O console mostra a tag HTML completa</span>
+                            <span class="text-gray-800">Todos os números aparecem no console</span>
                         </label>
                     </div>
                 </div>
@@ -309,32 +179,29 @@
                             <span class="font-bold text-2xl text-green-700">02</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Tag</h3>
-                            <p class="text-gray-600">Coletando múltiplos elementos</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Transformando com Map</h3>
+                            <p class="text-gray-600">Criando novos arrays</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 10
                             min</span>
                     </div>
-                </div>
-
-                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
-                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender</p>
-                    <p class="text-sm text-blue-800">Entender que alguns seletores retornam coleções (listas) e não
-                        apenas um elemento.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio02.html</code> com <strong>3 parágrafos</strong> (<code
-                            class="code-inline">&lt;p&gt;</code>) contendo textos diferentes.
+                        Use o mesmo array de números do exercício anterior.
                         <br>
-                        Use <code class="code-inline">document.getElementsByTagName('p')</code> para selecionar todos
-                        eles. Imprima a coleção no console e verifique o tamanho da lista (length).
+                        Utilize o método <code class="code-inline">.map()</code> para criar um <strong>novo
+                            array</strong> onde cada número é multiplicado por 2.
+                        <br>
+                        Imprima o array original e o novo array no console para ver a diferença (o original não deve
+                        mudar).
                     </p>
+                    <div class="code-block">const dobro = numeros.map(num => num * 2);</div>
                 </div>
 
                 <div class="mb-6">
@@ -343,17 +210,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei 3 parágrafos no HTML</span>
+                            <span class="text-gray-800">Entendi que .map() retorna um array novo</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei getElementsByTagName no plural</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O console mostra uma HTMLCollection com 3 itens</span>
+                            <span class="text-gray-800">O novo array tem os valores dobrados [20, 40, ...]</span>
                         </label>
                     </div>
                 </div>
@@ -367,8 +229,8 @@
                             <span class="font-bold text-2xl text-green-700">03</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Classe</h3>
-                            <p class="text-gray-600">Agrupando elementos estilizados</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Map com Objetos</h3>
+                            <p class="text-gray-600">Extraindo propriedades</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
@@ -381,15 +243,13 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Em <code class="code-inline">exercicio03.html</code>, crie:
-                    <ul class="list-disc ml-6 mb-2">
-                        <li>2 elementos <code class="code-inline">div</code> com a classe <code
-                                class="code-inline">"elemento-impar"</code></li>
-                        <li>2 elementos <code class="code-inline">div</code> com a classe <code
-                                class="code-inline">"elemento-par"</code></li>
-                    </ul>
-                    Use <code class="code-inline">document.getElementsByClassName('elemento-par')</code> para capturar
-                    apenas os pares.
+                        Crie <code class="code-inline">exercicio03.html</code> com um array de objetos:
+                        <br>
+                        <code
+                            class="code-inline">const usuarios = [{nome: "Ana", idade: 20}, {nome: "Pedro", idade: 15}, {nome: "João", idade: 30}]</code>
+                        <br><br>
+                        Use <code class="code-inline">.map()</code> para criar um array contendo <strong>apenas os
+                            nomes</strong> dos usuários (array de strings).
                     </p>
                 </div>
 
@@ -399,17 +259,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Apliquei corretamente o atributo class no HTML</span>
+                            <span class="text-gray-800">O resultado é ["Ana", "Pedro", "João"]</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei apenas a classe solicitada</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Console mostra apenas 2 elementos na coleção</span>
+                            <span class="text-gray-800">Consegui acessar user.nome dentro do map</span>
                         </label>
                     </div>
                 </div>
@@ -424,35 +279,34 @@
                             <span class="font-bold text-2xl text-yellow-700">04</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Query Selector (Único)</h3>
-                            <p class="text-gray-600">O poder dos seletores CSS no JS</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Filtrando Dados</h3>
+                            <p class="text-gray-600">O método .filter()</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
                     <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar</p>
-                    <p class="text-sm text-orange-800">Utilizar sintaxe CSS (pontos, hashtags, tags) dentro do
-                        JavaScript.</p>
+                    <p class="text-sm text-orange-800">Criar subconjuntos de dados baseados em uma condição lógica.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio04.html</code> com a seguinte estrutura:
+                        Crie <code class="code-inline">exercicio04.html</code> com um array de números mistos: <code
+                            class="code-inline">[5, 12, 8, 130, 44]</code>.
                         <br>
-                        <code
-                            class="code-block bg-gray-200 text-gray-800 block p-2 my-2">&lt;div class="container"&gt;<br>&nbsp;&nbsp;&lt;p class="texto"&gt;Primeiro texto&lt;/p&gt;<br>&nbsp;&nbsp;&lt;p class="texto"&gt;Segundo texto&lt;/p&gt;<br>&lt;/div&gt;</code>
-                        Use <code class="code-inline">document.querySelector('.container .texto')</code>.
+                        Use <code class="code-inline">.filter()</code> para criar um novo array contendo apenas os
+                        números <strong>maiores que 10</strong>.
                         <br>
-                        <strong>Pergunta:</strong> Ele selecionou os dois parágrafos ou apenas o primeiro? Verifique no
-                        console.
+                        Exiba o resultado no console.
                     </p>
+                    <div class="code-block">const maiores = lista.filter(item => item > 10);</div>
                 </div>
 
                 <div class="mb-6">
@@ -461,13 +315,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei sintaxe de seletor CSS (.classe)</span>
+                            <span class="text-gray-800">A lógica retorna true ou false para cada item</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Entendi que querySelector retorna apenas o PRIMEIRO
-                                elemento</span>
+                            <span class="text-gray-800">O novo array só tem [12, 130, 44]</span>
                         </label>
                     </div>
                 </div>
@@ -482,13 +335,13 @@
                             <span class="font-bold text-2xl text-yellow-700">05</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Query Selector All</h3>
-                            <p class="text-gray-600">Selecionando tudo com flexibilidade</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Filter com Objetos</h3>
+                            <p class="text-gray-600">Cenário real de uso</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
                             min</span>
                     </div>
                 </div>
@@ -496,11 +349,12 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Semelhante ao exercício anterior, mas agora use <code
-                            class="code-inline">document.querySelectorAll('.texto')</code>.
+                        Use o array de usuários do exercício 3 ({nome, idade}).
                         <br>
-                        Mostre no console o resultado. Observe que o retorno é uma <em>NodeList</em>. Tente acessar o
-                        segundo elemento usando índice de array (ex: <code class="code-inline">lista[1]</code>).
+                        Use <code class="code-inline">.filter()</code> para criar uma lista apenas com os usuários
+                        <strong>maiores de idade</strong> (idade >= 18).
+                        <br>
+                        Mostre a lista filtrada no console.
                     </p>
                 </div>
 
@@ -510,17 +364,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei querySelectorAll</span>
+                            <span class="text-gray-800">O usuário "Pedro" (15 anos) foi removido da nova lista</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Consegui ver a lista completa no console</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Acessei um item específico via índice [ ]</span>
+                            <span class="text-gray-800">O array original permanece intacto</span>
                         </label>
                     </div>
                 </div>
@@ -535,8 +384,8 @@
                             <span class="font-bold text-2xl text-yellow-700">06</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Name</h3>
-                            <p class="text-gray-600">Focado em Formulários</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Encontrando Itens</h3>
+                            <p class="text-gray-600">O método .find()</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
@@ -549,11 +398,14 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio06.html</code> com um formulário simples contendo:
-                        <code
-                            class="code-block bg-gray-200 text-gray-800 block p-2 my-2">&lt;input type="text" name="telefone"&gt;</code>
-                        Utilize <code class="code-inline">document.getElementsByName('telefone')</code> para capturar
-                        esse input. Lembre-se que, assim como ClassName e TagName, isso retorna uma lista.
+                        Ao contrário do filter (que retorna um array), o <code class="code-inline">.find()</code>
+                        retorna apenas <strong>o primeiro elemento</strong> que satisfaz a condição.
+                        <br>
+                        Crie um array com nomes: <code
+                            class="code-inline">["Ana", "Carlos", "Beatriz", "Daniel"]</code>.
+                        <br>
+                        Use <code class="code-inline">.find()</code> para encontrar o primeiro nome que tem mais de 6
+                        letras.
                     </p>
                 </div>
 
@@ -563,12 +415,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei o atributo name no HTML</span>
+                            <span class="text-gray-800">O resultado é uma string única, não um array</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Identifiquei o elemento dentro da NodeList retornada</span>
+                            <span class="text-gray-800">Entendi a diferença entre find (item) e filter (lista)</span>
                         </label>
                     </div>
                 </div>
@@ -583,34 +435,35 @@
                             <span class="font-bold text-2xl text-red-700">07</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Navegação: ParentNode</h3>
-                            <p class="text-gray-600">Subindo a árvore DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Agregando com Reduce</h3>
+                            <p class="text-gray-600">Somando valores</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
                     <p class="font-bold text-red-900 mb-2">Bloom: Analisar</p>
-                    <p class="text-sm text-red-800">Compreender a relação hierárquica (pai e filho) entre elementos.</p>
+                    <p class="text-sm text-red-800">Transformar uma lista inteira em um único valor (ex: soma total).
+                    </p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie uma estrutura onde um <code class="code-inline">&lt;div id="pai"&gt;</code> contém um <code
-                            class="code-inline">&lt;p id="filho"&gt;</code>.
+                        Crie <code class="code-inline">exercicio07.html</code>. Tenha um array de preços: <code
+                            class="code-inline">[10.50, 20.00, 5.00, 100.00]</code>.
                         <br>
-                        1. Selecione o filho pelo ID.
+                        Use o método <code class="code-inline">.reduce()</code> para calcular a <strong>soma
+                            total</strong> de todos os preços.
                         <br>
-                        2. Acesse o pai através da propriedade <code class="code-inline">.parentNode</code> do filho.
-                        <br>
-                        3. Imprima o pai no console.
+                        Comece o acumulador em 0.
                     </p>
+                    <div class="code-block">const total = precos.reduce((acc, atual) => acc + atual, 0);</div>
                 </div>
 
                 <div class="mb-6">
@@ -619,12 +472,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o elemento filho</span>
+                            <span class="text-gray-800">Entendi o papel do 'acumulador' (acc)</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei .parentNode para chegar à div externa</span>
+                            <span class="text-gray-800">O resultado final é a soma correta (135.5)</span>
                         </label>
                     </div>
                 </div>
@@ -639,13 +492,13 @@
                             <span class="font-bold text-2xl text-red-700">08</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Navegação: Children</h3>
-                            <p class="text-gray-600">Descendo a árvore DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Encadeamento (Chaining)</h3>
+                            <p class="text-gray-600">Filter + Map</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
                             min</span>
                     </div>
                 </div>
@@ -653,13 +506,17 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie uma lista não ordenada (<code class="code-inline">ul</code>) com 4 itens (<code
-                            class="code-inline">li</code>). Dê um ID para a <code class="code-inline">ul</code>.
+                        O poder real vem ao combinar os métodos.
                         <br>
-                        No JS, selecione a lista e use a propriedade <code class="code-inline">.children</code>. Acesse
-                        o <strong>segundo filho</strong> dessa lista (lembre-se que o índice começa em 0) e imprima seu
-                        texto (innerText) no console.
+                        Dado o array: <code class="code-inline">[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code>.
+                        <br>
+                        Em uma única linha (ou corrente):
+                        <br>1. <strong>Filtre</strong> apenas os números pares.
+                        <br>2. <strong>Mapeie</strong> esses números para o seu dobro.
+                        <br>
+                        Resultado esperado: <code class="code-inline">[4, 8, 12, 16, 20]</code>.
                     </p>
+                    <div class="code-block">lista.filter(...).map(...)</div>
                 </div>
 
                 <div class="mb-6">
@@ -668,17 +525,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei .children para obter os itens da lista</span>
+                            <span class="text-gray-800">Consegui encadear .filter().map()</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Acessei o índice correto [1] para o segundo filho</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Exibi o innerText corretamente</span>
+                            <span class="text-gray-800">Entendi que o resultado do filter passa para o map</span>
                         </label>
                     </div>
                 </div>
@@ -693,13 +545,13 @@
                             <span class="font-bold text-2xl text-red-700">09</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Manipulação Simples</h3>
-                            <p class="text-gray-600">Alterando Estilos</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Gerando HTML com Map</h3>
+                            <p class="text-gray-600">Técnica usada no React</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 35
                             min</span>
                     </div>
                 </div>
@@ -707,17 +559,19 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie um título <code class="code-inline">h1</code>. Selecione-o pelo JavaScript e altere sua
-                        propriedade <code class="code-inline">style.color</code> para <code
-                            class="code-inline">"red"</code>.
+                        Crie <code class="code-inline">exercicio09.html</code> com uma <code
+                            class="code-inline">&lt;ul id="lista"&gt;</code> vazia.
                         <br>
-                        Bônus: Tente alterar também o <code class="code-inline">innerText</code> para "Texto alterado
-                        via JS!".
+                        Tenha um array de strings (tarefas).
+                        <br>
+                        Use <code class="code-inline">.map()</code> para transformar cada string em um pedaço de HTML:
+                        <code class="code-inline">"&lt;li&gt;" + tarefa + "&lt;/li&gt;"</code>.
+                        <br>
+                        Use <code class="code-inline">.join('')</code> para juntar tudo em uma única string e injete no
+                        <code class="code-inline">innerHTML</code> da ul.
+                        <br>
+                        <em>(Esta é uma alternativa performática ao appendChild em loops).</em>
                     </p>
-                    <div class="code-block">
-                        let titulo = document.querySelector('h1');
-                        titulo.style.color = 'red';
-                        // ...</div>
                 </div>
 
                 <div class="mb-6">
@@ -726,12 +580,13 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o elemento corretamente</span>
+                            <span class="text-gray-800">Consegui renderizar a lista inteira com uma única operação no
+                                DOM</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">A cor do texto mudou na tela</span>
+                            <span class="text-gray-800">Entendi como o map transforma dados em visual</span>
                         </label>
                     </div>
                 </div>
@@ -747,36 +602,46 @@
                             <span class="font-bold text-2xl text-white">10</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio: Interatividade</h3>
-                            <p class="text-gray-600">Reagindo a ações do usuário</p>
+                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio: Análise de Dados</h3>
+                            <p class="text-gray-600">Dashboard no Console</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span
                             class="bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-1 rounded-full text-xs font-bold">DESAFIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 40
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 50
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
                     <p class="font-bold text-red-900 mb-2">Bloom: Criar</p>
-                    <p class="text-sm text-red-800">Combinar seletores com funções e eventos simples (onclick) para
-                        criar uma página dinâmica.</p>
+                    <p class="text-sm text-red-800">Utilizar Map, Filter e Reduce em conjunto para extrair inteligência
+                        de um conjunto de dados complexo.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio10.html</code> com:
-                        <br>1. Um botão (<code class="code-inline">button</code>) com o texto "Clique aqui".
-                        <br>2. Um parágrafo (<code class="code-inline">p</code>) vazio com um ID.
-                        <br><br>
-                        <strong>Objetivo:</strong> Crie uma função chamada <code
-                            class="code-inline">alterarTexto()</code>. Dentro dela, selecione o parágrafo e mude seu
-                        texto para "Você clicou no botão!".
+                        Dado o array de vendas:
                         <br>
-                        No HTML, adicione <code class="code-inline">onclick="alterarTexto()"</code> ao botão.
+                        <code class="code-block bg-gray-200 text-gray-800 block p-2 my-2 text-xs">
+const vendas = [<br>
+  { produto: "Celular", preco: 1000, status: "Entregue" },<br>
+  { produto: "Notebook", preco: 3000, status: "Entregue" },<br>
+  { produto: "Mouse", preco: 50, status: "Cancelado" },<br>
+  { produto: "Teclado", preco: 100, status: "Entregue" }<br>
+];
+                        </code>
+                        Calcule e exiba no console o <strong>Faturamento Total Real</strong>:
+                        <br>
+                        1. Filtre apenas as vendas "Entregue".
+                        <br>
+                        2. Obtenha a lista de preços dessas vendas.
+                        <br>
+                        3. Some tudo.
+                        <br>
+                        Faça tudo em uma cadeia de métodos.
                     </p>
                 </div>
 
@@ -786,17 +651,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei a função no JavaScript</span>
+                            <span class="text-gray-800">O resultado deve ser 4100 (1000 + 3000 + 100)</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o parágrafo dentro da função</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O texto muda quando clico no botão</span>
+                            <span class="text-gray-800">Consegui resolver em poucas linhas de código</span>
                         </label>
                     </div>
                 </div>
@@ -804,8 +664,8 @@
                 <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500">
                     <h4 class="font-bold text-lg text-green-900 mb-3">Resultado Esperado</h4>
                     <p class="text-green-800">
-                        Uma página web interativa onde o conteúdo muda dinamicamente em resposta à ação do usuário,
-                        provando o poder da manipulação do DOM.
+                        Domínio completo sobre manipulação de arrays. Você agora consegue transformar dados brutos em
+                        informações úteis e interfaces dinâmicas com código limpo e moderno.
                     </p>
                 </div>
             </article>
@@ -826,7 +686,7 @@
                             class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio01.html</code>, etc.</li>
                     <li><strong>3.</strong> Compacte a pasta em formato <strong>.zip</strong></li>
                     <li><strong>4.</strong> Renomeie o arquivo: <code
-                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana32_exercicios.zip</code></li>
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana37_exercicios.zip</code></li>
                     <li><strong>5.</strong> Envie no Google Sala de Aula até a data limite</li>
                 </ol>
             </div>
@@ -842,7 +702,7 @@
     <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
         <p>
             <a href="../autoria-web-disciplina.html" class="hover:text-white transition">Autoria Web</a> •
-            <a href="aula-32.html" class="hover:text-white transition">Semana 32</a> •
+            <a href="aula-37.html" class="hover:text-white transition">Semana 37</a> •
             IFRN © 2025
         </p>
     </footer>

@@ -7,32 +7,7 @@
     <title>Semana 32 — Introdução ao DOM | Autoria Web IFRN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        'ifrn': {
-                            'green': {
-                                50: '#e6f2ea',
-                                100: '#c4e2d1',
-                                500: '#2f6b48',
-                                700: '#1f4a32',
-                                800: '#143021',
-                            },
-                            'red': {
-                                500: '#e63946',
-                                600: '#d62828',
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="../assets/js/script.js"></script>
     <style>
         * {
             margin: 0;
@@ -383,7 +358,7 @@
             <div
                 class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
                 <h2 class="font-bold text-3xl mb-4">
-                    🎯 Seletores: Como "Pegar" Elementos
+                    Seletores: Como "Pegar" Elementos
                 </h2>
                 <p class="text-xl opacity-95">
                     Agora vem a parte prática: como selecionar elementos da página.
@@ -503,39 +478,81 @@
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                📊 Comparação dos Seletores
+                Comparação de seletores
             </h2>
 
             <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 overflow-x-auto">
+
                 <table class="w-full text-left">
                     <thead>
                         <tr class="border-b-2 border-gray-300">
                             <th class="pb-4 pr-4 font-bold text-gray-900">Seletor</th>
-                            <th class="pb-4 pr-4 font-bold text-gray-900">O que seleciona</th>
-                            <th class="pb-4 font-bold text-gray-900">Quando usar</th>
+                            <th class="pb-4 pr-4 font-bold text-gray-900">Retorno</th>
+                            <th class="pb-4 pr-4 font-bold text-gray-900">Sintaxe</th>
+                            <th class="pb-4 font-bold text-gray-900">O que faz?</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700">
-                        <tr class="border-b border-gray-200">
-                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">getElementById()</code>
-                            </td>
-                            <td class="py-4 pr-4">1 elemento por ID</td>
-                            <td class="py-4">Quando o elemento tem ID único</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">querySelector()</code>
-                            </td>
-                            <td class="py-4 pr-4">Primeiro elemento que corresponde</td>
-                            <td class="py-4">Mais flexível, usa seletores CSS</td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 pr-4"><code class="bg-gray-100 px-2 py-1 rounded">querySelectorAll()</code>
-                            </td>
-                            <td class="py-4 pr-4">TODOS os elementos</td>
-                            <td class="py-4">Quando precisa de vários elementos</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="methods-tbody" class="text-gray-700"></tbody>
                 </table>
+
+                <script>
+                    const data = [
+                        {
+                            method: "getElementById()",
+                            returns: "Element (único)",
+                            sintaxe: "ID (#)",
+                            whenToUse: "Encontrar um elemento por seu ID único."
+                        },
+                        {
+                            method: "querySelector()",
+                            returns: "Element (primeiro)",
+                            sintaxe: "Seletor CSS",
+                            whenToUse: "Encontrar o primeiro elemento que corresponde a qualquer seletor CSS válido."
+                        },
+                        {
+                            method: "querySelectorAll()",
+                            returns: "NodeList",
+                            sintaxe: "Seletor CSS",
+                            whenToUse: "Encontrar todos os elementos que correspondem a qualquer seletor CSS válido."
+                        },
+                        {
+                            method: "getElementsByClassName()",
+                            returns: "HTMLCollection",
+                            sintaxe: "Nome da classe",
+                            whenToUse: "Quando precisa de vários elementos"
+                        },
+                        {
+                            method: "getElementsByTagName()",
+                            returns: "HTMLCollection",
+                            sintaxe: "Nome da tag",
+                            whenToUse: "Encontrar todos os elementos de um tipo de tag HTML específico."
+                        },
+                        {
+                            method: "getElementsByName()",
+                            returns: "NodeList",
+                            sintaxe: "Nome do atributo",
+                            whenToUse: "Encontrar elementos de formulário por seu atributo name."
+                        }
+                    ];
+
+                    let tbody = document.getElementById("methods-tbody");
+
+                    data.forEach(row => {
+                        const tr = document.createElement("tr");
+                        tr.className = "border-b border-gray-200";
+
+                        tr.innerHTML = `
+      <td class="py-4 pr-4">
+        <code class="bg-gray-100 px-2 py-1 rounded">${row.method}</code>
+      </td>
+      <td class="py-4 pr-4">${row.returns}</td>
+      <td class="py-4 pr-4">${row.sintaxe}</td>
+      <td class="py-4">${row.whenToUse}</td>
+    `;
+
+                        tbody.appendChild(tr);
+                    });
+                </script>
             </div>
 
             <div class="mt-6 bg-gray-50 rounded p-6 border-l-2 border-gray-400">
@@ -545,6 +562,22 @@
                         class="bg-gray-200 px-2 py-1 rounded">querySelectorAll()</code> na maioria dos casos. São mais
                     modernos e aceitam qualquer seletor CSS (classes, IDs, tags, etc).
                 </p>
+                <p class="font-bold text-gray-900 mt-2">Nota sobre NodeList vs HTMLCollection</p>
+                <ul class="list-disc pl-10 mt-4 space-y-4">
+                    <li class="text-gray-700">
+                        <code class="bg-gray-200 px-2 py-1 rounded">NodeList</code> (retornado por querySelectorAll() e
+                        getElementsByName()) geralmente suporta métodos
+                        úteis
+                        de array como forEach().
+                    </li>
+                    <li class="text-gray-700">
+                        <code class="bg-gray-200 px-2 py-1 rounded">HTMLCollection</code> (retornado por
+                        getElementsByClassName() e getElementsByTagName()) é uma coleção
+                        "viva" (live collection), o que significa que ela se atualiza automaticamente se novos elementos
+                        forem adicionados ou removidos do DOM, enquanto a maioria dos NodeList é estática.
+                    </li>
+
+                </ul>
             </div>
         </div>
     </section>

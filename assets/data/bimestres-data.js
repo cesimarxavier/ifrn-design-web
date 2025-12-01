@@ -204,88 +204,104 @@ const BIMESTRES_DATA = [
         badgeClasses: "bg-blue-100 text-blue-700",
         summary: "Introdução ao JavaScript",
         details: [
-          "<strong>Aula 1:</strong> Sintaxe básica, console.log",
-          "<strong>Aula 2:</strong> Variáveis (let, const), tipos de dados, funções básicas"
+          "Sintaxe básica, console.log, tipos de dados (string, number, boolean)",
+          "Variáveis (let, const) e Funções simples"
         ],
         bloom: "Lembrar / Compreender"
       },
       {
         number: 32,
+        link: "autoria-web/aula-32.html",
         badgeType: "S",
         badgeClasses: "bg-blue-100 text-blue-700",
-        summary: "DOM — Conceitos",
+        summary: "DOM e Seletores",
         details: [
-          "O que é DOM, estrutura em árvore. Entender nós e elementos, DevTools"
+          "Árvore DOM, getElementById, getElementsByTagName/ClassName",
+          "querySelector e querySelectorAll, Navegação (parentNode, children)"
         ],
         bloom: "Compreender / Analisar"
       },
       {
         number: 33,
+        link: "autoria-web/aula-33.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
-        summary: "Seleção de Elementos",
+        summary: "Manipulação e Eventos",
         details: [
-          "getElementById, querySelector. querySelectorAll, diferenças práticas"
+          "Manipular texto (innerText/HTML) e estilos (.style)",
+          "Eventos (addEventListener, click), Classes (classList) e Criação de Elementos"
         ],
         bloom: "Aplicar"
       },
       {
         number: 34,
+        link: "autoria-web/aula-34.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
-        summary: "Manipulação de Conteúdo",
+        summary: "Arrays e Loops",
         details: [
-          "innerHTML, textContent. Manipulação de atributos (src, href, alt)"
+          "Criação e acesso a Arrays, Estruturas de repetição (For, For...of)",
+          "Renderização dinâmica de listas HTML baseadas em dados"
         ],
         bloom: "Aplicar"
       },
       {
         number: 35,
+        link: "autoria-web/aula-35.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
-        summary: "Estilos e Classes pelo JS",
+        summary: "Persistência de Dados",
         details: [
-          "classList.add, classList.remove, toggle. style.property, manipulação inline"
+          "LocalStorage (setItem, getItem, removeItem)",
+          "Formato JSON (stringify, parse) e Persistência de Arrays/Objetos"
         ],
         bloom: "Aplicar / Analisar"
       },
       {
         number: 36,
+        link: "autoria-web/aula-36.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
-        summary: "Eventos no DOM",
+        summary: "APIs e Assincronismo",
         details: [
-          "onclick, addEventListener. Eventos de teclado e formulário (keypress, submit)"
+          "Fetch API, Promises (.then/.catch), Async/Await",
+          "Try/Catch e Renderização de dados externos na tela"
         ],
         bloom: "Aplicar / Criar"
       },
       {
         number: 37,
+        link: "autoria-web/aula-37.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
-        summary: "Validações e Máscaras",
+        summary: "Métodos de Array",
         details: [
-          "Validação básica (campos vazios, regex simples). Máscaras simples, form handling"
+          "Programação funcional com Arrays",
+          "Map (transformar), Filter (filtrar), Reduce (agregar) e Find"
         ],
         bloom: "Analisar / Criar"
       },
       {
         number: 38,
+        link: "autoria-web/aula-38.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
-        summary: "Manipulação Avançada",
+        summary: "JavaScript Moderno (ES6+)",
         details: [
-          "createElement, appendChild, remove. Inserção dinâmica no DOM, listas interativas"
+          "Arrow Functions, Template Literals",
+          "Desestruturação (Objetos/Arrays) e Spread/Rest Operators"
         ],
         bloom: "Criar / Avaliar"
       },
       {
         number: 39,
+        link: "autoria-web/aula-39.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
-        summary: "Projeto Interativo",
+        summary: "Orientação a Objetos",
         details: [
-          "Planejamento: pequeno site interativo. Desenvolvimento: formulário validado + componentes dinâmicos"
+          "Classes, Construtores, Instâncias (new)",
+          "Herança (extends), Polimorfismo, Métodos Estáticos e Encapsulamento"
         ],
         bloom: "Criar / Avaliar"
       },
@@ -293,7 +309,7 @@ const BIMESTRES_DATA = [
         number: 40,
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
-        summary: "🎯 Avaliação Final + Publicação",
+        summary: "🎯 Avaliação Final",
         details: [
           "Revisão final, ajustes projeto. Deploy no Vercel + apresentação"
         ],

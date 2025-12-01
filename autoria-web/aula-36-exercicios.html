@@ -4,111 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Exercícios — Semana 32 | Autoria Web IFRN</title>
-    <meta name="description" content="Lista de exercícios sobre DOM e Seletores - Semana 32">
+    <title>Lista de Exercícios — Semana 36 | Autoria Web IFRN</title>
+    <meta name="description" content="Lista de exercícios sobre Consumo de APIs e Async/Await - Semana 36">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Script Personalizado (Configurações Tailwind, etc) -->
     <script src="../assets/js/script.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
-
-        .exercise-card {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .exercise-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .exercise-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
-        }
-
-        .exercise-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* Cores por nível */
-        .level-basic::before {
-            background: #10b981;
-        }
-
-        .level-intermediate::before {
-            background: #f59e0b;
-        }
-
-        .level-advanced::before {
-            background: #ef4444;
-        }
-
-        .badge-basic {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .badge-intermediate {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .badge-advanced {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .checkbox-item {
-            transition: all 0.2s ease;
-        }
-
-        .checkbox-item:hover {
-            background: #f3f4f6;
-        }
-
-        .code-inline {
-            background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            color: #d63384;
-        }
-
-        /* Estilo extra para blocos de código */
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            overflow-x: auto;
-        }
-    </style>
+    <!-- Estilos Personalizados -->
+    <link rel="stylesheet" href="exercicios.css">
 </head>
 
 <body class="bg-gray-50">
@@ -123,9 +28,9 @@
                         ← Voltar para Autoria Web
                     </a>
                     <h1 class="font-bold text-2xl text-gray-900">
-                        <a href="aula-32.html" class="hover:underline">Lista de Exercícios — Semana 32</a>
+                        <a href="aula-36.html" class="hover:underline">Lista de Exercícios — Semana 36</a>
                     </h1>
-                    <p class="text-gray-600">DOM, Árvore de Elementos e Seletores</p>
+                    <p class="text-gray-600">Consumo de APIs e Assincronismo (Fetch & Async/Await)</p>
                 </div>
                 <div class="text-right">
                     <div class="px-4 py-2 bg-ifrn-red-500 text-white rounded-lg font-bold text-sm">
@@ -142,8 +47,9 @@
         <div class="max-w-5xl mx-auto">
             <h2 class="font-bold text-3xl mb-4">🎯 Objetivo da Lista</h2>
             <p class="text-xl mb-6 opacity-95">
-                Dominar a seleção de elementos HTML via JavaScript e compreender a estrutura de árvore do DOM,
-                utilizando métodos como getElementById, querySelector e propriedades de navegação.
+                Conectar suas aplicações ao mundo real. Você aprenderá a buscar dados externos (APIs) usando
+                <strong>fetch</strong>,
+                controlar o fluxo assíncrono com <strong>async/await</strong> e tratar erros de conexão.
             </p>
 
             <div class="grid md:grid-cols-3 gap-4">
@@ -153,7 +59,7 @@
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
                     <p class="font-bold text-lg mb-1">Tempo Estimado</p>
-                    <p class="text-3xl font-bold">3-4h</p>
+                    <p class="text-3xl font-bold">4-5h</p>
                 </div>
                 <div class="bg-white bg-opacity-10 backdrop-blur rounded-xl p-4">
                     <p class="font-bold text-lg mb-1">Formato de Entrega</p>
@@ -162,19 +68,10 @@
             </div>
 
             <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
-                <h3 class="font-bold text-xl mb-3">Instruções Gerais</h3>
+                <h3 class="font-bold text-xl mb-3">Pré-requisitos (Aulas Anteriores)</h3>
                 <ul class="space-y-2 opacity-95">
-                    <li>✓ Crie um arquivo HTML para cada exercício (ex: <span
-                            class="code-inline bg-white bg-opacity-20 text-white">exercicio01.html</span>)</li>
-                    <li>✓ Inclua o HTML base necessário (tags h1, p, div, etc.) para ter o que selecionar.</li>
-                    <li>✓ Coloque todo código JavaScript dentro da tag <span
-                            class="code-inline bg-white bg-opacity-20 text-white">&lt;script&gt;</span> antes de fechar
-                        o <span class="code-inline bg-white bg-opacity-20 text-white">&lt;body&gt;</span>.</li>
-                    <li>✓ Use o <span class="code-inline bg-white bg-opacity-20 text-white">console.log()</span> para
-                        verificar se selecionou o elemento correto.</li>
-                    <li>✓ Nomeie o arquivo zip: <span
-                            class="code-inline bg-white bg-opacity-20 text-white">SEUNOME_semana32_exercicios.zip</span>
-                    </li>
+                    <li>✓ <strong>Aula 34:</strong> Renderização de Listas (essencial para exibir dados da API).</li>
+                    <li>✓ <strong>Aula 35:</strong> JSON (formato padrão de resposta das APIs).</li>
                 </ul>
             </div>
         </div>
@@ -190,21 +87,21 @@
                         <div class="w-3 h-3 bg-green-500 rounded-full"></div>
                         <span class="font-bold text-green-800">BÁSICO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Seleção direta por ID, Tag e Classe.</p>
+                    <p class="text-sm text-gray-700">Conceito de Promise e sintaxe básica do fetch().</p>
                 </div>
                 <div class="border-2 border-yellow-300 rounded-xl p-4 bg-yellow-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
                         <span class="font-bold text-yellow-800">INTERMEDIÁRIO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Seletores CSS (querySelector) e atributos.</p>
+                    <p class="text-sm text-gray-700">Async/Await, Try/Catch e renderização de dados simples.</p>
                 </div>
                 <div class="border-2 border-red-300 rounded-xl p-4 bg-red-50">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-3 h-3 bg-red-500 rounded-full"></div>
                         <span class="font-bold text-red-800">AVANÇADO</span>
                     </div>
-                    <p class="text-sm text-gray-700">Navegação na árvore DOM e manipulação composta.</p>
+                    <p class="text-sm text-gray-700">Busca dinâmica (Search), paginação ou filtros via API.</p>
                 </div>
             </div>
         </div>
@@ -223,8 +120,8 @@
                             <span class="font-bold text-2xl text-green-700">01</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por ID</h3>
-                            <p class="text-gray-600">O método mais rápido do DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">O que é Fetch?</h3>
+                            <p class="text-gray-600">Primeira requisição GET</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
@@ -236,47 +133,22 @@
 
                 <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
                     <p class="font-bold text-blue-900 mb-2">Bloom: Lembrar</p>
-                    <p class="text-sm text-blue-800">Recuperar um elemento único usando seu identificador exclusivo.</p>
-                </div>
-
-                <div class="mb-6">
-                    <h4 class="font-bold text-lg text-gray-900 mb-3">Conhecimentos e Habilidades</h4>
-                    <div class="grid md:grid-cols-2 gap-3">
-                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
-                            <p class="font-semibold text-gray-800 mb-1">Conhecimentos:</p>
-                            <ul class="text-gray-700 space-y-1">
-                                <li>• Atributo HTML <code class="code-inline">id</code></li>
-                                <li>• Método <code class="code-inline">document.getElementById()</code></li>
-                            </ul>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-3 text-sm">
-                            <p class="font-semibold text-gray-800 mb-1">Habilidades:</p>
-                            <ul class="text-gray-700 space-y-1">
-                                <li>• Criar elementos identificáveis</li>
-                                <li>• Capturar elemento em variável</li>
-                                <li>• Inspecionar objeto Element no console</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <p class="text-sm text-blue-800">Executar uma requisição HTTP simples e observar a resposta no
+                        console.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie um arquivo <code class="code-inline">exercicio01.html</code>. No HTML, crie uma <code
-                            class="code-inline">&lt;div&gt;</code> com o id <code class="code-inline">"resultado"</code>
-                        e o texto "Aqui está o resultado".
+                        Crie <code class="code-inline">exercicio01.html</code>. No JavaScript, use o método <code
+                            class="code-inline">fetch()</code> para buscar dados da URL:
+                        <br>
+                        <code class="code-inline">https://jsonplaceholder.typicode.com/posts/1</code>
                         <br><br>
-                        No JavaScript, use <code class="code-inline">getElementById</code> para selecionar essa div e
-                        exibi-la no <code class="code-inline">console.log()</code>.
+                        Utilize <code class="code-inline">.then(response => console.log(response))</code> para ver o
+                        objeto de resposta "cru" (Response Object) no console.
                     </p>
-                    <div class="code-block">
-                        &lt;div id="resultado"&gt;Texto inicial&lt;/div&gt;
-                        &lt;script&gt;
-                        // Seu código aqui
-                        const elemento = ...
-                        console.log(elemento);
-                        &lt;/script&gt;</div>
+                    <div class="code-block">fetch("url").then(res => console.log(res));</div>
                 </div>
 
                 <div class="mb-6">
@@ -285,17 +157,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei a div com id correto</span>
+                            <span class="text-gray-800">O console mostra um objeto "Response"</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei document.getElementById('resultado')</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O console mostra a tag HTML completa</span>
+                            <span class="text-gray-800">Verifiquei o status: 200 (OK) dentro do objeto</span>
                         </label>
                     </div>
                 </div>
@@ -309,31 +176,28 @@
                             <span class="font-bold text-2xl text-green-700">02</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Tag</h3>
-                            <p class="text-gray-600">Coletando múltiplos elementos</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Transformando em JSON</h3>
+                            <p class="text-gray-600">Extraindo os dados</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 10
                             min</span>
                     </div>
-                </div>
-
-                <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
-                    <p class="font-bold text-blue-900 mb-2">Bloom: Compreender</p>
-                    <p class="text-sm text-blue-800">Entender que alguns seletores retornam coleções (listas) e não
-                        apenas um elemento.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio02.html</code> com <strong>3 parágrafos</strong> (<code
-                            class="code-inline">&lt;p&gt;</code>) contendo textos diferentes.
+                        A resposta crua não é legível imediatamente. Precisamos converter para JSON.
                         <br>
-                        Use <code class="code-inline">document.getElementsByTagName('p')</code> para selecionar todos
-                        eles. Imprima a coleção no console e verifique o tamanho da lista (length).
+                        Modifique o código anterior para encadear um segundo <code class="code-inline">.then()</code>:
+                        <br>
+                        <code
+                            class="code-inline">fetch(...).then(res => res.json()).then(dados => console.log(dados))</code>.
+                        <br>
+                        Agora você deve ver o objeto real (com título e corpo do post) no console.
                     </p>
                 </div>
 
@@ -343,17 +207,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei 3 parágrafos no HTML</span>
+                            <span class="text-gray-800">Usei o método .json()</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei getElementsByTagName no plural</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O console mostra uma HTMLCollection com 3 itens</span>
+                            <span class="text-gray-800">Vejo os dados (title, body, id) no console</span>
                         </label>
                     </div>
                 </div>
@@ -367,13 +226,13 @@
                             <span class="font-bold text-2xl text-green-700">03</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Classe</h3>
-                            <p class="text-gray-600">Agrupando elementos estilizados</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Tratando Erros (Básico)</h3>
+                            <p class="text-gray-600">.catch()</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 10
                             min</span>
                     </div>
                 </div>
@@ -381,15 +240,15 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Em <code class="code-inline">exercicio03.html</code>, crie:
-                    <ul class="list-disc ml-6 mb-2">
-                        <li>2 elementos <code class="code-inline">div</code> com a classe <code
-                                class="code-inline">"elemento-impar"</code></li>
-                        <li>2 elementos <code class="code-inline">div</code> com a classe <code
-                                class="code-inline">"elemento-par"</code></li>
-                    </ul>
-                    Use <code class="code-inline">document.getElementsByClassName('elemento-par')</code> para capturar
-                    apenas os pares.
+                        Tente fazer um fetch para uma URL que não existe (ex: <code
+                            class="code-inline">https://jsonplaceholder.typicode.com/posts/999999</code> ou uma URL
+                        digitada errada).
+                        <br>
+                        Adicione <code class="code-inline">.catch(erro => console.error("Falha:", erro))</code> ao final
+                        da corrente.
+                        <br>
+                        <strong>Nota:</strong> Algumas APIs retornam 404 sem cair no catch (pois a requisição
+                        tecnicamente funcionou), mas URL inválida cairá.
                     </p>
                 </div>
 
@@ -399,17 +258,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Apliquei corretamente o atributo class no HTML</span>
+                            <span class="text-gray-800">Provoquei um erro proposital</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei apenas a classe solicitada</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Console mostra apenas 2 elementos na coleção</span>
+                            <span class="text-gray-800">A mensagem de erro personalizada apareceu no console</span>
                         </label>
                     </div>
                 </div>
@@ -424,35 +278,41 @@
                             <span class="font-bold text-2xl text-yellow-700">04</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Query Selector (Único)</h3>
-                            <p class="text-gray-600">O poder dos seletores CSS no JS</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Async / Await</h3>
+                            <p class="text-gray-600">Sintaxe moderna</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-orange-50 rounded-xl p-4 mb-6 border-l-4 border-orange-500">
-                    <p class="font-bold text-orange-900 mb-2">Bloom: Aplicar</p>
-                    <p class="text-sm text-orange-800">Utilizar sintaxe CSS (pontos, hashtags, tags) dentro do
-                        JavaScript.</p>
+                    <p class="font-bold text-orange-900 mb-2">Bloom: Compreender</p>
+                    <p class="text-sm text-orange-800">Substituir a sintaxe de .then() por async/await para um código
+                        mais limpo e síncrono visualmente.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio04.html</code> com a seguinte estrutura:
+                        Crie <code class="code-inline">exercicio04.html</code>. Defina uma função assíncrona <code
+                            class="code-inline">async function buscarDados() { ... }</code>.
                         <br>
-                        <code
-                            class="code-block bg-gray-200 text-gray-800 block p-2 my-2">&lt;div class="container"&gt;<br>&nbsp;&nbsp;&lt;p class="texto"&gt;Primeiro texto&lt;/p&gt;<br>&nbsp;&nbsp;&lt;p class="texto"&gt;Segundo texto&lt;/p&gt;<br>&lt;/div&gt;</code>
-                        Use <code class="code-inline">document.querySelector('.container .texto')</code>.
+                        Dentro dela:
+                        <br>1. Use <code class="code-inline">const resposta = await fetch(...)</code>.
+                        <br>2. Use <code class="code-inline">const dados = await resposta.json()</code>.
+                        <br>3. Exiba os dados.
                         <br>
-                        <strong>Pergunta:</strong> Ele selecionou os dois parágrafos ou apenas o primeiro? Verifique no
-                        console.
+                        Não esqueça de chamar a função <code class="code-inline">buscarDados()</code> no final.
                     </p>
+                    <div class="code-block">async function minhaFuncao() {
+                        const res = await fetch("url");
+                        const data = await res.json();
+                        console.log(data);
+                        }</div>
                 </div>
 
                 <div class="mb-6">
@@ -461,13 +321,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei sintaxe de seletor CSS (.classe)</span>
+                            <span class="text-gray-800">Usei a palavra-chave async na função</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Entendi que querySelector retorna apenas o PRIMEIRO
-                                elemento</span>
+                            <span class="text-gray-800">Usei await nas duas promessas (fetch e json)</span>
                         </label>
                     </div>
                 </div>
@@ -482,13 +341,13 @@
                             <span class="font-bold text-2xl text-yellow-700">05</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Query Selector All</h3>
-                            <p class="text-gray-600">Selecionando tudo com flexibilidade</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Try / Catch</h3>
+                            <p class="text-gray-600">Tratamento de erros profissional</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 20
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
                             min</span>
                     </div>
                 </div>
@@ -496,11 +355,13 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Semelhante ao exercício anterior, mas agora use <code
-                            class="code-inline">document.querySelectorAll('.texto')</code>.
+                        Modifique o exercício anterior. Envolva o código do fetch dentro de um bloco <code
+                            class="code-inline">try { ... }</code>.
                         <br>
-                        Mostre no console o resultado. Observe que o retorno é uma <em>NodeList</em>. Tente acessar o
-                        segundo elemento usando índice de array (ex: <code class="code-inline">lista[1]</code>).
+                        Adicione um bloco <code class="code-inline">catch (error) { ... }</code> logo após, exibindo um
+                        alerta ou log de erro.
+                        <br>
+                        Teste com uma URL inválida para garantir que o catch captura o problema.
                     </p>
                 </div>
 
@@ -510,17 +371,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei querySelectorAll</span>
+                            <span class="text-gray-800">O código não quebra a página quando há erro</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Consegui ver a lista completa no console</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Acessei um item específico via índice [ ]</span>
+                            <span class="text-gray-800">A mensagem de erro é exibida corretamente</span>
                         </label>
                     </div>
                 </div>
@@ -535,13 +391,13 @@
                             <span class="font-bold text-2xl text-yellow-700">06</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Seleção por Name</h3>
-                            <p class="text-gray-600">Focado em Formulários</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Exibindo Dados na Tela</h3>
+                            <p class="text-gray-600">DOM + API</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 15
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
                             min</span>
                     </div>
                 </div>
@@ -549,11 +405,14 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio06.html</code> com um formulário simples contendo:
-                        <code
-                            class="code-block bg-gray-200 text-gray-800 block p-2 my-2">&lt;input type="text" name="telefone"&gt;</code>
-                        Utilize <code class="code-inline">document.getElementsByName('telefone')</code> para capturar
-                        esse input. Lembre-se que, assim como ClassName e TagName, isso retorna uma lista.
+                        Crie <code class="code-inline">exercicio06.html</code> com uma <code
+                            class="code-inline">div</code> vazia para o conteúdo.
+                        <br>
+                        Busque um post (ex: <code class="code-inline">/posts/1</code>).
+                        <br>
+                        Ao receber os dados, crie elementos HTML (h2 para o título, p para o corpo) e insira-os na
+                        página usando <code class="code-inline">innerText</code> e <code
+                            class="code-inline">appendChild</code>.
                     </p>
                 </div>
 
@@ -563,12 +422,13 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei o atributo name no HTML</span>
+                            <span class="text-gray-800">Os dados da API aparecem visíveis na página (não só no
+                                console)</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Identifiquei o elemento dentro da NodeList retornada</span>
+                            <span class="text-gray-800">A página carrega vazia e preenche sozinha após o fetch</span>
                         </label>
                     </div>
                 </div>
@@ -583,33 +443,33 @@
                             <span class="font-bold text-2xl text-red-700">07</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Navegação: ParentNode</h3>
-                            <p class="text-gray-600">Subindo a árvore DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Listando Múltiplos Itens</h3>
+                            <p class="text-gray-600">Fetch de Arrays</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 30
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-red-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
-                    <p class="font-bold text-red-900 mb-2">Bloom: Analisar</p>
-                    <p class="text-sm text-red-800">Compreender a relação hierárquica (pai e filho) entre elementos.</p>
+                    <p class="font-bold text-red-900 mb-2">Bloom: Aplicar</p>
+                    <p class="text-sm text-red-800">Combinar Fetch com Loops (Aula 34) para renderizar uma lista de
+                        cards.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie uma estrutura onde um <code class="code-inline">&lt;div id="pai"&gt;</code> contém um <code
-                            class="code-inline">&lt;p id="filho"&gt;</code>.
+                        Busque todos os posts: <code
+                            class="code-inline">https://jsonplaceholder.typicode.com/posts</code> (isso retorna um array
+                        de 100 itens).
                         <br>
-                        1. Selecione o filho pelo ID.
+                        Use <code class="code-inline">.slice(0, 5)</code> para pegar apenas os 5 primeiros.
                         <br>
-                        2. Acesse o pai através da propriedade <code class="code-inline">.parentNode</code> do filho.
-                        <br>
-                        3. Imprima o pai no console.
+                        Para cada post, crie um elemento visual e adicione a um container na tela.
                     </p>
                 </div>
 
@@ -619,12 +479,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o elemento filho</span>
+                            <span class="text-gray-800">Usei um loop (for ou map) para iterar sobre os dados</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei .parentNode para chegar à div externa</span>
+                            <span class="text-gray-800">Vejo 5 cards diferentes na tela</span>
                         </label>
                     </div>
                 </div>
@@ -639,13 +499,13 @@
                             <span class="font-bold text-2xl text-red-700">08</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Navegação: Children</h3>
-                            <p class="text-gray-600">Descendo a árvore DOM</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Busca Dinâmica</h3>
+                            <p class="text-gray-600">Interatividade + API</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 25
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 35
                             min</span>
                     </div>
                 </div>
@@ -653,12 +513,12 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie uma lista não ordenada (<code class="code-inline">ul</code>) com 4 itens (<code
-                            class="code-inline">li</code>). Dê um ID para a <code class="code-inline">ul</code>.
+                        Crie <code class="code-inline">exercicio08.html</code> com um input numérico e um botão "Buscar
+                        ID".
                         <br>
-                        No JS, selecione a lista e use a propriedade <code class="code-inline">.children</code>. Acesse
-                        o <strong>segundo filho</strong> dessa lista (lembre-se que o índice começa em 0) e imprima seu
-                        texto (innerText) no console.
+                        Ao clicar, faça um fetch para <code class="code-inline">/posts/[ID DIGITADO]</code>.
+                        <br>
+                        Mostre o resultado na tela. Se o ID não existir (erro 404), mostre "Post não encontrado".
                     </p>
                 </div>
 
@@ -668,17 +528,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Usei .children para obter os itens da lista</span>
+                            <span class="text-gray-800">Concatenei a URL com o valor do input (Template String)</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Acessei o índice correto [1] para o segundo filho</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Exibi o innerText corretamente</span>
+                            <span class="text-gray-800">Tratei o caso de ID inexistente</span>
                         </label>
                     </div>
                 </div>
@@ -693,8 +548,8 @@
                             <span class="font-bold text-2xl text-red-700">09</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">Manipulação Simples</h3>
-                            <p class="text-gray-600">Alterando Estilos</p>
+                            <h3 class="font-bold text-2xl text-gray-900">Galeria de Imagens</h3>
+                            <p class="text-gray-600">APIs de Mídia</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
@@ -707,17 +562,14 @@
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie um título <code class="code-inline">h1</code>. Selecione-o pelo JavaScript e altere sua
-                        propriedade <code class="code-inline">style.color</code> para <code
-                            class="code-inline">"red"</code>.
+                        Use a API <code class="code-inline">https://dog.ceo/api/breeds/image/random</code>.
                         <br>
-                        Bônus: Tente alterar também o <code class="code-inline">innerText</code> para "Texto alterado
-                        via JS!".
+                        Crie um botão "Gerar Cachorro". Ao clicar, busque uma nova imagem e atualize o atributo <code
+                            class="code-inline">src</code> de uma tag <code class="code-inline">&lt;img&gt;</code> na
+                        tela.
+                        <br>
+                        Isso demonstra como atualizar atributos HTML com dados externos.
                     </p>
-                    <div class="code-block">
-                        let titulo = document.querySelector('h1');
-                        titulo.style.color = 'red';
-                        // ...</div>
                 </div>
 
                 <div class="mb-6">
@@ -726,12 +578,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o elemento corretamente</span>
+                            <span class="text-gray-800">A imagem muda a cada clique sem recarregar a página</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">A cor do texto mudou na tela</span>
+                            <span class="text-gray-800">Entendi a estrutura do objeto JSON desta API específica</span>
                         </label>
                     </div>
                 </div>
@@ -747,36 +599,36 @@
                             <span class="font-bold text-2xl text-white">10</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio: Interatividade</h3>
-                            <p class="text-gray-600">Reagindo a ações do usuário</p>
+                            <h3 class="font-bold text-2xl text-gray-900">🏆 Desafio: Mini Blog</h3>
+                            <p class="text-gray-600">Aplicação Completa de Leitura</p>
                         </div>
                     </div>
                     <div class="flex flex-col gap-2 items-end">
                         <span
                             class="bg-gradient-to-r from-red-500 to-red-700 text-white px-3 py-1 rounded-full text-xs font-bold">DESAFIO</span>
-                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 40
+                        <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">⏱️ 60
                             min</span>
                     </div>
                 </div>
 
                 <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 mb-6 border-l-4 border-red-500">
                     <p class="font-bold text-red-900 mb-2">Bloom: Criar</p>
-                    <p class="text-sm text-red-800">Combinar seletores com funções e eventos simples (onclick) para
-                        criar uma página dinâmica.</p>
+                    <p class="text-sm text-red-800">Integrar todos os conceitos: Fetch, Async/Await, Arrays (slice/map),
+                        DOM e Estilização.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6 mb-6">
                     <h4 class="font-bold text-lg text-gray-900 mb-3">Descrição</h4>
                     <p class="text-gray-700 mb-4">
-                        Crie <code class="code-inline">exercicio10.html</code> com:
-                        <br>1. Um botão (<code class="code-inline">button</code>) com o texto "Clique aqui".
-                        <br>2. Um parágrafo (<code class="code-inline">p</code>) vazio com um ID.
-                        <br><br>
-                        <strong>Objetivo:</strong> Crie uma função chamada <code
-                            class="code-inline">alterarTexto()</code>. Dentro dela, selecione o parágrafo e mude seu
-                        texto para "Você clicou no botão!".
+                        Crie <code class="code-inline">exercicio10.html</code>.
                         <br>
-                        No HTML, adicione <code class="code-inline">onclick="alterarTexto()"</code> ao botão.
+                        1. Ao carregar a página, busque os usuários (<code class="code-inline">/users</code>) e os posts
+                        (<code class="code-inline">/posts</code>).
+                        <br>
+                        2. Exiba uma lista de posts. Para cada post, mostre o Título, o Corpo e o <strong>Nome do
+                            Autor</strong> (cruzando os dados pelo <code class="code-inline">userId</code>).
+                        <br>
+                        <strong>Dica:</strong> Faça os dois fetchs primeiro, depois cruze os dados antes de renderizar.
                     </p>
                 </div>
 
@@ -786,17 +638,12 @@
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Criei a função no JavaScript</span>
+                            <span class="text-gray-800">Consegui buscar dados de dois endpoints diferentes</span>
                         </label>
                         <label
                             class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
                             <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">Selecionei o parágrafo dentro da função</span>
-                        </label>
-                        <label
-                            class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
-                            <input type="checkbox" class="w-5 h-5 text-ifrn-green-500 rounded">
-                            <span class="text-gray-800">O texto muda quando clico no botão</span>
+                            <span class="text-gray-800">Cruzei as informações (Post + Autor) corretamente</span>
                         </label>
                     </div>
                 </div>
@@ -804,8 +651,8 @@
                 <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-500">
                     <h4 class="font-bold text-lg text-green-900 mb-3">Resultado Esperado</h4>
                     <p class="text-green-800">
-                        Uma página web interativa onde o conteúdo muda dinamicamente em resposta à ação do usuário,
-                        provando o poder da manipulação do DOM.
+                        Um blog funcional que carrega conteúdo da internet. Você agora domina o ciclo completo: buscar
+                        dados, processar lógica e exibir ao usuário.
                     </p>
                 </div>
             </article>
@@ -826,7 +673,7 @@
                             class="bg-white bg-opacity-20 px-2 py-1 rounded">exercicio01.html</code>, etc.</li>
                     <li><strong>3.</strong> Compacte a pasta em formato <strong>.zip</strong></li>
                     <li><strong>4.</strong> Renomeie o arquivo: <code
-                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana32_exercicios.zip</code></li>
+                            class="bg-white bg-opacity-20 px-2 py-1 rounded">SEUNOME_semana36_exercicios.zip</code></li>
                     <li><strong>5.</strong> Envie no Google Sala de Aula até a data limite</li>
                 </ol>
             </div>
@@ -842,7 +689,7 @@
     <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
         <p>
             <a href="../autoria-web-disciplina.html" class="hover:text-white transition">Autoria Web</a> •
-            <a href="aula-32.html" class="hover:text-white transition">Semana 32</a> •
+            <a href="aula-36.html" class="hover:text-white transition">Semana 36</a> •
             IFRN © 2025
         </p>
     </footer>
