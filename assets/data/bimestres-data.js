@@ -204,8 +204,7 @@ const BIMESTRES_DATA = [
         badgeClasses: "bg-blue-100 text-blue-700",
         summary: "Introdução ao JavaScript",
         details: [
-          "Sintaxe básica, console.log, tipos de dados (string, number, boolean)",
-          "Variáveis (let, const) e Funções simples"
+          "Sintaxe básica, console.log, tipos de dados (string, number, boolean).Variáveis (let, const) e Funções simples"
         ],
         bloom: "Lembrar / Compreender"
       },
