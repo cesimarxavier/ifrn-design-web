@@ -70,13 +70,24 @@
     ctaLabel: "Acessar disciplina"
   },
   {
-    href: "/projeto-interface",
+    href: "projeto-interface",
     badgeText: "60h • 80a • Anual",
     badgeClasses: "px-3 py-1 bg-ifrn-green-200 text-ifrn-green-700 rounded-full text-xs font-bold",
     title: "Projeto de Interface",
     description: "Aprende tanto a parte técnica (Figma profissional) quanto a metodologia de design centrado no usuário, preparando-se para criar produtos digitais reais.",
     tags: ["Figma", "Design Thinking", "Visual Design", "UX"],
     audience: "Alunos avançados",
+    ctaLabel: "Acessar disciplina"
+  },
+  {
+   
+    href: "web-design",
+    badgeText: "30h • 40a • Anual",
+    badgeClasses: "px-3 py-1 bg-ifrn-green-200 text-ifrn-green-700 rounded-full text-xs font-bold",
+    title: "Web Design",
+    description: "",
+    tags: ["HTML", "CSS", "Visual Design"],
+    audience: "Alunos de licenciatura",
     ctaLabel: "Acessar disciplina"
   },
   {
