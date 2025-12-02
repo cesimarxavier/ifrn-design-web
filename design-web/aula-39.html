@@ -4,36 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 10 — Dia 2: Sprint de Telas Integradas | Design Web IFRN</title>
+    <title>Aula 39: Customização de Tema | Design Web IFRN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'display': ['Sora', 'sans-serif'],
-                        'body': ['Work Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        'ifrn-green': {
-                            50: '#e6f2ea',
-                            100: '#c4e2d1',
-                            500: '#2f6b48',
-                            700: '#1f4a32',
-                            800: '#143021',
-                        },
-                        'ifrn-red': {
-                            500: '#e63946',
-                            600: '#d62828',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="../assets/js/script.js"></script>
     <style>
         * {
             margin: 0;
@@ -43,36 +19,38 @@
 
         body {
             font-family: 'Work Sans', sans-serif;
-            color: #143021;
+            color: #0f172a;
+            background-color: #f8fafc;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.4);
-            transform: translateY(-2px);
+        .font-display {
+            font-family: 'Sora', sans-serif;
         }
 
         .code-block {
-            background: #143021;
+            background: #1e293b;
             border-radius: 12px;
             padding: 1.5rem;
             overflow-x: auto;
             font-family: 'Courier New', monospace;
-            color: #c4e2d1;
-            border: 2px solid #2f6b48;
+            color: #cbd5e1;
+            border: 1px solid #334155;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(47, 107, 72, 0.15);
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
 
         .checkbox-item {
@@ -80,759 +58,401 @@
         }
 
         .checkbox-item:has(input:checked) {
-            background: #e6f2ea;
-            border-color: #2f6b48;
-        }
-
-        .step-number {
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #2f6b48, #1f4a32);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            flex-shrink: 0;
+            background: #e0e7ff;
+            border-color: #4f46e5;
         }
 
         .smooth-scroll {
             scroll-behavior: smooth;
         }
 
-        .sprint-pulse {
-            animation: sprintPulse 2s ease-in-out infinite;
+        .theme-preview {
+            background-image: radial-gradient(#4f46e5 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #f8fafc;
         }
 
-        @keyframes sprintPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
+        /* Card de Sucesso */
+        .success-card {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
         }
     </style>
 </head>
 
-<body class="smooth-scroll bg-white">
+<body class="smooth-scroll">
 
-    <!-- Hero -->
-    <section class="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-50 via-white to-red-50">
-        <div class="max-w-5xl mx-auto">
-            <!-- Breadcrumb -->
+    <section class="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 bg-white">
+        <div class="max-w-5xl mx-auto space-y-8">
             <div class="mb-8">
-                <p class="text-sm text-ifrn-green-700">
-                    <a href="#" class="hover:text-ifrn-red-500">Design Web</a> /
-                    <a href="#" class="hover:text-ifrn-red-500">Semana 10</a> /
-                    <span class="font-semibold">Dia 2 — Sprint</span>
+                <p class="text-sm text-slate-500 font-medium">
+                    <a href="../design-web-disciplina.html" class="hover:underline text-indigo-600">Design Web</a> /
+                    <span>Aula 39</span> /
+                    <span class="font-bold text-slate-800">Customização Visual</span>
                 </p>
             </div>
 
-            <!-- Tag -->
             <div
-                class="inline-flex items-center gap-2 mb-6 px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold text-sm sprint-pulse">
-                <span>🏃‍♂️</span>
-                <span>SPRINT MODE: ENTREGA</span>
+                class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-full font-bold text-xs uppercase tracking-wide">
+                <span>Workshop: Identidade Visual</span>
             </div>
 
-            <h1 class="font-display font-extrabold text-4xl md:text-6xl text-ifrn-green-800 mb-6 leading-tight">
-                Sprint: 2–3 telas integradas como mini-produto
+            <h1 class="font-display font-extrabold text-4xl md:text-5xl text-slate-900 mb-6 leading-tight">
+                Criando o tema <span class="text-indigo-600">ifrn-webeti</span>
             </h1>
 
-            <p class="text-xl md:text-2xl text-ifrn-green-700 mb-8 leading-relaxed max-w-3xl">
-                Hoje você sai com um mini-sistema de UI funcional. Não é mais exercício isolado — é produto integrado,
-                com consistência visual e fluxo real.
+            <p class="text-xl text-slate-600 mb-8 leading-relaxed max-w-3xl">
+                Hoje vamos sair do "padrão DaisyUI". Vamos usar o <strong>Theme Generator</strong> para criar uma
+                identidade visual própria, gerar nosso arquivo CSS de tema e aplicar cores personalizadas da turma.
             </p>
 
-            <a href="#pr-section" class="inline-block btn-primary text-white font-bold py-5 px-10 rounded-full text-lg">
-                🚀 Subir PR da Sprint
-            </a>
-
-            <!-- Timer Visual -->
-            <div class="mt-12 bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl p-6 border-2 border-orange-300">
-                <div class="flex items-center gap-4">
-                    <div class="text-5xl">⏱️</div>
-                    <div>
-                        <p class="font-bold text-2xl text-orange-800 mb-1">Sprint de 2 Aulas</p>
-                        <p class="text-orange-700">Foco total. Distrações zero. Commits frequentes.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Objetivo Prático -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <div
-                class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
-                <div class="flex items-start gap-4">
-                    <div class="text-4xl">🎯</div>
-                    <div>
-                        <h2 class="font-display font-bold text-3xl mb-4">Objetivo Prático</h2>
-                        <p class="text-xl opacity-95 leading-relaxed">
-                            Construir um mini-sistema de UI com 2–3 telas consistentes usando DaisyUI + Tailwind. Tema
-                            unificado, navegação real, responsividade testada.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Critérios de Sucesso -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-orange-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-6">
-                ✅ Critérios de Sucesso
-            </h2>
-            <p class="text-ifrn-green-700 mb-6">
-                Seu PR precisa atender TODOS esses critérios:
-            </p>
-
-            <div class="space-y-3">
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Fluxo conectado:</strong> Tenho 2–3 telas conectadas por fluxo navegável (links
-                        funcionam).
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Tema unificado:</strong> Mesmo tema DaisyUI aplicado em todas as telas.
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Navegação consistente:</strong> Navbar e footer idênticos em todas as telas.
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Componentes coerentes:</strong> Cards e CTAs seguem o mesmo padrão visual.
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>Responsividade real:</strong> Testado e funcional nos 3 breakpoints (mobile, tablet,
-                        desktop).
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-orange-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-ifrn-green-800">
-                        <strong>PR com evidências:</strong> Pull Request com prints, descrição e checklist completos.
-                    </span>
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sprint Guiada -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-4">
-                🏃‍♂️ Sprint Guiada (Passo a Passo)
-            </h2>
-            <p class="text-lg text-ifrn-green-700 mb-10">
-                Execute nessa ordem. Commite a cada tela pronta. Não deixe pra subir tudo no final.
-            </p>
-
-            <div class="space-y-6">
-                <!-- Passo 1 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">1</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Defina o fluxo mínimo
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Abra seu <code class="bg-white px-2 py-1 rounded">sprint-plan.md</code> de ontem e confirme:
-                        </p>
-                        <ul class="space-y-2 text-ifrn-green-700 mb-4">
-                            <li>• Qual o tema/produto? (ex: loja de plantas, blog tech, dashboard SaaS)</li>
-                            <li>• Quais telas? (ex: Home → Produtos → Detalhe)</li>
-                            <li>• Como elas se conectam? (botões, links, navegação)</li>
-                        </ul>
-                        <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
-                            <p class="text-sm text-yellow-800">
-                                ⚠️ Se não tem sprint-plan.md, pare e crie agora. 5 minutos de planejamento economizam 30
-                                minutos de refação.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 2 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">2</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Estruture a navegação (navbar)
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Crie o navbar DaisyUI que será usado em TODAS as telas:
-                        </p>
-                        <div class="code-block text-sm mb-4">
-                            &lt;div class="navbar bg-base-100 shadow-lg"&gt;<br>
-                            &nbsp;&nbsp;&lt;div class="flex-1"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;a class="btn btn-ghost text-xl"&gt;MeuProjeto&lt;/a&gt;<br>
-                            &nbsp;&nbsp;&lt;/div&gt;<br>
-                            &nbsp;&nbsp;&lt;div class="flex-none"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ul class="menu menu-horizontal px-1"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a
-                            href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;&lt;a
-                            href="lista.html"&gt;Produtos&lt;/a&gt;&lt;/li&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>
-                            &nbsp;&nbsp;&lt;/div&gt;<br>
-                            &lt;/div&gt;
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
-                            <p class="text-sm text-green-800">
-                                ✅ Coloque esse navbar num arquivo separado (navbar.html) ou crie um componente
-                                reutilizável
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 3 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">3</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Monte a Home
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Tela de entrada com:
-                        </p>
-                        <ul class="space-y-2 text-ifrn-green-700 mb-4">
-                            <li>• Hero section com CTA principal</li>
-                            <li>• Grid de cards (3–6 itens)</li>
-                            <li>• Link claro pra tela de listagem</li>
-                        </ul>
-                        <div class="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
-                            <p class="text-sm text-blue-800">
-                                💡 Use componentes DaisyUI: hero, card, btn-primary
-                            </p>
-                        </div>
-                        <div class="mt-4 code-block text-sm">
-                            git add index.html<br>
-                            git commit -m "feat: cria tela home com hero e cards DaisyUI"
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 4 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">4</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Monte a Listagem
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Tela com grid de itens:
-                        </p>
-                        <ul class="space-y-2 text-ifrn-green-700 mb-4">
-                            <li>• Grid responsivo (1 col mobile → 2–3 cols desktop)</li>
-                            <li>• Cards uniformes com imagem/título/descrição/CTA</li>
-                            <li>• Link de cada card pro detalhe (se tiver)</li>
-                        </ul>
-                        <div class="code-block text-sm mb-4">
-                            &lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;<br>
-                            &nbsp;&nbsp;&lt;div class="card bg-base-100 shadow-xl"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;figure&gt;&lt;img src="..." /&gt;&lt;/figure&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="card-body"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 class="card-title"&gt;Produto 1&lt;/h2&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Descrição...&lt;/p&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="card-actions"&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="detalhe.html" class="btn
-                            btn-primary"&gt;Ver mais&lt;/a&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
-                            &nbsp;&nbsp;&lt;/div&gt;<br>
-                            &lt;/div&gt;
-                        </div>
-                        <div class="mt-4 code-block text-sm">
-                            git add lista.html<br>
-                            git commit -m "feat: cria listagem com grid de cards responsivo"
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 5 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">5</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Monte Detalhe (se der tempo)
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Tela individual com mais informações:
-                        </p>
-                        <ul class="space-y-2 text-ifrn-green-700 mb-4">
-                            <li>• Layout 2 colunas (imagem + info)</li>
-                            <li>• Tabs ou Accordion com detalhes extras</li>
-                            <li>• Botão de voltar pra listagem</li>
-                        </ul>
-                        <div class="bg-purple-50 p-4 rounded-xl border-l-4 border-purple-500 mb-4">
-                            <p class="text-sm text-purple-800">
-                                ⏱️ Se o tempo estiver apertado, 2 telas bem feitas > 3 telas mal acabadas
-                            </p>
-                        </div>
-                        <div class="code-block text-sm">
-                            git add detalhe.html<br>
-                            git commit -m "feat: adiciona tela de detalhe com tabs interativos"
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 6 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">6</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Revise consistência e responsividade
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Checklist de revisão antes do PR:
-                        </p>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="bg-white p-5 rounded-xl border-2 border-orange-200">
-                                <p class="font-semibold text-ifrn-green-800 mb-3">🎨 Consistência Visual</p>
-                                <ul class="space-y-2 text-sm text-ifrn-green-700">
-                                    <li>✓ Navbar idêntico em todas</li>
-                                    <li>✓ Footer idêntico em todas</li>
-                                    <li>✓ Botões mesmo estilo</li>
-                                    <li>✓ Cards mesma estrutura</li>
-                                    <li>✓ Cores do tema aplicadas</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-5 rounded-xl border-2 border-orange-200">
-                                <p class="font-semibold text-ifrn-green-800 mb-3">📱 Responsividade</p>
-                                <ul class="space-y-2 text-sm text-ifrn-green-700">
-                                    <li>✓ Mobile (375px) navegável</li>
-                                    <li>✓ Tablet (768px) aproveitado</li>
-                                    <li>✓ Desktop (1440px) espaçoso</li>
-                                    <li>✓ Menu mobile funciona</li>
-                                    <li>✓ Imagens escaláveis</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Passo 7 -->
-                <div class="flex gap-6 items-start bg-orange-50 p-6 rounded-2xl border-2 border-orange-200 shadow-lg">
-                    <div class="step-number">7</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-ifrn-green-800 mb-3">
-                            Suba commits incrementais
-                        </h3>
-                        <p class="text-ifrn-green-700 mb-4">
-                            Você já deve ter commitado ao longo do processo. Agora suba tudo:
-                        </p>
-                        <div class="code-block text-sm mb-4">
-                            git status<br>
-                            git push
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-xl border-l-4 border-green-500">
-                            <p class="text-sm text-green-800">
-                                ✅ Histórico de commits limpo mostra profissionalismo
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Componentes Obrigatórios -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-orange-50 to-white">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                📦 Componentes Obrigatórios
-            </h2>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-orange-200">
-                <p class="text-lg text-ifrn-green-700 mb-6">
-                    Seu mini-sistema PRECISA ter esses componentes DaisyUI:
-                </p>
-
-                <div class="space-y-3">
-                    <label
-                        class="flex items-start gap-4 p-5 bg-orange-50 rounded-xl border-2 border-orange-200 cursor-pointer hover:bg-orange-100 transition">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-orange-600 rounded">
-                        <div>
-                            <p class="font-bold text-ifrn-green-800">navbar + footer</p>
-                            <p class="text-sm text-ifrn-green-600">Navegação e rodapé consistentes em todas as telas</p>
-                        </div>
-                    </label>
-
-                    <label
-                        class="flex items-start gap-4 p-5 bg-orange-50 rounded-xl border-2 border-orange-200 cursor-pointer hover:bg-orange-100 transition">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-orange-600 rounded">
-                        <div>
-                            <p class="font-bold text-ifrn-green-800">grid de cards na listagem</p>
-                            <p class="text-sm text-ifrn-green-600">Responsivo: 1 col mobile → 2-3 cols desktop</p>
-                        </div>
-                    </label>
-
-                    <label
-                        class="flex items-start gap-4 p-5 bg-orange-50 rounded-xl border-2 border-orange-200 cursor-pointer hover:bg-orange-100 transition">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-orange-600 rounded">
-                        <div>
-                            <p class="font-bold text-ifrn-green-800">botão CTA claro</p>
-                            <p class="text-sm text-ifrn-green-600">btn-primary ou btn-accent, sempre no mesmo estilo</p>
-                        </div>
-                    </label>
-
-                    <label
-                        class="flex items-start gap-4 p-5 bg-orange-50 rounded-xl border-2 border-orange-200 cursor-pointer hover:bg-orange-100 transition">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-orange-600 rounded">
-                        <div>
-                            <p class="font-bold text-ifrn-green-800">1 componente interativo visual</p>
-                            <p class="text-sm text-ifrn-green-600">tabs, accordion, modal, collapse ou drawer</p>
-                        </div>
-                    </label>
-                </div>
-
-                <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-r-xl">
-                    <p class="font-bold text-yellow-800 mb-2">💡 Componente interativo:</p>
-                    <p class="text-sm text-yellow-700">
-                        Não precisa JavaScript ainda. Use componentes DaisyUI que funcionam só com CSS (como tabs com
-                        radio buttons ou collapse com checkbox).
+            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 flex gap-4 items-start mt-16">
+                <div class="text-2xl">💡</div>
+                <div>
+                    <p class="font-bold text-lg text-slate-900 my-1">Objetivo da Aula</p>
+                    <p class="text-slate-900 text-base">
+                        Pegar o código desta aula, copiar e substituir o código da aula anterior. Depois, criar um
+                        arquivo css, com o novo tema e fazermos a nossa customização. Por fim, devemos aplicar todas as
+                        mudanças no nosso código HTML, com o novo tema aplicado e incluído no <code>select</code> de
+                        temas. <code>aula-39-codigo1.html</code> e aplicar um
+                        novo arquivo CSS (<code>aula-39-style-tema.css</code>) gerado por você.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Evidências no PR -->
-    <section id="pr-section" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                📸 Evidências Obrigatórias no PR
-            </h2>
-
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl p-8 text-white shadow-xl mb-8">
-                <h3 class="font-bold text-2xl mb-4">Template do Pull Request</h3>
-                <p class="text-lg opacity-95">
-                    Copie esse template na descrição do seu PR:
-                </p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-purple-200">
-                <div class="bg-gray-50 p-6 rounded-xl font-mono text-sm mb-6">
-                    <pre class="whitespace-pre-wrap">## Sprint Semana 10: Telas Integradas com DaisyUI
-
-### 📸 Screenshots
-**Tela 1 - Home:**
-[cole print ou gif aqui]
-
-**Tela 2 - Listagem:**
-[cole print ou gif aqui]
-
-**Tela 3 - Detalhe (se houver):**
-[cole print ou gif aqui]
-
-### 🧩 Componentes DaisyUI Usados
-[Escreva 1 parágrafo explicando quais componentes DaisyUI você usou e por quê escolheu cada um]
-
-Exemplo:
-"Usei o navbar DaisyUI pela navegação responsiva pronta. Os cards da listagem seguem o padrão card + card-body pra manter consistência. O componente tabs na tela de detalhe organiza as informações sem precisar JavaScript ainda."
-
-### ✅ Critérios de Sucesso
-- [ ] 2–3 telas conectadas por fluxo
-- [ ] Tema único aplicado
-- [ ] Navbar/footer consistentes
-- [ ] Cards e CTAs coerentes
-- [ ] Responsivo em 3 breakpoints
-- [ ] Componentes obrigatórios implementados
-
-### 🔗 Links
-- Branch: `feat/semana10-daisyui-integracao`
-- Commits: [primeiro] ... [último]</pre>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
-                        <p class="font-bold text-green-800 mb-2">✅ PR Completo:</p>
-                        <p class="text-sm text-green-700">Todas as evidências = aprovação rápida + nota cheia</p>
-                    </div>
-                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                        <p class="font-bold text-red-800 mb-2">❌ PR Incompleto:</p>
-                        <p class="text-sm text-red-700">Falta evidência = volta com feedback pra completar</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GitHub CLI -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-orange-50">
+    <section class="py-12 px-4 sm:px-6 lg:px-8 theme-preview">
         <div class="max-w-4xl mx-auto">
-            <h2 class="font-display font-bold text-3xl text-ifrn-green-800 mb-8">
-                🐙 GitHub CLI — Fluxo Final
+            <h2 class="font-display font-bold text-2xl text-slate-900 mb-6">
+                Critérios de Sucesso
             </h2>
 
-            <div class="bg-gray-900 rounded-2xl p-8 mb-6">
-                <p class="text-gray-300 mb-4 font-semibold">
-                    Depois de todos os commits das telas:
-                </p>
-                <div class="code-block text-sm space-y-2">
-                    <div><span class="text-green-400">$</span> git add .</div>
-                    <div><span class="text-green-400">$</span> git commit -m "feat: cria tela home com DaisyUI"</div>
-                    <div><span class="text-gray-500"># Continue commitando cada tela...</span></div>
-                    <div><span class="text-green-400">$</span> git commit -m "feat: cria listagem e integra navegação"
-                    </div>
-                    <div><span class="text-green-400">$</span> git commit -m "feat: adiciona tela detalhe com
-                        tabs"</span></div>
-                    <div><span class="text-green-400">$</span> git push</div>
-                </div>
-            </div>
+            <div class="grid gap-3">
+                <label
+                    class="checkbox-item flex items-center gap-4 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer hover:shadow-md transition-shadow">
+                    <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="text-slate-700 font-medium">Arquivo <code>aula-37-codigo1.html</code> atualizado
+                        (substituir pelo código <a
+                            href="https://raw.githubusercontent.com/cesimarxavier/ifrn-design-web/cd02f11b5774543e1381732c45f1697013fff37c/design-web/aula-39-codigo1.html"
+                            class="text-cyan-500 hover:underline">da aula 39</a>).</span>
+                </label>
 
-            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 border-2 border-purple-300">
-                <h3 class="font-bold text-xl text-purple-900 mb-4">📝 Depois do Push</h3>
-                <ol class="space-y-3 text-purple-800">
-                    <li class="flex items-start gap-3">
-                        <span class="font-bold flex-shrink-0">1.</span>
-                        <span>Vá no GitHub e abra Pull Request da branch <code
-                                class="bg-white px-2 py-1 rounded">feat/semana10-daisyui-integracao</code> para <code
-                                class="bg-white px-2 py-1 rounded">main</code></span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="font-bold flex-shrink-0">2.</span>
-                        <span>Cole o template de evidências na descrição</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="font-bold flex-shrink-0">3.</span>
-                        <span>Adicione screenshots de cada tela</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="font-bold flex-shrink-0">4.</span>
-                        <span>Marque o checklist de critérios</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="font-bold flex-shrink-0">5.</span>
-                        <span>Solicite review de um colega (opcional mas recomendado)</span>
-                    </li>
-                </ol>
+                <label
+                    class="checkbox-item flex items-center gap-4 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer hover:shadow-md transition-shadow">
+                    <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="text-slate-700 font-medium">Arquivo <code>aula-39-style-tema.css</code> criado com o
+                        CSS do gerador.</span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-center gap-4 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer hover:shadow-md transition-shadow">
+                    <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="text-slate-700 font-medium">Tema <code>ifrn-webeti</code> configurado e aplicado no
+                        HTML.</span>
+                </label>
+
+
+
+                <label
+                    class="checkbox-item flex items-center gap-4 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer hover:shadow-md transition-shadow">
+                    <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="text-slate-700 font-medium">Inclusão na listagem de temas do select</span>
+                </label>
+
+                <label
+                    class="checkbox-item flex items-center gap-4 p-4 bg-white rounded-lg border border-slate-200 cursor-pointer hover:shadow-md transition-shadow">
+                    <input type="checkbox" class="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                    <span class="text-slate-700 font-medium">Visual ajustado (Contraste legível, cores da turma).</span>
+                </label>
             </div>
         </div>
     </section>
 
-    <!-- Lista Semanal -->
     <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-8 md:p-10 text-white shadow-xl mb-8">
-                <h2 class="font-display font-bold text-3xl mb-4">
-                    📋 Lista Semanal (Entrega Semana 11)
-                </h2>
-                <p class="text-xl opacity-95">
-                    Tarefa pra fechar a Semana 10 com qualidade.
-                </p>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-200">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            1</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
-                                Corrigir feedback do PR (hardening)
-                            </h3>
-                            <p class="text-ifrn-green-700 mb-3">
-                                Depois que eu revisar seu PR, implemente as melhorias sugeridas:
-                            </p>
-                            <ul class="space-y-2 text-sm text-ifrn-green-700">
-                                <li>• Ajustes de contraste</li>
-                                <li>• Melhorias de responsividade</li>
-                                <li>• Correções de consistência</li>
-                                <li>• Otimizações de código</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-200">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div
-                            class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            2</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
-                                Planejar 1 interação reativa para Alpine.js
-                            </h3>
-                            <p class="text-ifrn-green-700 mb-3">
-                                Só planejamento, sem código ainda. Escolha UMA interação que faz sentido no seu projeto:
-                            </p>
-                            <div class="grid md:grid-cols-2 gap-4 mb-4">
-                                <div class="bg-white p-4 rounded-xl">
-                                    <p class="font-semibold text-ifrn-green-800 mb-2">Sugestões:</p>
-                                    <ul class="space-y-1 text-sm text-ifrn-green-700">
-                                        <li>• Filtro de listagem</li>
-                                        <li>• Busca em tempo real</li>
-                                        <li>• Carrinho de compras</li>
-                                        <li>• Favoritos/likes</li>
-                                        <li>• Toggle dark mode</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-white p-4 rounded-xl">
-                                    <p class="font-semibold text-ifrn-green-800 mb-2">Documente:</p>
-                                    <ul class="space-y-1 text-sm text-ifrn-green-700">
-                                        <li>• Qual componente</li>
-                                        <li>• O que vai mudar</li>
-                                        <li>• Como o usuário interage</li>
-                                        <li>• Qual estado gerenciar</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
-                                <p class="text-sm text-yellow-800">
-                                    💡 Crie um arquivo <code class="bg-white px-2 py-1 rounded">alpine-plan.md</code>
-                                    com esse planejamento
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 rounded-2xl p-8 border-2 border-blue-200">
-                    <div class="flex items-start gap-4">
-                        <div
-                            class="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">
-                            3</div>
-                        <div>
-                            <h3 class="font-bold text-xl text-ifrn-green-800 mb-2">
-                                Merge limpo com main
-                            </h3>
-                            <p class="text-ifrn-green-700 mb-3">
-                                Depois das correções e aprovação:
-                            </p>
-                            <div class="code-block text-sm">
-                                git checkout main<br>
-                                git pull origin main<br>
-                                git merge feat/semana10-daisyui-integracao<br>
-                                git push origin main
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Fechamento -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-900 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="font-display font-bold text-4xl mb-6">
-                🎯 BLOCO 3 Completo: DaisyUI Dominado
+            <h2 class="font-display font-bold text-3xl text-slate-900 mb-10">
+                Mão na massa: Passo a Passo
             </h2>
-            <p class="text-2xl opacity-95 mb-8">
-                Se você conseguiu integrar telas com consistência aqui, Alpine vai entrar como evolução natural, não
-                como susto.
-            </p>
 
-            <div class="bg-white bg-opacity-10 backdrop-blur rounded-2xl p-8 mb-8">
-                <p class="text-xl mb-6 opacity-95">
-                    Você agora sabe construir interfaces completas com:
-                </p>
-                <div class="grid md:grid-cols-3 gap-6 text-left">
-                    <div>
-                        <p class="font-bold text-lg mb-2">✅ Semana 9</p>
-                        <ul class="space-y-1 text-sm opacity-90">
-                            <li>• DaisyUI básico</li>
-                            <li>• Refatoração prática</li>
-                            <li>• Trade-offs conscientes</li>
+            <div class="space-y-12">
+                <div class="flex gap-6 items-start">
+                    <div class="step-number">1</div>
+                    <div class="flex-1 pt-1">
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Prepare os arquivos</h3>
+                        <p class="text-slate-600 mb-4">
+                            Atualize seu repositório local via <code>git</code> e limpe o código de ontem, para
+                            adicionar o novo código.
+                        </p>
+                        <div class="code-block text-sm">
+                            $git pull<br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="step-number">2</div>
+                    <div class="flex-1 pt-1">
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Crie o Tema no Generator</h3>
+                        <p class="text-slate-600 mb-4">
+                            Acesse o arquivo do tema no formato conforme <a
+                                href="https://raw.githubusercontent.com/cesimarxavier/ifrn-design-web/3d0260ccbd1052ccd4f67916e756c945cebebefd/design-web/aula-39-style-tema.css"
+                                class="underline text-cyan-500">este
+                                modelo de customização</a> e depois crie seu modelo pessoal a partir do gerador. Acesse
+                            o <a href="https://daisyui.com/theme-generator/" target="_blank"
+                                class="text-indigo-600 underline font-semibold">DaisyUI Theme Generator</a>.
+                        </p>
+                        <ul
+                            class="space-y-2 text-slate-700 mb-4 bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
+                            <li>1. Escolha uma base (light ou dark).</li>
+                            <li>2. Ajuste <strong>Primary</strong> e <strong>Secondary</strong> para as cores da turma
+                                (as cores da InfoWebeti).</li>
+                            <li>3. Dê um nome para o tema no campo "Theme Name": <strong>ifrn-webeti</strong>.</li>
                         </ul>
                     </div>
-                    <div>
-                        <p class="font-bold text-lg mb-2">✅ Semana 10</p>
-                        <ul class="space-y-1 text-sm opacity-90">
-                            <li>• Temas customizados</li>
-                            <li>• Consistência multi-tela</li>
-                            <li>• Sistema integrado</li>
-                        </ul>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="step-number">3</div>
+                    <div class="flex-1 pt-1">
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Crie o arquivo CSS</h3>
+                        <p class="text-slate-600 mb-4">
+                            Copie o código CSS gerado pelo site. Crie um novo arquivo chamado
+                            <code>aula-39-style-tema.css</code> na mesma pasta e cole o conteúdo.
+                        </p>
+                        <div class="code-block text-sm">
+                            /* Arquivo: aula-39-style-tema.css */<br><br>
+                            [data-theme="ifrn-webeti"] {<br>
+                            &nbsp;&nbsp;--p: 166 56% 46%; /* Exemplo */<br>
+                            &nbsp;&nbsp;--s: 345 66% 56%;<br>
+                            &nbsp;&nbsp;/* ... resto do código gerado ... */<br>
+                            }
+                        </div>
                     </div>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="step-number">4</div>
+                    <div class="flex-1 pt-1">
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Integre no HTML</h3>
+                        <p class="text-slate-600 mb-4">
+                            Abra o <code>aula-39-codigo1.html</code> (ou nome anterior se tiver mantido), linke o CSS
+                            novo no <code>&lt;head&gt;</code> e
+                            aplique o nome do tema na tag HTML.
+                        </p>
+                        <div class="code-block text-sm">
+                            &lt;head&gt;<br>
+                            &nbsp;&nbsp;...<br>
+                            &nbsp;&nbsp;&lt;!-- Link para o arquivo de tema criado --&gt;<br>
+                            &nbsp;&nbsp;&lt;link rel="stylesheet" href="aula-39-style-tema.css"&gt;<br>
+                            &lt;/head&gt;<br><br>
+                            &lt;!-- Defina o nome do tema aqui --&gt;<br>
+                            &lt;html lang="pt-BR" data-theme="ifrn-webeti"&gt;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="step-number">5</div>
+                    <div class="flex-1 pt-1">
+                        <h3 class="font-bold text-xl text-slate-900 mb-2">Git Workflow</h3>
+                        <p class="text-slate-600 mb-4">
+                            Vamos commitar diretamente no branch atual, já que é uma continuação. Siga os passos abaixo.
+                        </p>
+                        <div class="code-block text-sm">
+                            git status<br>
+                            git add aula-39-codigo1.html aula-39-style-tema.css<br>
+                            git commit -m "feat: adiciona tema customizado ifrn-webeti"<br>
+                            git push
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-indigo-50 border-t border-indigo-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-display font-bold text-3xl text-indigo-900 mb-8 text-center">
+                📨 Registro da Atividade
+            </h2>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <p class="font-bold text-lg mb-2">🔜 Próximo</p>
-                        <ul class="space-y-1 text-sm opacity-90">
-                            <li>• Alpine.js (reatividade)</li>
-                            <li>• Estado dinâmico</li>
-                            <li>• Interações reais</li>
-                        </ul>
+                        <h3 class="font-bold text-xl text-slate-800 mb-4">O que entregar?</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">
+                            No Google Sala de Aula, você deve anexar o <strong>Link do Arquivo</strong> no GitHub. Não
+                            envie prints ou arquivos zipados.
+                        </p>
+                        <a href="https://classroom.google.com" target="_blank"
+                            class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors w-full md:w-auto">
+                            Abrir Google Sala de Aula →
+                        </a>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Como pegar o link
+                            correto:</p>
+                        <ol class="space-y-3 text-sm text-slate-700">
+                            <li class="flex gap-2">
+                                <span
+                                    class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">1</span>
+                                Acesse seu repositório no GitHub.
+                            </li>
+                            <li class="flex gap-2">
+                                <span
+                                    class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">2</span>
+                                Selecione a branch da atividade.
+                            </li>
+                            <li class="flex gap-2">
+                                <span
+                                    class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">3</span>
+                                Copie a URL na barra de endereço do navegador.
+                            </li>
+                            <li class="flex gap-2">
+                                <span
+                                    class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">4</span>
+                                Cole como "Link" na atividade.
+                            </li>
+                            <li class="flex  gap-2">
+                                <span
+                                    class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">5</span>
+                                Marque como "Entregue". Pronto, liberado para o recreio!
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+
+            <div
+                class="success-card rounded-2xl p-8 md:p-12 text-center text-white shadow-xl mb-12 relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+                </div>
+                <div class="relative z-10">
+                    <h2 class="font-display font-extrabold text-3xl md:text-4xl mb-4">
+                        🎉 Parabéns, Dev!
+                    </h2>
+                    <p class="text-lg md:text-xl text-emerald-50 mb-6 max-w-2xl mx-auto">
+                        Você acabou de criar sua primeira identidade visual programática. Customizar temas é o primeiro
+                        passo para sair de templates prontos e criar produtos únicos.
+                    </p>
+                    <div class="inline-flex gap-2">
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">#DesignSystem</span>
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">#TailwindCSS</span>
+                        <span class="px-3 py-1 bg-white/20 rounded-full text-sm font-semibold">#DaisyUI</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-green-500 bg-opacity-20 rounded-2xl p-6 border-2 border-green-400">
-                <p class="text-lg font-bold mb-2">💪 O que você construiu não é exercício.</p>
-                <p class="opacity-95">
-                    É um mini-produto real, com fluxo, consistência e qualidade profissional. Isso vai pro seu
-                    portfólio.
-                </p>
+            <div>
+                <h3 class="font-bold text-slate-900 text-xl mb-6 text-center">📝 Checklist de Autoavaliação</h3>
+                <p class="text-center text-slate-500 mb-8">Antes de fechar a aba, verifique se você domina estes
+                    conceitos:</p>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <label
+                        class="checkbox-item block p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <div>
+                                <span class="font-bold text-slate-800 block">Entendo o data-theme</span>
+                                <span class="text-xs text-slate-500">Sei que ele é um atributo HTML que ativa variáveis
+                                    CSS específicas.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label
+                        class="checkbox-item block p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <div>
+                                <span class="font-bold text-slate-800 block">Variáveis CSS (--p, --s)</span>
+                                <span class="text-xs text-slate-500">Compreendo que DaisyUI usa variáveis (H S L) para
+                                    colorir os componentes automaticamente.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label
+                        class="checkbox-item block p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <div>
+                                <span class="font-bold text-slate-800 block">Linkagem de Arquivos</span>
+                                <span class="text-xs text-slate-500">Consegui criar um arquivo .css separado e linká-lo
+                                    corretamente no HTML.</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label
+                        class="checkbox-item block p-4 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500">
+                            <div>
+                                <span class="font-bold text-slate-800 block">Git Básico</span>
+                                <span class="text-xs text-slate-500">Realizei pull, add, commit e push sem erros de
+                                    conflito.</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
             </div>
 
-            <div class="mt-12 pt-8 border-t border-white border-opacity-20">
-                <p class="text-sm opacity-75">
-                    Design Web | IFRN | Semana 10 — Dia 2
-                </p>
-            </div>
         </div>
     </section>
+
+
+    <footer class="py-12 px-4 bg-slate-900 text-slate-300 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="font-display font-bold text-white text-xl mb-4">Dica de Ouro ✨</h3>
+            <p class="mb-6 max-w-2xl mx-auto leading-relaxed">
+                Um bom tema não é só cores bonitas. Verifique se o texto em cima do botão (primary-content) está
+                legível. O DaisyUI calcula isso, mas às vezes precisamos ajustar manualmente no CSS gerado.
+            </p>
+            <div class="inline-block px-4 py-2 bg-slate-800 rounded-lg text-sm font-mono border border-slate-700">
+                Design Web IFRN | Aula 39
+            </div>
+        </div>
+    </footer>
+
 
     <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', e => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Save checkbox state
+        // Checkbox persistency
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            const key = `semana10-dia2-${checkbox.parentElement.textContent.substring(0, 30)}`;
+            // Cria uma chave única baseada no texto próximo ao checkbox para salvar o estado
+            const textContent = checkbox.nextElementSibling ? checkbox.nextElementSibling.textContent : checkbox.parentElement.textContent;
+            const key = `aula39-check-${textContent.trim().substring(0, 15)}`;
+
             checkbox.checked = localStorage.getItem(key) === 'true';
 
             checkbox.addEventListener('change', e => {
                 localStorage.setItem(key, e.target.checked);
+                // Adiciona um feedback visual simples
+                if (e.target.checked) {
+                    e.target.closest('.checkbox-item').style.borderColor = '#4f46e5';
+                    e.target.closest('.checkbox-item').style.backgroundColor = '#e0e7ff';
+                } else {
+                    e.target.closest('.checkbox-item').style.borderColor = '#e2e8f0';
+                    e.target.closest('.checkbox-item').style.backgroundColor = 'white';
+                }
             });
+
+            // Trigger visual state on load
+            if (checkbox.checked) {
+                const item = checkbox.closest('.checkbox-item');
+                if (item) {
+                    item.style.borderColor = '#4f46e5';
+                    item.style.backgroundColor = '#e0e7ff';
+                }
+            }
         });
     </script>
 </body>
