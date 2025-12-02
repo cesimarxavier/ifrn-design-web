@@ -1,0 +1,131 @@
+:root[data-theme="ifrn"] {
+    /* --- Metadados do tema (vêm do DaisyUI, não são CSS puros) --- */
+    /* default: false;        -> este tema não é o default da aplicação */
+    /* prefersdark: false;    -> tema não é marcado como "dark" internamente */
+    /* color-scheme: "ifrn";  -> identificador do tema dentro do ecossistema DaisyUI */
+
+    /* --- Cores de base (fundos e textos genéricos) --- */
+
+    --color-base-100: oklch(12% 0.042 264.695);
+    /* Fundo principal mais escuro (background da página / layout raiz) */
+
+    --color-base-200: oklch(20% 0.042 265.755);
+    /* Fundo para superfícies levemente elevadas (cards, seções destacadas) */
+
+    --color-base-300: oklch(27% 0.041 260.031);
+    /* Fundo para camadas ainda mais claras (hover, bordas suaves, elementos de apoio) */
+
+    --color-base-content: oklch(96% 0.007 247.896);
+    /* Cor de texto padrão sobre as bases escuras (conteúdo principal legível) */
+
+
+    /* --- Cores de marca e destaque (primary / secondary / accent / neutral) --- */
+
+    --color-primary: oklch(57% 0.245 27.325);
+    /* Cor de ação principal (botões primários, CTAs, elementos de brand) */
+
+    --color-primary-content: oklch(97% 0.013 17.38);
+    /* Texto/ícones sobre o primary (label de botão primário, ícones em destaque) */
+
+    --color-secondary: oklch(0% 0 0);
+    /* Cor secundária (preto) para elementos de suporte, barras, detalhes fortes */
+
+    --color-secondary-content: oklch(100% 0 0);
+    /* Texto/ícones sobre o secondary (branco sobre fundo preto) */
+
+    --color-accent: oklch(66% 0.179 58.318);
+    /* Cor de destaque pontual (chips, badges, highlights não prioritários) */
+
+    --color-accent-content: oklch(98% 0.022 95.277);
+    /* Texto/ícones sobre o accent, garantindo contraste e legibilidade */
+
+    --color-neutral: oklch(27% 0.041 260.031);
+    /* Cor neutra para componentes estruturais (navbars, cards, inputs) */
+
+    --color-neutral-content: oklch(98% 0.003 247.858);
+    /* Texto/ícones sobre o neutral (cor de conteúdo em superfícies neutras) */
+
+
+    /* --- Cores semânticas (mensagens de sistema) --- */
+
+    --color-info: oklch(74% 0.16 232.661);
+    /* Estados de informação (alerts informativos, tooltips de ajuda) */
+
+    --color-info-content: oklch(29% 0.066 243.157);
+    /* Texto/ícones sobre o fundo info (contraste adequado em mensagens de info) */
+
+    --color-success: oklch(77% 0.152 181.912);
+    /* Estados de sucesso (confirmações, feedback positivo) */
+
+    --color-success-content: oklch(27% 0.046 192.524);
+    /* Texto/ícones sobre o fundo de sucesso */
+
+    --color-warning: oklch(85% 0.199 91.936);
+    /* Estados de aviso (warning): atenção, “olha isso antes de seguir” */
+
+    --color-warning-content: oklch(28% 0.066 53.813);
+    /* Texto/ícones sobre o fundo de aviso */
+
+    --color-error: oklch(70% 0.191 22.216);
+    /* Estados de erro (validação quebrada, mensagens críticas) */
+
+    --color-error-content: oklch(25% 0.092 26.042);
+    /* Texto/ícones sobre o fundo de erro */
+
+
+    /* --- Tokens de raio de borda (curvatura) --- */
+
+    --radius-selector: 0rem;
+    /* Controles de seleção (checkbox, radio, toggles) totalmente quadrados */
+
+    --radius-field: 0.5rem;
+    /* Campos de formulário com cantos levemente arredondados (inputs, textareas) */
+
+    --radius-box: 0rem;
+    /* Containers e boxes mais “duros” e retangulares (cards, painéis) */
+
+
+    /* --- Tokens de tamanho (espessuras e dimensões base) --- */
+
+    --size-selector: 0.25rem;
+    /* Dimensão base de seletores (tamanho mínimo / espessura visual de controles) */
+
+    --size-field: 0.25rem;
+    /* Dimensão base de campos (altura/padding/borda padronizados para inputs) */
+
+
+    /* --- Tokens gerais de estilo global --- */
+
+    --border: 2px;
+    /* Espessura padrão de borda (componentes com presença visual mais forte) */
+
+    --depth: 0;
+    /* Nível de “elevação” (0 = design mais flat, pouca ou nenhuma sombra) */
+
+    --noise: 1;
+    /* Intensidade de ruído/textura aplicada ao fundo (1 = ruído ligado, mais orgânico) */
+}
+
+/* 
+  Por que usar OKLCH?
+
+  - Modelo perceptualmente uniforme:
+    A principal tese é garantir que mudanças numéricas em L, C e H tenham impacto visual
+    mais previsível para o usuário. Ou seja, ajustar “L” realmente clareia/escurece sem
+    distorcer a cor de forma inesperada, diferente do que acontece com RGB/HSL.
+
+  - Controle fino de contraste e acessibilidade:
+    Ao trabalhar com Lightness (L) em uma escala mais alinhada com a visão humana,
+    fica mais simples montar pares de cores acessíveis e manter contraste mínimo
+    (por exemplo, WCAG) sem tanto “trial and error”.
+
+  - Consistência de brand em múltiplos tons:
+    Ao variar apenas L ou C, você gera toda a hierarquia de superfícies (base-100, 200, 300,
+    etc.) mantendo o mesmo “hue” de marca, o que facilita alinhar identidade visual
+    com sistematização de UI.
+
+  - Futuro da plataforma:
+    Navegadores modernos já dão suporte a oklch(), e o modelo vem sendo apontado
+    como padrão mais robusto para design systems. Em termos de estratégia de produto,
+    é uma aposta alinhada com boas práticas modernas de design de cor.
+*/
