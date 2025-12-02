@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 02 — Engenharia de Layout | /title>
+    <meta name="description" content="Lista de exercícios sobre Unidades, Backgrounds, Display e Position.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand': {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9', /* Sky 500 */
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        'rose': {
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #1e293b; }
+
+        /* Card Effects */
+        .exercise-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .exercise-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.1);
+            border-color: #cbd5e1;
+        }
+        .exercise-card:hover::before { transform: scaleX(1); }
+
+        /* Levels Colors */
+        .level-basic::before { background: #0ea5e9; } /* Blue */
+        .level-intermediate::before { background: #f59e0b; } /* Amber */
+        .level-advanced::before { background: #f43f5e; } /* Rose */
+
+        /* Badges */
+        .badge-basic { background: #e0f2fe; color: #0369a1; }
+        .badge-intermediate { background: #fef3c7; color: #92400e; }
+        .badge-advanced { background: #ffe4e6; color: #9f1239; }
+
+        /* Utils */
+        .checkbox-item { transition: all 0.2s ease; }
+        .checkbox-item:hover { background: #f8fafc; }
+        
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm backdrop-blur-md bg-white/90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 block">Web Design • /span>
+                    <h1 class="font-bold text-2xl text-slate-900 leading-none">
+                        Lista 02 — Engenharia de Layout
+                    </h1>
+                </div>
+                <div class="text-right">
+                    <div class="px-4 py-2 bg-slate-900 text-white rounded-lg font-bold text-sm shadow-lg shadow-slate-900/20">
+                        📅 Prazo: 7 dias
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="flex-1">
+                    <h2 class="font-bold text-3xl mb-4 text-slate-900">Objetivos da Prática</h2>
+                    <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                        Consolidar o entendimento sobre como os elementos ocupam espaço (Unidades), como se comportam no fluxo (Display) e como criar camadas visuais (Position e Backgrounds).
+                    </p>
+                    <div class="flex gap-4 text-sm font-medium text-slate-500">
+                        <span class="flex items-center gap-2"><svg class="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg> 10 Exercícios</span>
+                        <span class="flex items-center gap-2"><svg class="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> Estima-se 3h</span>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 w-full md:w-auto min-w-[300px]">
+                    <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide mb-3">Instruções de Entrega</h3>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li>1. Crie uma pasta <code class="code-inline">lista02_seunome</code></li>
+                        <li>2. Um arquivo HTML por exercício (ex: <code class="code-inline">ex01.html</code>)</li>
+                        <li>3. Utilize CSS interno (tag <code class="code-inline">&lt;style&gt;</code>)</li>
+                        <li>4. Comprima em <strong>.ZIP</strong> e envie no Classroom.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-5xl mx-auto space-y-8">
+            
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-xl font-bold text-brand-600">01</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Migração para REM</h3>
+                            <p class="text-slate-500 text-sm">Acessibilidade e Escala</p>
+                        </div>
+                    </div>
+                    <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie uma página simples com um título (<code class="code-inline">h1</code>) e um parágrafo (<code class="code-inline">p</code>).
+                    </p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>Defina <code class="code-inline">html { font-size: 16px }</code>.</li>
+                        <li>Configure o tamanho da fonte do h1 para ser equivalente a <strong>32px</strong> usando <code class="code-inline">rem</code>.</li>
+                        <li>Configure a margem inferior do h1 para ser equivalente a <strong>24px</strong> usando <code class="code-inline">rem</code>.</li>
+                        <li>Configure o parágrafo para ter fonte equivalente a <strong>16px</strong> e padding de <strong>16px</strong> usando <code class="code-inline">rem</code>.</li>
+                    </ul>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Checklist de Sucesso</h4>
+                    <div class="space-y-2">
+                        <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                            <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                            <span class="text-sm text-slate-600">Não utilizei "px" em font-size, margin ou padding.</span>
+                        </label>
+                        <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                            <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                            <span class="text-sm text-slate-600">Ao dar zoom no navegador, o layout escala proporcionalmente.</span>
+                        </label>
+                    </div>
+                </div>
+            </article>
+
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-xl font-bold text-brand-600">02</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Block vs Inline</h3>
+                            <p class="text-slate-500 text-sm">Comportamento de fluxo</p>
+                        </div>
+                    </div>
+                    <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie dois links (<code class="code-inline">a</code>) e dois títulos (<code class="code-inline">h2</code>).
+                        Aplique uma borda e um background de cor diferente para links e títulos.
+                    </p>
+                    <p class="text-sm text-slate-600 italic">
+                        Observe: Os títulos quebram linha automaticamente? Os links aceitam largura (width)?
+                    </p>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Checklist de Sucesso</h4>
+                    <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                        <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                        <span class="text-sm text-slate-600">Identifiquei visualmente que H2 ocupa 100% da largura (Block).</span>
+                    </label>
+                    <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                        <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                        <span class="text-sm text-slate-600">Identifiquei que links ficam um ao lado do outro (Inline).</span>
+                    </label>
+                </div>
+            </article>
+
+            <article class="exercise-card level-basic bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-brand-50 rounded-lg flex items-center justify-center text-xl font-bold text-brand-600">03</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">O Básico do Background</h3>
+                            <p class="text-slate-500 text-sm">Imagens e preenchimento</p>
+                        </div>
+                    </div>
+                    <span class="badge-basic px-3 py-1 rounded-full text-xs font-bold">BÁSICO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie uma <code class="code-inline">div</code> com classe <code class="code-inline">.box</code>.
+                    </p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>Defina largura de 100% e altura de <strong>400px</strong>.</li>
+                        <li>Coloque uma imagem de paisagem (use Unsplash) como background.</li>
+                        <li>Garanta que a imagem cubra todo o espaço sem distorcer (<code class="code-inline">cover</code>) e fique centralizada.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-xl font-bold text-amber-600">04</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Técnica de Overlay</h3>
+                            <p class="text-slate-500 text-sm">Garantindo legibilidade</p>
+                        </div>
+                    </div>
+                    <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Reutilize o exercício anterior. Adicione um título <code class="code-inline">h1</code> branco dentro da div.
+                    </p>
+                    <p class="text-sm text-slate-600 mb-3">
+                        O texto provavelmente ficará difícil de ler. Adicione um <strong>Gradiente Linear</strong> preto semitransparente sobre a imagem usando a propriedade <code class="code-inline">background-image</code> (lembre-se: é possível ter múltiplas camadas separadas por vírgula).
+                    </p>
+                </div>
+
+                <div class="border-t border-slate-100 pt-4">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Checklist de Sucesso</h4>
+                    <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                        <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                        <span class="text-sm text-slate-600">O texto branco está legível sobre a imagem.</span>
+                    </label>
+                    <label class="checkbox-item flex items-center gap-3 p-2 rounded cursor-pointer">
+                        <input type="checkbox" class="rounded text-brand-600 focus:ring-brand-500">
+                        <span class="text-sm text-slate-600">Usei rgba(0,0,0,0.5) ou similar no gradiente.</span>
+                    </label>
+                </div>
+            </article>
+
+            <article class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-xl font-bold text-amber-600">05</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Full Screen Hero</h3>
+                            <p class="text-slate-500 text-sm">Viewport Units</p>
+                        </div>
+                    </div>
+                    <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie uma seção de capa (Hero) que ocupe sempre <strong>100% da altura da tela</strong> do usuário, independentemente se é um celular ou um monitor 4k.
+                    </p>
+                    <p class="text-sm text-slate-600">
+                        Use a unidade <code class="code-inline">vh</code> (viewport height). Remova as margens padrão do <code class="code-inline">body</code> para não gerar barra de rolagem indesejada.
+                    </p>
+                </div>
+            </article>
+
+            <article class="exercise-card level-intermediate bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center text-xl font-bold text-amber-600">06</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Grid com Inline-Block</h3>
+                            <p class="text-slate-500 text-sm">Layout sem Flexbox</p>
+                        </div>
+                    </div>
+                    <span class="badge-intermediate px-3 py-1 rounded-full text-xs font-bold">INTERMEDIÁRIO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie 3 divs de "Card de Produto".
+                    </p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1">
+                        <li>Defina <code class="code-inline">width: 30%</code> para cada uma.</li>
+                        <li>Use <code class="code-inline">display: inline-block</code> para que fiquem lado a lado.</li>
+                        <li>Adicione borda e padding.</li>
+                    </ul>
+                    <p class="text-xs text-slate-500 mt-3 italic">Nota: Você notará um pequeno espaço em branco entre eles. Isso é normal do inline-block.</p>
+                </div>
+            </article>
+
+            <article class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-rose-50 rounded-lg flex items-center justify-center text-xl font-bold text-rose-600">07</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Notification Badge</h3>
+                            <p class="text-slate-500 text-sm">Absolute + Relative</p>
+                        </div>
+                    </div>
+                    <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie um botão quadrado (div). Dentro dele, crie um pequeno círculo vermelho (span) com um número dentro.
+                    </p>
+                    <p class="text-sm text-slate-600">
+                        Use <code class="code-inline">position: absolute</code> no círculo vermelho para posicioná-lo no canto superior direito do botão (parcialmente para fora).
+                        <br><strong>Importante:</strong> Não esqueça de definir <code class="code-inline">position: relative</code> no botão (pai) para servir de âncora.
+                    </p>
+                </div>
+            </article>
+
+            <article class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-rose-50 rounded-lg flex items-center justify-center text-xl font-bold text-rose-600">08</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Navbar Sticky</h3>
+                            <p class="text-slate-500 text-sm">Position Sticky</p>
+                        </div>
+                    </div>
+                    <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie uma página longa (adicione muito texto ou altura no body).
+                        Crie uma barra de navegação (<code class="code-inline">nav</code>) abaixo de um título de topo.
+                    </p>
+                    <p class="text-sm text-slate-600">
+                        Use <code class="code-inline">position: sticky</code> e <code class="code-inline">top: 0</code> na navbar.
+                        Role a página e observe que ela rola normalmente até bater no topo, onde ela deve fixar.
+                    </p>
+                </div>
+            </article>
+
+            <article class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-sm">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-rose-50 rounded-lg flex items-center justify-center text-xl font-bold text-rose-600">09</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Botão Flutuante (FAB)</h3>
+                            <p class="text-slate-500 text-sm">Position Fixed</p>
+                        </div>
+                    </div>
+                    <span class="badge-advanced px-3 py-1 rounded-full text-xs font-bold">AVANÇADO</span>
+                </div>
+
+                <div class="bg-slate-50 rounded-lg p-5 mb-6 border border-slate-100">
+                    <p class="text-slate-700 mb-3">
+                        Crie um botão circular com um ícone de "?" ou "+".
+                    </p>
+                    <p class="text-sm text-slate-600">
+                        Use <code class="code-inline">position: fixed</code> para fixá-lo no canto inferior direito da tela (bottom: 2rem, right: 2rem).
+                        Ele deve ficar visível mesmo se o usuário rolar a página. Adicione <code class="code-inline">z-index</code> para garantir que fique sobre outros elementos.
+                    </p>
+                </div>
+            </article>
+
+            <article class="exercise-card level-advanced bg-white rounded-2xl p-8 shadow-sm border border-rose-100">
+                <div class="flex justify-between items-start mb-6">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-rose-500 to-rose-600 rounded-lg flex items-center justify-center text-xl font-bold text-white">10</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-slate-900">Desafio: O Modal</h3>
+                            <p class="text-slate-500 text-sm">Overlay + Centralização</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-gradient-to-r from-rose-500 to-rose-600 text-white rounded-full text-xs font-bold">DESAFIO</span>
+                </div>
+
+                <div class="bg-rose-50 rounded-lg p-5 mb-6 border border-rose-100">
+                    <p class="text-rose-900 font-bold mb-2">Objetivo Final:</p>
+                    <p class="text-slate-700 text-sm mb-4">
+                        Crie um Modal (janela sobreposta) que bloqueia o conteúdo atrás.
+                    </p>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-2">
+                        <li><strong>Overlay:</strong> Uma div com <code class="code-inline">position: fixed</code>, ocupando 100vw e 100vh, com fundo preto semitransparente.</li>
+                        <li><strong>Janela:</strong> Uma div branca dentro do overlay, com largura fixa (ex: 400px).</li>
+                        <li><strong>Centralização:</strong> Use margens automáticas ou posicionamento absoluto com transform para colocar a janela branca EXATAMENTE no centro da tela.</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-slate-900 text-slate-400 text-center text-sm">
+        <p>
+            2025 • IFRN • Web Design<br>
+            Desenvolvido para ensino de Engenharia de Front-end
+        </p>
+    </footer>
+
+</body>
+</html>
