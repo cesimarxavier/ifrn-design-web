@@ -179,7 +179,7 @@
             // Renderiza os Cards das Semanas
             bimestre.weeks.forEach(week => {
                 html += `
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-brand-300 transition group">
+                    <a href="aula-${week.week}.html" class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-brand-300 transition group">
                         <div class="flex justify-between items-start mb-3">
                             <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Semana ${week.week}</span>
                             <div class="w-2 h-2 rounded-full bg-slate-200 group-hover:bg-brand-500 transition"></div>
@@ -191,7 +191,7 @@
                                 Habilidade: ${week.skills}
                             </span>
                         </div>
-                    </div>
+                    </a>
                 `;
             });
 
