@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Design — HTML & CSS | IFRN</title>
+    <meta name="description" content="Disciplina de Web Design focada em HTML5 e CSS3 para ADS.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6', // Blue 500
+                            600: '#2563eb', // Blue 600
+                            700: '#1d4ed8', // Blue 700
+                            800: '#1e40af', // Blue 800
+                            900: '#1e3a8a', // Blue 900
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-xl text-brand-900 tracking-tight">Web<span class="text-brand-600">Design</span></span>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-slate-100 rounded text-slate-500">ADS 2026</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#metodologia" class="text-slate-600 hover:text-brand-600 transition">Metodologia</a>
+                    <a href="#cronograma" class="text-slate-600 hover:text-brand-600 transition">Syllabus</a>
+                    <a href="#avaliacao" class="text-slate-600 hover:text-brand-600 transition">Avaliação</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-sm font-semibold mb-6 border border-brand-100">
+                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                Especialização Front-end
+            </div>
+            
+            <h1 class="font-bold text-4xl md:text-6xl text-slate-900 mb-6 leading-tight tracking-tight">
+                Domine a base da Web:<br>
+                <span class="text-brand-600">HTML5 & CSS3 Moderno.</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+                O foco total desta disciplina é ensinar você a transformar layouts visuais em código limpo, semântico, acessível e responsivo. Sem frameworks, apenas os fundamentos sólidos.
+            </p>
+
+            <div class="flex justify-center gap-4 text-sm font-medium text-slate-500">
+                <div class="flex items-center gap-1">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    60 Horas
+                </div>
+                <div class="flex items-center gap-1">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    20 Semanas
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cronograma" class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Cronograma Semanal</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    Um roteiro passo-a-passo. Cada semana introduz um conceito novo que depende do anterior.
+                </p>
+            </div>
+
+            <div id="syllabus-container" class="space-y-12">
+                </div>
+        </div>
+    </section>
+
+    <section id="avaliacao" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Critérios de Aprovação</h2>
+                <p class="text-slate-300">Avaliação prática e contínua.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-brand-600 text-white font-bold px-3 py-1 rounded text-sm">40%</span>
+                        <h3 class="font-bold text-xl">Atividades Semanais</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Listas de exercícios e desafios rápidos em aula para fixação de sintaxe.</p>
+                </div>
+
+                <div class="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-brand-600 text-white font-bold px-3 py-1 rounded text-sm">60%</span>
+                        <h3 class="font-bold text-xl">Projetos (B1 + B2)</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm">Dois grandes entregáveis: Um site institucional estático e uma Landing Page responsiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">
+                Tecnologia em Análise e Desenvolvimento de Sistemas<br>
+                Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const syllabusData = [
+            {
+                bimestre: "1º Bimestre: Engenharia HTML e Fundamentos CSS",
+                description: "Foco na construção semântica do documento e estilização base.",
+                weeks: [
+                    { week: 1, title: "O Ecossistema Web", content: "Client-Server, Browsers, VS Code, Git Básico.", skills: "Configurar ambiente de desenvolvimento profissional." },
+                    { week: 2, title: "Fundamentos do HTML5", content: "Estrutura do documento, tags de texto, títulos e parágrafos.", skills: "Criar a primeira página .html válida." },
+                    { week: 3, title: "Organização da Informação", content: "Listas (ul, ol, dl) e tabelas de dados simples.", skills: "Estruturar dados de forma hierárquica." },
+                    { week: 4, title: "Hipertexto e Caminhos", content: "Tags de âncora, caminhos relativos vs absolutos, estrutura de pastas.", skills: "Criar navegação funcional entre páginas." },
+                    { week: 5, title: "Mídia na Web", content: "Imagens (formatos, otimização), Figure, Áudio e Vídeo.", skills: "Integrar assets visuais corretamente." },
+                    { week: 6, title: "HTML Semântico (SEO)", content: "Header, Nav, Main, Article, Section, Aside, Footer.", skills: "Construir documentos otimizados para busca e leitura." },
+                    { week: 7, title: "Introdução ao CSS3", content: "Sintaxe, formas de inclusão, Seletores (Tag, Class, ID).", skills: "Aplicar os primeiros estilos visuais." },
+                    { week: 8, title: "Cores e Tipografia", content: "Sistemas de cor (Hex, RGB, HSL), Font-family, Font-weight, Line-height.", skills: "Melhorar a legibilidade e estética básica." },
+                    { week: 9, title: "The Box Model", content: "Margin, Border, Padding, Width, Height, Box-sizing.", skills: "Entender como os elementos ocupam espaço na tela." },
+                    { week: 10, title: "Entrega do Projeto 1", content: "Desenvolvimento e apresentação de Site Institucional Estático.", skills: "Aplicação prática dos conceitos do bimestre." }
+                ]
+            },
+            {
+                bimestre: "2º Bimestre: Layout Avançado e Responsividade",
+                description: "Foco no posicionamento complexo e adaptação para dispositivos móveis.",
+                weeks: [
+                    { week: 11, title: "Unidades e Backgrounds", content: "Unidades (px, %, rem, vh/vw), Imagens de fundo e gradientes.", skills: "Criar seções visuais imersivas." },
+                    { week: 12, title: "Display e Posicionamento", content: "Block vs Inline, Position (Relative, Absolute, Fixed, Sticky).", skills: "Manipular o fluxo natural do documento." },
+                    { week: 13, title: "Flexbox: Containers", content: "Display Flex, Eixos (Main/Cross), Justify-content, Flex-wrap.", skills: "Criar menus e alinhamentos simples." },
+                    { week: 14, title: "Flexbox: Items", content: "Align-items, Flex-grow, Flex-shrink, Flex-basis.", skills: "Dominar o layout flexível unidimensional." },
+                    { week: 15, title: "CSS Grid: Estrutura", content: "Display Grid, Template Columns/Rows, Gap, Fr unit.", skills: "Criar layouts de grade bidimensionais." },
+                    { week: 16, title: "CSS Grid: Áreas", content: "Grid-template-areas, posicionamento explícito de itens.", skills: "Prototipar layouts complexos rapidamente." },
+                    { week: 17, title: "Formulários Modernos", content: "Inputs semânticos, Labels, Validação HTML5 e Estilização de Forms.", skills: "Criar interfaces de entrada de dados usáveis." },
+                    { week: 18, title: "Responsividade I", content: "Media Queries, Breakpoints padrão de mercado.", skills: "Adaptar layouts para Tablet e Desktop." },
+                    { week: 19, title: "Responsividade II", content: "Mobile First Strategy, Imagens responsivas, Hamburger Menu (CSS puro).", skills: "Desenvolver pensando no celular primeiro." },
+                    { week: 20, title: "Entrega do Projeto 2", content: "Desenvolvimento de Landing Page Responsiva.", skills: "Consolidação final das competências." }
+                ]
+            }
+        ];
+
+        const container = document.getElementById('syllabus-container');
+
+        syllabusData.forEach((bimestre) => {
+            // Renderiza o Cabeçalho do Bimestre
+            let html = `
+                <div class="relative">
+                    <div class="sticky top-16 z-10 bg-slate-50/95 backdrop-blur py-4 border-b border-slate-200 mb-6">
+                        <h3 class="text-2xl font-bold text-brand-800">${bimestre.bimestre}</h3>
+                        <p class="text-slate-600">${bimestre.description}</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+            `;
+
+            // Renderiza os Cards das Semanas
+            bimestre.weeks.forEach(week => {
+                html += `
+                    <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-200 hover:border-brand-300 transition group">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Semana ${week.week}</span>
+                            <div class="w-2 h-2 rounded-full bg-slate-200 group-hover:bg-brand-500 transition"></div>
+                        </div>
+                        <h4 class="font-bold text-lg text-slate-900 mb-2 group-hover:text-brand-700 transition">${week.title}</h4>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">${week.content}</p>
+                        <div class="pt-4 border-t border-slate-100">
+                            <span class="text-xs font-semibold text-brand-600 bg-brand-50 px-2 py-1 rounded">
+                                Habilidade: ${week.skills}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML += html;
+        });
+    </script>
+</body>
+</html>
