@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apêndice: Display CSS Completo | Licenciatura em Informática</title>
-    <meta name="description"
-        content="Documentação técnica completa sobre todos os valores da propriedade display no CSS3.">
+    <title>Apêndice: CSS Positioning | Licenciatura em Informática</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -16,9 +14,7 @@
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
-                        }
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' }
                     }
                 }
             }
@@ -34,7 +30,7 @@
         .code-tag {
             font-family: 'Courier New', monospace;
             background-color: #f1f5f9;
-            color: #0c4a6e;
+            color: #0f172a;
             padding: 2px 6px;
             border-radius: 4px;
             border: 1px solid #e2e8f0;
@@ -42,10 +38,23 @@
             font-weight: 600;
         }
 
-        .category-header {
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+        /* Padrão de Grid para visualizar o fluxo */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .demo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -53,314 +62,308 @@
 <body>
 
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <span class="font-bold text-lg text-slate-900">Web Design</span>
                 <span class="h-4 w-px bg-slate-300"></span>
-                <span class="text-sm text-slate-500 font-medium">Licenciatura em Informática</span>
+                <span class="text-sm text-slate-500 font-medium">Engenharia de Layout</span>
             </div>
             <a href="#" onclick="window.history.back(); return false;"
-                class="group flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Voltar
+                class="text-sm text-brand-600 hover:text-brand-800 font-medium flex items-center gap-1">
+                &larr; Voltar
             </a>
         </div>
     </nav>
 
-    <header class="bg-white border-b border-slate-200 py-12 px-4">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex gap-2 mb-4">
-                <span
-                    class="px-3 py-1 bg-brand-50 text-brand-700 rounded-full text-xs font-bold border border-brand-100 uppercase tracking-wide">
-                    Especificação CSS Display Module Level 3
-                </span>
-            </div>
-            <h1 class="text-4xl font-bold text-slate-900 mb-4 tracking-tight">
-                Guia Definitivo da Propriedade Display
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-brand-600 font-bold tracking-wider text-xs uppercase mb-2 block">Fundamentos CSS</span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Propriedade Position
             </h1>
-            <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
-                Este documento cataloga todos os valores padronizados da propriedade <code>display</code>. Na
-                especificação moderna, o display define dois papéis: o <strong>papel externo</strong> (como o elemento
-                interage com os vizinhos) e o <strong>papel interno</strong> (como os filhos se comportam).
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Por padrão, o HTML segue um fluxo estático (um bloco após o outro). A propriedade <code>position</code>
+                nos permite quebrar essa regra para sobrepor elementos, fixar barras de navegação e criar layouts
+                complexos.
             </p>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
 
-        <section>
-            <div class="category-header">
-                <h2 class="text-2xl font-bold text-slate-900">1. Valores de Fluxo (Outside)</h2>
-                <p class="text-slate-500 text-sm">Definem como a caixa do elemento é disposta no layout geral.</p>
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-slate-200 text-slate-600 w-8 h-8 rounded flex items-center justify-center font-bold">1</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">static</h2>
+                </div>
+                <p class="text-slate-600">
+                    O comportamento padrão de todo elemento. Eles seguem o <strong>Fluxo Normal</strong> do documento.
+                </p>
+                <div class="bg-slate-100 p-4 rounded border border-slate-200 text-sm text-slate-600">
+                    <strong>Regra:</strong> As propriedades <code>top</code>, <code>right</code>, <code>bottom</code>,
+                    <code>left</code> e <code>z-index</code> <strong>NÃO funcionam</strong> aqui.
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-blue-700">block</span>
-                    </div>
-                    <p class="text-sm text-slate-600 mb-2">Gera uma caixa de bloco. Ocupa toda a largura e quebra linha
-                        antes e depois.</p>
-                    <div class="text-xs text-slate-400">Ex: div, p, h1, section</div>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-blue-700">inline</span>
-                    </div>
-                    <p class="text-sm text-slate-600 mb-2">Gera uma caixa em linha. Flui com o texto. Ignora
-                        largura/altura e margens verticais.</p>
-                    <div class="text-xs text-slate-400">Ex: span, a, strong</div>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-blue-700">inline-block</span>
-                    </div>
-                    <p class="text-sm text-slate-600 mb-2">Híbrido. Flui na linha (como inline), mas aceita propriedades
-                        de caixa (width, height, margin) como block.</p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border-l-4 border-l-brand-500 border border-slate-200 shadow-sm">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-brand-700">flow-root</span>
-                        <span
-                            class="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded font-bold">IMPORTANTE</span>
-                    </div>
-                    <p class="text-sm text-slate-600 mb-2">
-                        Gera uma caixa de bloco que estabelece um novo <strong>Contexto de Formatação de Bloco
-                            (BFC)</strong>.
-                    </p>
-                    <p class="text-xs text-slate-500 bg-slate-50 p-2 rounded">
-                        <strong>Uso Didático:</strong> É a forma moderna de fazer o "Clearfix". Ele contém elementos
-                        flutuantes (float) dentro dele sem colapsar a altura.
-                    </p>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-2">Fluxo Normal</p>
+                <div class="grid-bg h-40 border border-slate-100 p-4 relative">
+                    <div class="demo-box bg-slate-400 w-20 h-10 mb-2">1</div>
+                    <div class="demo-box bg-brand-600 w-20 h-10 mb-2">2 (Static)</div>
+                    <div class="demo-box bg-slate-400 w-20 h-10">3</div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div class="category-header">
-                <h2 class="text-2xl font-bold text-slate-900">2. Sistemas de Layout (Inside)</h2>
-                <p class="text-slate-500 text-sm">Definem o contexto de formatação para os elementos filhos.</p>
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-brand-100 text-brand-600 w-8 h-8 rounded flex items-center justify-center font-bold">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">relative</h2>
+                </div>
+                <p class="text-slate-600">
+                    O elemento permanece no fluxo normal, mas pode ser <strong>deslocado visualmente</strong> em relação
+                    à sua posição original.
+                </p>
+                <ul class="space-y-2 text-sm text-slate-700 list-disc list-inside">
+                    <li>O espaço original dele <strong>é preservado</strong> (como um fantasma).</li>
+                    <li>Outros elementos não se movem para ocupar o lugar.</li>
+                    <li>Serve de <strong>âncora</strong> para filhos absolutos.</li>
+                </ul>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg border border-purple-200 bg-purple-50/30">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-purple-700">flex</span>
-                    </div>
-                    <p class="text-sm text-slate-600">Comporta-se como <strong>block</strong> externamente e ativa o
-                        <strong>Flexbox</strong> internamente (unidimensional).
-                    </p>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-2">
+                    <p class="text-xs text-slate-400 uppercase font-bold">top: 20px; left: 20px;</p>
                 </div>
+                <div class="grid-bg h-40 border border-slate-100 p-4 relative">
+                    <div class="demo-box bg-slate-400 w-20 h-10 mb-2">1</div>
 
-                <div class="bg-white p-6 rounded-lg border border-purple-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-purple-700">inline-flex</span>
+                    <div class="w-20 h-10 mb-2 border-2 border-dashed border-slate-300 relative">
+                        <span class="absolute -top-6 text-[9px] text-slate-400 w-32">Espaço Original Preservado</span>
+                        <div class="demo-box bg-brand-600 w-20 h-10 absolute top-5 left-5 shadow-lg z-10">
+                            2 (Relative)
+                        </div>
                     </div>
-                    <p class="text-sm text-slate-600">Comporta-se como <strong>inline</strong> externamente e ativa o
-                        <strong>Flexbox</strong> internamente.
-                    </p>
-                </div>
 
-                <div class="bg-white p-6 rounded-lg border border-indigo-200 bg-indigo-50/30">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-indigo-700">grid</span>
-                    </div>
-                    <p class="text-sm text-slate-600">Comporta-se como <strong>block</strong> externamente e ativa o
-                        <strong>Grid Layout</strong> internamente (bidimensional).
-                    </p>
-                </div>
-
-                <div class="bg-white p-6 rounded-lg border border-indigo-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-indigo-700">inline-grid</span>
-                    </div>
-                    <p class="text-sm text-slate-600">Comporta-se como <strong>inline</strong> externamente e ativa o
-                        <strong>Grid Layout</strong> internamente.
-                    </p>
+                    <div class="demo-box bg-slate-400 w-20 h-10">3</div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div class="category-header">
-                <h2 class="text-2xl font-bold text-slate-900">3. Modelo de Tabela (Legacy)</h2>
-                <p class="text-slate-500 text-sm">
-                    Permite que elementos não-tabela (divs, spans) se comportem como tabelas HTML. Muito usado em emails
-                    HTML ou layouts legados.
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-rose-100 text-rose-600 w-8 h-8 rounded flex items-center justify-center font-bold">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">absolute</h2>
+                </div>
+                <p class="text-slate-600">
+                    O elemento é <strong>removido do fluxo</strong>. Ele não ocupa espaço físico na página (flutua por
+                    cima).
+                </p>
+
+                <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded text-sm text-rose-900">
+                    <strong>A Regra de Ouro:</strong><br>
+                    Ele se posiciona em relação ao <span class="font-bold">ancestral posicionado</span> mais próximo
+                    (geralmente um pai <code>relative</code>). Se não houver nenhum, ele se posiciona em relação à
+                    janela (body).
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-2">Pai Relative + Filho Absolute</p>
+
+                <div
+                    class="h-48 bg-slate-100 border-2 border-slate-300 relative rounded flex items-center justify-center">
+                    <span class="text-xs text-slate-400 font-mono absolute top-2 left-2">div.pai { position: relative
+                        }</span>
+
+                    <div class="text-center text-slate-300 text-sm">Conteúdo do pai...</div>
+
+                    <div class="demo-box bg-rose-500 w-24 h-10 absolute top-0 right-0 shadow-lg">
+                        top: 0; right: 0;
+                    </div>
+
+                    <div class="demo-box bg-rose-500 w-24 h-10 absolute bottom-4 left-4 shadow-lg">
+                        bottom: 1rem;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-purple-100 text-purple-600 w-8 h-8 rounded flex items-center justify-center font-bold">4</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">fixed</h2>
+                </div>
+                <p class="text-slate-600">
+                    O elemento é removido do fluxo e posicionado em relação à <strong>Viewport (Janela do
+                        Navegador)</strong>.
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Ele <strong>não se move</strong> quando a página é rolada (scroll). É usado para barras de navegação
+                    fixas, modais e botões de "Voltar ao topo".
                 </p>
             </div>
 
-            <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
-                <table class="min-w-full divide-y divide-slate-200 text-sm">
-                    <thead class="bg-slate-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left font-bold text-slate-700">Valor</th>
-                            <th class="px-6 py-3 text-left font-bold text-slate-700">Equivalente HTML</th>
-                            <th class="px-6 py-3 text-left font-bold text-slate-700">Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-200 bg-white">
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;table&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Define o container da tabela (bloco).</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">inline-table</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;table&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Define uma tabela que flui inline com o texto.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-row</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;tr&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Agrupa células horizontalmente.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-cell</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;td&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Célula. Respeita <code>vertical-align</code>.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-column</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;col&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Define propriedades para colunas.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-column-group</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;colgroup&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Agrupa colunas.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-header-group</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;thead&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Grupo de cabeçalho (sempre no topo).</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-footer-group</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;tfoot&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Grupo de rodapé (sempre no fundo).</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-row-group</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;tbody&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Corpo da tabela.</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-3"><span class="code-tag">table-caption</span></td>
-                            <td class="px-6 py-3 text-slate-500"><code>&lt;caption&gt;</code></td>
-                            <td class="px-6 py-3 text-slate-600">Legenda da tabela.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm overflow-hidden relative">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-2">Simulação de Scroll</p>
 
-        <section>
-            <div class="category-header">
-                <h2 class="text-2xl font-bold text-slate-900">4. Listas e Específicos</h2>
-                <p class="text-slate-500 text-sm">Valores para semântica específica.</p>
-            </div>
+                <div class="h-40 bg-slate-50 border border-slate-200 overflow-y-scroll relative rounded scrollbar-hide">
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag">list-item</span>
+                    <div class="demo-box bg-purple-600 w-full h-8 sticky top-0 left-0 z-10 opacity-90">
+                        Header Fixo (top: 0)
                     </div>
-                    <p class="text-sm text-slate-600 mb-2">
-                        Comporta-se como um <code>&lt;li&gt;</code>. Gera uma caixa principal de bloco e uma caixa de
-                        marcador (bullet/number) lateral.
-                    </p>
-                    <div class="text-xs text-slate-500 bg-slate-50 p-2 rounded">
-                        Permite usar propriedades como <code>list-style-type</code> em divs ou spans.
-                    </div>
-                </div>
 
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag">ruby</span>
-                        <span class="text-[10px] uppercase font-bold text-slate-400">Nicho</span>
+                    <div class="p-4 space-y-2 text-xs text-slate-400">
+                        <p>Scroll me...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
+                        <p>Conteúdo...</p>
                     </div>
-                    <p class="text-sm text-slate-600 mb-2">
-                        Usado para anotações Ruby (comuns em tipografia do Leste Asiático).
-                    </p>
-                    <div class="text-xs text-slate-400 mt-2">
-                        Variações: <code>ruby-base</code>, <code>ruby-text</code>, <code>ruby-base-container</code>,
-                        <code>ruby-text-container</code>.
+
+                    <div class="demo-box bg-purple-600 w-8 h-8 rounded-full sticky bottom-2 left-[85%] shadow-lg">
+                        +
                     </div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div class="category-header">
-                <h2 class="text-2xl font-bold text-slate-900">5. Visibilidade e Geração</h2>
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-amber-100 text-amber-600 w-8 h-8 rounded flex items-center justify-center font-bold">5</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">sticky</h2>
+                </div>
+                <p class="text-slate-600">
+                    Mistura de <code>relative</code> e <code>fixed</code>. O elemento age normalmente até atingir uma
+                    posição de rolagem definida (ex: <code>top: 0</code>), onde então se "cola" na tela.
+                </p>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200 text-sm text-amber-800">
+                    <strong>Requisito:</strong> Só funciona enquanto o seu elemento pai estiver visível na tela.
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white p-6 rounded-lg border border-red-100">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-red-700">none</span>
-                    </div>
-                    <p class="text-sm text-slate-600 mb-2">
-                        Remove completamente o elemento da árvore de renderização. <strong>Não ocupa espaço</strong>,
-                        não responde a eventos e seus filhos também desaparecem.
-                    </p>
-                </div>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-2">Listas Alfabéticas</p>
+                <div class="h-40 bg-slate-50 border border-slate-200 overflow-y-scroll rounded relative p-0">
 
-                <div class="bg-white p-6 rounded-lg border border-slate-200">
-                    <div class="flex justify-between mb-2">
-                        <span class="code-tag text-slate-700">contents</span>
+                    <div>
+                        <div
+                            class="bg-amber-100 text-amber-800 px-2 py-1 text-xs font-bold sticky top-0 border-b border-amber-200">
+                            A</div>
+                        <div class="p-2 text-xs text-slate-500">Ana<br>André<br>Amanda<br>Arthur</div>
                     </div>
-                    <p class="text-sm text-slate-600 mb-2">
-                        O elemento container "desaparece" para fins de estilização de layout, mas seus filhos permanecem
-                        visíveis.
-                    </p>
-                    <div class="text-xs text-slate-500 bg-slate-50 p-2 rounded">
-                        <strong>Uso Prático:</strong> Fazer com que netos participem de um Grid Layout definido no avô,
-                        ignorando o pai (subgrid workaround).
+
+                    <div>
+                        <div
+                            class="bg-amber-100 text-amber-800 px-2 py-1 text-xs font-bold sticky top-0 border-b border-amber-200 border-t">
+                            B</div>
+                        <div class="p-2 text-xs text-slate-500">Barbara<br>Beatriz<br>Bruno<br>Bianca</div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <section class="bg-slate-900 text-slate-300 p-8 rounded-2xl">
-            <h3 class="text-white font-bold text-xl mb-4">Nota Didática: Sintaxe Multi-keyword</h3>
-            <p class="text-sm leading-relaxed mb-4">
-                Na especificação mais recente (Level 3), a propriedade <code>display</code> suporta dois valores
-                explícitos: um para o comportamento externo e outro para o interno.
-            </p>
-            <div class="grid md:grid-cols-2 gap-4 text-sm font-mono text-brand-400">
-                <div class="bg-slate-800 p-3 rounded">
-                    display: flex;<br>
-                    <span class="text-slate-500">// equivale a:</span><br>
-                    display: block flex;
+        <section class="border-t border-slate-200 pt-16">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Gerenciando Camadas (Z-Index)</h2>
+                <p class="text-slate-600">
+                    Quando elementos são retirados do fluxo (absolute/fixed/relative), eles podem se sobrepor. O
+                    <code>z-index</code> define quem fica por cima.
+                </p>
+            </div>
+
+            <div
+                class="bg-slate-900 p-12 rounded-2xl flex justify-center items-center relative h-64 overflow-hidden shadow-2xl">
+                <div
+                    class="w-40 h-40 bg-slate-700 rounded-xl absolute top-8 left-[30%] shadow-lg border border-slate-600 flex items-start justify-start p-2">
+                    <span class="text-xs text-slate-400 font-mono">z-index: 10</span>
                 </div>
-                <div class="bg-slate-800 p-3 rounded">
-                    display: inline-flex;<br>
-                    <span class="text-slate-500">// equivale a:</span><br>
-                    display: inline flex;
+
+                <div
+                    class="w-40 h-40 bg-brand-600 rounded-xl absolute top-12 left-[40%] shadow-2xl border border-brand-500 z-20 flex items-start justify-start p-2 transform transition hover:scale-105">
+                    <span class="text-xs text-brand-200 font-mono">z-index: 20</span>
+                </div>
+
+                <div
+                    class="w-40 h-40 bg-white rounded-xl absolute top-16 left-[50%] shadow-xl z-30 flex items-start justify-start p-2">
+                    <span class="text-xs text-slate-900 font-mono font-bold">z-index: 30</span>
                 </div>
             </div>
-            <p class="text-xs text-slate-500 mt-4">
-                Embora a sintaxe de uma palavra seja totalmente suportada e padrão, entender essa dualidade ajuda a
-                explicar por que <code>inline-flex</code> existe.
+            <p class="text-center text-sm text-slate-500 mt-4">
+                Quanto maior o número, mais "perto" do usuário o elemento está.
+                <br><span class="text-xs italic">(Nota: z-index só funciona em elementos com position diferente de
+                    static)</span>
             </p>
         </section>
 
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-12 text-center">
-        <p class="text-slate-400 text-sm">
-            Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte<br>
-            Material de Apoio Docente • Licenciatura em Informática
-        </p>
+    <div class="bg-slate-50 border-t border-slate-200 py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="font-bold text-slate-900 text-xl mb-6 text-center">Tabela de Decisão Rápida</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-slate-600 bg-white rounded-lg shadow-sm overflow-hidden">
+                    <thead class="bg-slate-800 text-white uppercase text-xs">
+                        <tr>
+                            <th class="px-6 py-3">Valor</th>
+                            <th class="px-6 py-3">Sai do fluxo?</th>
+                            <th class="px-6 py-3">Referência</th>
+                            <th class="px-6 py-3">Uso Comum</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <td class="px-6 py-4 font-mono font-bold text-brand-700">static</td>
+                            <td class="px-6 py-4">Não</td>
+                            <td class="px-6 py-4">-</td>
+                            <td class="px-6 py-4">Texto corrido, blocos padrão</td>
+                        </tr>
+                        <tr class="bg-slate-50">
+                            <td class="px-6 py-4 font-mono font-bold text-brand-700">relative</td>
+                            <td class="px-6 py-4">Não (Só visual)</td>
+                            <td class="px-6 py-4">Ele mesmo</td>
+                            <td class="px-6 py-4">Ajustes finos, <strong>Pai de Absolute</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-mono font-bold text-rose-600">absolute</td>
+                            <td class="px-6 py-4 font-bold text-rose-600">Sim</td>
+                            <td class="px-6 py-4">Pai posicionado</td>
+                            <td class="px-6 py-4">Ícones sobre imagem, Badges, Dropdowns</td>
+                        </tr>
+                        <tr class="bg-slate-50">
+                            <td class="px-6 py-4 font-mono font-bold text-purple-600">fixed</td>
+                            <td class="px-6 py-4 font-bold text-purple-600">Sim</td>
+                            <td class="px-6 py-4">Viewport (Janela)</td>
+                            <td class="px-6 py-4">Menu Fixo, Modal, Chat lateral</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-mono font-bold text-amber-600">sticky</td>
+                            <td class="px-6 py-4">Híbrido</td>
+                            <td class="px-6 py-4">Scroll / Pai</td>
+                            <td class="px-6 py-4">Cabeçalhos de tabela, Filtros laterais</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
+        <p>Desenvolvido para o curso de Licenciatura em Informática • IFRN</p>
     </footer>
 
 </body>
