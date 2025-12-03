@@ -458,6 +458,41 @@
             Licenciatura • IFRN • Web Design
         </p>
     </footer>
+    <script>
+        // Scripts para interatividade dos Demos
+        function updateDemo1() {
+            const val = document.getElementById('directionSim').value;
+            const container = document.getElementById('demo1Container');
+            const arrow = document.getElementById('axisArrow');
+
+            container.style.flexDirection = val;
+
+            // Simples ajuste visual da seta
+            if (val === 'column' || val === 'column-reverse') {
+                arrow.style.width = '2px';
+                arrow.style.height = '100%';
+                arrow.style.top = '0';
+                arrow.style.left = '50%';
+                arrow.style.flexDirection = 'column';
+            } else {
+                arrow.style.width = '100%';
+                arrow.style.height = '2px';
+                arrow.style.top = '50%';
+                arrow.style.left = '0';
+                arrow.style.flexDirection = 'row';
+            }
+        }
+
+        function updateDemo2() {
+            const val = document.getElementById('justifySim').value;
+            document.getElementById('demo2Container').style.justifyContent = val;
+        }
+
+        function updateDemo3() {
+            const val = document.getElementById('alignSim').value;
+            document.getElementById('demo3Container').style.alignItems = val;
+        }
+    </script>
 </body>
 
 </html>
