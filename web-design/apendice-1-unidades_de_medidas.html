@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice: Unidades CSS | Licenciatura em Informática</title>
+    <meta name="description" content="Guia completo de referência sobre unidades de medida no CSS.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .code-tag {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .unit-card {
+            transition: all 0.2s ease;
+        }
+
+        .unit-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-lg text-slate-900">Web Design</span>
+                <span class="h-4 w-px bg-slate-300"></span>
+                <span class="text-sm text-slate-500 font-medium">Licenciatura em Informática</span>
+            </div>
+            <a href="#" onclick="window.history.back(); return false;"
+                class="group flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Voltar à página anterior
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div
+                class="inline-block mb-4 px-3 py-1 bg-brand-50 text-brand-700 rounded-full text-xs font-bold border border-brand-100 uppercase tracking-wide">
+                Apêndice Técnico
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Unidades de Medida CSS
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Este guia serve como referência rápida para todas as unidades disponíveis na especificação do CSS3.
+                Entender a "física" de cada unidade é essencial para ensinar e construir layouts robustos.
+            </p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- 1. Unidades Relativas à Fonte -->
+        <section id="relativas-fonte">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-xl">
+                    A</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Relativas à Fonte (Tipografia)</h2>
+                    <p class="text-slate-500 text-sm">Escalam baseadas no tamanho do texto. Essenciais para
+                        acessibilidade.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- EM -->
+                <div class="unit-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">em</span>
+                        <span class="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded">Comum</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Relativo ao tamanho da fonte do <strong>elemento
+                            pai</strong>.</p>
+                    <div class="bg-slate-50 p-3 rounded text-xs text-slate-500 border border-slate-100">
+                        <strong>Nota:</strong> Tem efeito "cascata". Se aninhado, multiplica o valor (ex: 1.2em *
+                        1.2em).
+                    </div>
+                </div>
+
+                <!-- REM -->
+                <div
+                    class="unit-card bg-white p-6 rounded-xl border-2 border-brand-200 shadow-md relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-brand-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl">
+                        RECOMENDADO</div>
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">rem</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Relativo ao tamanho da fonte do <strong>elemento
+                            raiz</strong> (<code class="text-xs">&lt;html&gt;</code>).</p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Uso:</strong> Padrão da indústria para layouts acessíveis. Ignora a cascata do pai.
+                    </div>
+                </div>
+
+                <!-- CH -->
+                <div class="unit-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-slate-700">ch</span>
+                        <span class="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded">Útil</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Relativo à largura do caractere <strong>"0"</strong> (zero)
+                        da fonte atual.</p>
+                    <div class="bg-slate-50 p-3 rounded text-xs text-slate-500 border border-slate-100">
+                        <strong>Uso:</strong> Ótimo para limitar largura de texto (ex: <code
+                            class="text-xs">max-width: 60ch</code>) para leitura confortável.
+                    </div>
+                </div>
+
+                <!-- EX -->
+                <div class="unit-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-slate-700">ex</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">Relativo à <strong>altura da letra "x"</strong> minúscula da
+                        fonte atual.</p>
+                    <div class="bg-slate-50 p-3 rounded text-xs text-slate-500 border border-slate-100">
+                        Raramente usado, mas útil para ajustes finos de alinhamento vertical.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Unidades de Viewport -->
+        <section id="viewport">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xl">
+                    B</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Relativas à Viewport (Tela)</h2>
+                    <p class="text-slate-500 text-sm">Baseadas na área visível do navegador. Fundamentais para design
+                        responsivo.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded-xl border border-slate-200 shadow-sm">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                Unidade</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                Descrição</th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                Equivalência</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-slate-200">
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="code-tag text-indigo-700">vw</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Viewport Width. Largura da janela.</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">1vw = 1% da largura da tela</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="code-tag text-indigo-700">vh</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">Viewport Height. Altura da janela.</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">1vh = 1% da altura da tela</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="code-tag text-slate-700">vmin</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">O menor valor entre vw e vh.</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Útil para garantir que algo caiba na tela sem
+                                scroll.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap"><span class="code-tag text-slate-700">vmax</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600">O maior valor entre vw e vh.</td>
+                            <td class="px-6 py-4 text-sm text-slate-500">Útil para tipografia gigante.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 3. Unidades Absolutas -->
+        <section id="absolutas">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-xl">
+                    C</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Unidades Absolutas</h2>
+                    <p class="text-slate-500 text-sm">Têm tamanho fixo. Geralmente usadas para impressão, não para
+                        telas.</p>
+                </div>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-100 rounded-xl p-6 mb-6">
+                <div class="flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-500 mt-0.5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                        <h4 class="text-rose-900 font-bold text-sm">Aviso Pedagógico</h4>
+                        <p class="text-rose-800 text-sm mt-1">
+                            Com exceção do <strong>px</strong>, evite usar estas unidades para Web Design responsivo.
+                            Elas não se adaptam às configurações de DPI ou tamanho de tela do usuário. Use-as apenas em
+                            folhas de estilo para impressão (<code class="text-xs">@media print</code>).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="text-center p-4 bg-white border border-slate-200 rounded-lg">
+                    <span class="code-tag text-slate-900">px</span>
+                    <p class="text-xs text-slate-500 mt-2">Pixels<br>(Tela)</p>
+                </div>
+                <div class="text-center p-4 bg-slate-100 border border-slate-200 rounded-lg opacity-75">
+                    <span class="code-tag text-slate-600">cm</span>
+                    <p class="text-xs text-slate-500 mt-2">Centímetros</p>
+                </div>
+                <div class="text-center p-4 bg-slate-100 border border-slate-200 rounded-lg opacity-75">
+                    <span class="code-tag text-slate-600">mm</span>
+                    <p class="text-xs text-slate-500 mt-2">Milímetros</p>
+                </div>
+                <div class="text-center p-4 bg-slate-100 border border-slate-200 rounded-lg opacity-75">
+                    <span class="code-tag text-slate-600">in</span>
+                    <p class="text-xs text-slate-500 mt-2">Polegadas<br>(1in = 96px)</p>
+                </div>
+                <div class="text-center p-4 bg-slate-100 border border-slate-200 rounded-lg opacity-75">
+                    <span class="code-tag text-slate-600">pt</span>
+                    <p class="text-xs text-slate-500 mt-2">Pontos<br>(1/72 pol)</p>
+                </div>
+                <div class="text-center p-4 bg-slate-100 border border-slate-200 rounded-lg opacity-75">
+                    <span class="code-tag text-slate-600">pc</span>
+                    <p class="text-xs text-slate-500 mt-2">Picas<br>(1pc = 12pt)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Outras Unidades -->
+        <section id="outras" class="pb-12">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl">
+                    D</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Outras Unidades (Ângulos e Tempo)</h2>
+                    <p class="text-slate-500 text-sm">Usadas em transformações, animações e gradientes.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Ângulos -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Ângulos (Rotate / Gradients)
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex justify-between border-b border-slate-100 pb-2">
+                            <span><code class="code-tag">deg</code> Graus</span>
+                            <span class="text-slate-500">0 a 360deg</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-100 pb-2">
+                            <span><code class="code-tag">rad</code> Radianos</span>
+                            <span class="text-slate-500">2π rad = 360deg</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-100 pb-2">
+                            <span><code class="code-tag">turn</code> Voltas</span>
+                            <span class="text-slate-500">1turn = 360deg</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Tempo -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Tempo (Transition / Animation)
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex justify-between border-b border-slate-100 pb-2">
+                            <span><code class="code-tag">s</code> Segundos</span>
+                            <span class="text-slate-500">Ex: 0.3s</span>
+                        </li>
+                        <li class="flex justify-between border-b border-slate-100 pb-2">
+                            <span><code class="code-tag">ms</code> Milissegundos</span>
+                            <span class="text-slate-500">1000ms = 1s</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Cheat Sheet Rápido -->
+    <div class="bg-slate-900 text-slate-300 py-12 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <h3 class="text-white text-xl font-bold mb-6">Resumo para Sala de Aula</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="p-4 bg-slate-800 rounded-lg">
+                    <strong class="block text-white mb-1">Layout Geral</strong>
+                    <span class="text-slate-400">% ou Rem</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg">
+                    <strong class="block text-white mb-1">Fontes</strong>
+                    <span class="text-brand-400">Rem</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg">
+                    <strong class="block text-white mb-1">Bordas</strong>
+                    <span class="text-slate-400">Px</span>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg">
+                    <strong class="block text-white mb-1">Hero / Capa</strong>
+                    <span class="text-brand-400">Vh / Vw</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">
+                Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte<br>
+                Licenciatura em Informática • Material Didático de Apoio
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
