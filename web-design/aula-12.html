@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 13: Flexbox Containers | ADS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        accent: { 500: '#8b5cf6', 600: '#7c3aed' } // Roxo para destacar conceitos Flex
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .code-tag {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        /* Padrão de Grid para visualizar o container */
+        .flex-bg {
+            background-image:
+                linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+                linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+                linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .flex-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #0369a1;
+            color: #0369a1;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #0369a1;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #0f172a;
+            /* Slate 900 */
+            border-radius: 12px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .keyword {
+            color: #f472b6;
+        }
+
+        /* pink */
+        .property {
+            color: #60a5fa;
+        }
+
+        /* blue */
+        .value {
+            color: #a78bfa;
+        }
+
+        /* purple */
+        .comment {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .checkbox-item {
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:has(input:checked) {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0284c7, #075985);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-xl text-slate-900 tracking-tight">Web<span
+                            class="text-brand-600">Design</span></span>
+                    <span class="text-xs font-medium px-2 py-0.5 bg-slate-100 rounded text-slate-500">Módulo 2</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#fisica-flex" class="text-slate-600 hover:text-brand-600 transition">Flexbox</a>
+                    <a href="#wrap" class="text-slate-600 hover:text-brand-600 transition">Gerenciando quebras</a>
+                    <a href="#laboratorio" class="text-brand-700 font-bold hover:text-brand-900 transition">Prática</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="inline-block mb-6 px-4 py-2 bg-brand-100 text-brand-800 rounded-full font-semibold text-sm border border-brand-200">
+                Semanas 12 • Layout Moderno
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-slate-900 mb-6 leading-tight">
+                Fundamentos de Layout:<br>
+                <span class="text-brand-700">Flexbox: O Container.</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl font-light">
+                Adeus <code>float</code>. O <strong>Flexible Box Module</strong> (Flexbox) é um sistema unidimensional
+                projetado para distribuir espaço e alinhar itens, mesmo quando seus tamanhos são desconhecidos ou
+                dinâmicos.
+            </p>
+
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="aula-11-lista.html"
+                    class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center shadow-lg shadow-brand-500/20">
+                    Acessar lista de exercícios
+                </a>
+                <a href="#laboratorio" class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center">
+                    Ir para Exercício Prático
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <section id="fisica-flex" class="grid md:grid-cols-2 gap-12 items-center pt-20">
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-slate-900">1. A Física do Flexbox (Eixos)</h2>
+                <p class="text-slate-600">
+                    O segredo para dominar Flexbox não é decorar propriedades, é entender os <strong>Eixos</strong>.
+                </p>
+                <ul class="space-y-3 text-sm text-slate-700">
+                    <li class="flex gap-3 bg-blue-50 p-3 rounded border border-blue-100">
+                        <div class="w-1 bg-brand-500 rounded"></div>
+                        <div>
+                            <strong class="block text-brand-700">Main Axis (Eixo Principal)</strong>
+                            Onde os itens fluem. Definido por <code>flex-direction</code>.
+                        </div>
+                    </li>
+                    <li class="flex gap-3 bg-red-50 p-3 rounded border border-red-100">
+                        <div class="w-1 bg-rose-500 rounded"></div>
+                        <div>
+                            <strong class="block text-rose-700">Cross Axis (Eixo Transversal)</strong>
+                            Sempre perpendicular (90º) ao eixo principal.
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Simulação</span>
+                    <select id="directionSim" class="text-xs border border-slate-300 rounded p-1"
+                        onchange="updateDemo1()">
+                        <option value="row">flex-direction: row (Padrão)</option>
+                        <option value="column">flex-direction: column</option>
+                        <option value="row-reverse">flex-direction: row-reverse</option>
+                    </select>
+                </div>
+
+                <div id="demo1Container"
+                    class="flex-bg h-48 border border-slate-200 p-4 flex gap-2 rounded relative transition-all duration-500">
+                    <div class="flex-item w-12 h-12 bg-brand-500">1</div>
+                    <div class="flex-item w-12 h-12 bg-brand-600">2</div>
+                    <div class="flex-item w-12 h-12 bg-brand-700">3</div>
+
+                    <div id="axisArrow"
+                        class="absolute top-1/2 left-0 w-full h-0.5 bg-brand-500/30 flex items-center justify-end pr-1 pointer-events-none">
+                        <span class="text-[9px] text-brand-500 font-bold -mt-4 mr-2">Main Axis</span>
+                        <div class="w-2 h-2 border-t-2 border-r-2 border-brand-500/30 rotate-45"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Distribuição</span>
+                        <select id="justifySim" class="text-xs border border-slate-300 rounded p-1"
+                            onchange="updateDemo2()">
+                            <option value="flex-start">flex-start (Início)</option>
+                            <option value="center">center (Meio)</option>
+                            <option value="flex-end">flex-end (Fim)</option>
+                            <option value="space-between">space-between (Navbars)</option>
+                            <option value="space-around">space-around</option>
+                            <option value="space-evenly">space-evenly</option>
+                        </select>
+                    </div>
+
+                    <div id="demo2Container"
+                        class="flex-bg h-32 border border-slate-200 p-4 flex gap-2 rounded transition-all duration-500 items-center">
+                        <div class="flex-item w-10 h-10 bg-accent-500">A</div>
+                        <div class="flex-item w-10 h-10 bg-accent-500">B</div>
+                        <div class="flex-item w-10 h-10 bg-accent-500">C</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 md:order-2 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-brand-100 text-brand-600 w-8 h-8 rounded flex items-center justify-center font-bold">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">justify-content</h2>
+                </div>
+                <p class="text-slate-600">
+                    Controla o alinhamento no <strong>Eixo Principal</strong> (Horizontal se for row, Vertical se for
+                    column). É o responsável por distribuir os espaços vazios.
+                </p>
+                <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm">
+                    <h4 class="font-bold text-slate-800 mb-2">Principais Valores:</h4>
+                    <ul class="grid grid-cols-1 gap-2 text-slate-600">
+                        <li><code class="code-tag">flex-start</code> Agrupa no início.</li>
+                        <li><code class="code-tag">center</code> Centraliza o bloco.</li>
+                        <li><code class="code-tag">space-between</code> O 1º cola no início, o último no fim. (Essencial
+                            para Navbars).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-brand-100 text-brand-600 w-8 h-8 rounded flex items-center justify-center font-bold">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900 code-tag">align-items</h2>
+                </div>
+                <p class="text-slate-600">
+                    Controla o comportamento no <strong>Eixo Transversal</strong>. Geralmente usado para centralizar
+                    verticalmente ou esticar itens para terem a mesma altura.
+                </p>
+                <div class="bg-amber-50 p-4 rounded border border-amber-200 text-sm text-amber-800">
+                    <strong>Atenção:</strong> Por padrão, é <code>stretch</code> (estica). Se você definir uma altura
+                    fixa no item, o stretch é ignorado.
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase">Alinhamento Vertical</span>
+                    <select id="alignSim" class="text-xs border border-slate-300 rounded p-1" onchange="updateDemo3()">
+                        <option value="stretch">stretch (Padrão)</option>
+                        <option value="flex-start">flex-start (Topo)</option>
+                        <option value="center">center (Meio perfeito)</option>
+                        <option value="flex-end">flex-end (Base)</option>
+                        <option value="baseline">baseline (Pelo texto)</option>
+                    </select>
+                </div>
+
+                <div id="demo3Container"
+                    class="flex-bg h-48 border border-slate-200 p-2 flex gap-4 rounded transition-all duration-500">
+                    <div class="flex-item w-12 bg-rose-500 h-auto min-h-[30px]">1<br>Alto</div>
+                    <div class="flex-item w-12 bg-rose-600 h-auto min-h-[50px] text-xs">2</div>
+                    <div class="flex-item w-12 bg-rose-700 h-auto min-h-[20px] text-[8px]">3</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wrap" class="border-t border-slate-200 py-20">
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Gerenciando Quebras (Wrap) e Espaços (Gap)</h2>
+                <p class="text-slate-600">
+                    Por padrão, o Flexbox tenta espremer tudo em uma linha (nowrap). Para criar grids ou layouts
+                    responsivos que quebram linha, usamos <code>flex-wrap</code>.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-900 mb-2">Sem Wrap (Padrão)</h3>
+                    <div class="flex gap-2 border border-slate-300 p-2 overflow-hidden mb-2">
+                        <div class="bg-slate-300 h-10 flex-1 rounded flex items-center justify-center text-xs">1</div>
+                        <div class="bg-slate-300 h-10 flex-1 rounded flex items-center justify-center text-xs">2</div>
+                        <div class="bg-slate-300 h-10 flex-1 rounded flex items-center justify-center text-xs">3</div>
+                        <div class="bg-slate-300 h-10 flex-1 rounded flex items-center justify-center text-xs">4</div>
+                        <div class="bg-slate-300 h-10 flex-1 rounded flex items-center justify-center text-xs">5</div>
+                    </div>
+                    <p class="text-xs text-slate-500">Os itens encolhem para caber na largura.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-900 mb-2">Com Wrap (<code>flex-wrap: wrap</code>)</h3>
+                    <div class="flex flex-wrap gap-2 border border-slate-300 p-2 mb-2">
+                        <div
+                            class="bg-brand-500 text-white w-1/3 h-10 rounded flex items-center justify-center text-xs">
+                            1</div>
+                        <div
+                            class="bg-brand-500 text-white w-1/3 h-10 rounded flex items-center justify-center text-xs">
+                            2</div>
+                        <div
+                            class="bg-brand-500 text-white w-1/3 h-10 rounded flex items-center justify-center text-xs">
+                            3</div>
+                        <div
+                            class="bg-brand-500 text-white w-1/3 h-10 rounded flex items-center justify-center text-xs">
+                            4 (Quebrou)</div>
+                    </div>
+                    <p class="text-xs text-slate-500">Os itens mantêm sua largura ideal e descem para a próxima linha.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <section id="laboratorio" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+        <div class="max-w-5xl mx-auto">
+
+            <div class="grid lg:grid-cols-2 gap-12">
+
+                <div class="space-y-8">
+                    <span class="text-accent-400 font-bold tracking-wider text-xs uppercase mb-2 block">Exercício em
+                        Sala</span>
+                    <h2 class="font-bold text-3xl mb-8 border-b border-slate-700 pb-4">
+                        A Navbar Perfeita
+                    </h2>
+
+                    <p class="text-slate-300 mb-6">
+                        Vamos criar a estrutura de navegação mais comum da web usando apenas 3 linhas de Flexbox.
+                    </p>
+                    <div class="flex gap-4">
+                        <ul class="space-y-4 font-mono text-sm text-accent-200">
+                            <li class="flex items-center gap-3">
+                                <span class="text-white bg-white/10 p-1 rounded">1.</span> display: flex;
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-white bg-white/10 p-1 rounded">2.</span> justify-content:
+                                space-between;
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="text-white bg-white/10 p-1 rounded">3.</span> align-items: center;
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-800 rounded-xl p-8 border border-slate-700 flex flex-col items-center justify-center">
+                    <h3 class="text-slate-400 font-bold mb-6 text-sm uppercase tracking-widest">Resultado Esperado</h3>
+
+                    <div class="bg-white rounded-lg p-1">
+                        <div class="bg-slate-100 rounded-t border-b border-slate-200 p-2 flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                        <div class="bg-white p-4 h-48 flex flex-col justify-center">
+                            <nav
+                                class="bg-slate-800 text-white p-4 rounded-lg shadow-lg flex justify-between items-center">
+                                <div class="font-bold text-lg">Logo</div>
+                                <div class="flex gap-4 text-sm text-slate-300">
+                                    <span>Home</span>
+                                    <span>Sobre</span>
+                                    <span>Contato</span>
+                                </div>
+                                <button
+                                    class="bg-brand-600 px-4 py-2 rounded text-xs font-bold hover:bg-brand-500 transition">Login</button>
+                            </nav>
+                            <p class="text-slate-400 text-xs text-center mt-4">↑ O resultado esperado</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center mt-12">
+        <p class="text-slate-400 text-sm">
+            Licenciatura • IFRN • Web Design
+        </p>
+    </footer>
+</body>
+
+</html>
