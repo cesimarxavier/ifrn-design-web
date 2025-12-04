@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 13: Da Pesquisa à Persona | Design de Interfaces IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#2F9E41', /* IFRN Green */
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(47, 158, 65, 0.3)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            font-size: 18px;
+        }
+
+        /* Aumentado base */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Smooth Reveal for Sections */
+        section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        section.visible {
+            animation-play-state: running;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Guide Card Styling */
+        .guide-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            /* Mais espaçamento */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            border-color: #2F9E41;
+        }
+
+        /* AI Button */
+        .ai-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-btn:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .ai-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .ai-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* Checklist */
+        .checklist-item {
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: #f8fafc;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .checklist-item:hover {
+            background: white;
+            border-color: #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .checklist-item:has(input:checked) {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .checklist-item input {
+            margin-top: 0.3rem;
+            accent-color: #2F9E41;
+            width: 1.4rem;
+            height: 1.4rem;
+        }
+
+        /* Typography */
+        p {
+            line-height: 1.8;
+            font-size: 1.125rem;
+        }
+
+        /* Texto maior */
+        li {
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Navbar Minimalista -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-20 flex items-center transition-all duration-300"
+        id="navbar">
+        <div class="max-w-7xl w-full mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-glow">
+                    IF</div>
+                <div class="leading-tight">
+                    <span class="block font-display font-bold text-slate-900 text-lg">Design de Interfaces</span>
+                    <span class="block text-xs font-medium text-slate-500 tracking-wide uppercase">Módulo 2 • Aula
+                        13</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-full border border-slate-200">
+                <a href="#afinidade"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">1.
+                    Afinidade</a>
+                <a href="#empatia"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">2.
+                    Empatia</a>
+                <a href="#persona"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">3.
+                    Persona</a>
+                <a href="#pratica"
+                    class="px-4 py-2 text-sm font-bold text-brand-700 bg-white rounded-full shadow-sm">Laboratório
+                    IA</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-40 pb-32 px-6 lg:px-8 bg-dark-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-900/30 border border-brand-500/30 text-brand-400 text-sm font-bold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Semana 13 • Design Thinking
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                    Transformando <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">Dados</span>
+                    em <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-200">Pessoas</span>
+                </h1>
+
+                <p class="text-xl text-slate-400 font-light leading-relaxed max-w-lg">
+                    Pesquisa sem síntese é apenas ruído. Aprenda o método passo a passo para converter entrevistas em
+                    Personas acionáveis.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#roteiro" class="ai-btn bg-brand-600 hover:bg-brand-500 text-white justify-center">
+                        Ver Roteiro da Aula
+                    </a>
+                    <a href="#pratica"
+                        class="px-6 py-4 rounded-xl border border-slate-700 text-slate-300 font-semibold hover:bg-white/5 hover:text-white transition flex items-center justify-center gap-2">
+                        Ir para Laboratório <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Hero Element -->
+            <div class="relative hidden md:block">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-brand-500/20 to-purple-500/20 rounded-full blur-3xl">
+                </div>
+                <div
+                    class="relative bg-dark-800 border border-slate-700 rounded-2xl p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-16 rounded-full bg-slate-600 animate-pulse"></div>
+                        <div class="space-y-2">
+                            <div class="h-4 w-32 bg-slate-600 rounded"></div>
+                            <div class="h-3 w-24 bg-slate-700 rounded"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="h-2 w-full bg-slate-700 rounded"></div>
+                        <div class="h-2 w-5/6 bg-slate-700 rounded"></div>
+                        <div class="h-2 w-4/6 bg-slate-700 rounded"></div>
+                    </div>
+                    <div class="mt-6 flex gap-2">
+                        <span class="px-3 py-1 rounded-full bg-slate-700 text-xs text-slate-400">Dados</span>
+                        <span
+                            class="px-3 py-1 rounded-full bg-brand-900/50 text-xs text-brand-400 border border-brand-800">Persona</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Roteiro da Aula (Timeline Style) -->
+    <section id="roteiro" class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display font-bold text-slate-900 mb-12 text-center">Roteiro Pedagógico (90 min)
+            </h2>
+
+            <div class="relative border-l-2 border-slate-100 ml-4 md:ml-0 space-y-12">
+                <!-- 00-15 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-brand-600">00-15'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-brand-500 rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">Download de Dados (Brain Dump)</h3>
+                                <p class="text-slate-600 text-base">Alunos tiram as entrevistas do "papel/gravador" e
+                                    colocam em Post-its (físicos ou Miro/FigJam). Uma ideia/fato por post-it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 15-30 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-brand-600">15-30'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-brand-500 rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">Teoria: Diagrama de Afinidades</h3>
+                                <p class="text-slate-600 text-base">Introdução ao Método KJ (Kawakita Jiro).
+                                    Clusterização colaborativa: agrupar post-its por temas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 30-50 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-brand-600">30-50'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-brand-500 rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">A Ponte: Mapa de Empatia</h3>
+                                <p class="text-slate-600 text-base">Preencher os quadrantes: O que ele VÊ, FALA, ESCUTA
+                                    e PENSA. Transformar os clusters em sentimentos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 50-80 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-slate-900">50-80'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-dark-800 rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-dark-800 p-6 rounded-2xl border border-dark-700 shadow-lg relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-300">
+                                <div class="absolute top-0 right-0 p-4 opacity-10"><svg class="w-12 h-12 text-white"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                        </path>
+                                    </svg></div>
+                                <h3 class="text-lg font-bold text-white mb-2">Laboratório: Criação da Persona</h3>
+                                <p class="text-slate-400 text-base">Convergir o Mapa de Empatia em um Arquétipo. Uso de
+                                    IA para refinar a narrativa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETAPA 1: DIAGRAMA DE AFINIDADE -->
+    <section id="afinidade" class="py-24 px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+                <!-- Coluna Esquerda: Título e Conceito -->
+                <div class="lg:col-span-5 space-y-8 sticky top-32">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-100 text-brand-700 font-bold text-xl mb-4">
+                        1</div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 leading-tight">Diagrama de Afinidade</h2>
+                    <p class="text-lg text-slate-600">
+                        O primeiro passo para domar o caos. Organize dados qualitativos baseando-se em suas relações
+                        naturais.
+                    </p>
+
+                    <!-- NOVA PISTA VISUAL: CONCEITO VISUAL -->
+                    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                        <div class="bg-slate-50 px-4 py-2 border-b border-slate-200 flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Conceito
+                                Visual</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                            </div>
+                        </div>
+                        <div class="p-6 grid grid-cols-2 gap-4 h-48 relative">
+                            <!-- Lado Caos -->
+                            <div class="border-r border-dashed border-slate-200 pr-4 relative">
+                                <span class="absolute bottom-0 left-0 text-[10px] text-slate-400 font-bold uppercase">1.
+                                    Caos (Dados)</span>
+                                <!-- Post-its espalhados -->
+                                <div class="absolute top-2 left-2 w-6 h-6 bg-yellow-200 shadow-sm rotate-6 rounded-sm">
+                                </div>
+                                <div class="absolute top-8 right-4 w-6 h-6 bg-blue-200 shadow-sm -rotate-12 rounded-sm">
+                                </div>
+                                <div
+                                    class="absolute bottom-8 left-6 w-6 h-6 bg-green-200 shadow-sm rotate-3 rounded-sm">
+                                </div>
+                                <div
+                                    class="absolute top-1/2 left-1/2 w-6 h-6 bg-red-200 shadow-sm -rotate-6 rounded-sm transform -translate-x-1/2 -translate-y-1/2">
+                                </div>
+                                <div
+                                    class="absolute bottom-4 right-2 w-6 h-6 bg-yellow-200 shadow-sm rotate-12 rounded-sm">
+                                </div>
+                            </div>
+
+                            <!-- Seta de Transição -->
+                            <div
+                                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 bg-white border border-slate-200 rounded-full p-1 shadow-sm">
+                                <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </div>
+
+                            <!-- Lado Ordem -->
+                            <div class="pl-4 relative flex flex-col justify-center gap-3">
+                                <span
+                                    class="absolute bottom-0 right-0 text-[10px] text-brand-600 font-bold uppercase">2.
+                                    Ordem (Padrões)</span>
+                                <!-- Clusters -->
+                                <div
+                                    class="bg-slate-50 border border-slate-100 rounded p-2 flex gap-1 justify-center items-center">
+                                    <div class="w-3 h-3 bg-yellow-200 rounded-sm"></div>
+                                    <div class="w-3 h-3 bg-yellow-200 rounded-sm"></div>
+                                    <span class="text-[8px] text-slate-400 font-mono ml-1">Tema A</span>
+                                </div>
+                                <div
+                                    class="bg-slate-50 border border-slate-100 rounded p-2 flex gap-1 justify-center items-center">
+                                    <div class="w-3 h-3 bg-blue-200 rounded-sm"></div>
+                                    <div class="w-3 h-3 bg-green-200 rounded-sm"></div>
+                                    <span class="text-[8px] text-slate-400 font-mono ml-1">Tema B</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-3 text-lg">
+                            <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Contexto Histórico e Por Quê
+                        </h4>
+                        <div class="space-y-4">
+                            <div>
+                                <strong class="block text-brand-700 text-sm uppercase tracking-wide mb-1">O que
+                                    é?</strong>
+                                <p class="text-slate-600 text-base">É uma técnica para agrupar e sintetizar grandes
+                                    quantidades de dados qualitativos (ideias, opiniões, observações) com base em suas
+                                    relações naturais.</p>
+                            </div>
+                            <div>
+                                <strong class="block text-brand-700 text-sm uppercase tracking-wide mb-1">De onde
+                                    surgiu?</strong>
+                                <p class="text-slate-600 text-base">Criado na década de 1960 pelo antropólogo japonês
+                                    <strong>Kawakita Jiro</strong> (conhecido como Método KJ). Ele lidava com dados de
+                                    campo antropológicos complexos e não lineares.</p>
+                            </div>
+                            <div>
+                                <strong class="block text-brand-700 text-sm uppercase tracking-wide mb-1">Por que
+                                    usar?</strong>
+                                <p class="text-slate-600 text-base">Porque o cérebro humano falha ao tentar analisar 100
+                                    fatos isolados. Precisamos de um método <em>"bottom-up"</em> (de baixo para cima)
+                                    onde os próprios dados sugerem a estrutura, em vez de forçarmos categorias
+                                    preconcebidas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Cards e Passos -->
+                <div class="lg:col-span-7 space-y-8">
+
+                    <!-- Card Ferramentas e Passo a Passo -->
+                    <div class="guide-card bg-white">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-6">Como aplicar (Detalhamento)</h3>
+
+                        <div class="space-y-8">
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    1</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Brain Dump (Descarrego)</h4>
+                                    <p class="text-slate-500 text-base">
+                                        Transcreva <strong>cada fato, citação ou observação</strong> da entrevista em um
+                                        post-it separado. Não resuma demais. Uma ideia por post-it.
+                                        <br><em class="text-sm text-slate-400">Dica: Use cores diferentes para cada
+                                            usuário entrevistado para rastrear a origem.</em>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    2</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Clusterização Silenciosa</h4>
+                                    <p class="text-slate-500 text-base">
+                                        Em silêncio (para evitar viés de líderes), a equipe move os post-its parecidos
+                                        para perto um do outro. Se alguém discordar, pode mover o post-it de volta. O
+                                        grupo "dança" até estabilizar.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    3</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Nomeação dos Grupos</h4>
+                                    <p class="text-slate-500 text-base">
+                                        Leia os post-its do grupo e crie um título que capture a essência.
+                                        <br><span class="text-red-500 text-sm font-bold">EVITE:</span> Títulos genéricos
+                                        como "Problemas".
+                                        <br><span class="text-green-600 text-sm font-bold">USE:</span> Frases
+                                        descritivas como "Dificuldade em recuperar a senha no mobile".
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    4</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Votação (Dot Voting)</h4>
+                                    <p class="text-slate-500 text-base">
+                                        Use adesivos redondos (ou emojis no FigJam) para votar nos grupos que
+                                        representam as dores mais críticas ou as oportunidades mais valiosas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="bg-brand-50/50 border border-brand-100 rounded-2xl p-8">
+                        <h4
+                            class="font-bold text-brand-800 mb-6 text-sm uppercase tracking-wide flex items-center gap-2">
+                            <span>✅</span> Checklist de Validação
+                        </h4>
+                        <div class="space-y-4">
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Cada post-it contém apenas <strong>UMA</strong>
+                                    ideia?</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Conseguimos evitar a categoria genérica "Outros"?
+                                    (Se sobrar, tente reconectar).</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Identificamos pelo menos 3 padrões de
+                                    comportamento repetitivos?</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Os títulos dos grupos fazem sentido
+                                    sozinhos?</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETAPA 2: MAPA DE EMPATIA -->
+    <section id="empatia" class="py-24 px-6 lg:px-8 bg-white border-t border-slate-100">
+        <!-- ... (Conteúdo do Mapa de Empatia mantido igual) ... -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+                <!-- Coluna Esquerda: Título e Conceito -->
+                <div class="lg:col-span-5 space-y-8 sticky top-32">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-100 text-brand-700 font-bold text-xl mb-4">
+                        2</div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 leading-tight">Mapa de Empatia</h2>
+                    <p class="text-lg text-slate-600">
+                        A ponte entre o dado frio e a emoção humana. Uma ferramenta para "calçar os sapatos" do usuário.
+                    </p>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-3 text-lg">
+                            <svg class="w-6 h-6 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                </path>
+                            </svg>
+                            Origem e Propósito
+                        </h4>
+                        <p class="text-base text-slate-500 mb-4">
+                            Desenvolvido por <strong>Dave Gray</strong> (fundador da XPLANE). Enquanto a demografia diz
+                            "quem é", o mapa de empatia diz "como é ser ele".
+                        </p>
+                        <p class="text-base text-slate-500">
+                            <strong>Por que usar?</strong> Para expor conflitos cognitivos. Muitas vezes o usuário
+                            <em>diz</em> uma coisa (para parecer inteligente ou agradar), mas <em>faz</em> outra. É
+                            nesse conflito que mora a oportunidade de inovação real.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Cards, Visual e Passos -->
+                <div class="lg:col-span-7 space-y-8">
+
+                    <!-- Representação Visual Interativa -->
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-brand-100 rounded-full blur-2xl opacity-50 -translate-y-1/2 translate-x-1/2">
+                        </div>
+
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 text-center">
+                            Estrutura do Canvas</h3>
+
+
+
+                        <div class="grid grid-cols-2 gap-4 relative z-10">
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-400 hover:shadow-md transition">
+                                <div class="text-3xl mb-2">🧠</div>
+                                <h4 class="font-bold text-slate-800 text-lg">Pensa e Sente</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">O que realmente importa para ele?
+                                    (Ansiedades, sonhos não ditos)</p>
+                            </div>
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-400 hover:shadow-md transition">
+                                <div class="text-3xl mb-2">👀</div>
+                                <h4 class="font-bold text-slate-800 text-lg">Vê</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">Ambiente, amigos, o que o mercado
+                                    oferece.</p>
+                            </div>
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-yellow-400 hover:shadow-md transition">
+                                <div class="text-3xl mb-2">🗣️</div>
+                                <h4 class="font-bold text-slate-800 text-lg">Fala e Faz</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">Comportamento em público. O que
+                                    ele conta para os outros?</p>
+                            </div>
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-400 hover:shadow-md transition">
+                                <div class="text-3xl mb-2">👂</div>
+                                <h4 class="font-bold text-slate-800 text-lg">Escuta</h4>
+                                <p class="text-sm text-slate-500 mt-1 leading-relaxed">O que amigos, chefe e
+                                    influenciadores dizem?</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-6">
+                            <div class="flex-1 bg-red-50 border border-red-100 p-4 rounded-lg text-center">
+                                <span class="block text-sm font-bold text-red-600 uppercase mb-1">Dores (Pains)</span>
+                                <span class="text-sm text-slate-600">Medos, frustrações, obstáculos</span>
+                            </div>
+                            <div class="flex-1 bg-green-50 border border-green-100 p-4 rounded-lg text-center">
+                                <span class="block text-sm font-bold text-green-600 uppercase mb-1">Ganhos
+                                    (Gains)</span>
+                                <span class="text-sm text-slate-600">Desejos, medidas de sucesso</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Passo a Passo -->
+                    <div class="guide-card bg-white">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-6">Como aplicar (Roteiro)</h3>
+                        <div class="space-y-6">
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    1</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Defina o Alvo</h4>
+                                    <p class="text-slate-500 text-base">Escolha um dos grupos críticos que surgiram no
+                                        Diagrama de Afinidade (Ex: "O usuário frustrado com login"). Não tente mapear
+                                        "todos" ao mesmo tempo.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    2</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Preencha os Quadrantes</h4>
+                                    <p class="text-slate-500 text-base">Use os dados da pesquisa. Se ele disse na
+                                        entrevista "Isso é difícil", cole em <em>Fala</em>. Se ele suspirou ou demorou,
+                                        cole em <em>Sente</em>.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-lg font-bold text-slate-600 flex-shrink-0 border border-slate-200">
+                                    3</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Analise Dores e Ganhos</h4>
+                                    <p class="text-slate-500 text-base">Olhe para o todo. O que está impedindo ele de
+                                        ser feliz (barreira)? O que ele ganharia se o problema sumisse (benefício)?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="bg-brand-50/50 border border-brand-100 rounded-2xl p-8">
+                        <h4
+                            class="font-bold text-brand-800 mb-6 text-sm uppercase tracking-wide flex items-center gap-2">
+                            <span>✅</span> Checklist de Sucesso
+                        </h4>
+                        <div class="space-y-4">
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Preenchemos todos os 4 quadrantes +
+                                    dores/ganhos?</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Identificamos contradições (o que ele diz ≠ o que
+                                    faz)?</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Os sentimentos são inferidos de evidências reais
+                                    e não inventados?</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETAPA 3: PERSONA (Highlight) -->
+    <section id="persona" class="py-24 px-6 lg:px-8 bg-dark-900 text-white relative overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute top-0 right-0 p-64 bg-brand-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 p-32 bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2">
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+                <!-- Coluna Esquerda: Conceito -->
+                <div class="lg:col-span-5 space-y-8 sticky top-32">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-600 text-white font-bold text-xl mb-4">
+                        3</div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight text-white">
+                        A Persona Final
+                    </h2>
+                    <p class="text-lg text-slate-400">
+                        O Arquétipo Comportamental. A personificação dos dados para gerar empatia e foco no time de
+                        produto.
+                    </p>
+
+                    <div class="bg-dark-800 p-8 rounded-2xl border border-dark-700">
+                        <h4 class="font-bold text-white mb-4 flex items-center gap-3 text-lg">
+                            <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Origem e Propósito
+                        </h4>
+                        <p class="text-base text-slate-400 mb-4">
+                            Criada por <strong>Alan Cooper</strong> (pai do Visual Basic) no livro <em>"The Inmates Are
+                                Running the Asylum"</em> (1999). Ele notou que engenheiros faziam software para si
+                            mesmos, não para usuários comuns.
+                        </p>
+                        <p class="text-base text-slate-400">
+                            <strong>Por que usar?</strong> Para evitar o "design elástico" (onde o usuário muda de
+                            acordo com a conveniência do desenvolvedor). A Persona cria um alvo fixo: "O Carlos
+                            conseguiria usar isso?".
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Cards Visuais -->
+                <div class="lg:col-span-7 space-y-8">
+
+                    <!-- CONCEITO VISUAL: DADOS -> PESSOA -->
+                    <div class="bg-white rounded-2xl p-1 border border-slate-200 overflow-hidden shadow-2xl">
+                        <div class="bg-slate-50 px-6 py-3 border-b border-slate-200 flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Conceito
+                                Visual</span>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                            </div>
+                        </div>
+                        <div class="p-8 grid md:grid-cols-2 gap-8 items-center relative">
+                            <!-- Lado Esquerdo: Dados -->
+                            <div class="space-y-3 opacity-60">
+                                <div class="flex gap-2">
+                                    <div class="h-2 w-12 bg-slate-300 rounded"></div>
+                                    <div class="h-2 w-24 bg-slate-200 rounded"></div>
+                                </div>
+                                <div class="h-2 w-full bg-slate-200 rounded"></div>
+                                <div class="h-2 w-3/4 bg-slate-200 rounded"></div>
+                                <div class="flex gap-2 mt-2">
+                                    <div
+                                        class="w-8 h-8 bg-brand-100 rounded flex items-center justify-center text-[10px]">
+                                        🧠</div>
+                                    <div
+                                        class="w-8 h-8 bg-red-100 rounded flex items-center justify-center text-[10px]">
+                                        ⚠️</div>
+                                </div>
+                                <p class="text-xs text-slate-400 font-mono mt-2 text-center">Dados Dispersos</p>
+                            </div>
+
+                            <!-- Seta -->
+                            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                                <div
+                                    class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center shadow-lg border-4 border-white">
+                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Lado Direito: Persona -->
+                            <div
+                                class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm relative z-0 transform md:scale-110 md:-rotate-2 transition hover:rotate-0">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-10 h-10 bg-slate-800 rounded-full"></div>
+                                    <div>
+                                        <div class="h-2 w-20 bg-slate-800 rounded mb-1"></div>
+                                        <div class="h-1.5 w-12 bg-slate-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="bg-red-50 p-2 rounded">
+                                        <div class="h-1.5 w-full bg-red-200 rounded"></div>
+                                    </div>
+                                    <div class="bg-green-50 p-2 rounded">
+                                        <div class="h-1.5 w-full bg-green-200 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Passo a Passo -->
+                    <div class="guide-card bg-white text-slate-900">
+                        <h3 class="text-2xl font-bold mb-6">Como aplicar (Roteiro)</h3>
+                        <div class="space-y-6">
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-lg font-bold text-brand-600 flex-shrink-0 border border-brand-100">
+                                    1</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Revisar o Mapa de Empatia</h4>
+                                    <p class="text-slate-500 text-base">Não invente nada. Olhe para o quadrante de
+                                        "Dores" e "Ganhos" que você acabou de preencher.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-lg font-bold text-brand-600 flex-shrink-0 border border-brand-100">
+                                    2</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Definir o Arquétipo</h4>
+                                    <p class="text-slate-500 text-base">Dê um nome e um "sobrenome funcional" (Ex: "O
+                                        Apressado"). Isso ajuda o time a memorizar quem ele é.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 items-start">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-brand-50 flex items-center justify-center text-lg font-bold text-brand-600 flex-shrink-0 border border-brand-100">
+                                    3</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-lg mb-1">Listar Implicações</h4>
+                                    <p class="text-slate-500 text-base">O passo mais importante. "Porque o Carlos é
+                                        [Ansioso], o sistema deve ter [Feedback Imediato]". Isso conecta a persona ao
+                                        design.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="bg-dark-800 border border-dark-700 rounded-2xl p-8">
+                        <h4 class="font-bold text-white mb-6 text-sm uppercase tracking-wide flex items-center gap-2">
+                            <span>✅</span> Checklist de Validação
+                        </h4>
+                        <div class="space-y-4">
+                            <label
+                                class="checklist-item bg-dark-700/50 hover:bg-dark-700 border-transparent has-[:checked]:bg-brand-900/30 has-[:checked]:border-brand-700">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-300">A persona é baseada em dados reais, não
+                                    suposições?</span>
+                            </label>
+                            <label
+                                class="checklist-item bg-dark-700/50 hover:bg-dark-700 border-transparent has-[:checked]:bg-brand-900/30 has-[:checked]:border-brand-700">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-300">Ela tem um objetivo claro que o app vai
+                                    resolver?</span>
+                            </label>
+                            <label
+                                class="checklist-item bg-dark-700/50 hover:bg-dark-700 border-transparent has-[:checked]:bg-brand-900/30 has-[:checked]:border-brand-700">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-300">Evitamos informações irrelevantes (Ex: "Gosta de
+                                    pizza")?</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ETAPA 3: PERSONA (Highlight) -->
+    <section id="persona" class="py-24 px-6 lg:px-8 bg-dark-900 text-white relative overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <div class="space-y-8">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-600 text-white font-bold text-xl">
+                        3</div>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold leading-tight">
+                        A Persona Final<br>
+                        <span class="text-brand-400">O Arquétipo</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg leading-relaxed">
+                        A Persona é a personificação dos dados. Não é "Maria, 25 anos". É "Maria, a Analista
+                        Sobrecarregada". Criada por <strong>Alan Cooper</strong> em 1999, ela serve para evitar que
+                        criemos produtos para nós mesmos.
+                    </p>
+
+                    <ul class="space-y-4 pt-4">
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-400 mt-1 text-xl">✓</span>
+                            <div>
+                                <strong class="block text-white text-lg">Comportamental, não Demográfica</strong>
+                                <span class="text-slate-400 text-base">Foca no que ela faz e porquê, não onde
+                                    mora.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-brand-400 mt-1 text-xl">✓</span>
+                            <div>
+                                <strong class="block text-white text-lg">Baseada em Dados</strong>
+                                <span class="text-slate-400 text-base">Construída sobre as entrevistas, não
+                                    suposições.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card Persona Visual -->
+                <div
+                    class="bg-white text-slate-800 rounded-2xl p-8 shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-20 h-20 bg-slate-200 rounded-full flex-shrink-0">
+
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-2xl text-slate-900">Carlos, o Pragmático</h3>
+                            <p class="text-base text-slate-500 italic mt-1">"Eu só quero pagar o boleto, não quero ver
+                                propaganda."</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-red-50 p-4 rounded-xl">
+                            <h4 class="text-xs font-bold text-red-600 uppercase mb-2">Frustrações</h4>
+                            <ul class="text-sm text-slate-700 space-y-2 list-disc list-inside">
+                                <li>Animações lentas</li>
+                                <li>Cadastros longos</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl">
+                            <h4 class="text-xs font-bold text-green-600 uppercase mb-2">Objetivos</h4>
+                            <ul class="text-sm text-slate-700 space-y-2 list-disc list-inside">
+                                <li>Pagar em < 30s</li>
+                                <li>Confirmar visualmente</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 pt-4">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-2">Tech Profile</h4>
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-brand-500 w-3/4 h-full"></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">Mobile Expert</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LABORATÓRIO PRÁTICO COM IA -->
+    <section id="pratica" class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔬</span>
+                        <span class="text-brand-600 font-bold uppercase tracking-wider text-sm">Atividade Prática</span>
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900">Sintetizador Inteligente</h2>
+                    <p class="text-slate-500 mt-2 text-lg">Converta seus dados brutos de pesquisa em uma Persona
+                        estruturada.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div class="space-y-6">
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <label class="text-xs text-slate-400 uppercase font-bold mb-3 block">1. Insira os insights do
+                            Mapa de Empatia:</label>
+                        <textarea id="empathy-input"
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-base text-slate-700 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none mb-6 h-48 resize-none transition"
+                            placeholder="Ex: Cluster 'Medo de Errar': Usuários sentem ansiedade ao transferir dinheiro. Falam que conferem 3x.
+Cluster 'Pressa': Usam o app no ônibus/metrô.
+Demografia: Jovens universitários, Android médio."></textarea>
+
+                        <button onclick="generatePersona()"
+                            class="ai-btn w-full justify-center text-base py-4 shadow-lg hover:shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            Gerar Persona Estruturada
+                        </button>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-900 rounded-2xl p-8 shadow-2xl sticky top-24 min-h-[500px] flex flex-col relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 p-32 bg-brand-500/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2">
+                    </div>
+
+                    <div class="flex justify-between items-start mb-6 border-b border-slate-800 pb-4 relative z-10">
+                        <h3 class="font-bold text-lg text-white">Resultado Gerado</h3>
+                        <span
+                            class="text-xs font-mono text-brand-400 bg-brand-900/30 px-2 py-1 rounded border border-brand-800">Markdown</span>
+                    </div>
+
+                    <div id="ai-output" class="flex-1 text-slate-300 text-base leading-relaxed relative z-10">
+                        <div class="flex flex-col items-center justify-center h-full gap-4 opacity-50">
+                            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                            <p>Aguardando inputs para processar...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="text-slate-400 text-sm">
+                Material Didático • Design de Interfaces • IFRN<br>
+                Baseado em metodologias de Design Thinking e User-Centered Design.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Adicionando efeito de reveal ao scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        const apiKey = "AIzaSyBYpOQavhieG7s6Zd_1NuuBUFasZ1WGz44";
+
+        window.generatePersona = async function () {
+            const input = document.getElementById('empathy-input').value;
+            const outputDiv = document.getElementById('ai-output');
+
+            if (!input.trim()) {
+                alert("Por favor, preencha os dados do Mapa de Empatia.");
+                return;
+            }
+
+            outputDiv.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-brand-400 animate-pulse gap-4"><svg class="w-10 h-10 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Analisando padrões comportamentais...</span></div>';
+
+            try {
+                if (!apiKey) {
+                    setTimeout(() => {
+                        outputDiv.innerHTML = `
+                            <div class="ai-response space-y-6 animate-fade-in-up">
+                                <div class="bg-brand-900/50 border border-brand-700/50 p-4 rounded-xl">
+                                    <h4 class="text-xl font-bold text-brand-400 mb-1">Lucas, o Universitário Conectado</h4>
+                                    <p class="text-slate-400 italic">"Não tenho tempo para apps que travam quando eu mais preciso."</p>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <h5 class="text-xs font-bold uppercase text-slate-500 mb-2">Dores Principais</h5>
+                                        <ul class="space-y-2">
+                                            <li class="flex gap-2 text-slate-300"><span class="text-red-400">✕</span> Ansiedade em transações financeiras</li>
+                                            <li class="flex gap-2 text-slate-300"><span class="text-red-400">✕</span> Internet móvel instável no ônibus</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-xs font-bold uppercase text-slate-500 mb-2">Objetivos</h5>
+                                        <ul class="space-y-2">
+                                            <li class="flex gap-2 text-slate-300"><span class="text-green-400">✓</span> Confirmar dados visualmente antes de enviar</li>
+                                            <li class="flex gap-2 text-slate-300"><span class="text-green-400">✓</span> Rapidez no login (Biometria)</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="text-xs font-bold uppercase text-slate-500 mb-2">Implicações de Design</h5>
+                                        <p class="text-slate-400 text-sm">Interface deve priorizar feedback imediato e funcionar bem offline. Evitar imagens pesadas.</p>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-slate-600 mt-4 text-center">Modo Demonstração (Adicione sua API Key)</div>
+                            </div>`;
+                    }, 1500);
+                    return;
+                }
+
+                const prompt = `Atue como um Especialista em UX Researcher. Baseado nestes dados brutos de afinidade e empatia: "${input}".
+                
+                Crie uma Persona Completa em Markdown contendo:
+                1. NOME E ARQUÉTIPO (Ex: "O Otimizador").
+                2. QUOTE: Uma frase em primeira pessoa que resume a dor principal.
+                3. BIO CURTA: Contexto de uso (onde, quando, como usa).
+                4. DORES (Pain Points): 3 pontos críticos.
+                5. OBJETIVOS (Gains): 3 objetivos principais.
+                6. IMPLICAÇÕES DE DESIGN: Liste 3 decisões de UI/UX obrigatórias para atender essa persona.
+                
+                Seja realista e foque em comportamento.`;
+
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const data = await response.json();
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Erro ao gerar.";
+
+                outputDiv.innerHTML = `<div class="ai-response space-y-4 animate-fade-in-up">${marked.parse(text)}</div>`;
+
+            } catch (error) {
+                outputDiv.innerHTML = '<span class="text-red-400">Erro de conexão. Verifique sua chave API.</span>';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
