@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Ensino: Design de Interfaces (IFRN)</title>
+    <meta name="description" content="Plano de ensino estruturado em ciclos semanais com foco em feedback e competências.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ifrn: {
+                            green: '#2F9E41',
+                            red: '#CB1E25',
+                            dark: '#1F2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .timeline-line { position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 2px; background-color: #E5E7EB; z-index: 0; }
+        
+        /* Badges de Bloom */
+        .bloom-badge { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .bloom-create { background-color: #DEF7EC; color: #03543F; } /* Criar - Mais tempo */
+        .bloom-eval { background-color: #FDF6B2; color: #723B13; }   /* Avaliar */
+        .bloom-analyze { background-color: #E1EFFE; color: #1E429F; } /* Analisar */
+        .bloom-apply { background-color: #EDEBFE; color: #5521B5; }   /* Aplicar */
+        .bloom-remember { background-color: #F3F4F6; color: #374151; } /* Lembrar */
+
+        /* Estilo da Competência */
+        .competence-box { border-left: 4px solid #2F9E41; background-color: #F0FDF4; padding: 0.75rem; border-radius: 0 0.5rem 0.5rem 0; margin-top: 1rem; }
+        .competence-label { font-size: 0.7rem; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.25rem; }
+        .competence-text { font-size: 0.875rem; color: #14532D; font-weight: 500; }
+
+        /* Estilo do Feedback (Aulas Ímpares) */
+        .feedback-tag { display: inline-flex; align-items: center; gap: 0.25rem; background-color: #FEF3C7; color: #92400E; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.5rem; rounded-md; margin-bottom: 0.5rem; }
+
+        /* Estilo do Link da Aula */
+        .aula-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            color: #2F9E41; 
+            margin-top: 1rem; 
+            padding-top: 1rem; 
+            border-top: 1px solid #F3F4F6; 
+            width: 100%;
+            justify-content: flex-end;
+            transition: color 0.2s;
+        }
+        .aula-link:hover { color: #15803d; }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header Institucional -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-ifrn-red rounded flex items-center justify-center text-white font-bold">IF</div>
+                <h1 class="font-bold text-lg text-gray-900 tracking-tight">Design de Interfaces</h1>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                <a href="#estrategia" class="hover:text-ifrn-green transition">Metodologia</a>
+                <a href="#bloco1" class="hover:text-ifrn-green transition">Bloco 1</a>
+                <a href="#bloco2" class="hover:text-ifrn-green transition">Bloco 2</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+
+        <!-- Visão Geral -->
+        <section class="mb-16 text-center">
+            <div class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold mb-4">
+                40 Aulas • Ciclos Semanais (Ímpar/Par) • Aprendizagem Visível
+            </div>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
+                Plano de Aprendizagem Conectada
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Cada encontro tem uma <strong>Competência Alvo</strong> clara. Aulas ímpares focam em feedback e acolhimento; aulas pares focam em criação densa para praticar durante a semana.
+            </p>
+        </section>
+
+        <!-- Estratégia Pedagógica -->
+        <section id="estrategia" class="grid md:grid-cols-2 gap-8 mb-20">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-xl text-ifrn-green mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Ritmo Semanal (Hattie & Vygotsky)
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-3 bg-yellow-50 rounded-lg border border-yellow-100">
+                        <div class="w-20 font-bold text-yellow-800 text-right text-sm">ÍMPAR<br>(Início)</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">Feedback & Validação</p>
+                            <p class="text-xs text-gray-600">Recepção da tarefa de 7 dias. Correção coletiva (Feedback). Introdução de conceito leve.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                        <div class="w-20 font-bold text-blue-800 text-right text-sm">PAR<br>(Fim)</div>
+                        <div>
+                            <p class="font-bold text-gray-800 text-sm">Imersão & Criação (Bloom)</p>
+                            <p class="text-xs text-gray-600">Conteúdo denso. Prática guiada longa. Lançamento do desafio para a semana seguinte.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="font-bold text-xl text-ifrn-red mb-4 flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Avaliação & Resultado
+                </h3>
+                <p class="text-gray-600 mb-4 text-sm">
+                    A avaliação é contínua baseada na evolução do portfólio.
+                </p>
+                <div class="space-y-3 text-sm">
+                    <div class="bg-gray-50 p-2 rounded flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        <span><strong>Bloco 1:</strong> Qualidade Técnica (Figma hard skills)</span>
+                    </div>
+                    <div class="bg-gray-50 p-2 rounded flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        <span><strong>Bloco 2:</strong> Processo de Design (Soft skills & Método)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 1 -->
+        <section id="bloco1" class="mb-16">
+            <div class="flex items-end justify-between mb-8 border-b-2 border-gray-200 pb-4">
+                <div>
+                    <span class="text-sm font-bold text-ifrn-green tracking-wider uppercase">Encontros 01-10</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-1">Bloco 1: Fundamentos & Técnica</h2>
+                </div>
+            </div>
+
+            <div class="space-y-8 relative">
+                <div class="timeline-line"></div>
+
+                <!-- Encontro 01 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">01</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Apresentação, Regras & Diagnóstico</h3>
+                            <span class="bloom-badge bloom-remember">Lembrar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Apresentação do professor e da disciplina. Explicação detalhada do sistema de avaliação (Portfólio) e do Projeto Interdisciplinar. Criação de contas (Figma).
+                        </p>
+                        <div class="bg-gray-50 p-3 rounded text-sm text-gray-700 mb-2">
+                            <strong>Diagnóstico:</strong> Atividade rápida ("Copie esta tela") para o professor nivelar a turma e identificar dificuldades prévias.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Compreender as regras do curso, o critério de avaliação e configurar o ambiente de trabalho profissional.</p>
+                        </div>
+                        <a href="#aula-01" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 02 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">02</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Psicologia da Gestalt & Grids</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            <strong>Conteúdo Denso:</strong> Leis da Gestalt aplicadas. Matemática do Grid de 8pt. A aula foca em prática intensa para o aluno levar para casa.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Criar wireframe de Dashboard aplicando Grids e Proximidade.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Aplicar princípios de organização visual (Gestalt) e sistemas de grids para estruturar interfaces consistentes.</p>
+                        </div>
+                        <a href="#aula-02" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 03 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">03</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
+                                Feedback & Validação
+                            </span>
+                            <h3 class="font-bold text-lg text-gray-900 mt-1">Tipografia & Cor (Acessibilidade)</h3>
+                            <span class="bloom-badge bloom-analyze">Analisar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Review dos Grids da semana anterior. Introdução a Hierarquia Tipográfica e Contraste WCAG. Aula focada em ajuste fino.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Avaliar e corrigir problemas de legibilidade e contraste utilizando diretrizes WCAG.</p>
+                        </div>
+                        <a href="#aula-03" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 04 (Prática Densa) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-ifrn-green text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">04</div>
+                    <div class="bg-white p-6 rounded-xl border border-green-200 shadow-md ring-1 ring-green-100 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-ifrn-green">Componentes & Auto Layout</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            <strong>Prática Avançada:</strong> O "Coração do Figma". Box model, constraints, componentes atômicos. Aula pesada tecnicamente.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Criar uma biblioteca de cards responsivos (Produto, Notícia, Perfil) usando Auto Layout.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Construir componentes escaláveis e responsivos utilizando propriedades avançadas de Auto Layout.</p>
+                        </div>
+                        <a href="#aula-04" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 05 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">05</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Feedback & Validação</span>
+                            <h3 class="font-bold text-lg text-gray-900">Iconografia & Imagens</h3>
+                            <span class="bloom-badge bloom-apply">Aplicar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Correção dos Cards (Auto Layout quebrou?). Introdução a bibliotecas de ícones e tratamento de imagem.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Selecionar e aplicar iconografia consistente e imagens tratadas para elevar a fidelidade visual.</p>
+                        </div>
+                        <a href="#aula-05" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 06 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">06</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Responsividade & Breakpoints</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Adaptação de layout (Mobile First > Desktop). Prática densa de refatoração de telas para múltiplos dispositivos.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Adaptar 3 telas chaves para Mobile (375px) e Desktop (1440px).
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Projetar interfaces que se adaptam fluidamente a diferentes resoluções de tela (Mobile/Desktop).</p>
+                        </div>
+                        <a href="#aula-06" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 07 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">07</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Feedback & Validação</span>
+                            <h3 class="font-bold text-lg text-gray-900">Prototipagem Interativa</h3>
+                            <span class="bloom-badge bloom-apply">Aplicar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Análise das quebras de layout. Introdução a Smart Animate, Overlays e Scroll. Dar vida às telas estáticas.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Criar conexões lógicas e microinterações para simular a experiência real de navegação.</p>
+                        </div>
+                        <a href="#aula-07" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 08 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">08</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Heurísticas de Nielsen</h3>
+                            <span class="bloom-badge bloom-eval">Avaliar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Aula prática de auditoria. Uso de checklist para encontrar erros de usabilidade no protótipo.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Realizar uma Avaliação Heurística no protótipo de um colega e documentar 5 erros.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Identificar falhas de usabilidade utilizando as 10 Heurísticas de Nielsen como método de avaliação.</p>
+                        </div>
+                        <a href="#aula-08" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 09 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">09</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Feedback & Validação</span>
+                            <h3 class="font-bold text-lg text-gray-900">Organização & UI Kit</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Discussão sobre os erros encontrados. Limpeza do arquivo ("Faxina"). Organização de estilos e componentes finais.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Sistematizar elementos visuais em um UI Kit organizado para facilitar a manutenção e o handoff.</p>
+                        </div>
+                        <a href="#aula-09" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 10 (Entrega) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-ifrn-red text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">10</div>
+                    <div class="bg-white p-6 rounded-xl border border-red-200 bg-red-50 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-ifrn-red">Entrega do Bloco 1 (Portfólio A)</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-700 mb-3 text-sm">
+                            Apresentação das telas de alta fidelidade e do protótipo funcional. Feedback final do professor sobre a técnica.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Demonstrar domínio técnico do Figma e princípios visuais através de um protótipo de alta fidelidade.</p>
+                        </div>
+                        <a href="#aula-10" class="aula-link text-ifrn-red group-hover:text-red-800">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOCO 2 -->
+        <section id="bloco2">
+            <div class="flex items-end justify-between mb-8 border-b-2 border-gray-200 pb-4">
+                <div>
+                    <span class="text-sm font-bold text-ifrn-green tracking-wider uppercase">Encontros 11-20</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-1">Bloco 2: Processo & Produto</h2>
+                </div>
+            </div>
+
+            <div class="space-y-8 relative">
+                <div class="timeline-line"></div>
+
+                <!-- Encontro 11 (Ímpar - Início Bloco 2) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">11</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Início do Projeto</span>
+                            <h3 class="font-bold text-lg text-gray-900">Briefing Interdisciplinar & Matriz CSD</h3>
+                            <span class="bloom-badge bloom-analyze">Analisar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Kick-off com professores de Programação. Definição dos grupos. Entendimento do problema (Design Thinking - Imersão).
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Analisar um problema real e levantar hipóteses iniciais (Certezas, Suposições, Dúvidas) em equipe.</p>
+                        </div>
+                        <a href="#aula-11" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 12 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">12</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Pesquisa & Entrevistas</h3>
+                            <span class="bloom-badge bloom-apply">Aplicar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Planejamento da pesquisa. Roteiros de entrevista. Benchmarking. Aula de preparação para ir a campo.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Realizar entrevistas reais com 3 usuários potenciais e trazer os dados gravados.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Planejar e conduzir pesquisas qualitativas para coletar dados reais sobre as necessidades do usuário.</p>
+                        </div>
+                        <a href="#aula-12" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 13 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">13</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Análise de Dados</span>
+                            <h3 class="font-bold text-lg text-gray-900">Personas & Jornadas</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Sintetizar as entrevistas da semana. Criar a Persona (baseada em dados) e Mapear a Jornada atual do usuário.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Sintetizar dados de pesquisa em artefatos de UX (Personas e Jornadas) para guiar a decisão de design.</p>
+                        </div>
+                        <a href="#aula-13" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 14 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">14</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Ideação & Rabiscoframes</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Brainstorming (Crazy 8s). Desenho livre de soluções. Foco em quantidade de ideias.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Refinar o Rabiscoframe em um Wireframe de Baixa Fidelidade completo (Papel ou Miro).
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Gerar múltiplas alternativas de solução e tangibilizar ideias em protótipos de baixa fidelidade.</p>
+                        </div>
+                        <a href="#aula-14" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 15 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-ifrn-green text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">15</div>
+                    <div class="bg-white p-6 rounded-xl border border-green-200 shadow-md ring-1 ring-green-100 group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Validação Técnica</span>
+                            <h3 class="font-bold text-lg text-ifrn-green">Arquitetura de Informação</h3>
+                            <span class="bloom-badge bloom-analyze">Analisar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Revisão dos fluxos com professor de Dev. Criação do Sitemap e User Flow. Garantir viabilidade técnica.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Estruturar a navegação e o fluxo de dados do aplicativo garantindo viabilidade técnica.</p>
+                        </div>
+                        <a href="#aula-15" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 16 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">16</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Execução High-Fi (Studio Time)</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Hora de aplicar a "mágica" do Bloco 1. Transformar wireframes em UI polida. Trabalho intenso de produção.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Finalizar todas as telas principais do fluxo feliz para teste.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Produzir interfaces de alta fidelidade aplicando identidade visual consistente e padrões de projeto.</p>
+                        </div>
+                        <a href="#aula-16" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 17 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">17</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Pré-Teste</span>
+                            <h3 class="font-bold text-lg text-gray-900">Prototipagem para Validação</h3>
+                            <span class="bloom-badge bloom-apply">Aplicar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Conectar telas. Verificar se não há "becos sem saída". Preparar o link para o teste com usuário.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Construir um protótipo navegável robusto suficiente para ser submetido a testes com usuários reais.</p>
+                        </div>
+                        <a href="#aula-17" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 18 -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">18</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-gray-900">Teste de Usabilidade & Redesign</h3>
+                            <span class="bloom-badge bloom-eval">Avaliar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Dia de campo. Trazer convidados para testar. Observar erros.
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded text-sm text-blue-800 mb-2">
+                            <strong>Desafio (7 Dias):</strong> Compilar os erros do teste e aplicar as correções (Redesign) no protótipo final.
+                        </div>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Avaliar a eficácia da interface através de testes com usuários e iterar o design com base nos feedbacks.</p>
+                        </div>
+                        <a href="#aula-18" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 19 (Feedback) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-white border-2 border-gray-900 text-gray-900 rounded-full flex items-center justify-center font-bold text-sm z-10">19</div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
+                        <div class="mb-2">
+                            <span class="feedback-tag">Documentação</span>
+                            <h3 class="font-bold text-lg text-gray-900">Handoff & Storytelling</h3>
+                            <span class="bloom-badge bloom-create">Criar</span>
+                        </div>
+                        <p class="text-gray-600 mb-3 text-sm">
+                            Preparar a apresentação (Pitch). Como contar a história do projeto: Problema > Processo > Solução.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Documentar o processo de design e preparar os arquivos técnicos para o desenvolvimento.</p>
+                        </div>
+                        <a href="#aula-19" class="aula-link group-hover:text-ifrn-green">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Encontro 20 (Entrega) -->
+                <div class="relative pl-12">
+                    <div class="absolute left-2 top-2 w-10 h-10 bg-ifrn-red text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">20</div>
+                    <div class="bg-white p-6 rounded-xl border border-red-200 bg-red-50 group">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg text-ifrn-red">Banca Final & Pitch</h3>
+                            <span class="bloom-badge bloom-eval">Avaliar</span>
+                        </div>
+                        <p class="text-gray-700 mb-3 text-sm">
+                            Apresentação final para banca (Professores de Design e Programação). Celebração da entrega do produto interdisciplinar.
+                        </p>
+                        <div class="competence-box">
+                            <span class="competence-label">Competência Alvo</span>
+                            <p class="competence-text">Comunicar e defender decisões de projeto de forma clara e profissional para stakeholders técnicos e de negócio.</p>
+                        </div>
+                        <a href="#aula-20" class="aula-link text-ifrn-red group-hover:text-red-800">
+                            Acessar Aula Completa
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12 text-center">
+        <p class="text-gray-400 text-sm">Disciplina de Design de Interfaces • IFRN</p>
+        <p class="text-gray-500 text-xs mt-2">Planejamento Integrado Interdisciplinar</p>
+    </footer>
+
+</body>
+
+</html>
