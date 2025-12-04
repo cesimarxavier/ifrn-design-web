@@ -40,7 +40,7 @@
 
   const disciplines = [
   {
-    href: "/autoria-web",
+    href: "autoria-web",
     badgeText: "60h • 80a • Anual",
     badgeClasses: "px-3 py-1 bg-ifrn-green-100 text-ifrn-green-700 rounded-full text-xs font-bold",
     title: "Autoria Web",
@@ -50,7 +50,7 @@
     ctaLabel: "Acessar disciplina"
   },
   {
-    href: "design-web-disciplina.html",
+    href: "design-web",
     badgeText: "60h • 80a • 2º Semestre",
     badgeClasses: "px-3 py-1 bg-ifrn-green-100 text-ifrn-green-700 rounded-full text-xs font-bold",
     title: "Design Web",
@@ -60,7 +60,7 @@
     ctaLabel: "Acessar disciplina"
   },
   {
-    href: "/principios-design",
+    href: "principios-design",
     badgeText: "60h • 80a • Anual",
     badgeClasses: "px-3 py-1 bg-ifrn-green-200 text-ifrn-green-700 rounded-full text-xs font-bold",
     title: "Princípios de Design",
@@ -91,7 +91,7 @@
     ctaLabel: "Acessar disciplina"
   },
   {
-    href: "/git",
+    href: "git",
     badgeText: "12h • Complementar",
     badgeClasses: "px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-xs font-bold",
     title: "Git & GitHub via CLI",
