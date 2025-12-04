@@ -199,7 +199,7 @@ const BIMESTRES_DATA = [
     weeks: [
       {
         number: 31,
-        link: "autoria-web/aula-31.html",
+        link: "aula-31.html",
         badgeType: "S",
         badgeClasses: "bg-blue-100 text-blue-700",
         summary: "Introdução ao JavaScript",
@@ -210,7 +210,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 32,
-        link: "autoria-web/aula-32.html",
+        link: "aula-32.html",
         badgeType: "S",
         badgeClasses: "bg-blue-100 text-blue-700",
         summary: "DOM e Seletores",
@@ -222,7 +222,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 33,
-        link: "autoria-web/aula-33.html",
+        link: "aula-33.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
         summary: "Manipulação e Eventos",
@@ -234,7 +234,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 34,
-        link: "autoria-web/aula-34.html",
+        link: "aula-34.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
         summary: "Arrays e Loops",
@@ -246,7 +246,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 35,
-        link: "autoria-web/aula-35.html",
+        link: "aula-35.html",
         badgeType: "I",
         badgeClasses: "bg-green-100 text-green-700",
         summary: "Persistência de Dados",
@@ -258,7 +258,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 36,
-        link: "autoria-web/aula-36.html",
+        link: "aula-36.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
         summary: "APIs e Assincronismo",
@@ -270,7 +270,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 37,
-        link: "autoria-web/aula-37.html",
+        link: "aula-37.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
         summary: "Métodos de Array",
@@ -282,7 +282,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 38,
-        link: "autoria-web/aula-38.html",
+        link: "aula-38.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
         summary: "JavaScript Moderno (ES6+)",
@@ -294,7 +294,7 @@ const BIMESTRES_DATA = [
       },
       {
         number: 39,
-        link: "autoria-web/aula-39.html",
+        link: "aula-39.html",
         badgeType: "C",
         badgeClasses: "bg-purple-100 text-purple-700",
         summary: "Orientação a Objetos",
