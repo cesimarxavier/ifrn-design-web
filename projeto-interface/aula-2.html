@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 02: Gestalt & Grids | Design de Interfaces IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#2F9E41', /* IFRN Green */
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        gestalt: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899', /* Pink */
+                            600: '#db2777',
+                            900: '#831843',
+                        },
+                        grid: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6', /* Blue */
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(47, 158, 65, 0.3)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateX(10px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            font-size: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Interactive Tabs */
+        .tab-btn {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            border-left: 3px solid transparent;
+            color: #64748b;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn:hover {
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            border-left-color: currentColor;
+            color: inherit;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Gestalt Theme Active */
+        .gestalt-theme .tab-btn.active {
+            border-left-color: #ec4899;
+            color: #9d174d;
+            background: #fdf2f8;
+        }
+
+        /* Grid Theme Active */
+        .grid-theme .tab-btn.active {
+            border-left-color: #3b82f6;
+            color: #1e40af;
+            background: #eff6ff;
+        }
+
+        .slide-content {
+            display: none;
+        }
+
+        .slide-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .ai-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .ai-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .task-card:hover {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .task-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl w-full mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-glow">
+                    IF</div>
+                <div class="leading-tight">
+                    <span class="block font-display font-bold text-slate-900 text-lg">Design de Interfaces</span>
+                    <span class="block text-xs font-medium text-slate-500 tracking-wide uppercase">Módulo 1 • Aula
+                        02</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-full border border-slate-200">
+                <a href="#gestalt"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">1.
+                    Gestalt</a>
+                <a href="#grids"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">2.
+                    Grids</a>
+                <a href="#pratica"
+                    class="px-4 py-2 text-sm font-bold text-brand-700 bg-white rounded-full shadow-sm">Prática</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-40 pb-32 px-6 lg:px-8 bg-dark-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-900/30 border border-brand-500/30 text-brand-400 text-sm font-bold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Semana 02 • Fundamentos Visuais
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                    A Ciência da <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-gestalt-500 to-grid-500">Percepção</span>
+                </h1>
+
+                <p class="text-xl text-slate-400 font-light leading-relaxed max-w-lg">
+                    O design não é mágica, é biologia e matemática. Entenda como o olho humano agrupa formas (Gestalt) e
+                    como ordenar o caos com estrutura (Grids).
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#roteiro" class="ai-btn bg-brand-600 hover:bg-brand-500 text-white justify-center">
+                        Ver Roteiro da Aula
+                    </a>
+                    <a href="#pratica"
+                        class="px-6 py-4 rounded-xl border border-slate-700 text-slate-300 font-semibold hover:bg-white/5 hover:text-white transition flex items-center justify-center gap-2">
+                        Ir para Laboratório <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Hero -->
+            <div class="relative hidden md:block">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-gestalt-500/20 to-grid-500/20 rounded-full blur-3xl">
+                </div>
+
+                <!-- Card Gestalt -->
+                <div
+                    class="relative bg-white border border-slate-200 rounded-2xl p-8 shadow-2xl transform -rotate-3 hover:rotate-0 transition duration-500 w-80 mx-auto">
+                    <div class="flex justify-between mb-6">
+                        <div class="flex gap-1">
+                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                        </div>
+                    </div>
+                    <!-- Grid Visual -->
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="h-16 col-span-4 bg-slate-100 rounded"></div>
+                        <div class="h-32 col-span-2 bg-slate-100 rounded"></div>
+                        <div class="h-32 col-span-2 bg-slate-100 rounded"></div>
+                        <div class="h-8 col-span-4 bg-brand-100 rounded"></div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ordem & Padrão</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ROTEIRO -->
+    <section id="roteiro" class="py-24 px-6 lg:px-8 bg-white border-b border-slate-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display font-bold text-slate-900 mb-12 text-center">Roteiro Pedagógico (90 min)
+            </h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 items-start">
+                    <span class="text-xl font-bold text-gestalt-600 w-16 pt-1">00-40'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Bloco 1: Psicologia da Gestalt</h3>
+                        <p class="text-slate-600 mt-1">Biologia do olho, História (Escola de Berlim) e as 7 Leis
+                            Fundamentais aplicadas a UI.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 items-start">
+                    <span class="text-xl font-bold text-grid-600 w-16 pt-1">40-60'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Bloco 2: Sistemas de Grids</h3>
+                        <p class="text-slate-600 mt-1">Design Suíço, Tipos de Grid e a regra matemática do 8pt para
+                            telas.</p>
+                    </div>
+                </div>
+                <div
+                    class="flex gap-6 p-6 bg-dark-800 rounded-2xl border border-dark-700 items-start text-white shadow-lg">
+                    <span class="text-xl font-bold text-brand-400 w-16 pt-1">60-90'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Laboratório Prático</h3>
+                        <p class="text-slate-400 mt-1">Refatoração de layout: Pegar uma tela "quebrada" e consertar
+                            usando Gestalt e Grids.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 1: GESTALT (INTERATIVA) -->
+    <section id="gestalt" class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <div
+                    class="w-12 h-12 bg-gestalt-100 text-gestalt-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                    1</div>
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900">Psicologia da Gestalt</h2>
+                    <p class="text-slate-500">"O todo é diferente da soma das partes."</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 gestalt-theme">
+                <!-- Menu Lateral (Slides) -->
+                <div class="lg:col-span-4 space-y-2">
+                    <button onclick="showSlide('gestalt', 1)" class="tab-btn active rounded-lg" id="btn-gestalt-1">1. O
+                        Cérebro Preguiçoso</button>
+                    <button onclick="showSlide('gestalt', 2)" class="tab-btn rounded-lg" id="btn-gestalt-2">2. A
+                        História (Berlim, 1920)</button>
+                    <button onclick="showSlide('gestalt', 3)" class="tab-btn rounded-lg" id="btn-gestalt-3">3. Lei da
+                        Proximidade</button>
+                    <button onclick="showSlide('gestalt', 4)" class="tab-btn rounded-lg" id="btn-gestalt-4">4. Lei da
+                        Semelhança</button>
+                    <button onclick="showSlide('gestalt', 5)" class="tab-btn rounded-lg" id="btn-gestalt-5">5. Lei da
+                        Continuidade</button>
+                    <button onclick="showSlide('gestalt', 6)" class="tab-btn rounded-lg" id="btn-gestalt-6">6. Lei do
+                        Fechamento</button>
+                    <button onclick="showSlide('gestalt', 7)" class="tab-btn rounded-lg" id="btn-gestalt-7">7. Figura e
+                        Fundo</button>
+                    <button onclick="showSlide('gestalt', 8)" class="tab-btn rounded-lg" id="btn-gestalt-8">8. Destino
+                        Comum</button>
+                    <button onclick="showSlide('gestalt', 9)" class="tab-btn rounded-lg" id="btn-gestalt-9">9. Simetria
+                        (Prägnanz)</button>
+                </div>
+
+                <!-- Conteúdo dos Slides -->
+                <div class="lg:col-span-8 bg-slate-50 rounded-2xl border border-slate-200 p-8 min-h-[500px] relative">
+
+                    <!-- Slide 1: Introdução -->
+                    <div id="gestalt-slide-1" class="slide-content active">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">O Cérebro Busca Padrões</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Biologia</span>
+                        </div>
+                        <div class="prose text-slate-600 leading-relaxed mb-8">
+                            <p class="mb-4">
+                                Nosso cérebro evoluiu para sobreviver, não para apreciar arte. Para economizar energia,
+                                ele não processa cada detalhe isoladamente.
+                            </p>
+                            <p>
+                                Ao olhar para uma interface, o olho humano tenta <strong>agrupar</strong>,
+                                <strong>simplificar</strong> e <strong>ordenar</strong> o caos automaticamente. Entender
+                                isso permite que você "hackeie" a atenção do usuário.
+                            </p>
+                        </div>
+                        <div
+                            class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex justify-center items-center h-64">
+                            <div class="grid grid-cols-3 gap-8 text-center">
+                                <div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded-full mx-auto mb-2"></div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded-full mx-auto"></div>
+                                </div>
+                                <div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded-full mx-auto mb-2"></div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded-full mx-auto"></div>
+                                </div>
+                                <div class="flex items-center text-sm text-slate-400">
+                                    Vemos 2 colunas, não 4 pontos.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: História -->
+                    <div id="gestalt-slide-2" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Origem: Escola de Berlim</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">História</span>
+                        </div>
+                        <div class="flex gap-6 mb-8">
+                            <div
+                                class="w-24 h-24 bg-slate-300 rounded-lg flex-shrink-0 flex items-center justify-center text-2xl text-slate-500 font-serif">
+                                1920</div>
+                            <p class="text-slate-600 leading-relaxed">
+                                Surgiu na Alemanha no início do século XX como uma reação ao Estruturalismo (que tentava
+                                quebrar processos mentais em pedaços mínimos).
+                                <br><br>
+                                Os psicólogos <strong>Max Wertheimer</strong>, <strong>Kurt Koffka</strong> e
+                                <strong>Wolfgang Köhler</strong> propuseram que a percepção é holística. "Gestalt"
+                                significa "Forma" ou "Configuração".
+                            </p>
+                        </div>
+                        <blockquote
+                            class="border-l-4 border-gestalt-500 pl-4 italic text-slate-700 bg-white p-4 rounded-r-lg">
+                            "Existem todos cujo comportamento não é determinado por seus elementos individuais, mas onde
+                            os processos parciais são determinados pela natureza intrínseca do todo." — Max Wertheimer
+                        </blockquote>
+                    </div>
+
+                    <!-- Slide 3: Proximidade -->
+                    <div id="gestalt-slide-3" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Lei da Proximidade</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #1</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            Elementos próximos uns dos outros tendem a ser percebidos como um grupo único. Esta é a lei
+                            mais forte para UI Design.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-xl border border-red-200 text-center">
+                                <span class="text-xs font-bold text-red-500 uppercase mb-2 block">Erro Comum</span>
+                                <div class="space-y-4 text-left p-4 bg-slate-50 rounded">
+                                    <div>
+                                        <div class="h-2 w-12 bg-slate-400 mb-1"></div> <!-- Label -->
+                                        <div class="h-8 w-full bg-white border border-slate-300 rounded"></div>
+                                        <!-- Input -->
+                                    </div>
+                                    <div class="h-4"></div> <!-- Espaço Igual -->
+                                    <div>
+                                        <div class="h-2 w-12 bg-slate-400 mb-1"></div> <!-- Label -->
+                                        <div class="h-8 w-full bg-white border border-slate-300 rounded"></div>
+                                        <!-- Input -->
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-2">Espaçamento igual confunde.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-xl border border-green-200 text-center">
+                                <span class="text-xs font-bold text-green-500 uppercase mb-2 block">Correto</span>
+                                <div class="space-y-4 text-left p-4 bg-slate-50 rounded">
+                                    <div class="mb-6"> <!-- Grupo 1 -->
+                                        <div class="h-2 w-12 bg-slate-600 mb-1"></div>
+                                        <div class="h-8 w-full bg-white border border-slate-300 rounded"></div>
+                                    </div>
+                                    <div> <!-- Grupo 2 -->
+                                        <div class="h-2 w-12 bg-slate-600 mb-1"></div>
+                                        <div class="h-8 w-full bg-white border border-slate-300 rounded"></div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-2">Label próximo ao input.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Semelhança -->
+                    <div id="gestalt-slide-4" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Lei da Semelhança</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #2</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            Elementos que compartilham características visuais (cor, forma, tamanho) são percebidos como
+                            relacionados ou tendo a mesma função.
+                        </p>
+                        <div
+                            class="bg-white p-8 rounded-xl border border-slate-200 flex justify-center items-center gap-4">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded font-bold text-sm">Botão A</button>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded font-bold text-sm">Botão B</button>
+                            <div class="w-px h-8 bg-slate-300 mx-4"></div>
+                            <a href="#" class="text-blue-600 underline text-sm font-bold">Link Texto</a>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-4 text-center">
+                            O usuário sabe que os dois botões azuis fazem ações similares, enquanto o link de texto tem
+                            outra hierarquia.
+                        </p>
+                    </div>
+
+                    <!-- Slide 5: Continuidade -->
+                    <div id="gestalt-slide-5" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Lei da Continuidade</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #3</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            O olho prefere seguir caminhos, linhas ou curvas suaves. Usamos isso em carrosséis e listas
+                            horizontais.
+                        </p>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 overflow-hidden relative">
+                            <div class="flex gap-4">
+                                <div class="w-32 h-40 bg-slate-200 rounded-lg flex-shrink-0"></div>
+                                <div class="w-32 h-40 bg-slate-200 rounded-lg flex-shrink-0"></div>
+                                <div class="w-32 h-40 bg-slate-200 rounded-lg flex-shrink-0"></div>
+                                <div class="w-32 h-40 bg-slate-200 rounded-lg flex-shrink-0 opacity-50 -mr-16"></div>
+                                <!-- Cut off -->
+                            </div>
+                            <div class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent">
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-4 text-center">
+                            O card cortado à direita indica ao cérebro que "tem mais coisa ali", incentivando o scroll
+                            (Continuidade).
+                        </p>
+                    </div>
+
+                    <!-- Slide 6: Fechamento (Closure) -->
+                    <div id="gestalt-slide-6" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Lei do Fechamento (Closure)</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #4</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            O cérebro tende a completar formas incompletas se houver informação suficiente. Usamos isso
+                            para criar ícones minimalistas e indicadores de carregamento.
+                        </p>
+
+                        <div
+                            class="bg-white p-8 rounded-xl border border-slate-200 flex justify-center items-center gap-12">
+                            <!-- Loader -->
+                            <div class="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+
+                            <!-- Ícone Simplificado -->
+                            <svg class="w-12 h-12 text-slate-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 12H4m16 0-4-4m4 4-4 4" />
+                            </svg>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-4 text-center">
+                            Vemos um círculo girando, não um arco. Vemos uma seta, não três linhas.
+                        </p>
+                    </div>
+
+                    <!-- Slide 7: Figura e Fundo (Figure-Ground) -->
+                    <div id="gestalt-slide-7" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Figura e Fundo</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #5</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            O olho separa o objeto de foco (Figura) do restante (Fundo). Em UI, usamos sombras e
+                            overlays para destacar modais e popups.
+                        </p>
+
+                        <div
+                            class="relative bg-slate-200 h-64 rounded-xl flex items-center justify-center overflow-hidden">
+                            <!-- Background Content -->
+                            <div class="absolute inset-0 p-4 grid grid-cols-3 gap-4 opacity-50">
+                                <div class="bg-white h-24 rounded"></div>
+                                <div class="bg-white h-24 rounded"></div>
+                                <div class="bg-white h-24 rounded"></div>
+                                <div class="bg-white h-24 rounded"></div>
+                                <div class="bg-white h-24 rounded"></div>
+                                <div class="bg-white h-24 rounded"></div>
+                            </div>
+
+                            <!-- Overlay -->
+                            <div class="absolute inset-0 bg-black/40"></div>
+
+                            <!-- Modal (Figura) -->
+                            <div
+                                class="relative bg-white p-6 rounded-lg shadow-2xl w-64 text-center transform scale-100">
+                                <h4 class="font-bold text-slate-800">Atenção</h4>
+                                <p class="text-xs text-slate-500 mt-2 mb-4">Este é o elemento Figura.</p>
+                                <button class="bg-blue-600 text-white text-xs px-4 py-2 rounded">OK</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 8: Destino Comum (Common Fate) -->
+                    <div id="gestalt-slide-8" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Destino Comum</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #6</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            Elementos que se movem na mesma direção são percebidos como um grupo. Fundamental para
+                            animações, menus dropdown e gestos de swipe.
+                        </p>
+
+                        <div class="bg-white p-8 rounded-xl border border-slate-200">
+                            <div class="border border-slate-300 rounded-lg w-48 mx-auto overflow-hidden">
+                                <div
+                                    class="bg-slate-50 p-3 border-b border-slate-300 flex justify-between items-center cursor-pointer">
+                                    <span class="text-sm font-bold">Menu</span>
+                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                                <div class="bg-white p-2 space-y-1">
+                                    <div class="h-6 w-full bg-blue-50 rounded"></div>
+                                    <div class="h-6 w-full bg-blue-50 rounded"></div>
+                                    <div class="h-6 w-full bg-blue-50 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-4 text-center">
+                            Quando o menu abre, todos os itens descem juntos (Destino Comum), reforçando que pertencem à
+                            mesma categoria.
+                        </p>
+                    </div>
+
+                    <!-- Slide 9: Simetria (Prägnanz) -->
+                    <div id="gestalt-slide-9" class="slide-content">
+                        <div class="flex items-start justify-between mb-6">
+                            <h3 class="text-2xl font-bold text-slate-900">Simetria e Ordem (Prägnanz)</h3>
+                            <span
+                                class="bg-gestalt-100 text-gestalt-600 px-3 py-1 rounded-full text-xs font-bold uppercase">Lei
+                                #7</span>
+                        </div>
+                        <p class="text-slate-600 mb-8">
+                            A lei da "Boa Forma". O cérebro prefere, interpreta e lembra melhor de formas simples,
+                            simétricas e ordenadas do que formas complexas e caóticas.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-8 text-center">
+                            <div class="p-6 bg-slate-50 rounded border border-slate-200">
+                                <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-2"></div>
+                                <span class="text-xs font-bold text-green-600 uppercase">Fácil (Rápido)</span>
+                            </div>
+                            <div class="p-6 bg-slate-50 rounded border border-slate-200">
+                                <svg class="w-16 h-16 text-slate-400 mx-auto mb-2" fill="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path d="M12 2L2 22h20L12 2zm0 4l6 12H6l6-12z" />
+                                </svg>
+                                <span class="text-xs font-bold text-slate-500 uppercase">Complexo (Lento)</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-4 text-center">
+                            Use grids para manter a ordem. O caos cognitivo afasta o usuário.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: GRIDS (INTERATIVA) -->
+    <section id="grids" class="py-24 px-6 lg:px-8 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <div
+                    class="w-12 h-12 bg-grid-100 text-grid-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                    2</div>
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900">Sistemas de Grids</h2>
+                    <p class="text-slate-500">A matemática invisível que segura o design.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 grid-theme">
+                <!-- Menu Lateral (Slides) -->
+                <div class="lg:col-span-4 space-y-2">
+                    <button onclick="showSlide('grid', 1)" class="tab-btn active rounded-lg" id="btn-grid-1">1. Ordem
+                        vs. Caos</button>
+                    <button onclick="showSlide('grid', 2)" class="tab-btn rounded-lg" id="btn-grid-2">2. Estilo Suíço
+                        (História)</button>
+                    <button onclick="showSlide('grid', 3)" class="tab-btn rounded-lg" id="btn-grid-3">3. Grid de
+                        Colunas</button>
+                    <button onclick="showSlide('grid', 4)" class="tab-btn rounded-lg" id="btn-grid-4">4. Grid
+                        Modular</button>
+                    <button onclick="showSlide('grid', 5)" class="tab-btn rounded-lg" id="btn-grid-5">5. A Regra do
+                        8pt</button>
+                </div>
+
+                <!-- Conteúdo dos Slides -->
+                <div
+                    class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-8 min-h-[500px] shadow-sm relative">
+
+                    <!-- Slide 1: Ordem -->
+                    <div id="grid-slide-1" class="slide-content active">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Ordem Invisível</h3>
+                        <p class="text-slate-600 mb-8 leading-relaxed">
+                            Um grid é uma estrutura de linhas (geralmente invisíveis) que serve para alinhar e
+                            distribuir elementos na página. Sem grid, cada elemento é posicionado no "olhômetro",
+                            gerando layouts amadores e difíceis de programar.
+                        </p>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div class="border border-red-200 bg-red-50 p-4 rounded text-center">
+                                <div class="space-y-2 relative h-32">
+                                    <div class="absolute top-2 left-2 w-20 h-4 bg-red-200"></div>
+                                    <div class="absolute top-8 left-6 w-32 h-20 bg-red-200"></div>
+                                    <div class="absolute bottom-2 right-4 w-12 h-4 bg-red-200"></div>
+                                </div>
+                                <span class="text-xs font-bold text-red-500 uppercase">Sem Grid (Caos)</span>
+                            </div>
+                            <div class="border border-blue-200 bg-blue-50 p-4 rounded text-center relative">
+                                <!-- Grid Lines -->
+                                <div class="absolute inset-0 grid grid-cols-3 gap-2 p-4 opacity-20">
+                                    <div class="bg-blue-400 h-full"></div>
+                                    <div class="bg-blue-400 h-full"></div>
+                                    <div class="bg-blue-400 h-full"></div>
+                                </div>
+                                <div class="relative z-10 grid grid-cols-3 gap-2 h-32">
+                                    <div class="col-span-1 bg-blue-200 h-4 rounded"></div>
+                                    <div class="col-span-3 bg-blue-200 h-20 rounded"></div>
+                                    <div class="col-start-3 bg-blue-200 h-4 rounded"></div>
+                                </div>
+                                <span class="text-xs font-bold text-blue-500 uppercase relative z-10">Com Grid
+                                    (Ordem)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: História -->
+                    <div id="grid-slide-2" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">A Revolução Suíça (1950s)</h3>
+                        <div class="flex gap-6">
+                            <div class="w-1/3 bg-slate-100 rounded-lg p-4 text-center">
+                                <div class="text-4xl mb-2">🇨🇭</div>
+                                <p class="text-xs font-bold text-slate-500">International Typographic Style</p>
+                            </div>
+                            <div class="w-2/3 text-slate-600 leading-relaxed">
+                                <p class="mb-4">
+                                    O uso sistemático de grids foi consolidado pelos designers suíços pós-guerra,
+                                    liderados por <strong>Josef Müller-Brockmann</strong>.
+                                </p>
+                                <p>
+                                    Eles buscavam clareza, objetividade e legibilidade universal. Esse pensamento é a
+                                    base de todo o Web Design moderno (Bootstrap, Tailwind, Flexbox).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Colunas -->
+                    <div id="grid-slide-3" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Grid de Colunas (Web Standard)</h3>
+                        <p class="text-slate-600 mb-6">
+                            A base da web responsiva. O conteúdo ocupa um número X de colunas.
+                        </p>
+                        <div class="bg-slate-900 p-6 rounded-xl text-white font-mono text-sm mb-6">
+                            Desktop: 12 Colunas<br>
+                            Tablet: 8 Colunas<br>
+                            Mobile: 4 Colunas
+                        </div>
+                        <div class="relative h-40 bg-slate-50 border border-slate-200 rounded-lg overflow-hidden">
+                            <div class="absolute inset-0 grid grid-cols-12 gap-2 px-4 opacity-20">
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                                <div class="bg-red-500 h-full"></div>
+                            </div>
+                            <div class="relative z-10 p-4 grid grid-cols-12 gap-2 h-full content-center">
+                                <div
+                                    class="col-span-3 h-20 bg-brand-500 rounded flex items-center justify-center text-white font-bold">
+                                    Sidebar</div>
+                                <div
+                                    class="col-span-9 h-20 bg-brand-300 rounded flex items-center justify-center text-brand-900 font-bold">
+                                    Main Content</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Modular -->
+                    <div id="grid-slide-4" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Grid Modular</h3>
+                        <p class="text-slate-600 mb-6">
+                            Adiciona linhas horizontais às colunas verticais, criando módulos (células). Usado para
+                            galerias de fotos, e-commerces e dashboards complexos.
+                        </p>
+                        <div class="grid grid-cols-4 gap-4 aspect-video">
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                            <div class="bg-slate-100 rounded border border-slate-200"></div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: 8pt -->
+                    <div id="grid-slide-5" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">A Regra de Ouro: 8pt</h3>
+                        <p class="text-slate-600 mb-6">
+                            Em UI Design, definimos espaçamentos e tamanhos baseados em múltiplos de 8 (8, 16, 24, 32,
+                            40, 48...).
+                        </p>
+                        <div class="bg-brand-50 p-6 rounded-xl border border-brand-100 mb-6">
+                            <strong class="text-brand-800">Por que 8?</strong>
+                            <p class="text-sm text-brand-700 mt-2">
+                                Porque a maioria das telas modernas tem resoluções divisíveis por 8. Isso evita pixels
+                                quebrados (antialiasing) e facilita a escala (0.5x, 1x, 2x).
+                            </p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="h-8 w-8 bg-slate-800 text-white flex items-center justify-center text-xs rounded">
+                                8</div>
+                            <div
+                                class="h-8 w-16 bg-slate-800 text-white flex items-center justify-center text-xs rounded">
+                                16</div>
+                            <div
+                                class="h-8 w-24 bg-slate-800 text-white flex items-center justify-center text-xs rounded">
+                                24</div>
+                            <div
+                                class="h-8 w-32 bg-slate-800 text-white flex items-center justify-center text-xs rounded">
+                                32</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LABORATÓRIO: APLICAÇÃO DE CONHECIMENTO -->
+    <section id="pratica" class="py-24 px-6 lg:px-8 bg-dark-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔬</span>
+                        <span class="text-brand-400 font-bold uppercase tracking-wider text-sm">Laboratório
+                            Prático</span>
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-white">Do Caos à Ordem</h2>
+                    <p class="text-slate-400 mt-2 text-lg">Conecte a teoria da Gestalt com a matemática dos Grids para
+                        resolver problemas reais de layout.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Desafio 1: Análise -->
+                <div class="task-card">
+                    <span class="task-badge bg-blue-500/20 text-blue-300">Nível 1: Detetive Visual</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Caça ao Padrão (Spotify/Netflix)</h3>
+                    <p class="text-slate-400 text-sm mb-6">
+                        Abra o Spotify ou Netflix. Tire um print de uma tela principal.
+                    </p>
+                    <div
+                        class="bg-dark-800 p-4 rounded-lg border border-dark-700 text-sm text-slate-300 space-y-2 mb-6">
+                        <p><strong>Sua Missão:</strong> Desenhe retângulos sobre os grupos visuais.</p>
+                        <ul class="list-disc list-inside text-xs text-slate-400">
+                            <li>Onde a <strong>Proximidade</strong> cria um grupo?</li>
+                            <li>Onde a <strong>Semelhança</strong> indica função igual?</li>
+                        </ul>
+                    </div>
+                    <div class="text-xs text-slate-500 italic text-center">Conexão: Biologia do Olho (Aula 02)</div>
+                </div>
+
+                <!-- Desafio 2: Aplicação -->
+                <div class="task-card border-brand-500/30">
+                    <span class="task-badge bg-brand-500/20 text-brand-300">Nível 2: Cirurgião de Layout</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Conserte o Formulário</h3>
+                    <p class="text-slate-400 text-sm mb-6">
+                        Você recebeu um layout onde todos os espaçamentos são iguais (30px). O usuário não sabe qual
+                        rótulo pertence a qual campo.
+                    </p>
+                    <div
+                        class="bg-dark-800 p-4 rounded-lg border border-dark-700 text-sm text-slate-300 space-y-2 mb-6">
+                        <p><strong>Sua Missão:</strong> Aplique a Lei da Proximidade.</p>
+                        <ul class="list-disc list-inside text-xs text-slate-400">
+                            <li>Rótulo (Label) mais perto do Input (8px).</li>
+                            <li>Distância maior entre grupos (24px).</li>
+                        </ul>
+                    </div>
+                    <div class="text-xs text-slate-500 italic text-center">Conexão: Lei da Proximidade</div>
+                </div>
+
+                <!-- Desafio 3: Criação -->
+                <div class="task-card">
+                    <span class="task-badge bg-purple-500/20 text-purple-300">Nível 3: Arquiteto Matemático</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Wireframe de Login</h3>
+                    <p class="text-slate-400 text-sm mb-6">
+                        Crie um card de Login do zero no Figma usando um Grid rigoroso.
+                    </p>
+                    <div
+                        class="bg-dark-800 p-4 rounded-lg border border-dark-700 text-sm text-slate-300 space-y-2 mb-6">
+                        <p><strong>Sua Missão:</strong></p>
+                        <ul class="list-disc list-inside text-xs text-slate-400">
+                            <li>Grid de 4 colunas (Mobile).</li>
+                            <li>Todos os espaçamentos múltiplos de 8 (8, 16, 24, 32).</li>
+                            <li>Alinhe o botão "Entrar" à grade.</li>
+                        </ul>
+                    </div>
+                    <div class="text-xs text-slate-500 italic text-center">Conexão: Sistema de 8pt</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="text-slate-400 text-sm">
+                Material Didático • Design de Interfaces • IFRN<br>
+                Conceitos baseados em Wertheimer, Koffka e Müller-Brockmann.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tab Switching Logic
+        window.showSlide = function (sectionId, slideIndex) {
+            // Hide all slides in section
+            const slides = document.querySelectorAll(`[id^="${sectionId}-slide-"]`);
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Remove active class from buttons
+            const buttons = document.querySelectorAll(`[id^="btn-${sectionId}-"]`);
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show target
+            document.getElementById(`${sectionId}-slide-${slideIndex}`).classList.add('active');
+            document.getElementById(`btn-${sectionId}-${slideIndex}`).classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>

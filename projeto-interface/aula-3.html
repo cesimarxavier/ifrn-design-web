@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 03: Tipografia & Cor | Design de Interfaces IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#2F9E41', /* IFRN Green */
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        type: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6', /* Violet */
+                            600: '#7c3aed',
+                            900: '#4c1d95',
+                        },
+                        color: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316', /* Orange */
+                            600: '#ea580c',
+                            900: '#7c2d12',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(47, 158, 65, 0.3)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            font-size: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        section.visible {
+            animation-play-state: running;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .guide-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            border-color: #8b5cf6;
+        }
+
+        .tab-btn {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            border-left: 3px solid transparent;
+            color: #64748b;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn:hover {
+            background: #f8fafc;
+            color: #334155;
+        }
+
+        .tab-btn.active {
+            background: #fff;
+            border-left-color: currentColor;
+            color: inherit;
+            font-weight: 700;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Type Theme Active */
+        .type-theme .tab-btn.active {
+            border-left-color: #8b5cf6;
+            color: #5b21b6;
+            background: #f5f3ff;
+        }
+
+        /* Color Theme Active */
+        .color-theme .tab-btn.active {
+            border-left-color: #f97316;
+            color: #9a3412;
+            background: #fff7ed;
+        }
+
+        .slide-content {
+            display: none;
+        }
+
+        .slide-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .type-gradient-text {
+            background: linear-gradient(90deg, #8b5cf6 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Practice Card Styles */
+        .practice-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: transform 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bloom-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl w-full mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-glow">
+                    IF</div>
+                <div class="leading-tight">
+                    <span class="block font-display font-bold text-slate-900 text-lg">Design de Interfaces</span>
+                    <span class="block text-xs font-medium text-slate-500 tracking-wide uppercase">Módulo 1 • Aula
+                        03</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-full border border-slate-200">
+                <a href="#tipografia"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">1.
+                    Tipografia</a>
+                <a href="#cores"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">2.
+                    Cores & A11y</a>
+                <a href="#pratica"
+                    class="px-4 py-2 text-sm font-bold text-brand-700 bg-white rounded-full shadow-sm">Laboratório</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-40 pb-32 px-6 lg:px-8 bg-dark-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-900/30 border border-brand-500/30 text-brand-400 text-sm font-bold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Semana 03 • Fundamentos Visuais
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                    A Voz e a Emoção da <span class="type-gradient-text">Interface</span>
+                </h1>
+
+                <p class="text-xl text-slate-400 font-light leading-relaxed max-w-lg">
+                    Se o Grid é o esqueleto, a Tipografia é a voz e a Cor é a emoção. Aprenda a criar sistemas visuais
+                    robustos, acessíveis e escaláveis.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#roteiro"
+                        class="px-6 py-4 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold transition text-center">
+                        Ver Roteiro da Aula
+                    </a>
+                    <a href="#pratica"
+                        class="px-6 py-4 rounded-xl border border-slate-700 text-slate-300 font-semibold hover:bg-white/5 hover:text-white transition flex items-center justify-center gap-2">
+                        Ir para Laboratório <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Hero -->
+            <div class="relative hidden md:block">
+                <div class="absolute inset-0 bg-gradient-to-tr from-type-500/20 to-color-500/20 rounded-full blur-3xl">
+                </div>
+
+                <!-- Aa Card -->
+                <div
+                    class="relative bg-white border border-slate-200 rounded-2xl p-8 shadow-2xl transform -rotate-3 hover:rotate-0 transition duration-500 w-80 mx-auto">
+                    <div class="flex justify-between items-end mb-8">
+                        <span class="text-9xl font-serif font-bold text-slate-900 leading-none">A<span
+                                class="text-type-500">a</span></span>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="h-3 w-full bg-slate-200 rounded"></div>
+                        <div class="h-3 w-full bg-slate-200 rounded"></div>
+                        <div class="h-3 w-2/3 bg-slate-200 rounded"></div>
+                    </div>
+                    <div class="mt-8 flex gap-2">
+                        <div class="w-8 h-8 rounded-full bg-type-500"></div>
+                        <div class="w-8 h-8 rounded-full bg-color-500"></div>
+                        <div class="w-8 h-8 rounded-full bg-slate-900"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ROTEIRO -->
+    <section id="roteiro" class="py-24 px-6 lg:px-8 bg-white border-b border-slate-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display font-bold text-slate-900 mb-12 text-center">Roteiro Pedagógico (90 min)
+            </h2>
+
+            <div class="space-y-4">
+                <div class="flex gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 items-start">
+                    <span class="text-xl font-bold text-type-600 w-16 pt-1">00-40'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Bloco 1: Tipografia Técnica</h3>
+                        <p class="text-slate-600 mt-1">Critérios de seleção (x-height, abertura), Micro-tipografia
+                            (Tracking/Leading) e Escalas Modulares.</p>
+                    </div>
+                </div>
+                <div class="flex gap-6 p-6 bg-slate-50 rounded-2xl border border-slate-100 items-start">
+                    <span class="text-xl font-bold text-color-600 w-16 pt-1">40-60'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Bloco 2: Sistemas de Cores</h3>
+                        <p class="text-slate-600 mt-1">Uso de HSB/HSL para criar paletas, Cores Semânticas, Escala de
+                            Neutros e Acessibilidade.</p>
+                    </div>
+                </div>
+                <div
+                    class="flex gap-6 p-6 bg-dark-800 rounded-2xl border border-dark-700 items-start text-white shadow-lg">
+                    <span class="text-xl font-bold text-brand-400 w-16 pt-1">60-90'</span>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Laboratório: Configuração do Design System</h3>
+                        <p class="text-slate-400 mt-1">Criação de estilos de texto e cor no Figma seguindo padrões
+                            profissionais.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 1: TIPOGRAFIA -->
+    <section id="tipografia" class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <div
+                    class="w-12 h-12 bg-type-100 text-type-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                    1</div>
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900">Tipografia</h2>
+                    <p class="text-slate-500">A ciência da leitura em interfaces digitais.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 type-theme">
+                <div class="lg:col-span-4 space-y-2">
+                    <button onclick="showSlide('type', 1)" class="tab-btn active rounded-lg" id="btn-type-1">1. Seleção
+                        Racional</button>
+                    <button onclick="showSlide('type', 2)" class="tab-btn rounded-lg" id="btn-type-2">2.
+                        Micro-tipografia & Ritmo</button>
+                    <button onclick="showSlide('type', 3)" class="tab-btn rounded-lg" id="btn-type-3">3. Escalas &
+                        Hierarquia</button>
+                    <button onclick="showSlide('type', 4)" class="tab-btn rounded-lg" id="btn-type-4">4. Combinando
+                        Fontes (Pairing)</button>
+                    <button onclick="showSlide('type', 5)" class="tab-btn rounded-lg" id="btn-type-5">5. Dados Úteis
+                        (Tabela)</button>
+                </div>
+
+                <div class="lg:col-span-8 bg-slate-50 rounded-2xl border border-slate-200 p-8 min-h-[500px] relative">
+
+                    <!-- Slide 1: Seleção Racional -->
+                    <div id="type-slide-1" class="slide-content active">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Por que Sans-Serif na UI?</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            Não escolhemos fontes apenas por estética. Em UI, priorizamos a
+                            <strong>Legibilidade</strong> em tamanhos pequenos e telas de baixa resolução.
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-xl border border-slate-200">
+                                <strong class="block text-slate-900 mb-2">Altura-X (X-Height) Alta</strong>
+                                <p class="text-sm text-slate-500">Fontes como <em>Inter</em> ou <em>Roboto</em> têm
+                                    letras minúsculas altas, o que facilita a leitura em botões e legendas.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border border-slate-200">
+                                <strong class="block text-slate-900 mb-2">Aberturas (Apertures)</strong>
+                                <p class="text-sm text-slate-500">Letras "abertas" (como o 'c' ou 'e') são mais fáceis
+                                    de distinguir. Evite fontes geométricas fechadas para textos longos.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 bg-slate-100 p-4 rounded-lg text-xs text-slate-500">
+                            <strong>Sugestões Seguras:</strong> Inter, Roboto, San Francisco (System), Open Sans, Lato.
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Micro-tipografia -->
+                    <div id="type-slide-2" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Micro-tipografia & Ritmo</h3>
+                        <p class="text-slate-600 mb-6">
+                            O diabo mora nos detalhes. Ajustes finos separam o design amador do profissional.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-type-100 text-type-600 rounded flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    1</div>
+                                <div>
+                                    <strong class="text-slate-900">Line Height (Leading)</strong>
+                                    <p class="text-sm text-slate-600">Títulos curtos: <strong>1.1 a 1.2</strong>. Texto
+                                        corrido (Body): <strong>1.4 a 1.6</strong>. Sempre tente arredondar para
+                                        múltiplos de 4px (ex: 16px fonte / 24px linha).</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-type-100 text-type-600 rounded flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    2</div>
+                                <div>
+                                    <strong class="text-slate-900">Letter Spacing (Tracking)</strong>
+                                    <p class="text-sm text-slate-600">Sempre adicione tracking positivo (+2% a +5%) em
+                                        textos <span
+                                            class="tracking-widest font-bold uppercase text-xs bg-slate-200 px-1 rounded">ALL
+                                            CAPS</span> ou muito pequenos (Caption). Reduza (-1% a -2%) em títulos
+                                        gigantes.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 items-start">
+                                <div
+                                    class="w-8 h-8 bg-type-100 text-type-600 rounded flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    3</div>
+                                <div>
+                                    <strong class="text-slate-900">Line Length (Measure)</strong>
+                                    <p class="text-sm text-slate-600">Evite linhas muito longas. O ideal para leitura
+                                        confortável é entre <strong>45 e 75 caracteres</strong> por linha.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Escalas -->
+                    <div id="type-slide-3" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Escalas Modulares</h3>
+                        <p class="text-slate-600 mb-6">
+                            Não "chute" tamanhos (13px, 17px). Use uma escala matemática para criar harmonia natural.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <strong class="block text-type-600 mb-2">Major Third (1.250)</strong>
+                                <span class="text-xs text-slate-400 block mb-2">Bom para Web/Desktop</span>
+                                <div class="space-y-1 font-mono">
+                                    <div class="text-xs text-slate-400">16px (Base)</div>
+                                    <div class="text-sm text-slate-500">20px</div>
+                                    <div class="text-base text-slate-600">25px</div>
+                                    <div class="text-lg text-slate-700 font-bold">31.25px</div>
+                                    <div class="text-xl text-slate-800 font-bold">39.06px</div>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-slate-200">
+                                <strong class="block text-type-600 mb-2">Minor Third (1.200)</strong>
+                                <span class="text-xs text-slate-400 block mb-2">Bom para Mobile/Apps</span>
+                                <div class="space-y-1 font-mono">
+                                    <div class="text-xs text-slate-400">16px (Base)</div>
+                                    <div class="text-sm text-slate-500">19.2px</div>
+                                    <div class="text-base text-slate-600">23.04px</div>
+                                    <div class="text-lg text-slate-700 font-bold">27.65px</div>
+                                    <div class="text-xl text-slate-800 font-bold">33.18px</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Pairing -->
+                    <div id="type-slide-4" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Combinando Fontes (Pairing)</h3>
+                        <p class="text-slate-600 mb-6">
+                            A regra de ouro é o <strong>Contraste</strong>. Se as fontes são muito parecidas, parece
+                            erro. Se são muito diferentes, podem brigar.
+                        </p>
+                        <div class="space-y-4">
+                            <div
+                                class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <span class="block text-2xl font-serif font-bold text-slate-900">Serifa +
+                                        Sans</span>
+                                    <span class="text-sm text-slate-500 font-sans">Clássico e Moderno. Ótimo para apps
+                                        de leitura.</span>
+                                </div>
+                                <span class="text-green-600 font-bold">✓</span>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between">
+                                <div>
+                                    <span class="block text-2xl font-display font-black text-slate-900">Display +
+                                        Body</span>
+                                    <span class="text-sm text-slate-500 font-sans">Título com personalidade, corpo
+                                        neutro.</span>
+                                </div>
+                                <span class="text-green-600 font-bold">✓</span>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-600">
+                                <strong>Dica Pro:</strong> Na dúvida, use apenas <strong>uma super-família</strong> e
+                                varie apenas os pesos (Ex: Light, Regular, Bold, Black). É a opção mais segura e coesa.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Tabela -->
+                    <div id="type-slide-5" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Dados Úteis para UI</h3>
+                        <p class="text-slate-600 mb-6">
+                            Tamanhos de referência padrão de mercado para começar.
+                        </p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left text-slate-600 border border-slate-200 rounded-lg">
+                                <thead class="bg-slate-50 text-slate-900 uppercase font-bold text-xs">
+                                    <tr>
+                                        <th class="px-4 py-3">Elemento</th>
+                                        <th class="px-4 py-3">Desktop</th>
+                                        <th class="px-4 py-3">Mobile</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td class="px-4 py-3 font-medium">Corpo (Body)</td>
+                                        <td class="px-4 py-3">16px - 18px</td>
+                                        <td class="px-4 py-3">16px (Mínimo seguro)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 font-medium">Caption/Legenda</td>
+                                        <td class="px-4 py-3">14px</td>
+                                        <td class="px-4 py-3">12px - 14px</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-3 font-medium">H1 (Título Principal)</td>
+                                        <td class="px-4 py-3">32px - 48px+</td>
+                                        <td class="px-4 py-3">24px - 32px</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 p-3 bg-type-50 text-type-800 rounded text-xs">
+                            <strong>No Figma:</strong> Nunca use tamanhos "soltos". Salve como Styles (H1, H2, Body).
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: CORES -->
+    <section id="cores" class="py-24 px-6 lg:px-8 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <div
+                    class="w-12 h-12 bg-color-100 text-color-600 rounded-xl flex items-center justify-center font-bold text-xl">
+                    2</div>
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900">Sistemas de Cores</h2>
+                    <p class="text-slate-500">Construindo paletas funcionais, não apenas bonitas.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 color-theme">
+                <div class="lg:col-span-4 space-y-2">
+                    <button onclick="showSlide('color', 1)" class="tab-btn active rounded-lg" id="btn-color-1">1. HSL vs
+                        HEX</button>
+                    <button onclick="showSlide('color', 2)" class="tab-btn rounded-lg" id="btn-color-2">2. Sistema de
+                        Cores</button>
+                    <button onclick="showSlide('color', 3)" class="tab-btn rounded-lg" id="btn-color-3">3. Estados
+                        (Tints & Shades)</button>
+                    <button onclick="showSlide('color', 4)" class="tab-btn rounded-lg" id="btn-color-4">4.
+                        Acessibilidade Real</button>
+                </div>
+
+                <div
+                    class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-8 min-h-[500px] shadow-sm relative">
+
+                    <!-- Slide 1: HSL -->
+                    <div id="color-slide-1" class="slide-content active">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Modelos: HEX vs HSL/HSB</h3>
+                        <p class="text-slate-600 mb-6">
+                            <strong>HEX (#FF0000)</strong> é ótimo para máquinas e devs, mas horrível para designers
+                            criarem variações.
+                        </p>
+                        <div class="p-4 bg-slate-100 rounded-xl mb-6">
+                            <strong class="text-orange-600 block mb-2">Por que usar HSB (Hue, Saturation,
+                                Brightness)?</strong>
+                            <p class="text-xs text-slate-600">
+                                Permite criar variações matemáticas. Quer um estado de "hover"? Aumente o Brightness.
+                                Quer um estado "disabled"? Diminua a Saturation. É previsível e sistemático.
+                            </p>
+                        </div>
+                        <div class="flex gap-4 text-xs font-mono text-center">
+                            <div class="flex-1 p-2 bg-slate-900 text-white rounded">HEX: #2F9E41</div>
+                            <div class="flex-1 p-2 bg-slate-200 text-slate-800 rounded">HSB: 130°, 70%, 62%</div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Sistema -->
+                    <div id="color-slide-2" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Construindo um Sistema</h3>
+                        <p class="text-slate-600 mb-6">
+                            Uma paleta profissional vai além da "cor da marca". Você precisa de categorias funcionais.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-8 rounded bg-brand-600"></div>
+                                <div>
+                                    <strong class="text-sm text-slate-900 block">Primária (Brand)</strong>
+                                    <span class="text-xs text-slate-500">Ações principais, CTAs, Destaques.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="flex gap-1">
+                                    <div class="w-8 h-8 rounded bg-slate-900"></div>
+                                    <div class="w-8 h-8 rounded bg-slate-500"></div>
+                                    <div class="w-8 h-8 rounded bg-slate-100 border border-slate-200"></div>
+                                </div>
+                                <div>
+                                    <strong class="text-sm text-slate-900 block">Neutros (Grays)</strong>
+                                    <span class="text-xs text-slate-500">Texto, Bordas, Fundos. É a parte mais usada da
+                                        UI.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="flex gap-1">
+                                    <div class="w-8 h-8 rounded bg-green-500"></div>
+                                    <div class="w-8 h-8 rounded bg-red-500"></div>
+                                    <div class="w-8 h-8 rounded bg-yellow-400"></div>
+                                </div>
+                                <div>
+                                    <strong class="text-sm text-slate-900 block">Semânticas (Feedback)</strong>
+                                    <span class="text-xs text-slate-500">Sucesso, Erro, Aviso, Info. Devem ser
+                                        universais.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Estados -->
+                    <div id="color-slide-3" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Estados e Variações</h3>
+                        <p class="text-slate-600 mb-6">
+                            Como criar o estado de <em>Hover</em> (passar o mouse) ou <em>Pressed</em> (clicar) sem
+                            chutar a cor?
+                        </p>
+                        <div class="flex items-center justify-center gap-8">
+                            <div class="text-center">
+                                <div class="w-20 h-12 bg-brand-500 rounded mb-2"></div>
+                                <span class="text-xs font-bold text-slate-600">Default</span>
+                                <span class="block text-[10px] text-slate-400">Base</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-20 h-12 bg-brand-600 rounded mb-2"></div>
+                                <span class="text-xs font-bold text-slate-600">Hover</span>
+                                <span class="block text-[10px] text-slate-400">Escurecer 10%</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-20 h-12 bg-brand-800 rounded mb-2"></div>
+                                <span class="text-xs font-bold text-slate-600">Active</span>
+                                <span class="block text-[10px] text-slate-400">Escurecer 20%</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 mt-6 text-center">
+                            No modo Escuro (Dark Mode), a lógica inverte: Hover costuma ser mais claro (iluminado) que a
+                            base.
+                        </p>
+                    </div>
+
+                    <!-- Slide 4: WCAG -->
+                    <div id="color-slide-4" class="slide-content">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Acessibilidade (WCAG)</h3>
+                        <p class="text-slate-600 mb-6">
+                            Contraste é matemática. Existem níveis de conformidade que devemos seguir legal e
+                            eticamente.
+                        </p>
+                        <div class="grid grid-cols-2 gap-8 mb-6">
+                            <div class="bg-gray-200 p-6 rounded-xl text-center">
+                                <span class="text-gray-400 font-bold text-xl">Baixo</span>
+                                <div
+                                    class="mt-4 inline-block px-3 py-1 bg-red-100 text-red-700 rounded text-xs font-bold">
+                                    FAIL (1.5:1)</div>
+                            </div>
+                            <div class="bg-slate-900 p-6 rounded-xl text-center">
+                                <span class="text-white font-bold text-xl">Alto</span>
+                                <div
+                                    class="mt-4 inline-block px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">
+                                    PASS AAA (16:1)</div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg text-sm text-slate-700">
+                            <strong>Daltonismo:</strong> Não use apenas cor para indicar erro. Use ícones e texto
+                            também. (Ex: Borda vermelha + Ícone de alerta + Texto "Senha incorreta").
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LABORATÓRIO PRÁTICO -->
+    <section id="pratica" class="py-24 px-6 lg:px-8 bg-dark-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔬</span>
+                        <span class="text-brand-400 font-bold uppercase tracking-wider text-sm">Laboratório Prático
+                            (Figma)</span>
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-white">Criando o Design System</h2>
+                    <p class="text-slate-400 mt-2 text-lg">Aplique a teoria para criar estilos reutilizáveis e
+                        profissionais.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Prática 1 -->
+                <div class="practice-card">
+                    <span class="bloom-tag bg-blue-500/20 text-blue-300">Passo 1: Escala de Tipos</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Definindo a Voz</h3>
+                    <p class="text-slate-400 text-sm mb-6">Escolha uma família tipográfica (Ex: Inter) e crie a escala
+                        modular.</p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Crie estilos: H1, H2, H3, Body, Caption.</li>
+                        <li class="flex gap-2">✓ Defina Line-heights múltiplos de 4px.</li>
+                        <li class="flex gap-2">✓ Salve como Text Styles no Figma.</li>
+                    </ul>
+                </div>
+
+                <!-- Prática 2 -->
+                <div class="practice-card border-brand-500/30">
+                    <span class="bloom-tag bg-brand-500/20 text-brand-300">Passo 2: Paleta Funcional</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Definindo a Emoção</h3>
+                    <p class="text-slate-400 text-sm mb-6">Crie uma cor primária e gere suas variações de estado.</p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Defina a cor Brand (Primária).</li>
+                        <li class="flex gap-2">✓ Crie Brand-Hover e Brand-Active.</li>
+                        <li class="flex gap-2">✓ Crie a escala de Neutros (Grey-50 a Grey-900).</li>
+                    </ul>
+                </div>
+
+                <!-- Prática 3 -->
+                <div class="practice-card">
+                    <span class="bloom-tag bg-purple-500/20 text-purple-300">Passo 3: Auditoria</span>
+                    <h3 class="text-xl font-bold text-white mb-2">Teste de Acessibilidade</h3>
+                    <p class="text-slate-400 text-sm mb-6">Use o plugin "Contrast" no Figma para validar suas escolhas.
+                    </p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Teste Texto Cinza sobre Fundo Branco.</li>
+                        <li class="flex gap-2">✓ Teste Texto Branco sobre Cor Primária.</li>
+                        <li class="flex gap-2">✓ Ajuste até passar em AA.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="text-slate-400 text-sm">
+                Material Didático • Design de Interfaces • IFRN<br>
+                Baseado em WCAG 2.1 e Material Design System.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Tab Switching Logic
+        window.showSlide = function (sectionId, slideIndex) {
+            // Hide all slides in section
+            const slides = document.querySelectorAll(`[id^="${sectionId}-slide-"]`);
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Remove active class from buttons
+            const buttons = document.querySelectorAll(`[id^="btn-${sectionId}-"]`);
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show target
+            document.getElementById(`${sectionId}-slide-${slideIndex}`).classList.add('active');
+            document.getElementById(`btn-${sectionId}-${slideIndex}`).classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>
