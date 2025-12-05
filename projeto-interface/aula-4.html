@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 04: Auto Layout e Componentes | Design de Interfaces IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#2F9E41', /* IFRN Green */
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        figma: {
+                            purple: '#A259FF',
+                            red: '#F24E1E',
+                            blue: '#1ABCFE',
+                            green: '#0ACF83'
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(0,0,0,0.05)',
+                        'glow': '0 0 20px rgba(47, 158, 65, 0.3)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #334155;
+            background-color: #ffffff;
+            font-size: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        section.visible {
+            animation-play-state: running;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .guide-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            border-color: #A259FF;
+            /* Figma Purple Highlight */
+        }
+
+        .ai-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-btn:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .ai-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .ai-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        .checklist-item {
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: #f8fafc;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .checklist-item:hover {
+            background: white;
+            border-color: #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .checklist-item:has(input:checked) {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .checklist-item input {
+            margin-top: 0.3rem;
+            accent-color: #2F9E41;
+            width: 1.4rem;
+            height: 1.4rem;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.125rem;
+        }
+
+        /* Figma Specific Styles */
+        .figma-gradient-text {
+            background: linear-gradient(90deg, #F24E1E 0%, #A259FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Practice Card Styles */
+        .practice-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bloom-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-20 flex items-center transition-all duration-300">
+        <div class="max-w-7xl w-full mx-auto px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-glow">
+                    IF</div>
+                <div class="leading-tight">
+                    <span class="block font-display font-bold text-slate-900 text-lg">Design de Interfaces</span>
+                    <span class="block text-xs font-medium text-slate-500 tracking-wide uppercase">Módulo 1 • Aula
+                        04</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-full border border-slate-200">
+                <a href="#autolayout"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">1.
+                    Auto Layout</a>
+                <a href="#componentes"
+                    class="px-4 py-2 text-sm font-semibold text-slate-600 rounded-full hover:bg-white hover:shadow-sm transition">2.
+                    Componentes</a>
+                <a href="#pratica"
+                    class="px-4 py-2 text-sm font-bold text-brand-700 bg-white rounded-full shadow-sm">Lab + IA</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-40 pb-32 px-6 lg:px-8 bg-dark-900 overflow-hidden">
+        <div class="absolute inset-0 opacity-10"
+            style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-900/30 border border-brand-500/30 text-brand-400 text-sm font-bold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    Semana 04 • Técnica Avançada
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                    O Cérebro do <span class="figma-gradient-text">Figma</span>
+                </h1>
+
+                <p class="text-xl text-slate-400 font-light leading-relaxed max-w-lg">
+                    Pare de desenhar retângulos soltos. Aprenda a criar interfaces vivas que respiram e se adaptam ao
+                    conteúdo com Auto Layout e Componentes.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <a href="#roteiro" class="ai-btn bg-brand-600 hover:bg-brand-500 text-white justify-center">
+                        Ver Roteiro
+                    </a>
+                    <a href="#pratica"
+                        class="px-6 py-4 rounded-xl border border-slate-700 text-slate-300 font-semibold hover:bg-white/5 hover:text-white transition flex items-center justify-center gap-2">
+                        Ir para Laboratório <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visual Hero: The Flexible Card -->
+            <div class="relative hidden md:block">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-figma-purple/20 to-figma-blue/20 rounded-full blur-3xl">
+                </div>
+
+                <!-- Interactive looking card -->
+                <div
+                    class="relative bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500 w-80 mx-auto">
+                    <!-- Padding guides -->
+                    <div
+                        class="absolute top-0 left-0 w-full h-6 bg-figma-red/20 text-[10px] text-figma-red flex items-center justify-center font-mono">
+                        24px</div>
+                    <div
+                        class="absolute bottom-0 left-0 w-full h-6 bg-figma-red/20 text-[10px] text-figma-red flex items-center justify-center font-mono">
+                        24px</div>
+                    <div
+                        class="absolute top-0 left-0 h-full w-6 bg-figma-red/20 text-[10px] text-figma-red flex items-center justify-center font-mono writing-mode-vertical">
+                        24px</div>
+                    <div
+                        class="absolute top-0 right-0 h-full w-6 bg-figma-red/20 text-[10px] text-figma-red flex items-center justify-center font-mono writing-mode-vertical">
+                        24px</div>
+
+                    <div class="flex items-center gap-4 mb-4 relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center text-xl">✨
+                        </div>
+                        <div>
+                            <div class="h-4 w-32 bg-slate-800 rounded mb-1"></div>
+                            <div class="h-3 w-20 bg-slate-400 rounded"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-2 relative z-10">
+                        <div class="h-2 w-full bg-slate-200 rounded"></div>
+                        <div class="h-2 w-full bg-slate-200 rounded"></div>
+                        <div class="h-2 w-2/3 bg-slate-200 rounded"></div>
+                    </div>
+                    <div class="mt-6 flex justify-between items-center relative z-10">
+                        <div class="h-8 w-24 bg-brand-600 rounded-lg"></div>
+                        <div class="h-4 w-4 rounded-full border-2 border-slate-300"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="roteiro" class="py-24 px-6 lg:px-8 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-display font-bold text-slate-900 mb-12 text-center">Roteiro Pedagógico (90 min)
+            </h2>
+
+            <div class="relative border-l-2 border-slate-100 ml-4 md:ml-0 space-y-12">
+                <!-- 00-20 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-figma-purple">00-20'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-figma-purple rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">Conceito: Box Model & Auto Layout</h3>
+                                <p class="text-slate-600 text-base">O fim do alinhamento manual. Entendendo Padding, Gap
+                                    e Resizing (Hug vs Fill) com analogias de caixas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 20-40 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-figma-blue">20-40'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-figma-blue rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">Prática Guiada: Botão Responsivo</h3>
+                                <p class="text-slate-600 text-base">Vamos criar um botão que cresce conforme digitamos o
+                                    texto. Atalho mágico: <code
+                                        class="bg-slate-100 px-1 rounded text-sm">Shift + A</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 40-60 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-figma-green">40-60'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-figma-green rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm group-hover:shadow-soft transition-all duration-300">
+                                <h3 class="text-lg font-bold text-slate-900 mb-2">Teoria: Componentes & Variantes</h3>
+                                <p class="text-slate-600 text-base">O poder da reutilização. Master Component vs
+                                    Instância. Criando estados (Hover, Disabled) com Variantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 60-90 -->
+                <div class="relative pl-8 md:pl-0">
+                    <div class="md:flex items-center justify-between group">
+                        <div class="hidden md:block w-32 text-right pr-8">
+                            <span class="text-xl font-bold text-slate-900">60-90'</span>
+                        </div>
+                        <div
+                            class="absolute left-[-5px] md:left-auto md:right-auto md:relative w-3 h-3 bg-dark-800 rounded-full border-4 border-white shadow-sm mt-2 md:mt-0">
+                        </div>
+                        <div class="flex-1 md:pl-8">
+                            <div
+                                class="bg-dark-800 p-6 rounded-2xl border border-dark-700 shadow-lg relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-300">
+                                <div class="absolute top-0 right-0 p-4 opacity-10"><svg class="w-12 h-12 text-white"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z">
+                                        </path>
+                                    </svg></div>
+                                <h3 class="text-lg font-bold text-white mb-2">Desafio: Card de Notícia</h3>
+                                <p class="text-slate-400 text-base">Montar um card completo com Imagem, Badge, Título e
+                                    Botão, 100% responsivo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONCEITO 1: AUTO LAYOUT -->
+    <section id="autolayout" class="py-24 px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+                <div class="lg:col-span-5 space-y-8 sticky top-32">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-100 text-brand-700 font-bold text-xl mb-4">
+                        1</div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 leading-tight">Auto Layout</h2>
+                    <p class="text-lg text-slate-600">
+                        É como o CSS Flexbox, mas visual. Ele permite que os elementos cresçam e encolham
+                        automaticamente.
+                    </p>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-slate-900 mb-4 text-lg">Os 3 Poderes</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="bg-slate-100 p-1 rounded text-sm font-mono font-bold text-slate-600">Hug</span>
+                                <span class="text-slate-600 text-base"><strong>Abraçar:</strong> O container se ajusta
+                                    ao tamanho do conteúdo (ex: Botão).</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="bg-slate-100 p-1 rounded text-sm font-mono font-bold text-slate-600">Fixed</span>
+                                <span class="text-slate-600 text-base"><strong>Fixo:</strong> Tamanho travado, não muda
+                                    nunca (ex: Ícone 24px).</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="bg-slate-100 p-1 rounded text-sm font-mono font-bold text-slate-600">Fill</span>
+                                <span class="text-slate-600 text-base"><strong>Preencher:</strong> Ocupa todo o espaço
+                                    disponível (ex: Card na tela).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-8">
+                    <!-- VISUAL INTERATIVO BOX MODEL -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm relative overflow-hidden">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-8 text-center">Anatomia
+                            do Auto Layout</h3>
+
+                        <div class="flex justify-center">
+                            <!-- Container (Frame) -->
+                            <div class="relative bg-white border-2 border-dashed border-figma-blue p-8 rounded-lg">
+                                <span
+                                    class="absolute top-2 left-2 text-[10px] font-bold text-figma-blue uppercase">Padding
+                                    (24px)</span>
+
+                                <!-- Content -->
+                                <div class="flex gap-4 bg-slate-50 border border-slate-200 p-4 rounded">
+                                    <div class="w-12 h-12 bg-slate-300 rounded"></div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded"></div>
+                                    <div class="w-12 h-12 bg-slate-300 rounded"></div>
+                                </div>
+
+                                <!-- Gap Indicator -->
+                                <div
+                                    class="absolute bottom-12 left-1/2 transform -translate-x-1/2 w-4 h-1 bg-figma-purple">
+                                </div>
+                                <span
+                                    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-[10px] font-bold text-figma-purple uppercase">Gap
+                                    (16px)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guide-card bg-white">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-6">Receita do Botão Perfeito</h3>
+                        <ol class="space-y-6">
+                            <li class="flex gap-4">
+                                <div
+                                    class="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    1</div>
+                                <div>
+                                    <strong class="block text-slate-900">Escreva o texto</strong>
+                                    <p class="text-slate-600 text-base">Digite "Enviar" (Tecla T).</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    2</div>
+                                <div>
+                                    <strong class="block text-slate-900">Adicione Auto Layout</strong>
+                                    <p class="text-slate-600 text-base">Pressione <code
+                                            class="bg-brand-50 text-brand-700 px-1 rounded font-bold">Shift + A</code>.
+                                        O texto vira um Frame.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <div
+                                    class="w-8 h-8 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                    3</div>
+                                <div>
+                                    <strong class="block text-slate-900">Estilize o Container</strong>
+                                    <p class="text-slate-600 text-base">Adicione Fill (Cor de fundo), Padding horizontal
+                                        (24px) e Border Radius (8px).</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONCEITO 2: COMPONENTES -->
+    <section id="componentes" class="py-24 px-6 lg:px-8 bg-white border-t border-slate-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+                <div class="lg:col-span-5 space-y-8 sticky top-32">
+                    <div
+                        class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-100 text-brand-700 font-bold text-xl mb-4">
+                        2</div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 leading-tight">Componentes</h2>
+                    <p class="text-lg text-slate-600">
+                        Pense em LEGO. Você cria o bloco uma vez (Master) e usa cópias infinitas (Instâncias). Se mudar
+                        o Master, todas as cópias mudam.
+                    </p>
+                    <div class="bg-purple-50 border border-purple-100 p-6 rounded-xl">
+                        <strong class="text-purple-900 block mb-2">Atalho Vital:</strong>
+                        <div class="text-3xl font-bold text-purple-600">Ctrl + Alt + K</div>
+                        <span class="text-xs text-purple-400">Criar Componente</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-8">
+                    <!-- VISUAL PAI/FILHO -->
+                    <div
+                        class="bg-slate-50 rounded-2xl p-12 border border-slate-200 flex flex-col md:flex-row items-center justify-center gap-12">
+                        <!-- Master -->
+                        <div class="text-center relative">
+                            <div
+                                class="w-24 h-12 bg-figma-purple rounded-lg flex items-center justify-center text-white font-bold shadow-lg border-2 border-dashed border-white ring-4 ring-figma-purple/30 mb-2">
+                                ❖ Master
+                            </div>
+                            <span class="text-xs font-bold uppercase text-figma-purple">O Original</span>
+                            <!-- Connection Lines -->
+                            <div class="hidden md:block absolute top-1/2 left-full w-12 h-0.5 bg-slate-300"></div>
+                            <div class="md:hidden absolute top-full left-1/2 w-0.5 h-12 bg-slate-300"></div>
+                        </div>
+
+                        <!-- Instance -->
+                        <div class="text-center">
+                            <div
+                                class="w-24 h-12 bg-white border border-figma-purple text-figma-purple rounded-lg flex items-center justify-center font-bold shadow-sm mb-2">
+                                ◇ Cópia
+                            </div>
+                            <span class="text-xs font-bold uppercase text-slate-400">Instância</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50/50 border border-brand-100 rounded-2xl p-8">
+                        <h4
+                            class="font-bold text-brand-800 mb-6 text-sm uppercase tracking-wide flex items-center gap-2">
+                            <span>✅</span> Regras de Ouro
+                        </h4>
+                        <div class="space-y-4">
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Nunca use Frames soltos para botões ou inputs
+                                    repetidos.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Nomeie suas camadas (Layer Naming) antes de criar
+                                    o componente.</span>
+                            </label>
+                            <label class="checklist-item">
+                                <input type="checkbox">
+                                <span class="text-base text-slate-700">Use Variantes para estados (Hover, Click,
+                                    Disabled).</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LABORATÓRIO + IA -->
+    <section id="pratica" class="py-24 px-6 lg:px-8 bg-dark-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔬</span>
+                        <span class="text-brand-400 font-bold uppercase tracking-wider text-sm">Laboratório Prático:
+                            Dominando a Flexibilidade</span>
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-white">Práticas Guiadas</h2>
+                    <p class="text-slate-400 mt-2 text-lg">Três desafios progressivos baseados na Taxonomia de Bloom
+                        para você aplicar, criar e analisar.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Prática 1: Aplicação -->
+                <div class="practice-card">
+                    <span class="bloom-tag bg-blue-500/20 text-blue-300">Bloom: Aplicar</span>
+                    <h3 class="text-xl font-bold text-white mb-2">1. O Chat Responsivo</h3>
+                    <p class="text-slate-400 text-sm mb-6">Crie um balão de mensagem (tipo WhatsApp) que cresça conforme
+                        o texto aumenta.</p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Texto em "Hug"</li>
+                        <li class="flex gap-2">✓ Padding Assimétrico</li>
+                        <li class="flex gap-2">✓ Radius Variável</li>
+                    </ul>
+
+                    <button
+                        onclick="askAI('Me dê o passo a passo no Figma para criar um balão de chat que cresce com o texto usando Auto Layout.')"
+                        class="ai-btn w-full text-xs py-3 justify-center bg-blue-600 hover:bg-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                        </svg>
+                        Pedir Receita à IA
+                    </button>
+                </div>
+
+                <!-- Prática 2: Criação -->
+                <div class="practice-card border-brand-500/30">
+                    <span class="bloom-tag bg-brand-500/20 text-brand-300">Bloom: Criar</span>
+                    <h3 class="text-xl font-bold text-white mb-2">2. O Card Mágico</h3>
+                    <p class="text-slate-400 text-sm mb-6">Crie um Componente de Card de Produto com 3 Variantes:
+                        Normal, Oferta (Badge) e Esgotado.</p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Master Component</li>
+                        <li class="flex gap-2">✓ Propriedades Booleanas</li>
+                        <li class="flex gap-2">✓ Troca de instância</li>
+                    </ul>
+
+                    <button
+                        onclick="askAI('Explique como criar Variantes no Figma para um componente de Card com estados diferentes (Normal, Esgotado).')"
+                        class="ai-btn w-full text-xs py-3 justify-center bg-brand-600 hover:bg-brand-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                        </svg>
+                        Pedir Dica de Variantes
+                    </button>
+                </div>
+
+                <!-- Prática 3: Análise -->
+                <div class="practice-card">
+                    <span class="bloom-tag bg-purple-500/20 text-purple-300">Bloom: Analisar</span>
+                    <h3 class="text-xl font-bold text-white mb-2">3. O Menu Flexível</h3>
+                    <p class="text-slate-400 text-sm mb-6">Monte uma Navbar que distribui Logo, Links e Perfil
+                        automaticamente usando "Space Between".</p>
+
+                    <ul class="space-y-2 text-sm text-slate-300 mb-6">
+                        <li class="flex gap-2">✓ Auto Layout no Frame Pai</li>
+                        <li class="flex gap-2">✓ Distribuição "Auto"</li>
+                        <li class="flex gap-2">✓ Alinhamento Vertical</li>
+                    </ul>
+
+                    <button
+                        onclick="askAI('Como usar o modo Space Between no Auto Layout do Figma para criar uma barra de navegação responsiva?')"
+                        class="ai-btn w-full text-xs py-3 justify-center bg-purple-600 hover:bg-purple-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+                        </svg>
+                        Tirar Dúvida de Layout
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Output Area -->
+            <div id="ai-output-container"
+                class="mt-12 bg-white rounded-2xl p-8 shadow-2xl relative overflow-hidden hidden">
+                <div class="flex justify-between items-start mb-6 border-b border-slate-100 pb-4 relative z-10">
+                    <h3 class="font-bold text-lg text-slate-900 uppercase tracking-wide">Monitor Virtual</h3>
+                    <button onclick="document.getElementById('ai-output-container').classList.add('hidden')"
+                        class="text-slate-400 hover:text-red-500">✕</button>
+                </div>
+                <div id="ai-output" class="text-slate-600 text-base leading-relaxed relative z-10"></div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 mt-12">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <p class="text-slate-400 text-sm">
+                Material Didático • Design de Interfaces • IFRN<br>
+                Figma ® is a trademark of Figma, Inc.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Scroll Reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        const apiKey = "";
+
+        window.askAI = async function (promptText) {
+            const container = document.getElementById('ai-output-container');
+            const outputDiv = document.getElementById('ai-output');
+
+            container.classList.remove('hidden');
+            // Scroll to output
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            outputDiv.innerHTML = '<div class="flex flex-col items-center justify-center h-32 text-brand-600 animate-pulse gap-4"><svg class="w-8 h-8 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Consultando Monitor...</span></div>';
+
+            try {
+                if (!apiKey) {
+                    setTimeout(() => {
+                        outputDiv.innerHTML = `
+                            <div class="ai-response space-y-4 animate-fade-in-up">
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r text-blue-900 text-sm mb-4">
+                                    <strong>Modo Demonstração:</strong> Adicione sua API Key para respostas reais.
+                                </div>
+                                <p class="text-slate-700"><strong>Dica Rápida para o Chat:</strong></p>
+                                <ol class="list-decimal ml-4 text-slate-700 space-y-2">
+                                    <li>Crie um texto.</li>
+                                    <li>Aperte <strong>Shift+A</strong> para criar o Auto Layout.</li>
+                                    <li>No painel direito, adicione <strong>Fill (Cor)</strong>.</li>
+                                    <li>Adicione <strong>Padding</strong> (ex: 12px vertical, 16px horizontal).</li>
+                                    <li>Arredonde os cantos (Corner Radius).</li>
+                                    <li>Para o "bico" do balão, desenhe um triângulo e agrupe ou use um plugin de formas.</li>
+                                </ol>
+                            </div>`;
+                    }, 1500);
+                    return;
+                }
+
+                const prompt = `Atue como um Professor de Figma experiente. O aluno precisa de ajuda com: "${promptText}".
+                
+                Dê uma resposta direta, prática e passo a passo. Use negrito para nomes de ferramentas ou atalhos (Ex: **Shift+A**).`;
+
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+
+                const data = await response.json();
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Erro ao gerar.";
+
+                outputDiv.innerHTML = `<div class="ai-response space-y-4 animate-fade-in-up">${marked.parse(text)}</div>`;
+
+            } catch (error) {
+                outputDiv.innerHTML = '<span class="text-red-400">Erro de conexão. Verifique sua chave API.</span>';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
