@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 11 — Dia 2: Construindo o Smart Portfolio | Design Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+
+    <style>
+        /* Base Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #334155;
+            background-color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Slide Deck Styling */
+        .slide-container {
+            background: #1e293b;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            color: white;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #334155;
+        }
+
+        /* Code Editor Simulation */
+        pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .code-window {
+            background: #0f172a;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-header {
+            background: #1e293b;
+            padding: 8px 16px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .code-body {
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        /* Syntax Highlighting */
+        .tk-tag {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .tk-attr {
+            color: #93c5fd;
+        }
+
+        .tk-str {
+            color: #fca5a5;
+        }
+
+        .tk-alpine {
+            color: #c084fc;
+            font-weight: bold;
+        }
+
+        .tk-cmt {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Utilities */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .step-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Sora';
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Easter Egg Modal Transition */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .modal-enter-active {
+            transition: all 0.3s ease-out;
+        }
+
+        .modal-leave-active {
+            transition: all 0.2s ease-in;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+
+<body class="pb-40" x-data="{ 
+          buffer: '', 
+          showSecret: false,
+          checkEgg() {
+              if (this.buffer.includes('webeti')) this.showSecret = true;
+          }
+      }" @keydown.window="buffer += $event.key; buffer = buffer.slice(-10); checkEgg()">
+
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-6 fixed w-full top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    IF</div>
+                <div>
+                    <span class="font-sora font-bold text-gray-900 block text-lg">Design Web</span>
+                    <span class="text-xs text-gray-500 font-medium tracking-wide">Aula 43: Prática SPA</span>
+                </div>
+            </div>
+
+            <a href="aula-41.html"
+                class="hidden md:flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-600 transition group">
+                <i class="ph ph-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                Voltar: Dia 1 (Teoria)
+            </a>
+        </div>
+    </nav>
+
+    <main class="px-4 md:px-8 max-w-6xl mx-auto mt-32">
+
+        <header class="mb-20 text-center">
+            <span
+                class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-purple-200">
+                <i class="ph ph-code"></i> Code Along
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 font-sora tracking-tight">
+                Smart Portfolio <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">SPA</span>
+            </h1>
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Hoje vamos consolidar tudo. Sem recarregar página, com tema Dark/Light e animações.
+                Abra o VS Code, crie <code>index.html</code> e vamos codar.
+            </p>
+        </header>
+
+        <section x-data="{ step: 1, total: 4 }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-slate-800 text-white">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Live Coding: A Estrutura</h2>
+                    <p class="text-slate-500 text-sm mt-1">Construção guiada da espinha dorsal.</p>
+                </div>
+            </div>
+
+            <div class="slide-container relative">
+                <div class="absolute top-0 left-0 w-full h-1 bg-slate-700">
+                    <div class="h-full bg-purple-500 transition-all duration-300"
+                        :style="`width: ${(step / total) * 100}%`"></div>
+                </div>
+
+                <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
+                                1/4</span>
+                            <h3 class="text-3xl font-bold mb-4">O Cérebro da Aplicação</h3>
+                            <p class="text-slate-400 mb-6 text-lg">
+                                Uma SPA (Single Page Application) precisa de um "Estado Global". Vamos definir isso na
+                                tag <code>&lt;html&gt;</code>.
+                            </p>
+                            <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-3">
+                                <h4 class="text-white font-bold text-sm">Estado Global:</h4>
+                                <ul class="text-sm text-slate-300 space-y-2 font-mono">
+                                    <li><code>tab</code>: 'home'</li>
+                                    <li><code>dark</code>: false</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="code-window border-purple-500/50">
+                            <div class="code-header">
+                                <div class="dot bg-red-500"></div>
+                                <div class="dot bg-yellow-500"></div>
+                                <div class="dot bg-green-500"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tk-tag">&lt;html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"pt-br"</span> 
+      <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ 
+          tab: 'home', 
+          dark: false 
+      }"</span>
+      <span class="tk-cmt">&lt;!-- Theme Switcher DaisyUI --&gt;</span>
+      <span class="tk-alpine">:data-theme</span>=<span class="tk-str">"dark ? 'dracula' : 'winter'"</span><span class="tk-tag">&gt;</span>
+
+<span class="tk-tag">&lt;head&gt;</span>
+    <span class="tk-cmt">&lt;!-- Imports Tailwind + DaisyUI + Alpine --&gt;</span>
+<span class="tk-tag">&lt;/head&gt;</span>
+
+<span class="tk-tag">&lt;body</span> <span class="tk-attr">class</span>=<span class="tk-str">"min-h-screen transition-colors"</span><span class="tk-tag">&gt;</span>
+    ...
+<span class="tk-tag">&lt;/body&gt;</span>
+<span class="tk-tag">&lt;/html&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 2" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
+                                2/4</span>
+                            <h3 class="text-3xl font-bold mb-4">A Navegação (Navbar)</h3>
+                            <p class="text-slate-400 mb-6">
+                                Os botões da Navbar não levam para outra página. Eles apenas mudam o valor da variável
+                                <code>tab</code>.
+                            </p>
+                        </div>
+                        <div class="code-window border-purple-500/50">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;nav</span> <span class="tk-attr">class</span>=<span class="tk-str">"navbar bg-base-100 shadow-lg px-8"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-1 font-bold text-xl"</span><span class="tk-tag">&gt;</span>DevPortfolio<span class="tk-tag">&lt;/div&gt;</span>
+  
+  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-none gap-2"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-cmt">&lt;!-- Botão HOME --&gt;</span>
+    <span class="tk-tag">&lt;button</span> 
+      <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'home'"</span> 
+      <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-sm btn-ghost"</span>
+      <span class="tk-alpine">:class</span>=<span class="tk-str">"{ 'btn-active': tab === 'home' }"</span><span class="tk-tag">&gt;</span>
+      Home
+    <span class="tk-tag">&lt;/button&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- Botão PROJETOS --&gt;</span>
+    <span class="tk-tag">&lt;button</span> 
+      <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'projetos'"</span> 
+      <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-sm btn-ghost"</span>
+      <span class="tk-alpine">:class</span>=<span class="tk-str">"{ 'btn-active': tab === 'projetos' }"</span><span class="tk-tag">&gt;</span>
+      Projetos
+    <span class="tk-tag">&lt;/button&gt;</span>
+    
+    <span class="tk-cmt">&lt;!-- Dark Mode Toggle --&gt;</span>
+    <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"checkbox"</span> <span class="tk-attr">class</span>=<span class="tk-str">"toggle"</span> 
+           <span class="tk-alpine">x-model</span>=<span class="tk-str">"dark"</span> <span class="tk-tag">/&gt;</span>
+  <span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/nav&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 3" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
+                                3/4</span>
+                            <h3 class="text-3xl font-bold mb-4">O Conteúdo (SPA)</h3>
+                            <p class="text-slate-400 mb-6">
+                                Usamos <code>x-show</code> para mostrar apenas a aba ativa. O <code>x-transition</code>
+                                dá o toque de classe na troca.
+                            </p>
+                        </div>
+                        <div class="code-window border-purple-500/50">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;main</span> <span class="tk-attr">class</span>=<span class="tk-str">"p-10 max-w-5xl mx-auto"</span><span class="tk-tag">&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- SEÇÃO HOME --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"tab === 'home'"</span> 
+         <span class="tk-alpine">x-transition:enter.duration.500ms</span><span class="tk-tag">&gt;</span>
+         
+        <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"hero min-h-[50vh] bg-base-200 rounded-box"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"hero-content text-center"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"max-w-md"</span><span class="tk-tag">&gt;</span>
+                    <span class="tk-tag">&lt;h1</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-5xl font-bold"</span><span class="tk-tag">&gt;</span>Olá, eu sou Dev<span class="tk-tag">&lt;/h1&gt;</span>
+                    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'projetos'"</span> 
+                            <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary mt-6"</span><span class="tk-tag">&gt;</span>
+                        Ver Projetos
+                    <span class="tk-tag">&lt;/button&gt;</span>
+                <span class="tk-tag">&lt;/div&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;/div&gt;</span>
+
+    <span class="tk-tag">&lt;/div&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- Outras seções (Projetos, Contato)... --&gt;</span>
+
+<span class="tk-tag">&lt;/main&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 4" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12">
+                        <div>
+                            <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
+                                4/4</span>
+                            <h3 class="text-3xl font-bold mb-4">Modais Locais</h3>
+                            <p class="text-slate-400 mb-6">
+                                Cada card de projeto pode ter seu próprio estado <code>x-data="{ modal: false }"</code>.
+                            </p>
+                        </div>
+                        <div class="code-window border-purple-500/50">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card bg-base-100 shadow-xl"</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ modal: false }"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-body"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-tag">&lt;h2</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-title"</span><span class="tk-tag">&gt;</span>Projeto X<span class="tk-tag">&lt;/h2&gt;</span>
+    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"modal = true"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary"</span><span class="tk-tag">&gt;</span>Ver<span class="tk-tag">&lt;/button&gt;</span>
+  <span class="tk-tag">&lt;/div&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- O MODAL --&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"modal"</span> 
+       <span class="tk-attr">class</span>=<span class="tk-str">"fixed inset-0 bg-black/80 flex justify-center items-center z-50"</span>
+       <span class="tk-alpine">x-transition.opacity</span><span class="tk-tag">&gt;</span>
+       
+       <span class="tk-tag">&lt;div</span> <span class="tk-alpine">@click.outside</span>=<span class="tk-str">"modal = false"</span> 
+            <span class="tk-attr">class</span>=<span class="tk-str">"bg-base-100 p-8 rounded-lg"</span><span class="tk-tag">&gt;</span>
+          <span class="tk-tag">&lt;h3&gt;</span>Detalhes...<span class="tk-tag">&lt;/h3&gt;</span>
+          <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"modal = false"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn"</span><span class="tk-tag">&gt;</span>X<span class="tk-tag">&lt;/button&gt;</span>
+       <span class="tk-tag">&lt;/div&gt;</span>
+  <span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-slate-800 border-t border-slate-700 flex justify-end gap-3">
+                    <button @click="step > 1 ? step-- : null" class="btn btn-circle btn-ghost text-white"
+                        :disabled="step === 1"><i class="ph ph-caret-left text-xl"></i></button>
+                    <button @click="step < total ? step++ : null"
+                        class="btn btn-circle btn-primary text-white shadow-lg" :disabled="step === total"><i
+                            class="ph ph-caret-right text-xl"></i></button>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-purple-600 text-white">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Sua Vez: O Desafio Autônomo</h2>
+                    <p class="text-slate-500 text-sm mt-1">Implemente as funcionalidades que faltam.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <div
+                    class="card bg-white p-8 rounded-3xl border border-purple-200 shadow-xl relative overflow-hidden group hover:border-purple-400 transition-all">
+                    <div
+                        class="absolute top-0 right-0 bg-purple-100 text-purple-700 px-3 py-1 text-xs font-bold rounded-bl-xl border-b border-l border-purple-200">
+                        MISSÃO 1</div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
+                            <i class="ph ph-list text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800">Seção FAQ (Accordion)</h3>
+                    </div>
+
+                    <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                        Na aba "Sobre", crie uma lista de Perguntas Frequentes (FAQ). Ao clicar na pergunta, a resposta
+                        aparece.
+                        <strong>Regra:</strong> Apenas uma pode estar aberta por vez.
+                    </p>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
+                        <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i class="ph ph-code"></i>
+                            Dica de Lógica:</h4>
+                        <div class="code-window">
+                            <div class="code-body p-3 text-xs">
+                                <pre><span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ ativo: null }"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-cmt">&lt;!-- Item 1 --&gt;</span>
+  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 1"</span><span class="tk-tag">&gt;</span>Pergunta 1<span class="tk-tag">&lt;/button&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"ativo === 1"</span><span class="tk-tag">&gt;</span>Resposta 1<span class="tk-tag">&lt;/div&gt;</span>
+  
+  <span class="tk-cmt">&lt;!-- Item 2 --&gt;</span>
+  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 2"</span><span class="tk-tag">&gt;</span>Pergunta 2<span class="tk-tag">&lt;/button&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"ativo === 2"</span><span class="tk-tag">&gt;</span>Resposta 2<span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="card bg-white p-8 rounded-3xl border border-green-200 shadow-lg relative overflow-hidden group hover:border-green-400 transition-all">
+                    <div
+                        class="absolute top-0 right-0 bg-green-100 text-green-700 px-3 py-1 text-xs font-bold rounded-bl-xl border-b border-l border-green-200">
+                        MISSÃO 2</div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                            <i class="ph ph-envelope-simple text-xl"></i></div>
+                        <h3 class="text-xl font-bold text-slate-800">Contato Inteligente</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-sm">
+                        Na aba "Contato", crie inputs de Email e Mensagem.
+                        O botão "Enviar" deve ficar desabilitado se estiver incompleto.
+                    </p>
+
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
+                        <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i
+                                class="ph ph-check-circle"></i> Checklist:</h4>
+                        <ul class="space-y-2 text-slate-600">
+                            <li class="flex items-center gap-2">
+                                <input type="checkbox" disabled
+                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
+                                <span>Use <code>x-model</code></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <input type="checkbox" disabled
+                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
+                                <span>Use <code>:disabled</code></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <input type="checkbox" disabled
+                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
+                                <span>Mostre sucesso com <code>x-show</code></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div x-show="showSecret" x-transition:enter="modal-enter modal-enter-active" x-transition:leave="modal-leave-active"
+        class="fixed inset-0 bg-slate-900/95 z-[100] flex justify-center items-center p-4" x-cloak>
+
+        <div
+            class="bg-[#1e1e1e] w-full max-w-5xl h-[85vh] rounded-2xl shadow-2xl border border-slate-700 flex flex-col overflow-hidden relative">
+            <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-[#252526]">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">🎉</span>
+                    <div>
+                        <h3 class="text-white font-bold text-lg">Gabarito Secreto Desbloqueado!</h3>
+                        <p class="text-slate-400 text-xs">Você encontrou o código final.</p>
+                    </div>
+                </div>
+                <button @click="showSecret = false" class="text-slate-400 hover:text-white"><i
+                        class="ph ph-x text-2xl"></i></button>
+            </div>
+
+            <div class="flex-grow overflow-auto p-0">
+                <div class="code-body text-xs md:text-sm">
+                    <pre>
+<span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tk-tag">&lt;html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"pt-br"</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ tab: 'home', dark: true }"</span> <span class="tk-alpine">:data-theme</span>=<span class="tk-str">"dark ? 'dracula' : 'cupcake'"</span><span class="tk-tag">&gt;</span>
+<span class="tk-tag">&lt;head&gt;</span>
+    <span class="tk-tag">&lt;script</span> <span class="tk-attr">src</span>=<span class="tk-str">"https://cdn.tailwindcss.com"</span><span class="tk-tag">&gt;&lt;/script&gt;</span>
+    <span class="tk-tag">&lt;link</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css"</span> <span class="tk-attr">rel</span>=<span class="tk-str">"stylesheet"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-tag">&lt;script</span> <span class="tk-attr">defer</span> <span class="tk-attr">src</span>=<span class="tk-str">"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"</span><span class="tk-tag">&gt;&lt;/script&gt;</span>
+<span class="tk-tag">&lt;/head&gt;</span>
+<span class="tk-tag">&lt;body</span> <span class="tk-attr">class</span>=<span class="tk-str">"min-h-screen font-sans transition-colors duration-300"</span><span class="tk-tag">&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- NAVBAR --&gt;</span>
+    <span class="tk-tag">&lt;nav</span> <span class="tk-attr">class</span>=<span class="tk-str">"navbar bg-base-100 shadow-md px-4 sticky top-0 z-50"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-1"</span><span class="tk-tag">&gt;&lt;a</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-ghost text-xl"</span><span class="tk-tag">&gt;</span>Dev.folio<span class="tk-tag">&lt;/a&gt;&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-none"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'home'"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-sm btn-ghost"</span> <span class="tk-alpine">:class</span>=<span class="tk-str">"{'btn-active': tab=='home'}"</span><span class="tk-tag">&gt;</span>Home<span class="tk-tag">&lt;/button&gt;</span>
+            <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'sobre'"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-sm btn-ghost"</span> <span class="tk-alpine">:class</span>=<span class="tk-str">"{'btn-active': tab=='sobre'}"</span><span class="tk-tag">&gt;</span>Sobre<span class="tk-tag">&lt;/button&gt;</span>
+            <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'contato'"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-sm btn-ghost"</span> <span class="tk-alpine">:class</span>=<span class="tk-str">"{'btn-active': tab=='contato'}"</span><span class="tk-tag">&gt;</span>Contato<span class="tk-tag">&lt;/button&gt;</span>
+            <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"checkbox"</span> <span class="tk-attr">class</span>=<span class="tk-str">"toggle ml-4"</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"dark"</span> <span class="tk-tag">/&gt;</span>
+        <span class="tk-tag">&lt;/div&gt;</span>
+    <span class="tk-tag">&lt;/nav&gt;</span>
+
+    <span class="tk-tag">&lt;main</span> <span class="tk-attr">class</span>=<span class="tk-str">"container mx-auto p-4"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-cmt">&lt;!-- HOME --&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"tab === 'home'"</span> <span class="tk-alpine">x-transition</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"hero min-h-[50vh] bg-base-200 rounded-box mt-4"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"hero-content text-center"</span><span class="tk-tag">&gt;</span>
+                    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"max-w-md"</span><span class="tk-tag">&gt;</span>
+                        <span class="tk-tag">&lt;h1</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-5xl font-bold"</span><span class="tk-tag">&gt;</span>Alpine SPA<span class="tk-tag">&lt;/h1&gt;</span>
+                        <span class="tk-tag">&lt;p</span> <span class="tk-attr">class</span>=<span class="tk-str">"py-6"</span><span class="tk-tag">&gt;</span>Uma aplicação completa sem recarregar.<span class="tk-tag">&lt;/p&gt;</span>
+                        <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'contato'"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary"</span><span class="tk-tag">&gt;</span>Fale Comigo<span class="tk-tag">&lt;/button&gt;</span>
+                    <span class="tk-tag">&lt;/div&gt;</span>
+                <span class="tk-tag">&lt;/div&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;/div&gt;</span>
+
+        <span class="tk-cmt">&lt;!-- SOBRE (ACCORDION) --&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"tab === 'sobre'"</span> <span class="tk-alpine">x-transition</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ ativo: 1 }"</span> <span class="tk-attr">class</span>=<span class="tk-str">"space-y-2 mt-4"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse collapse-arrow bg-base-200"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"radio"</span> <span class="tk-attr">name</span>=<span class="tk-str">"acc"</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 1"</span> <span class="tk-attr">checked</span> <span class="tk-tag">/&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse-title text-xl font-medium"</span><span class="tk-tag">&gt;</span>Minha Experiência<span class="tk-tag">&lt;/div&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse-content"</span><span class="tk-tag">&gt;&lt;p&gt;</span>Desenvolvedor Web Fullstack.<span class="tk-tag">&lt;/p&gt;&lt;/div&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse collapse-arrow bg-base-200"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"radio"</span> <span class="tk-attr">name</span>=<span class="tk-str">"acc"</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 2"</span> <span class="tk-tag">/&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse-title text-xl font-medium"</span><span class="tk-tag">&gt;</span>Formação<span class="tk-tag">&lt;/div&gt;</span>
+                <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"collapse-content"</span><span class="tk-tag">&gt;&lt;p&gt;</span>IFRN - Informática.<span class="tk-tag">&lt;/p&gt;&lt;/div&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;/div&gt;</span>
+
+        <span class="tk-cmt">&lt;!-- CONTATO (FORM) --&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"tab === 'contato'"</span> <span class="tk-alpine">x-transition</span> 
+             <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ email: '', msg: '', enviado: false }"</span> <span class="tk-attr">class</span>=<span class="tk-str">"max-w-md mx-auto mt-8 bg-base-200 p-6 rounded-xl"</span><span class="tk-tag">&gt;</span>
+            
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"form-control"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;label</span> <span class="tk-attr">class</span>=<span class="tk-str">"label"</span><span class="tk-tag">&gt;</span>Email<span class="tk-tag">&lt;/label&gt;</span>
+                <span class="tk-tag">&lt;input</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"email"</span> <span class="tk-attr">class</span>=<span class="tk-str">"input input-bordered"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+            
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"form-control mt-4"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;label</span> <span class="tk-attr">class</span>=<span class="tk-str">"label"</span><span class="tk-tag">&gt;</span>Mensagem<span class="tk-tag">&lt;/label&gt;</span>
+                <span class="tk-tag">&lt;textarea</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"msg"</span> <span class="tk-attr">class</span>=<span class="tk-str">"textarea textarea-bordered"</span><span class="tk-tag">&gt;&lt;/textarea&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+
+            <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"mt-6"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"enviado = true; email=''; msg=''"</span> 
+                        <span class="tk-alpine">:disabled</span>=<span class="tk-str">"!email.includes('@') || msg.length < 5"</span>
+                        <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary w-full"</span><span class="tk-tag">&gt;</span>Enviar<span class="tk-tag">&lt;/button&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+
+            <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"enviado"</span> <span class="tk-alpine">x-transition</span> <span class="tk-attr">class</span>=<span class="tk-str">"alert alert-success mt-4 shadow-lg"</span><span class="tk-tag">&gt;</span>
+                <span class="tk-tag">&lt;span&gt;</span>Mensagem enviada com sucesso!<span class="tk-tag">&lt;/span&gt;</span>
+            <span class="tk-tag">&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;/div&gt;</span>
+
+    <span class="tk-tag">&lt;/main&gt;</span>
+<span class="tk-tag">&lt;/body&gt;</span>
+<span class="tk-tag">&lt;/html&gt;</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 p-4 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <p class="text-sm font-medium text-gray-500">
+                <span class="text-blue-600 font-bold">Entrega:</span> Suba o <code>index.html</code> no Classroom.
+            </p>
+            <div class="hidden md:flex items-center gap-4 text-xs text-gray-400">
+                <span>Dica: Digite <strong>webeti</strong> na tela... 🤫</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 11 — Alpine.js | Design Web IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed', // Violeta Principal
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            500: '#d946ef', // Fuchsia para gradientes
+                            600: '#c026d3'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Estilos Utilitários - Design Web Identity */
+        .btn-cta {
+            background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid #7c3aed;
+            color: #7c3aed;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #7c3aed;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            color: #d946ef;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Bloom Levels Colors - Mantendo a semântica pedagógica */
+        .level-1 {
+            border-left: 5px solid #22c55e;
+        }
+
+        /* Lembrar */
+        .level-2 {
+            border-left: 5px solid #eab308;
+        }
+
+        /* Aplicar */
+        .level-3 {
+            border-left: 5px solid #f97316;
+        }
+
+        /* Analisar */
+        .level-4 {
+            border-left: 5px solid #ef4444;
+        }
+
+        /* Criar */
+
+        /* Fundo de Grid para Previews */
+        .bg-grid-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 10px 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 bg-gradient-to-br from-brand-600 to-secondary-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                        D</div>
+                    <span class="font-bold text-xl text-slate-900 tracking-tight">Design <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-secondary-600">Web</span></span>
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-slate-100 rounded text-slate-500 ml-2">Semana
+                        11</span>
+                </div>
+                <div class="text-sm font-medium text-slate-500 hidden sm:block">
+                    IFRN • Tecnologia em Sistemas para Internet
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-brand-50 to-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto">
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white text-brand-700 rounded-full font-semibold text-sm border border-brand-200 shadow-sm">
+                <i class="ph ph-clock"></i> Prazo de Entrega: 7 Dias
+            </div>
+
+            <h1 class="font-extrabold text-4xl md:text-6xl text-slate-900 mb-6 leading-tight font-inter">
+                Lista 11: <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-secondary-600">Alpine.js</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl font-light">
+                Esta lista consolida a transição do JavaScript Imperativo para a <strong>Reatividade
+                    Declarativa</strong>. Seu objetivo é construir interfaces que reagem aos dados, preparando o terreno
+                para o React.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#exercicios"
+                    class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
+                    <i class="ph ph-code"></i> Começar Desafios
+                </a>
+                <a href="https://alpinejs.dev" target="_blank"
+                    class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center flex items-center justify-center gap-2">
+                    <i class="ph ph-book-open"></i> Documentação
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="exercicios" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto space-y-16">
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center font-bold text-xl shadow-sm">
+                        1</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Nível 1: Lembrar & Compreender</h2>
+                        <p class="text-slate-500 text-sm">Aquecimento: Sintaxe básica <code>x-data</code> e
+                            <code>x-text</code>.</p>
+                    </div>
+                </div>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-1 group hover:border-green-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">01. O Cartão de Visita Digital</h3>
+                        <span
+                            class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-200">BÁSICO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Em frameworks modernos, nunca escrevemos dados "na pedra" no
+                                HTML. Os dados vêm do JS (Estado).
+                            </p>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100 text-sm text-green-900">
+                                <strong>Tarefa:</strong> Criar um Card (use DaisyUI) onde Foto, Nome e Cargo vêm do
+                                <code>x-data</code>.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Crie o objeto de dados com <code>x-data="{ nome: '...', cargo: '...' }"</code>.</li>
+                                <li>Use <code class="code-inline">x-text</code> para injetar os textos nas tags.</li>
+                                <li><strong>Desafio:</strong> Use <code class="code-inline">x-show</code> para mostrar
+                                    um badge "Online" se uma variável for true.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <div
+                                    class="bg-white p-4 shadow-md border border-slate-100 rounded-lg w-48 text-center relative">
+                                    <div
+                                        class="w-3 h-3 bg-green-500 rounded-full absolute top-2 right-2 border-2 border-white">
+                                    </div>
+                                    <div class="w-12 h-12 bg-slate-200 rounded-full mx-auto mb-2"></div>
+                                    <div class="h-2 bg-slate-200 w-3/4 mx-auto mb-1 rounded"></div>
+                                    <div class="h-2 bg-slate-100 w-1/2 mx-auto rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-1 group hover:border-green-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">02. Botão "Spoiler Alert"</h3>
+                        <span
+                            class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-200">BÁSICO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Controlar visibilidade é a base de menus, modais e abas.
+                            </p>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100 text-sm text-green-900">
+                                <strong>Tarefa:</strong> Um texto que começa oculto e aparece ao clicar em um botão.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Use um estado booleano: <code>mostrar: false</code>.</li>
+                                <li>Use <code class="code-inline">x-show="mostrar"</code> no texto do spoiler.</li>
+                                <li>No botão, use <code class="code-inline">@click="mostrar = true"</code>.</li>
+                                <li>Faça o botão desaparecer quando o texto aparecer (Inverta a lógica).</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <button
+                                    class="bg-slate-800 text-white px-4 py-2 rounded text-xs shadow hover:bg-slate-700 transition">Ver
+                                    Spoiler 🫣</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-yellow-100 text-yellow-700 flex items-center justify-center font-bold text-xl shadow-sm">
+                        2</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Nível 2: Aplicar</h2>
+                        <p class="text-slate-500 text-sm">Interatividade: <code>x-on</code> e estilos dinâmicos
+                            <code>:class</code>.</p>
+                    </div>
+                </div>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">03. Contador de Likes Colorido</h3>
+                        <span
+                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> A interface deve reagir aos números. Se o valor muda, o
+                                estilo muda.
+                            </p>
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
+                                <strong>Tarefa:</strong> Contador que muda a cor do ícone conforme o valor.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Inicie em 0. Clique aumenta.</li>
+                                <li>Use <code class="code-inline">:class</code>: Se > 0, o coração fica vermelho e
+                                    pulsa.</li>
+                                <li>Se > 10, exibe uma mensagem "Popstar!" ao lado.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48 gap-3 text-3xl text-slate-300">
+                                <i class="ph ph-heart-straight-fill text-red-500 animate-pulse"></i>
+                                <span class="font-mono text-slate-700 font-bold">12</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">04. Galeria de Imagens</h3>
+                        <span
+                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Binding de atributos. O <code>src</code> da imagem pode ser
+                                uma variável.
+                            </p>
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
+                                <strong>Tarefa:</strong> 3 botões pequenos que trocam a foto principal.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Crie <code>x-data="{ imgAtual: 'url1.jpg' }"</code>.</li>
+                                <li>Botões atualizam a variável ao clicar.</li>
+                                <li>A tag imagem usa <code class="code-inline">:src="imgAtual"</code>.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex flex-col justify-center items-center h-48 gap-3">
+                                <div class="w-full h-24 bg-slate-300 rounded shadow-inner"></div>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-8 bg-brand-200 rounded ring-2 ring-brand-500"></div>
+                                    <div class="w-8 h-8 bg-slate-200 rounded hover:bg-slate-300"></div>
+                                    <div class="w-8 h-8 bg-slate-200 rounded hover:bg-slate-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">05. O Semáforo</h3>
+                        <span
+                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Lógica de exclusividade. Apenas um item ativo por vez.
+                            </p>
+                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
+                                <strong>Tarefa:</strong> Criar um semáforo funcional onde só uma luz acende.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Use uma string de estado: <code>luz: 'vermelho'</code>.</li>
+                                <li>3 divs redondas (luzes).</li>
+                                <li>Use <code class="code-inline">:class</code> para aplicar cor brilhante APENAS se a
+                                    variável bater com a luz (ex: <code>luz === 'verde'</code>).</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <div class="bg-slate-800 p-3 rounded-xl flex flex-col gap-2 shadow-2xl">
+                                    <div class="w-6 h-6 rounded-full bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.6)]">
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full bg-slate-700/50"></div>
+                                    <div class="w-6 h-6 rounded-full bg-slate-700/50"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xl shadow-sm">
+                        3</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Nível 3: Analisar</h2>
+                        <p class="text-slate-500 text-sm">Lógica de Listas <code>x-for</code> e Inputs
+                            <code>x-model</code>.</p>
+                    </div>
+                </div>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-3 group hover:border-orange-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">06. To-Do List Simples</h3>
+                        <span
+                            class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded border border-orange-200">ANALISAR</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Arrays de objetos são a estrutura de dados mais comum em apps
+                                reais.
+                            </p>
+                            <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 text-sm text-orange-900">
+                                <strong>Tarefa:</strong> Renderizar uma lista de tarefas a partir de um array.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Crie um array: <code>[{txt: 'Estudar', feito: false}, ...]</code>.</li>
+                                <li>Use <code class="code-inline">x-for</code> para criar os <code>&lt;li&gt;</code>.
+                                </li>
+                                <li><strong>Interatividade:</strong> Clicar no item alterna o booleano
+                                    <code>feito</code> e aplica a classe <code>line-through</code>.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <ul
+                                    class="bg-white p-4 w-48 shadow-sm border border-slate-100 rounded text-xs space-y-2 font-medium">
+                                    <li class="line-through text-slate-400 flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-sm border border-slate-300 bg-slate-100"></div>
+                                        Estudar Alpine
+                                    </li>
+                                    <li class="text-slate-700 flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-sm border border-brand-500"></div> Fazer Exercício
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-3 group hover:border-orange-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">07. Calculadora de Gorjeta</h3>
+                        <span
+                            class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded border border-orange-200">ANALISAR</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Matemática reativa. Inputs controlam variáveis que recalcula
+                                o total automaticamente.
+                            </p>
+                            <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 text-sm text-orange-900">
+                                <strong>Tarefa:</strong> Calcular o total da conta + serviço em tempo real.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Input numérico para o valor (R$).</li>
+                                <li>Select para % da gorjeta (10%, 15%, 20%).</li>
+                                <li>Use <code class="code-inline">x-text</code> com lógica matemática para mostrar o
+                                    Total.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <div class="text-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Total a Pagar
+                                    </p>
+                                    <p class="text-3xl font-bold text-brand-600 mt-1">R$ 115,00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="space-y-8">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xl shadow-sm">
+                        4</div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Nível 4: Criar & Avaliar</h2>
+                        <p class="text-slate-500 text-sm">Desafios Reais: Fetch API, Validação e UX.</p>
+                    </div>
+                </div>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-4 group hover:border-rose-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">08. Validador de Senha</h3>
+                        <span
+                            class="bg-rose-100 text-rose-800 text-xs font-bold px-2 py-1 rounded border border-rose-200">AVANÇADO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Feedback visual imediato melhora a UX. O usuário não deve
+                                esperar clicar para saber se errou.
+                            </p>
+                            <div class="bg-rose-50 p-4 rounded-lg border border-rose-100 text-sm text-rose-900">
+                                <strong>Tarefa:</strong> Input de senha com 3 regras que mudam de cor.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Input ligado a <code>senha</code> com <code class="code-inline">x-model</code>.</li>
+                                <li>Abaixo, mostre as regras: Min 8 chars, tem número, tem símbolo.</li>
+                                <li>Use classes dinâmicas para pintar de verde/vermelho.</li>
+                                <li>Botão "Cadastrar" só habilita (<code class="code-inline">:disabled</code>) se todas
+                                    ok.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <div class="bg-white p-4 w-full max-w-xs rounded-xl shadow border border-slate-100">
+                                    <div class="h-8 border border-slate-200 rounded mb-3 bg-slate-50"></div>
+                                    <div class="flex gap-3 text-[10px] font-bold">
+                                        <span class="text-green-500 bg-green-50 px-2 py-1 rounded">✓ 8 chars</span>
+                                        <span class="text-slate-300 bg-slate-50 px-2 py-1 rounded">○ Número</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-4 group hover:border-rose-300 transition-colors">
+                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-slate-800">09. Gerador de Fatos (API)</h3>
+                        <span
+                            class="bg-rose-100 text-rose-800 text-xs font-bold px-2 py-1 rounded border border-rose-200">AVANÇADO</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-600 text-sm">
+                                <strong>Contexto:</strong> Assincronismo. O app precisa mostrar que está "pensando"
+                                enquanto busca dados.
+                            </p>
+                            <div class="bg-rose-50 p-4 rounded-lg border border-rose-100 text-sm text-rose-900">
+                                <strong>Tarefa:</strong> Botão que busca fatos de uma API (Ex: CatFacts) e trata
+                                Loading.
+                            </div>
+                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
+                                <li>Botão dispara <code>fetch</code> no <code class="code-inline">@click</code>.</li>
+                                <li>Defina <code>loading = true</code> antes do fetch e <code>false</code> no final.
+                                </li>
+                                <li>Use <code class="code-inline">x-show="loading"</code> para mostrar um spinner.</li>
+                                <li>Exiba o fato recebido na tela.</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
+                                <button class="btn-secondary py-2 px-6 text-sm rounded-full flex items-center gap-2">
+                                    <i class="ph ph-magic-wand"></i> Gerar Fato
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 overflow-hidden shadow-2xl text-white level-4">
+                    <div class="bg-white/5 px-8 py-4 border-b border-white/10 flex justify-between items-center">
+                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
+                            <i class="ph ph-trophy text-brand-400 text-xl"></i> 10. O Mini E-commerce (Chefão)
+                        </h3>
+                        <span
+                            class="bg-brand-500/20 text-brand-300 text-xs font-bold px-2 py-1 rounded border border-brand-500/30">DESAFIO
+                            FINAL</span>
+                    </div>
+                    <div class="p-8 grid md:grid-cols-2 gap-10">
+                        <div class="space-y-4">
+                            <p class="text-slate-300 text-sm">
+                                <strong>Contexto:</strong> Consolidar tudo: Arrays, Eventos, Matemática e Persistência.
+                            </p>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 text-sm text-slate-200">
+                                <strong>Tarefa:</strong> Lista de produtos e carrinho de compras funcional.
+                            </div>
+                            <ul class="text-xs text-slate-400 list-disc list-inside space-y-2">
+                                <li>Array de Produtos (id, nome, preço).</li>
+                                <li>Array de Carrinho (vazio).</li>
+                                <li>Botão "Adicionar" joga o item no array <code>carrinho</code>.</li>
+                                <li>Exibir o <strong>Total (R$)</strong> somado dinamicamente (reduce ou loop).</li>
+                                <li><strong>Bônus:</strong> Use o plugin <code>$persist</code> para salvar no navegador.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">Meta
+                                Visual</span>
+                            <div
+                                class="bg-white/5 p-6 rounded-lg border border-white/10 flex justify-center items-center h-48 bg-grid-pattern">
+                                <div class="bg-white shadow-lg p-4 rounded-xl w-full text-slate-800">
+                                    <div
+                                        class="flex justify-between text-xs mb-2 font-bold pb-2 border-b border-slate-100">
+                                        <span>Produto A</span>
+                                        <span>R$ 50</span>
+                                    </div>
+                                    <div
+                                        class="flex justify-between text-xs mb-2 font-bold pb-2 border-b border-slate-100">
+                                        <span>Produto B</span>
+                                        <span>R$ 100</span>
+                                    </div>
+                                    <div class="pt-2 flex justify-between text-sm font-bold text-brand-600">
+                                        <span>Total</span>
+                                        <span>R$ 150</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
+        <p class="font-bold text-slate-700">Design Web • IFRN</p>
+        <p>Desenvolvido para o curso Superior de Tecnologia em Sistemas para Internet</p>
+    </footer>
+
+</body>
+
+</html>
