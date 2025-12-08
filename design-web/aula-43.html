@@ -415,7 +415,8 @@
                     <div class="flex items-center gap-3 mb-4">
                         <div
                             class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
-                            <i class="ph ph-list text-xl"></i></div>
+                            <i class="ph ph-list text-xl"></i>
+                        </div>
                         <h3 class="text-xl font-bold text-slate-800">Seção FAQ (Accordion)</h3>
                     </div>
 
@@ -452,7 +453,8 @@
                     <div class="flex items-center gap-3 mb-4">
                         <div
                             class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
-                            <i class="ph ph-envelope-simple text-xl"></i></div>
+                            <i class="ph ph-envelope-simple text-xl"></i>
+                        </div>
                         <h3 class="text-xl font-bold text-slate-800">Contato Inteligente</h3>
                     </div>
                     <p class="text-slate-600 mb-6 text-sm">
@@ -480,6 +482,154 @@
                                 <span>Mostre sucesso com <code>x-show</code></span>
                             </li>
                         </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
+            <div class="max-w-5xl mx-auto">
+
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-3 bg-white rounded-xl shadow-sm border border-slate-200">
+                        <i class="ph ph-table text-2xl text-brand-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Resumo Técnico</h2>
+                        <p class="text-slate-500 text-sm">Guia rápido de como aplicar os comandos nesta lista.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
+                                        Diretiva</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
+                                        Função (Metáfora)</th>
+                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
+                                        Aplicação na Lista</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code class="code-inline text-blue-600 border-blue-200 bg-blue-50">x-data</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Cérebro.</strong> Define os dados iniciais.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 01 (Cartão):</div>
+                                        <code
+                                            class="text-xs bg-slate-100 p-1 rounded">x-data="{ nome: 'Maria', cargo: 'Dev' }"</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code
+                                            class="code-inline text-purple-600 border-purple-200 bg-purple-50">x-text</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Espelho.</strong> Mostra o valor de uma variável.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 01 & 07 (Gorjeta):</div>
+                                        <code
+                                            class="text-xs bg-slate-100 p-1 rounded">&lt;h2 x-text="nome"&gt;&lt;/h2&gt;</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code class="code-inline text-pink-600 border-pink-200 bg-pink-50">x-show</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Fantasma.</strong> Esconde/Mostra elementos.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 02 (Spoiler):</div>
+                                        <code class="text-xs bg-slate-100 p-1 rounded">x-show="mostrarSpoiler"</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code
+                                            class="code-inline text-cyan-600 border-cyan-200 bg-cyan-50">x-bind (:)</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Camaleão.</strong> Classes e atributos dinâmicos.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 03 (Likes) & 08 (Senha):
+                                        </div>
+                                        <code
+                                            class="text-xs bg-slate-100 p-1 rounded block mb-1">:class="{ 'text-red-500': likes > 0 }"</code>
+                                        <code
+                                            class="text-xs bg-slate-100 p-1 rounded block">:disabled="senha.length < 8"</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code
+                                            class="code-inline text-orange-600 border-orange-200 bg-orange-50">x-on (@)</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Gatilho.</strong> Ações de clique ou teclado.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 03 (Likes) & 09 (API):
+                                        </div>
+                                        <code class="text-xs bg-slate-100 p-1 rounded">@click="likes++"</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code
+                                            class="code-inline text-emerald-600 border-emerald-200 bg-emerald-50">x-model</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>A Ponte.</strong> Sincroniza inputs e variáveis.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 07 (Gorjeta) & 08 (Senha):
+                                        </div>
+                                        <code
+                                            class="text-xs bg-slate-100 p-1 rounded">&lt;input x-model="valorConta"&gt;</code>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-slate-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <code
+                                            class="code-inline text-indigo-600 border-indigo-200 bg-indigo-50">x-for</code>
+                                    </td>
+                                    <td class="px-6 py-4 text-slate-600">
+                                        <strong>O Clone.</strong> Repete HTML para cada item da lista.
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 06 (To-Do) & 10 (Loja):
+                                        </div>
+                                        <code class="text-xs bg-slate-100 p-1 rounded">x-for="tarefa in lista"</code>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div
+                        class="bg-slate-50 px-6 py-4 border-t border-slate-200 text-xs text-slate-500 flex items-center gap-2">
+                        <i class="ph ph-info text-brand-600 text-lg"></i>
+                        <span>Precisa de mais detalhes? Consulte a <a href="https://alpinejs.dev" target="_blank"
+                                class="text-brand-600 hover:underline font-bold">Documentação Oficial</a>.</span>
                     </div>
                 </div>
 
