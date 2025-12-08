@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice: Taxonomia de Bloom | IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        ifrn: { green: '#34A853', red: '#EA4335' } // Cores alusivas à educação/técnico
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .code-snippet {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        /* Grid de fundo estilo papel milimetrado/blueprint */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .scientific-box {
+            border-left: 3px solid #cbd5e1;
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+            color: #64748b;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center text-white font-bold font-mono">
+                    IF</div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-sm text-slate-900 leading-tight">Cursos de Informática</span>
+                    <span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Fundamentos da
+                        Educação</span>
+                </div>
+            </div>
+            <a href="#" onclick="window.history.back(); return false;"
+                class="text-sm text-brand-600 hover:text-brand-800 font-medium flex items-center gap-1 transition-colors">
+                &larr; Voltar ao Material
+            </a>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span
+                class="bg-brand-50 text-brand-700 border border-brand-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">
+                Metacognição & Aprendizagem
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Taxonomia de Bloom
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Você não começa um jogo enfrentando o "Boss" final. O aprendizado funciona igual: existe uma escada de
+                evolução. Entenda como seu cérebro processa informação, do simples "decorar" até a capacidade de
+                "inventar" tecnologia.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <section class="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 shadow-sm">
+            <div class="grid md:grid-cols-[1fr_250px] gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">O "Level Up" do Conhecimento</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Imagine que a Taxonomia de Bloom é a "Árvore de Habilidades" (Skill Tree) do seu cérebro. Em
+                        1956, Benjamin Bloom e sua equipe perceberam que aprender não é binário (tipo "sabe" ou "não
+                        sabe"). É um espectro.
+                    </p>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Em 2001, essa teoria foi atualizada (por Anderson & Krathwohl) para ser mais ativa. Em vez de
+                        substantivos, usamos <strong>verbos</strong>. Por que isso importa para você, aluno do IFRN?
+                    </p>
+                    <ul class="space-y-3 mt-6">
+                        <li class="flex items-start gap-3">
+                            <span
+                                class="mt-1 w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">✓</span>
+                            <span class="text-slate-700 text-sm"><strong>Evita a Ilusão de Competência:</strong> Só
+                                porque você decorou o comando <code>git commit</code>, não significa que sabe gerenciar
+                                versionamento (Nível 1 vs Nível 3).</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span
+                                class="mt-1 w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">✓</span>
+                            <span class="text-slate-700 text-sm"><strong>Guia seus Estudos:</strong> Se a prova pede
+                                para "Analisar", não adianta apenas ler o livro (Lembrar). Você precisa praticar
+                                comparando códigos.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex items-center justify-center bg-slate-50 rounded-xl border border-slate-100 p-4">
+
+
+                    [Image of Bloom's Taxonomy Pyramid]
+
+                </div>
+            </div>
+        </section>
+
+        <div class="relative py-4">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="w-full border-t border-slate-200"></div>
+            </div>
+            <div class="relative flex justify-center">
+                <span class="bg-f8fafc px-3 text-sm text-slate-500 font-medium bg-[#f8fafc]">Os 6 Níveis
+                    Cognitivos</span>
+            </div>
+        </div>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-slate-200 text-slate-700 w-8 h-8 rounded flex items-center justify-center font-bold">1</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Lembrar (Remember)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Recuperar conhecimentos relevantes da memória de longo prazo."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">O famoso "CTRL+C / CTRL+V" mental.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Aqui você não precisa entender profundamente como a "mágica" acontece, você apenas sabe que o dado
+                    existe e consegue puxá-lo da cabeça. É a base de tudo (você não coda se não lembrar os comandos).
+                </p>
+
+                <div class="mt-4 bg-slate-100 p-4 rounded-lg border-l-4 border-slate-400">
+                    <p class="text-xs font-bold text-slate-500 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Saber de cabeça que a porta padrão do protocolo HTTP é a <strong>80</strong> ou lembrar que a
+                        tag para imagem em HTML é <code>&lt;img&gt;</code>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center">
+                    <div class="w-32 bg-yellow-100 border border-yellow-200 shadow-lg p-3 rotate-2">
+                        <div class="w-2 h-2 rounded-full bg-red-400 mx-auto mb-2 opacity-50"></div>
+                        <p class="font-mono text-[10px] text-yellow-800 leading-tight">
+                            const PI = 3.14;<br>
+                            #fff = white;<br>
+                            git init
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-brand-100 text-brand-600 w-8 h-8 rounded flex items-center justify-center font-bold">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Entender (Understand)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Construir significado a partir de mensagens instrucionais, incluindo comunicação oral, escrita e
+                    gráfica."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Você sabe explicar o "porquê".</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Não é mais decoreba. Se alguém te perguntar "o que esse código faz?", você não lê o código linha por
+                    linha, você explica a <strong>intenção</strong> dele.
+                </p>
+
+                <div class="mt-4 bg-brand-50 p-4 rounded-lg border-l-4 border-brand-500">
+                    <p class="text-xs font-bold text-brand-600 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Olhar para um diagrama de rede e explicar: "Ah, o computador A não pinga no B porque eles estão
+                        em <strong>VLANs diferentes</strong> sem roteamento configurado."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center gap-4">
+                    <div class="bg-slate-800 text-green-400 p-2 rounded text-[10px] font-mono shadow-sm">
+                        if (x > 10)
+                    </div>
+                    <span class="text-slate-400 text-xl">→</span>
+                    <div
+                        class="bg-white border border-slate-200 p-2 rounded-tl-xl rounded-tr-xl rounded-br-xl text-[10px] text-slate-600 shadow-sm relative">
+                        "Se o valor for maior que 10..."
+                        <div
+                            class="absolute bottom-0 left-[-6px] w-2 h-2 bg-white border-b border-l border-slate-200 transform rotate-45">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-teal-100 text-teal-600 w-8 h-8 rounded flex items-center justify-center font-bold">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Aplicar (Apply)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Executar ou implementar um procedimento numa situação específica."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Sai da teoria, mão na massa.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    É a hora do laboratório. Você pega a fórmula ou o conceito que entendeu e usa para resolver um
+                    problema novo que o professor passou.
+                </p>
+
+                <div class="mt-4 bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
+                    <p class="text-xs font-bold text-teal-700 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        O professor pede para criar uma calculadora de IMC. Você usa o conceito de <code>if/else</code>
+                        e operadores matemáticos para <strong>escrever o script</strong> que funciona.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center">
+                    <div class="w-48 bg-slate-900 rounded-md shadow-lg overflow-hidden border border-slate-700">
+                        <div class="bg-slate-800 px-2 py-1 flex gap-1">
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="p-2 font-mono text-[10px] text-green-400">
+                            $ ./executar-script<br>
+                            <span class="text-white">Compilando...</span><br>
+                            <span class="text-white">Saída: Sucesso!</span><br>
+                            <span class="animate-pulse">_</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-purple-100 text-purple-600 w-8 h-8 rounded flex items-center justify-center font-bold">4</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Analisar (Analyze)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Decompor o material nas suas partes constituintes e detectar como as partes se relacionam."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Modo Debug / Detetive.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Algo quebrou ou é complexo demais. Você "fatia" o problema. O site está lento? É o banco de dados? É
+                    o front-end? É a internet? Você investiga as conexões.
+                </p>
+
+                <div class="mt-4 bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
+                    <p class="text-xs font-bold text-purple-700 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Abrir o "Inspecionar Elemento" do navegador para descobrir por que a <code>div</code> não está
+                        centralizada, olhando o CSS, o HTML e o Box Model separadamente.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center">
+                    <div class="relative">
+                        <div class="font-mono text-xs text-slate-300">
+                            func main() {<br>
+                            &nbsp;&nbsp;print("Hello")<br>
+                            &nbsp;&nbsp;<span class="text-red-500 font-bold">ERRO_AQUI</span>;<br>
+                            }
+                        </div>
+                        <div
+                            class="absolute -top-2 -right-4 w-12 h-12 border-2 border-purple-500 rounded-full bg-purple-500/10 backdrop-blur-[1px] flex items-center justify-center shadow-sm">
+                            <span class="text-[8px] text-purple-900 font-bold bg-white px-1 rounded">BUG?</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-amber-100 text-amber-600 w-8 h-8 rounded flex items-center justify-center font-bold">5</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Avaliar (Evaluate)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Fazer julgamentos baseados em critérios e padrões."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">O crítico chato (mas necessário).</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Não basta funcionar, tem que ser bom. É seguro? É rápido? É a melhor escolha? Aqui você defende sua
+                    opinião técnica.
+                </p>
+
+                <div class="mt-4 bg-amber-50 p-4 rounded-lg border-l-4 border-amber-500">
+                    <p class="text-xs font-bold text-amber-700 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        O professor pede um site. Você pode fazer em WordPress ou programar do zero em HTML/CSS. Você
+                        <strong>julga</strong> qual é o melhor para aquele prazo e <strong>justifica</strong> a escolha.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center gap-4">
+                    <div class="flex flex-col items-center gap-1 opacity-50 grayscale">
+                        <div
+                            class="w-10 h-12 border border-slate-300 bg-slate-50 rounded flex items-center justify-center text-[8px]">
+                            Opção A</div>
+                        <span class="text-red-500 text-xs font-bold">✖ Lento</span>
+                    </div>
+                    <div class="h-10 w-px bg-slate-300"></div>
+                    <div class="flex flex-col items-center gap-1 transform scale-110">
+                        <div
+                            class="w-10 h-12 border border-amber-400 bg-amber-50 rounded flex items-center justify-center text-[8px] font-bold text-amber-700 shadow-md">
+                            Opção B</div>
+                        <span class="text-green-600 text-xs font-bold">✔ Seguro</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-rose-100 text-rose-600 w-8 h-8 rounded flex items-center justify-center font-bold">6</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Criar (Create)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    "Juntar elementos para formar um todo coerente ou funcional; reorganizar elementos num novo padrão."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Modo Deus / Inventor.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    É o topo. Você usa tudo o que aprendeu (memória, entendimento, análise) para fazer algo que não
+                    existia antes na sua frente. É a inovação.
+                </p>
+
+                <div class="mt-4 bg-rose-50 p-4 rounded-lg border-l-4 border-rose-500">
+                    <p class="text-xs font-bold text-rose-700 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Desenvolver o Projeto Integrador: um sistema de irrigação automática usando Arduino + um App
+                        Mobile que você desenhou e codificou do zero.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[160px] border border-slate-100 p-4 relative flex items-center justify-center">
+                    <div class="relative w-24 h-24">
+                        <div
+                            class="absolute bottom-0 left-0 w-8 h-8 bg-rose-500 rounded-sm shadow-sm border border-rose-600 z-10">
+                        </div>
+                        <div
+                            class="absolute bottom-0 right-0 w-8 h-8 bg-rose-400 rounded-sm shadow-sm border border-rose-500 z-10">
+                        </div>
+                        <div
+                            class="absolute bottom-8 left-4 w-8 h-8 bg-rose-300 rounded-sm shadow-sm border border-rose-400 z-20 animate-bounce">
+                        </div>
+
+                        <div
+                            class="absolute -top-4 right-0 bg-white border border-slate-200 text-[8px] px-2 py-1 rounded shadow-sm text-slate-500">
+                            Build v1.0
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="bg-slate-900 border-t border-slate-800 py-16 px-4 text-slate-300">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="font-bold text-white text-xl mb-6 text-center">Resumo para Provas e Projetos</h3>
+            <div class="overflow-x-auto">
+                <table
+                    class="w-full text-sm text-left text-slate-400 rounded-lg overflow-hidden border border-slate-700">
+                    <thead class="bg-slate-800 text-slate-200 uppercase text-xs font-bold">
+                        <tr>
+                            <th class="px-6 py-4">Nível</th>
+                            <th class="px-6 py-4">Palavra-Chave</th>
+                            <th class="px-6 py-4">Exemplo Rápido (Informática)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700 bg-slate-800/50">
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-slate-500">1. Lembrar</td>
+                            <td class="px-6 py-3 text-white">Reconhecer informação
+                                <p>Citar, Definir, Listar, Rotular</p>
+                            </td>
+                            <td class="px-6 py-3">Saber que <code>int</code> é número inteiro.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-brand-400">2. Entender</td>
+                            <td class="px-6 py-3 text-white">Explicar significado
+                                <p>Descrever, Resumir, Inferir, Parafrasear</p>
+                            </td>
+                            <td class="px-6 py-3">Saber explicar por que usar <code>int</code> e não <code>string</code>
+                                para fazer somas.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-teal-400">3. Aplicar</td>
+                            <td class="px-6 py-3 text-white">Usar em nova situação
+                                <p>
+                                    Implementar, Calcular, Demonstrar, Operar
+                                </p>
+                            </td>
+                            <td class="px-6 py-3">Escrever a variável <code>int idade = 18;</code> no código.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-purple-400">4. Analisar</td>
+                            <td class="px-6 py-3 text-white">Diferenciar, Conectar e distinguir
+                                <p>Comparar, Diferenciar, Atribuir, Organizar</p>
+                            </td>
+                            <td class="px-6 py-3">Descobrir que o cálculo deu errado porque você usou <code>float</code>
+                                num lugar de <code>int</code>.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-amber-400">5. Avaliar</td>
+                            <td class="px-6 py-3 text-white">Julgar mérito
+                                <p>Checar, Criticar, Validar, Defender</p>
+                            </td>
+                            <td class="px-6 py-3">Decidir se o uso de memória dessa variável vale a pena.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-3 font-mono text-rose-400">6. Criar</td>
+                            <td class="px-6 py-3 text-white">Gerar algo novo
+                                <p>Projetar, Compor, Planejar, Inventar</p>
+                            </td>
+                            <td class="px-6 py-3">Criar um novo tipo de dado para resolver um problema específico.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center text-sm text-slate-500 space-y-4">
+            <p class="font-bold text-slate-700">Referências Acadêmicas</p>
+            <ul class="space-y-2">
+                <li><a href="https://teaching.charlotte.edu/services-programs/teaching-guides/course-design/blooms-educational-objectives/"
+                        target="_blank" class="hover:underline">BLOOM, B. S. et al. <em>Taxonomy of Educational
+                            Objectives</em>. New
+                        York: David McKay, 1956.</a></li>
+                <li>
+                    <a href="https://www.researchgate.net/publication/235465787_A_Taxonomy_for_Learning_Teaching_and_Assessing_A_Revision_of_Bloom's_Taxonomy_of_Educational_Objectives"
+                        target="_blank" class="hover:underline">
+                        ANDERSON, L. W. et al. <em>A Taxonomy for Learning, Teaching, and Assessing (Revision)</em>. New
+                        York: Longman, 2001.</a>
+                </li>
+                <li>
+                    <a href="https://www.scielo.br/j/gp/a/bRkFgcJqbGCDp3HjQqFdqBm/?format=pdf&lang=pt" target="_blank"
+                        class="hover:underline">
+                        FERRAZ, A. P. C. M.; BELHOT, R. V. <em>Taxonomia de Bloom: revisão teórica e apresentação das
+                            adequações do instrumento para definição de objetivos instrucionais</em>. Gestão & Produção,
+                        São Carlos, v. 17, n.
+                        2, p. 421-431, 2010.</a>
+                </li>
+            </ul>
+            <div class="pt-8 border-t border-slate-100 mt-8">
+                <p>Material de Apoio Didático • Licenciatura e Técnico em Informática • IFRN</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

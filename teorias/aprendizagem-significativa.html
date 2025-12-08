@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice: Aprendizagem Significativa | IFRN - Técnico em Informática</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        // Cores para representar "Conexão" (Ausubel) vs "Isolado"
+                        connect: { light: '#dcfce7', main: '#22c55e', dark: '#15803d' },
+                        isolate: { light: '#fee2e2', main: '#ef4444', dark: '#b91c1c' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Grid de fundo estilo papel milimetrado/blueprint */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .scientific-box {
+            border-left: 3px solid #64748b;
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+            color: #475569;
+            font-size: 0.9em;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .ref-tag {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .node {
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center text-white font-bold font-mono">
+                    IF</div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-sm text-slate-900 leading-tight">Técnico em Informática</span>
+                    <span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Psicologia da
+                        Aprendizagem</span>
+                </div>
+            </div>
+            <a href="#" onclick="window.history.back(); return false;"
+                class="text-sm text-brand-600 hover:text-brand-800 font-medium flex items-center gap-1 transition-colors">
+                &larr; Voltar ao Material
+            </a>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span
+                class="bg-connect-light text-connect-dark border border-connect-main px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">
+                Teoria Cognitivista
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Aprendizagem Significativa
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Esqueça a "decoreba". Na visão de David Ausubel, aprender de verdade é como conectar um novo computador
+                em uma rede que já existe. Se não houver conexão, o dado se perde.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-slate-200 text-slate-700 w-8 h-8 rounded flex items-center justify-center font-bold">1</span>
+                    <h2 class="text-2xl font-bold text-slate-900">O Conceito de "Ancoragem"</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Ausubel (1968)</span>
+                    "O fator isolado mais importante que influencia a aprendizagem é aquilo que o aprendiz já sabe.
+                    Descubra o que ele sabe e baseie isso nos seus ensinamentos."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">O conhecimento precisa de um "Cabide".</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Seu cérebro não aceita informações soltas voando no vácuo. Para aprender algo novo, você precisa
+                    "pendurar" essa informação em algo que você já conhece (chamado tecnicamente de <em>subsunçor</em>).
+                    Sem o cabide, a roupa cai (você esquece).
+                </p>
+
+                <div class="mt-4 bg-slate-100 p-4 rounded-lg border-l-4 border-brand-500">
+                    <p class="text-xs font-bold text-slate-500 uppercase mb-1">Contexto IFRN (Redes)</p>
+                    <p class="text-slate-800 text-sm">
+                        É impossível entender o que é um <strong>Endereço IP</strong> se você não ancorar isso no
+                        conceito de <strong>Número de Telefone</strong> ou <strong>CEP</strong> de uma casa. O conceito
+                        novo (IP) se ancora no velho (Telefone).
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-4 text-center">Visualização da Ancoragem</p>
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex flex-col items-center justify-center">
+
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div
+                            class="w-32 h-12 bg-slate-200 rounded-t-lg border-2 border-slate-300 flex items-center justify-center font-bold text-xs text-slate-600 mb-[-2px] shadow-inner">
+                            Conhecimento Prévio
+                        </div>
+                        <div class="w-8 h-8 border-l-4 border-r-4 border-slate-300 bg-transparent"></div>
+                        <div
+                            class="w-32 h-12 bg-brand-500 rounded-b-lg border-2 border-brand-600 flex items-center justify-center font-bold text-xs text-white shadow-lg node">
+                            Nova Matéria
+                        </div>
+                    </div>
+
+                    <div class="absolute right-4 top-10 w-24 text-[9px] text-slate-400 text-center leading-tight">
+                        Se a conexão falhar, o bloco azul cai (esquecimento).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-connect-light text-connect-dark w-8 h-8 rounded flex items-center justify-center font-bold">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Mecânica vs. Significativa</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Moreira (1999)</span>
+                    "Na aprendizagem mecânica, a nova informação é armazenada de forma arbitrária e literal. Na
+                    significativa, há uma interação substantiva com a estrutura cognitiva."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-isolate-main">Decoreba (RAM)</span> vs <span
+                        class="text-connect-main">Entendimento (HD/SSD)</span>.
+                </p>
+                <p class="text-slate-600 text-sm">
+                    <strong>Mecânica:</strong> Você decora os passos para a prova e esquece em 2 dias. É como copiar um
+                    arquivo para a memória RAM. Desligou, sumiu.<br>
+                    <strong>Significativa:</strong> Você entende a lógica. O conhecimento novo altera o antigo. É como
+                    gravar no SSD e criar atalhos na Área de Trabalho.
+                </p>
+
+                <div class="mt-4 bg-connect-light p-4 rounded-lg border-l-4 border-connect-main">
+                    <p class="text-xs font-bold text-connect-dark uppercase mb-1">Contexto IFRN (Programação)</p>
+                    <ul class="text-sm space-y-2">
+                        <li class="flex gap-2">
+                            <span class="text-isolate-main font-bold">✖ Mecânico:</span>
+                            <span class="text-slate-700">Decorar <code>public static void main</code> sem saber o que
+                                significa, só para o código rodar.</span>
+                        </li>
+                        <li class="flex gap-2">
+                            <span class="text-connect-main font-bold">✔ Significativo:</span>
+                            <span class="text-slate-700">Entender que <code>void</code> é uma função sem retorno, igual
+                                a um "grito" no vácuo, e usar isso em qualquer linguagem (Java, C, C#).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-4 text-center">Armazenamento Mental</p>
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex flex-col justify-around">
+
+                    <div class="flex items-center gap-4">
+                        <div class="flex gap-1 flex-wrap w-24 justify-center">
+                            <div class="w-4 h-4 bg-isolate-main rounded-sm opacity-50"></div>
+                            <div class="w-4 h-4 bg-isolate-main rounded-sm opacity-30"></div>
+                            <div class="w-4 h-4 bg-isolate-main rounded-sm opacity-80"></div>
+                            <div class="w-4 h-4 bg-isolate-main rounded-sm opacity-40"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-500 leading-tight">
+                            <strong>Mecânica:</strong> Dados soltos.<br>Difícil de recuperar.
+                        </div>
+                    </div>
+
+                    <div class="w-full h-px bg-slate-200 my-2"></div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="relative w-24 h-24 flex items-center justify-center">
+                            <div class="absolute w-20 h-20 border-2 border-connect-main rounded-full opacity-20"></div>
+                            <div class="absolute w-3 h-3 bg-connect-main rounded-full top-2 right-4"></div>
+                            <div class="absolute w-3 h-3 bg-connect-main rounded-full bottom-2 left-4"></div>
+                            <div class="absolute w-4 h-4 bg-slate-800 rounded-full z-10 border-2 border-white"></div>
+                            <svg class="absolute inset-0 w-full h-full text-connect-main" style="z-index: 0;">
+                                <line x1="50%" y1="50%" x2="80%" y2="20%" stroke="currentColor" stroke-width="2" />
+                                <line x1="50%" y1="50%" x2="20%" y2="80%" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="text-[10px] text-slate-500 leading-tight">
+                            <strong>Significativa:</strong> Rede neural.<br>Um dado puxa o outro.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-slate-800 text-white w-8 h-8 rounded flex items-center justify-center font-bold">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900">A Ponte (Organizadores Prévios)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Ausubel (1963)</span>
+                    "Materiais introdutórios apresentados antes do conteúdo de aprendizagem, num nível mais alto de
+                    abstração, generalidade e inclusividade."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">O "Trailer" ou o "Tutorial" antes do jogo.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Às vezes, você <strong>não tem</strong> o conhecimento prévio (o cabide) para aprender uma matéria
+                    difícil. O professor precisa criar uma "ponte" cognitiva. Ele te dá uma visão geral simplificada
+                    antes de entrar nos detalhes técnicos.
+                </p>
+
+                <div class="mt-4 bg-white border border-slate-200 p-4 rounded-lg shadow-sm">
+                    <p class="text-xs font-bold text-slate-900 uppercase mb-1">Contexto IFRN (Banco de Dados)</p>
+                    <p class="text-slate-800 text-sm">
+                        Antes de ensinar os comandos SQL (<code>SELECT * FROM...</code>), o professor mostra uma
+                        <strong>planilha do Excel</strong>.
+                        <br><br>
+                        <em>"Estão vendo as colunas? No SQL chamamos de Campos. Estão vendo as linhas? Chamamos de
+                            Registros."</em>
+                        <br><br>
+                        A planilha do Excel serviu como <strong>Organizador Prévio</strong> para aprender Banco de
+                        Dados.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex items-center justify-center">
+
+                    <div class="relative w-full max-w-xs h-32 flex items-center justify-between px-2">
+                        <div class="flex flex-col items-center z-10">
+                            <div class="w-10 h-10 bg-slate-300 rounded-full flex items-center justify-center text-xl">😐
+                            </div>
+                            <span class="text-[9px] font-bold mt-1 text-slate-500">Aluno</span>
+                        </div>
+
+                        <div class="absolute left-12 right-12 h-2 bg-brand-200 top-1/2 -mt-1 rounded"></div>
+                        <div
+                            class="absolute left-[50%] top-[35%] transform -translate-x-1/2 bg-white border border-brand-500 text-brand-600 px-2 py-1 rounded text-[9px] font-bold shadow-sm z-20">
+                            Organizador Prévio
+                        </div>
+
+                        <div class="flex flex-col items-center z-10">
+                            <div
+                                class="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white font-mono text-xs font-bold">
+                                &lt;/&gt;</div>
+                            <span class="text-[9px] font-bold mt-1 text-slate-500">Conteúdo Novo</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 px-4 mt-12">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+
+            <div class="text-left bg-slate-50 p-6 rounded-lg border border-slate-200">
+                <h3 class="font-bold text-slate-800 text-sm mb-4 uppercase tracking-wider">📚 Referências Bibliográficas
+                    Fundamentais</h3>
+                <ul class="space-y-3 text-sm text-slate-600 font-mono text-xs md:text-sm">
+                    <li class="pl-4 border-l-2 border-brand-400">
+                        <strong>AUSUBEL, D. P.</strong> (1968). <em>Educational Psychology: A Cognitive View</em>. New
+                        York: Holt, Rinehart and Winston.
+                        <span class="block text-slate-400 mt-1 italic">A obra seminal que define a estrutura cognitiva e
+                            a ancoragem.</span>
+                    </li>
+                    <li class="pl-4 border-l-2 border-brand-400">
+                        <strong>AUSUBEL, D. P.</strong> (2000). <em>The Acquisition and Retention of Knowledge: A
+                            Cognitive View</em>. Dordrecht: Kluwer Academic Publishers.
+                        <span class="block text-slate-400 mt-1 italic">Uma atualização das teorias originais feita pelo
+                            próprio autor décadas depois.</span>
+                    </li>
+                    <li class="pl-4 border-l-2 border-connect-main">
+                        <strong>MOREIRA, M. A.</strong> (1999). <em>Aprendizagem Significativa</em>. Brasília: Editora
+                        da UnB.
+                        <span class="block text-slate-400 mt-1 italic">Referência máxima no Brasil. Leitura obrigatória
+                            para entender a aplicação da teoria em sala de aula.</span>
+                    </li>
+                    <li class="pl-4 border-l-2 border-slate-300">
+                        <strong>NOVAK, J. D.</strong> (1984). <em>Learning How to Learn</em>. Cambridge University
+                        Press.
+                        <span class="block text-slate-400 mt-1 italic">Criador dos Mapas Conceituais, ferramenta prática
+                            baseada na teoria de Ausubel.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pt-8 border-t border-slate-100">
+                <p class="text-sm text-slate-500">Material Didático Digital • IFRN - Instituto Federal do Rio Grande do
+                    Norte</p>
+                <p class="text-xs text-slate-400 mt-2">Desenvolvido para apoio ao ensino técnico e licenciatura.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

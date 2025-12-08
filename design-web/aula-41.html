@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 11 — Dia 1: A Bíblia do Alpine.js | Design Web IFRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+
+    <style>
+        /* Setup Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Destaque de Termos (Glossário Interativo) */
+        .term-highlight {
+            cursor: help;
+            border-bottom: 2px dashed #3b82f6;
+            color: #1d4ed8;
+            font-weight: 700;
+            transition: all 0.2s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .term-highlight:hover {
+            background-color: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        /* Modal de Apresentação */
+        .presentation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.98);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .presentation-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            max-width: 1100px;
+            text-align: center;
+            color: white;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .presentation-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* Slide Deck */
+        .slide-container {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            min-height: 650px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- ESTILOS DE CÓDIGO (PREMIUM) --- */
+        pre {
+            margin: 0;
+            white-space: pre;
+            /* Garante que a identação do HTML seja respeitada */
+        }
+
+        .code-window {
+            background: #1e1e1e;
+            /* VS Code Background */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #d4d4d4;
+            border: 1px solid #333;
+        }
+
+        .code-header {
+            background: #252526;
+            padding: 8px 16px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .code-body {
+            padding: 20px;
+            overflow-x: auto;
+            /* Scroll horizontal se necessário */
+        }
+
+        /* Syntax Highlighting Simulado */
+        .tk-tag {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        /* Tags HTML (azul) */
+        .tk-attr {
+            color: #9cdcfe;
+        }
+
+        /* Atributos (azul claro) */
+        .tk-str {
+            color: #ce9178;
+        }
+
+        /* Strings (laranja) */
+        .tk-kwd {
+            color: #c586c0;
+            font-weight: bold;
+        }
+
+        /* Keywords JS (roxo) */
+        .tk-fn {
+            color: #dcdcaa;
+        }
+
+        /* Funções (amarelo) */
+        .tk-cmt {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        /* Comentários (verde) */
+        .tk-alpine {
+            color: #ff79c6;
+            font-weight: bold;
+        }
+
+        /* Diretivas Alpine (Rosa) */
+
+        /* Utilitários */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .step-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Sora';
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="pb-40" x-data="{ 
+    modalOpen: false, 
+    modalTitle: '', 
+    modalDesc: '', 
+    modalOrigin: '' 
+}">
+
+    <div class="presentation-modal" :class="{ 'active': modalOpen }" @click="modalOpen = false"
+        @keydown.window.escape="modalOpen = false">
+
+        <div class="modal-content" @click.stop>
+            <div class="mb-6 text-blue-400 font-mono text-xl uppercase tracking-widest border-b border-blue-900 inline-block pb-2"
+                x-text="modalOrigin"></div>
+            <h2 class="text-5xl md:text-7xl font-bold font-sora mb-8 text-white leading-tight" x-text="modalTitle"></h2>
+            <p class="text-xl md:text-3xl text-gray-300 leading-relaxed font-light max-w-4xl mx-auto"
+                x-text="modalDesc"></p>
+            <div class="mt-16 text-sm text-gray-500 animate-pulse">
+                (Pressione ESC ou clique para fechar)
+            </div>
+        </div>
+    </div>
+
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-6 fixed w-full top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    IF</div>
+                <div>
+                    <span class="font-sora font-bold text-gray-900 block text-lg">Design Web</span>
+                    <span class="text-xs text-gray-500 font-medium tracking-wide">Módulo 4: Alpine.js</span>
+                </div>
+            </div>
+            <div class="hidden md:block">
+                <span class="text-sm font-semibold text-gray-400">Semana 11</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="px-4 md:px-8 max-w-6xl mx-auto mt-32">
+
+        <header class="mb-20 text-center relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -z-10">
+            </div>
+
+            <div class="inline-flex gap-3 mb-6">
+                <span class="badge bg-blue-100 text-blue-800">Front-end Moderno</span>
+                <span class="badge bg-purple-100 text-purple-800">Mindset Shift</span>
+            </div>
+
+            <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 font-sora tracking-tight leading-tight">
+                Dê inteligência ao <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">seu
+                    HTML/CSS.</span>
+            </h1>
+
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Vocês já sabem construir a "pele" (CSS) e o "esqueleto" (HTML). Hoje, vamos adicionar o "cérebro". Vamos
+                entender por que o
+                <span class="term-highlight"
+                    @click="modalOpen = true; modalTitle = 'Vanilla JS'; modalOrigin = 'Origem: Sorvete de Baunilha (Padrão)'; modalDesc = 'É o JavaScript puro, sem bibliotecas. É poderoso, mas exige que você escreva MUITO código para fazer coisas simples.'">Vanilla
+                    JS</span>
+                cansa e como a <strong>Reatividade</strong> muda o jogo.
+            </p>
+        </header>
+
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">1</div>
+                <h2 class="text-3xl font-bold text-gray-900">O que é "Reatividade"?</h2>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-200">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-green-700">A Metáfora do Excel 📊</h3>
+                        <p class="text-lg text-gray-600 mb-6">
+                            Imaginem uma planilha. Na célula <strong>C1</strong>, você escreve a fórmula: <br>
+                            <code
+                                class="bg-gray-100 px-2 py-1 rounded font-mono font-bold text-gray-800">= A1 + B1</code>
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            Se você mudar o valor de <strong>A1</strong>, o que acontece com <strong>C1</strong>?
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center gap-3 bg-red-50 p-3 rounded-lg text-red-800">
+                                <i class="ph ph-x-circle text-xl"></i>
+                                <span><strong>Mundo Imperativo (JS Antigo):</strong> Nada acontece. Você precisa apertar
+                                    um botão "Recalcular" toda vez.</span>
+                            </li>
+                            <li
+                                class="flex items-center gap-3 bg-green-50 p-3 rounded-lg text-green-800 font-bold shadow-sm">
+                                <i class="ph ph-check-circle text-xl"></i>
+                                <span><strong>Mundo Reativo (Alpine):</strong> Ele atualiza SOZINHO.
+                                    Instantaneamente.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="bg-gray-50 rounded-2xl p-8 border border-gray-200 flex flex-col items-center justify-center text-center">
+                        <div x-data="{ a: 10, b: 20 }" class="w-full max-w-xs">
+                            <div class="bg-white p-4 rounded shadow mb-4 grid grid-cols-2 gap-4 font-mono text-sm">
+                                <div class="border p-2">A1: <input x-model="a" type="number"
+                                        class="w-12 border-b text-center outline-none text-blue-600 font-bold"></div>
+                                <div class="border p-2">B1: <input x-model="b" type="number"
+                                        class="w-12 border-b text-center outline-none text-blue-600 font-bold"></div>
+                                <div class="border p-2 col-span-2 bg-green-100 text-green-800">
+                                    C1 (= A1+B1): <span x-text="parseInt(a)+parseInt(b)"
+                                        class="font-bold text-xl"></span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-400">↑ Isto é um componente Alpine real rodando agora.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section x-data="{ slide: 1, total: 3 }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">2</div>
+                <h2 class="text-3xl font-bold text-gray-900">A Evolução do Código</h2>
+            </div>
+
+            <div class="slide-container">
+                <div class="absolute top-0 left-0 h-1.5 bg-gray-100 w-full z-10">
+                    <div class="h-full bg-blue-600 transition-all duration-500"
+                        :style="`width: ${(slide / total) * 100}%`"></div>
+                </div>
+
+                <div x-show="slide === 1" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="h-full p-8 md:p-12 flex-grow">
+                    <div class="grid lg:grid-cols-2 gap-10 h-full">
+                        <div>
+                            <span class="text-red-500 font-bold tracking-widest uppercase text-sm mb-2 block">O Passado
+                                (Vanilla JS)</span>
+                            <h3 class="text-3xl font-bold mb-6">Programação Imperativa</h3>
+                            <p class="text-gray-600 mb-6 text-lg">
+                                Para fazer um simples contador, você precisa "caçar" elementos e gerenciá-los
+                                manualmente.
+                                Se mudar um ID, <strong>tudo quebra</strong>.
+                            </p>
+                            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500 text-red-900 text-sm">
+                                <strong>O Risco:</strong> Se esquecer de atualizar o <code>innerText</code>, o usuário
+                                vê dados velhos.
+                            </div>
+                        </div>
+
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-cmt">// 1. Selecionar (A caça aos elementos)</span>
+<span class="tk-kwd">const</span> btn = <span class="tk-kwd">document</span>.<span class="tk-fn">getElementById</span>(<span class="tk-str">'btn'</span>);
+<span class="tk-kwd">const</span> span = <span class="tk-kwd">document</span>.<span class="tk-fn">getElementById</span>(<span class="tk-str">'count'</span>);
+<span class="tk-kwd">let</span> count = 0;
+
+<span class="tk-cmt">// 2. Ouvir Evento</span>
+btn.<span class="tk-fn">addEventListener</span>(<span class="tk-str">'click'</span>, () => {
+    <span class="tk-cmt">// 3. Lógica</span>
+    count++;
+    
+    <span class="tk-cmt">// 4. SINCRONIA MANUAL (A parte chata)</span>
+    span.<span class="tk-attr">innerText</span> = count;
+    
+    <span class="tk-kwd">if</span> (count > 10) {
+        btn.<span class="tk-attr">classList</span>.<span class="tk-fn">add</span>(<span class="tk-str">'red'</span>);
+    }
+});
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="slide === 2" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="h-full p-8 md:p-12 flex-grow">
+                    <div class="grid lg:grid-cols-2 gap-10 h-full">
+                        <div>
+                            <span class="text-green-600 font-bold tracking-widest uppercase text-sm mb-2 block">O
+                                Presente (Alpine.js)</span>
+                            <h3 class="text-3xl font-bold mb-6">Programação Declarativa</h3>
+                            <p class="text-gray-600 mb-6 text-lg">
+                                Você declara o estado direto no HTML. O framework cuida de todo o resto.
+                            </p>
+                            <div
+                                class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 text-green-900 text-sm mb-6">
+                                <strong>A Mágica:</strong> Sem IDs, sem seletores. A lógica vive junto com o elemento.
+                            </div>
+                        </div>
+
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ count: 0 }"</span><span class="tk-tag">&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- O botão altera o dado direto --&gt;</span>
+  <span class="tk-tag">&lt;button</span> 
+      <span class="tk-alpine">@click</span>=<span class="tk-str">"count++"</span>
+      <span class="tk-alpine">:class</span>=<span class="tk-str">"{ 'red': count > 10 }"</span><span class="tk-tag">&gt;</span>
+      
+      Aumentar
+      
+  <span class="tk-tag">&lt;/button&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- O span apenas observa --&gt;</span>
+  <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"count"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="slide === 3" x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="h-full p-8 md:p-12 flex-grow flex flex-col items-center justify-center text-center">
+                    <h3 class="text-4xl font-bold mb-8 text-gray-900">A Diferença é Brutal</h3>
+
+                    <div class="flex flex-wrap justify-center gap-8 w-full">
+                        <div class="bg-gray-100 p-8 rounded-2xl w-64 border border-gray-200">
+                            <div class="text-4xl font-bold text-gray-400 mb-2">15</div>
+                            <div class="text-sm font-bold uppercase tracking-wider text-gray-500">Linhas de Código</div>
+                            <div class="mt-4 text-red-500 font-bold">Vanilla JS</div>
+                        </div>
+
+                        <div class="flex items-center text-4xl text-gray-300">
+                            <i class="ph ph-arrow-right"></i>
+                        </div>
+
+                        <div
+                            class="bg-green-50 p-8 rounded-2xl w-64 border border-green-200 shadow-lg transform scale-110">
+                            <div class="text-5xl font-bold text-green-600 mb-2">3</div>
+                            <div class="text-sm font-bold uppercase tracking-wider text-green-800">Linhas de Código
+                            </div>
+                            <div class="mt-4 text-green-700 font-bold">Alpine.js</div>
+                        </div>
+                    </div>
+
+                    <p class="mt-10 text-gray-600 max-w-lg">
+                        Menos código = Menos bugs = Mais tempo para tomar café ☕.
+                    </p>
+                </div>
+
+                <div class="p-6 flex justify-end gap-3 bg-gray-50 border-t border-gray-100">
+                    <button @click="slide > 1 ? slide-- : null"
+                        class="w-10 h-10 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center transition border border-gray-200 disabled:opacity-50"
+                        :disabled="slide === 1"><i class="ph ph-caret-left"></i></button>
+                    <button @click="slide < total ? slide++ : null"
+                        class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition shadow-lg disabled:opacity-50"
+                        :disabled="slide === total"><i class="ph ph-caret-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">3</div>
+                <h2 class="text-3xl font-bold text-gray-900">Onde estamos pisando?</h2>
+            </div>
+
+            <div class="card bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-sm text-gray-400 uppercase tracking-wider">
+                                <th class="py-4 font-normal">Framework</th>
+                                <th class="py-4 font-normal">Metáfora</th>
+                                <th class="py-4 font-normal">Complexidade</th>
+                                <th class="py-4 font-normal">Ideal para</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            <tr class="border-b border-gray-50 group hover:bg-gray-50 transition">
+                                <td class="py-4 font-bold text-gray-400">jQuery / Vanilla</td>
+                                <td class="py-4">🛠️ Martelo e Formão</td>
+                                <td class="py-4">Baixa (mas manual)</td>
+                                <td class="py-4">Coisas muito simples</td>
+                            </tr>
+                            <tr class="border-b border-gray-50 group hover:bg-gray-50 transition">
+                                <td class="py-4 font-bold">React / Vue</td>
+                                <td class="py-4">🏎️ Fórmula 1</td>
+                                <td class="py-4 text-red-500 font-bold">Altíssima (Build)</td>
+                                <td class="py-4">Apps gigantes (Spotify, Facebook)</td>
+                            </tr>
+                            <tr class="group hover:bg-green-50 transition bg-green-50/30">
+                                <td class="py-4 font-bold text-green-700 flex items-center gap-2"><i
+                                        class="ph ph-check-circle-fill"></i> Alpine.js</td>
+                                <td class="py-4">🚲 Bicicleta Elétrica</td>
+                                <td class="py-4 text-green-600 font-bold">Baixa (Só a tag script)</td>
+                                <td class="py-4">Nossa disciplina e 80% da Web</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section x-data="{ step: 1, totalSteps: 5 }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">4</div>
+                <h2 class="text-3xl font-bold text-gray-900">Passo a Passo: Sua Primeira Calculadora</h2>
+            </div>
+
+            <div class="slide-container bg-gray-900 text-white border-gray-800">
+                <div class="p-8 border-b border-gray-700 flex justify-between items-center bg-gray-800">
+                    <h3 class="text-2xl font-bold text-green-400 font-sora">
+                        Passo <span x-text="step"></span>:
+                        <span class="text-white font-normal text-lg ml-2" x-show="step === 1">Instale o Alpine
+                            (CDN)</span>
+                        <span class="text-white font-normal text-lg ml-2" x-show="step === 2">Estrutura HTML
+                            Básica</span>
+                        <span class="text-white font-normal text-lg ml-2" x-show="step === 3">Declare o Estado
+                            (x-data)</span>
+                        <span class="text-white font-normal text-lg ml-2" x-show="step === 4">Conecte os Inputs
+                            (x-model)</span>
+                        <span class="text-white font-normal text-lg ml-2" x-show="step === 5">A Lógica Reativa
+                            (x-text)</span>
+                    </h3>
+                </div>
+
+                <div class="p-8 md:p-12 h-full flex flex-col justify-between flex-grow">
+
+                    <div x-show="step === 1" x-transition:enter="fade-enter-active" class="h-full">
+                        <p class="text-gray-300 text-lg mb-6">Tudo começa conectando a "cérebro" ao seu projeto. Basta
+                            uma linha de código no <code>&lt;head&gt;</code>.</p>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;head&gt;</span>
+  <span class="tk-cmt">&lt;!-- Adicione isto aqui: --&gt;</span>
+  <span class="tk-tag">&lt;script</span> <span class="tk-attr">defer</span> <span class="tk-attr">src</span>=<span class="tk-str">"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"</span><span class="tk-tag">&gt;&lt;/script&gt;</span>
+<span class="tk-tag">&lt;/head&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 2" x-transition:enter="fade-enter-active" class="h-full">
+                        <p class="text-gray-300 text-lg mb-6">Crie o visual. Dois inputs para os números e um span para
+                            o resultado.</p>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div&gt;</span>
+  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"number"</span> <span class="tk-attr">placeholder</span>=<span class="tk-str">"Número A"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;span&gt;</span> + <span class="tk-tag">&lt;/span&gt;</span>
+  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"number"</span> <span class="tk-attr">placeholder</span>=<span class="tk-str">"Número B"</span><span class="tk-tag">&gt;</span>
+    
+  <span class="tk-tag">&lt;p&gt;</span>Resultado: <span class="tk-tag">&lt;span&gt;</span>0<span class="tk-tag">&lt;/span&gt;&lt;/p&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 3" x-transition:enter="fade-enter-active" class="h-full">
+                        <p class="text-gray-300 text-lg mb-6">Agora, transforme a <code>div</code> comum em um
+                            Componente Alpine usando <code>x-data</code>. Defina as variáveis iniciais.</p>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ a: 0, b: 0 }"</span><span class="tk-tag">&gt;</span> <span class="tk-cmt">&lt;!-- Aqui nasce o Estado --&gt;</span>
+    
+  <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"number"</span><span class="tk-tag">&gt;</span>
+  ...
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 4" x-transition:enter="fade-enter-active" class="h-full">
+                        <p class="text-gray-300 text-lg mb-6">Faça a ligação mágica. Use <code>x-model</code> para que
+                            os inputs controlem as variáveis <code>a</code> e <code>b</code>.</p>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ a: 0, b: 0 }"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-cmt">&lt;!-- O input escreve na variável 'a' --&gt;</span>
+  <span class="tk-tag">&lt;input</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"a"</span> <span class="tk-attr">type</span>=<span class="tk-str">"number"</span><span class="tk-tag">&gt;</span>
+    
+  <span class="tk-tag">&lt;span&gt;</span> + <span class="tk-tag">&lt;/span&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- O input escreve na variável 'b' --&gt;</span>
+  <span class="tk-tag">&lt;input</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"b"</span> <span class="tk-attr">type</span>=<span class="tk-str">"number"</span><span class="tk-tag">&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="step === 5" x-transition:enter="fade-enter-active" class="h-full">
+                        <p class="text-gray-300 text-lg mb-6">O "Grand Finale". Use <code>x-text</code> para mostrar a
+                            soma. O Alpine recalcula automaticamente.</p>
+                        <div class="code-window">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;p&gt;</span>
+  Resultado: 
+  <span class="tk-cmt">&lt;!-- O parseInt garante que não some texto --&gt;</span>
+  <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"parseInt(a) + parseInt(b)"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+<span class="tk-tag">&lt;/p&gt;</span>
+</pre>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-green-900/30 border border-green-500 p-4 rounded text-center">
+                            <p class="text-green-400 font-bold mb-2">Teste Agora:</p>
+                            <div x-data="{ a: 0, b: 0 }"
+                                class="inline-flex items-center gap-2 bg-white text-black p-2 rounded">
+                                <input x-model="a" type="number" class="w-16 border p-1 text-center font-bold">
+                                <span>+</span>
+                                <input x-model="b" type="number" class="w-16 border p-1 text-center font-bold">
+                                <span>=</span>
+                                <span x-text="Number(a) + Number(b)" class="font-bold text-blue-600"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between mt-8 pt-6 border-t border-gray-700">
+                        <button @click="step > 1 ? step-- : null"
+                            class="px-6 py-3 rounded bg-gray-700 hover:bg-gray-600 transition flex items-center gap-2 disabled:opacity-50"
+                            :disabled="step === 1">
+                            <i class="ph ph-arrow-left"></i> Anterior
+                        </button>
+                        <button @click="step < totalSteps ? step++ : null"
+                            class="px-6 py-3 rounded bg-green-600 hover:bg-green-500 text-white font-bold transition flex items-center gap-2 shadow-lg disabled:opacity-50"
+                            :disabled="step === totalSteps">
+                            Próximo <i class="ph ph-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section x-data="{ activeTab: 'state' }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">A "Trindade" do Alpine</h2>
+                    <p class="text-gray-500 text-sm mt-1">Os 3 conceitos que substituem 90% do seu JavaScript antigo.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+
+                <div class="md:w-1/3 bg-gray-50 border-r border-gray-200 p-6 flex flex-col gap-4">
+                    <button @click="activeTab = 'state'" class="text-left p-4 rounded-xl transition-all border-2 group"
+                        :class="activeTab === 'state' ? 'bg-white border-blue-500 shadow-md' : 'border-transparent hover:bg-gray-200'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+                                :class="activeTab === 'state' ? 'bg-blue-600' : 'bg-gray-400'">1</div>
+                            <span class="font-bold text-lg"
+                                :class="activeTab === 'state' ? 'text-blue-700' : 'text-gray-600'">O Estado</span>
+                        </div>
+                        <p class="text-xs text-gray-500 pl-11">A memória do componente (x-data).</p>
+                    </button>
+
+                    <button @click="activeTab = 'binding'"
+                        class="text-left p-4 rounded-xl transition-all border-2 group"
+                        :class="activeTab === 'binding' ? 'bg-white border-purple-500 shadow-md' : 'border-transparent hover:bg-gray-200'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+                                :class="activeTab === 'binding' ? 'bg-purple-600' : 'bg-gray-400'">2</div>
+                            <span class="font-bold text-lg"
+                                :class="activeTab === 'binding' ? 'text-purple-700' : 'text-gray-600'">A Ligação</span>
+                        </div>
+                        <p class="text-xs text-gray-500 pl-11">O reflexo na tela (x-text / x-bind).</p>
+                    </button>
+
+                    <button @click="activeTab = 'events'" class="text-left p-4 rounded-xl transition-all border-2 group"
+                        :class="activeTab === 'events' ? 'bg-white border-orange-500 shadow-md' : 'border-transparent hover:bg-gray-200'">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold"
+                                :class="activeTab === 'events' ? 'bg-orange-600' : 'bg-gray-400'">3</div>
+                            <span class="font-bold text-lg"
+                                :class="activeTab === 'events' ? 'text-orange-700' : 'text-gray-600'">O Evento</span>
+                        </div>
+                        <p class="text-xs text-gray-500 pl-11">O gatilho da ação (@click).</p>
+                    </button>
+                </div>
+
+                <div class="md:w-2/3 p-8 md:p-12 relative bg-white">
+
+                    <div x-show="activeTab === 'state'" x-transition:enter="fade-enter-active">
+                        <span class="badge bg-blue-100 text-blue-700 mb-4">O Cérebro</span>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">x-data: Onde tudo começa</h3>
+
+                        <div class="mb-8">
+                            <p class="text-gray-600 mb-4">
+                                No Alpine, as variáveis "moram" dentro do HTML. Elas só existem dentro daquele bloco
+                                <code>div</code>.
+                            </p>
+
+                            <div class="bg-blue-50 p-4 rounded border border-blue-100 relative overflow-hidden mb-6">
+                                <div
+                                    class="absolute top-0 right-0 bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-bl">
+                                    Alpine</div>
+                                <div class="code-window">
+                                    <div class="code-header">
+                                        <div class="dot dot-red"></div>
+                                    </div>
+                                    <div class="code-body">
+                                        <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ 
+  modalAberto: false, 
+  usuario: 'João' 
+}"</span><span class="tk-tag">&gt;</span>
+</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-900 text-white p-6 rounded-xl">
+                                <h4 class="font-bold mb-2 flex items-center gap-2">
+                                    <i class="ph ph-lightbulb text-yellow-400"></i> Conceito Chave
+                                </h4>
+                                <p class="text-sm text-gray-300">
+                                    Pense no <code>x-data</code> como um "escopo". Tudo o que está dentro dessa div pode
+                                    ver e modificar essas variáveis. Fora da div, elas não existem.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeTab === 'binding'" x-transition:enter="fade-enter-active">
+                        <span class="badge bg-purple-100 text-purple-700 mb-4">O Espelho</span>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">x-bind & x-text: O Reflexo</h3>
+
+                        <div class="mb-8">
+                            <p class="text-gray-600 mb-4">
+                                Você para de dizer "mude isso". Você diz "isso é reflexo daquilo".
+                                <br>Se o estado mudar, o HTML se atualiza instantaneamente.
+                            </p>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-2">1. Texto (Conteúdo)</h4>
+                                    <div class="code-window">
+                                        <div class="code-body py-3">
+                                            <pre>
+<span class="tk-cmt">&lt;!-- Se a var 'nome' mudar, o span muda --&gt;</span>
+<span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"nome"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-2">2. Classes e Atributos</h4>
+                                    <div class="code-window">
+                                        <div class="code-body py-3">
+                                            <pre>
+<span class="tk-cmt">&lt;!-- Se 'erro' for true, adiciona classe 'red' --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">:class</span>=<span class="tk-str">"{ 'red': erro }"</span><span class="tk-tag">&gt;</span>
+</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeTab === 'events'" x-transition:enter="fade-enter-active">
+                        <span class="badge bg-orange-100 text-orange-700 mb-4">O Gatilho</span>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">x-on (@): A Ação</h3>
+
+                        <div class="mb-8">
+                            <p class="text-gray-600 mb-4">
+                                No Alpine, a lógica do clique fica no próprio botão.
+                                Isso torna fácil saber o que um botão faz apenas olhando para o HTML.
+                            </p>
+
+                            <div class="code-window border-orange-500 mb-6">
+                                <div class="code-body">
+                                    <pre>
+<span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"aberto = !aberto"</span><span class="tk-tag">&gt;</span>
+    Toggle Menu
+<span class="tk-tag">&lt;/button&gt;</span>
+</pre>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 p-6 rounded-xl border border-orange-200">
+                                <h4 class="font-bold text-orange-900 mb-4 text-center">O Ciclo da Vida Reativo</h4>
+                                <div class="flex items-center justify-between text-sm md:text-base">
+                                    <div class="text-center">
+                                        <strong>1. Gatilho</strong><br><code>@click</code>
+                                    </div>
+                                    <div class="h-0.5 bg-orange-300 flex-1 mx-2"></div>
+                                    <div class="text-center">
+                                        <strong>2. Estado</strong><br><code>count++</code>
+                                    </div>
+                                    <div class="h-0.5 bg-orange-300 flex-1 mx-2"></div>
+                                    <div class="text-center">
+                                        <strong>3. Tela</strong><br><code>x-text</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-purple-600 text-white">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Missão de Sala: O Card Mágico</h2>
+                    <p class="text-gray-500 text-sm mt-1">Sua primeira entrega prática. Copie, cole, teste e entregue.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card bg-white p-8 rounded-3xl border border-gray-200 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-blue-500"></div>
+
+                <div class="grid lg:grid-cols-1 gap-12">
+
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="badge bg-green-100 text-green-800 border border-green-200">Entrega
+                                Obrigatória</span>
+                            <span class="text-xs text-gray-400 font-mono">Google Classroom</span>
+                        </div>
+
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">O que fazer:</h3>
+                        <p class="text-gray-600 mb-6">
+                            Una o visual do <strong>DaisyUI</strong> com a lógica do <strong>Alpine.js</strong>.
+                            Crie um cartão onde o texto digitado aparece automaticamente na prévia.
+                        </p>
+
+                        <div class="space-y-4 bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <h4 class="font-bold text-gray-700 text-sm uppercase tracking-wide mb-2">Passo a Passo:</h4>
+
+                            <div class="flex gap-3">
+                                <div
+                                    class="bg-purple-100 text-purple-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">
+                                    1</div>
+                                <p class="text-sm text-gray-600">Crie um arquivo HTML novo.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="bg-purple-100 text-purple-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">
+                                    2</div>
+                                <p class="text-sm text-gray-600">Copie o código ao lado.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="bg-purple-100 text-purple-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">
+                                    3</div>
+                                <p class="text-sm text-gray-600">Troque o tema <code>cupcake</code> por outro (ex:
+                                    <code>retro</code>).
+                                </p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div
+                                    class="bg-purple-100 text-purple-700 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">
+                                    4</div>
+                                <p class="text-sm text-gray-600"><strong>Teste</strong> o código.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col h-full">
+                        <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2 flex justify-between">
+                            <span>Código Base (Copie e Cole)</span>
+                            <span class="text-purple-600">index.html</span>
+                        </h3>
+
+                        <div class="code-window flex-grow">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                                <div class="dot dot-yellow"></div>
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tk-tag">&lt;html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"pt-br"</span> <span class="tk-attr">data-theme</span>=<span class="tk-str">"cupcake"</span><span class="tk-tag">&gt;</span>
+<span class="tk-tag">&lt;head&gt;</span>
+  <span class="tk-tag">&lt;script</span> <span class="tk-attr">src</span>=<span class="tk-str">"https://cdn.tailwindcss.com"</span><span class="tk-tag">&gt;&lt;/script&gt;</span>
+  <span class="tk-tag">&lt;link</span> <span class="tk-attr">href</span>=<span class="tk-str">"https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css"</span> <span class="tk-attr">rel</span>=<span class="tk-str">"stylesheet"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;script</span> <span class="tk-attr">defer</span> <span class="tk-attr">src</span>=<span class="tk-str">"https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"</span><span class="tk-tag">&gt;&lt;/script&gt;</span>
+<span class="tk-tag">&lt;/head&gt;</span>
+
+<span class="tk-tag">&lt;body</span> <span class="tk-attr">class</span>=<span class="tk-str">"min-h-screen p-10 flex flex-col items-center gap-8 bg-base-200"</span><span class="tk-tag">&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- ESTADO INICIAL: mensagem vazia --&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ mensagem: '' }"</span> <span class="tk-attr">class</span>=<span class="tk-str">"w-full max-w-md"</span><span class="tk-tag">&gt;</span>
+    
+    <span class="tk-cmt">&lt;!-- 1. O INPUT (Escreve) --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"form-control mb-8"</span><span class="tk-tag">&gt;</span>
+      <span class="tk-tag">&lt;label</span> <span class="tk-attr">class</span>=<span class="tk-str">"label"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"label-text font-bold"</span><span class="tk-tag">&gt;</span>Sua Mensagem:<span class="tk-tag">&lt;/span&gt;</span>
+      <span class="tk-tag">&lt;/label&gt;</span>
+      
+      <span class="tk-tag">&lt;textarea</span> 
+        <span class="tk-alpine">x-model</span>=<span class="tk-str">"mensagem"</span> 
+        <span class="tk-attr">class</span>=<span class="tk-str">"textarea textarea-primary textarea-lg w-full"</span>
+        <span class="tk-attr">placeholder</span>=<span class="tk-str">"Digite aqui..."</span><span class="tk-tag">&gt;&lt;/textarea&gt;</span>
+        
+      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"label"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"label-text-alt"</span><span class="tk-tag">&gt;</span>
+            Letras: <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"mensagem.length"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+        <span class="tk-tag">&lt;/span&gt;</span>
+      <span class="tk-tag">&lt;/div&gt;</span>
+    <span class="tk-tag">&lt;/div&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- 2. O RESULTADO (Lê) --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card bg-base-100 shadow-xl border-2 border-primary"</span><span class="tk-tag">&gt;</span>
+      <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-body items-center text-center"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;h2</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-title text-2xl"</span><span class="tk-tag">&gt;</span>Visualização<span class="tk-tag">&lt;/h2&gt;</span>
+        
+        <span class="tk-tag">&lt;p</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"mensagem.length === 0"</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-gray-400 italic"</span><span class="tk-tag">&gt;</span>
+            (Aguardando texto...)
+        <span class="tk-tag">&lt;/p&gt;</span>
+
+        <span class="tk-tag">&lt;p</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"mensagem"</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-xl font-medium"</span><span class="tk-tag">&gt;&lt;/p&gt;</span>
+      <span class="tk-tag">&lt;/div&gt;</span>
+    <span class="tk-tag">&lt;/div&gt;</span>
+
+  <span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;/body&gt;</span>
+<span class="tk-tag">&lt;/html&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="my-24">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="step-circle bg-purple-600 text-white">7</div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">Anatomia do Código: Twitter Box</h2>
+                        <p class="text-gray-500 text-sm mt-1">Entendendo cada linha da lógica reativa.</p>
+                    </div>
+                </div>
+
+                <div class="card bg-white p-2 rounded-3xl border border-gray-200 shadow-xl overflow-hidden">
+
+                    <div class="bg-gray-100 p-8 border-b border-gray-200 text-center">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Resultado Final
+                            (Interativo)</h3>
+
+                        <div x-data="{ texto: '' }"
+                            class="bg-white max-w-md mx-auto p-6 rounded-xl shadow-sm border border-gray-200 text-left">
+                            <textarea x-model="texto"
+                                class="w-full border p-3 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none text-gray-700 bg-gray-50"
+                                rows="3" placeholder="O que está acontecendo?"></textarea>
+
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-bold transition-colors duration-300"
+                                    :class="texto.length > 20 ? 'text-red-600' : 'text-gray-400'"
+                                    x-text="texto.length + '/20'">
+                                    0/20
+                                </span>
+
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm"
+                                    :disabled="texto.length === 0 || texto.length > 20">
+                                    Tweetar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2">
+
+                        <div class="bg-[#1e1e1e] p-6 md:p-8 overflow-x-auto border-r border-gray-700">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-gray-400 text-xs font-mono">index.html</span>
+                                <div class="flex gap-1.5">
+                                    <div class="dot dot-red"></div>
+                                    <div class="dot dot-yellow"></div>
+                                    <div class="dot dot-green"></div>
+                                </div>
+                            </div>
+
+                            <pre class="font-mono text-sm leading-relaxed">
+<span class="tk-cmt">&lt;!-- 1. O CÉREBRO (Estado Inicial) --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ texto: '' }"</span><span class="tk-tag">&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- 2. A CONEXÃO (Input &lt;-&gt; Var) --&gt;</span>
+  <span class="tk-tag">&lt;textarea</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"texto"</span><span class="tk-tag">&gt;&lt;/textarea&gt;</span>
+
+  <span class="tk-tag">&lt;div&gt;</span>
+    <span class="tk-cmt">&lt;!-- 3. O FEEDBACK (Texto e Cor) --&gt;</span>
+    <span class="tk-tag">&lt;span</span> 
+      <span class="tk-alpine">x-text</span>=<span class="tk-str">"texto.length + '/20'"</span>
+      <span class="tk-alpine">:class</span>=<span class="tk-str">"texto.length > 20 
+              ? 'text-red-600' 
+              : 'text-gray-400'"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-tag">&lt;/span&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- 4. O GUARDA (Bloqueio) --&gt;</span>
+    <span class="tk-tag">&lt;button</span> 
+      <span class="tk-alpine">:disabled</span>=<span class="tk-str">"texto.length === 0 || 
+                 texto.length > 20"</span><span class="tk-tag">&gt;</span>
+      Tweetar
+    <span class="tk-tag">&lt;/button&gt;</span>
+  <span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                        </div>
+
+                        <div class="bg-white p-6 md:p-8 flex flex-col justify-center gap-6">
+
+                            <div
+                                class="flex gap-4 group hover:bg-blue-50 p-3 rounded-lg transition border border-transparent hover:border-blue-100">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0 mt-1">
+                                    1</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">O Cérebro (x-data)</h4>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        Cria o "pequeno mundo" dessa div. A variável <code>texto</code> nasce aqui. Fora
+                                        daqui, ela não existe.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-4 group hover:bg-green-50 p-3 rounded-lg transition border border-transparent hover:border-green-100">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-sm shrink-0 mt-1">
+                                    2</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">A Conexão (x-model)</h4>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        A mágica da mão dupla. Se você digita, a variável atualiza. Se a variável mudar,
+                                        o textarea atualiza. Sem <code>addEventListener</code>.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-4 group hover:bg-purple-50 p-3 rounded-lg transition border border-transparent hover:border-purple-100">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm shrink-0 mt-1">
+                                    3</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">O Feedback (:class & x-text)</h4>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        <strong>x-text:</strong> Mostra a contagem em tempo real.<br>
+                                        <strong>:class:</strong> Usa um "ternário" (lógica de ? e :) para decidir se
+                                        fica vermelho ou cinza.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-4 group hover:bg-red-50 p-3 rounded-lg transition border border-transparent hover:border-red-100">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm shrink-0 mt-1">
+                                    4</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">O Guarda (:disabled)</h4>
+                                    <p class="text-sm text-gray-600 mt-1">
+                                        O botão trava automaticamente se:
+                                    <ul class="list-disc pl-4 mt-1 text-xs text-gray-500">
+                                        <li>Não digitou nada (0)</li>
+                                        <li>OU (||)</li>
+                                        <li>Digitou demais (>20)</li>
+                                    </ul>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section x-data="{ current: 1, total: 5 }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">8</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Aprofundando: As 5 Diretivas</h2>
+                    <p class="text-gray-500 text-sm mt-1">Conceitos técnicos que você precisa dominar.</p>
+                </div>
+            </div>
+
+            <div class="slide-container bg-gray-900 text-white border-gray-800 min-h-[600px] relative">
+
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-800">
+                    <div class="h-full bg-blue-500 transition-all duration-300"
+                        :style="`width: ${(current / total) * 100}%`"></div>
+                </div>
+
+                <div x-show="current === 1" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="p-8 md:p-12 h-full flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-blue-400 font-mono text-xl font-bold">&lt;x-data&gt;</span>
+                        <span class="bg-blue-900 text-blue-200 text-xs px-2 py-1 rounded uppercase tracking-wider">O
+                            Escopo</span>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">O "Cercadinho" de Variáveis</h3>
+                            <p class="text-gray-400 mb-6 leading-relaxed">
+                                No Alpine, variáveis não voam soltas. Elas vivem dentro de um componente.
+                                O <code>x-data</code> define onde o componente começa e termina.
+                            </p>
+                            <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 mb-4">
+                                <h4 class="text-white font-bold text-sm mb-2">Regra de Ouro:</h4>
+                                <p class="text-sm text-gray-400">Filhos podem acessar dados do pai. Pais NÃO acessam
+                                    dados dos filhos. Irmãos não se conhecem.</p>
+                            </div>
+                        </div>
+
+                        <div class="code-window border-blue-500">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ pai: 'Sou o Pai' }"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"pai"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> <span class="tk-cmt">&lt;!-- Funciona --&gt;</span>
+
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ filho: 'Sou o Filho' }"</span><span class="tk-tag">&gt;</span>
+     <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"pai"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> <span class="tk-cmt">&lt;!-- Funciona (Herança) --&gt;</span>
+  <span class="tk-tag">&lt;/div&gt;</span>
+  
+  <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"filho"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> <span class="tk-cmt">&lt;!-- ERRO! O pai não vê o filho --&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="current === 2" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="p-8 md:p-12 h-full flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-purple-400 font-mono text-xl font-bold">&lt;x-bind&gt; ou :</span>
+                        <span
+                            class="bg-purple-900 text-purple-200 text-xs px-2 py-1 rounded uppercase tracking-wider">Estilo
+                            Dinâmico</span>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Classes Condicionais</h3>
+                            <p class="text-gray-400 mb-6 leading-relaxed">
+                                Esqueça <code>classList.add</code> e <code>remove</code>.
+                                Com Alpine, passamos um <strong>Objeto JS</strong> onde a chave é a classe e o valor é a
+                                condição.
+                            </p>
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded bg-gray-800 flex items-center justify-center text-xl">🎨
+                                </div>
+                                <p class="text-sm text-gray-300">
+                                    <code>{ 'bg-red-500': temErro }</code><br>
+                                    <span class="text-gray-500">"Se temErro for verdade, pinte de vermelho."</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="code-window border-purple-500">
+                            <div class="code-header">
+                                <div class="dot dot-yellow"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ ativo: false }"</span><span class="tk-tag">&gt;</span>
+  
+  <span class="tk-tag">&lt;button</span> 
+    <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = !ativo"</span>
+    <span class="tk-attr">class</span>=<span class="tk-str">"transition-all duration-300 p-4"</span>
+    <span class="tk-alpine">:class</span>=<span class="tk-str">"{ 
+      'bg-green-500 text-white': ativo,
+      'bg-gray-200 text-gray-500': !ativo 
+    }"</span><span class="tk-tag">&gt;</span>
+    
+    Clique para Ativar
+    
+  <span class="tk-tag">&lt;/button&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                            <div class="p-4 bg-gray-800 text-center">
+                                <div x-data="{ ativo: false }">
+                                    <button @click="ativo = !ativo" class="px-4 py-2 rounded font-bold transition-all"
+                                        :class="ativo ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-600'">Testar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="current === 3" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="p-8 md:p-12 h-full flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-yellow-400 font-mono text-xl font-bold">&lt;x-show&gt; vs &lt;x-if&gt;</span>
+                        <span
+                            class="bg-yellow-900 text-yellow-200 text-xs px-2 py-1 rounded uppercase tracking-wider">Visibilidade</span>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Fantasma vs Construtor</h3>
+                            <div class="space-y-6">
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-yellow-400">
+                                    <h4 class="font-bold text-yellow-400 mb-1">x-show (O Fantasma)</h4>
+                                    <p class="text-sm text-gray-300">Apenas aplica <code>display: none</code>. O
+                                        elemento continua no HTML, só está invisível. Ideal para modais e dropdowns.
+                                        <strong>Barato para o navegador.</strong>
+                                    </p>
+                                </div>
+                                <div class="bg-gray-800 p-4 rounded border-l-4 border-red-400">
+                                    <h4 class="font-bold text-red-400 mb-1">x-if (O Construtor)</h4>
+                                    <p class="text-sm text-gray-300">Remove o elemento do HTML real. Ele deixa de
+                                        existir. Ideal para grandes listas ou coisas pesadas. <strong>Exige tag
+                                            &lt;template&gt;.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-window border-yellow-500">
+                            <div class="code-header">
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-cmt">&lt;!-- JEITO 1: x-show (CSS Toggle) --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"aberto"</span><span class="tk-tag">&gt;</span>
+  Estou aqui, só invisível!
+<span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-cmt">&lt;!-- JEITO 2: x-if (DOM Removal) --&gt;</span>
+<span class="tk-cmt">&lt;!-- Obrigatório usar &lt;template&gt; --&gt;</span>
+<span class="tk-tag">&lt;template</span> <span class="tk-alpine">x-if</span>=<span class="tk-str">"logado"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;div&gt;</span>
+     Painel Admin (Só existe se logado)
+  <span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/template&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="current === 4" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="p-8 md:p-12 h-full flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-orange-400 font-mono text-xl font-bold">&lt;x-on&gt; ou @</span>
+                        <span
+                            class="bg-orange-900 text-orange-200 text-xs px-2 py-1 rounded uppercase tracking-wider">Eventos</span>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Além do Clique</h3>
+                            <p class="text-gray-400 mb-6">
+                                O Alpine traz <strong>modificadores</strong> poderosos que economizam linhas de JS.
+                            </p>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li><code>@click.prevent</code>: Evita que o form seja enviado (preventDefault).</li>
+                                <li><code>@click.outside</code>: Detecta clique FORA do elemento (perfeito para fechar
+                                    modais).</li>
+                                <li><code>@keyup.enter</code>: Só dispara quando aperta Enter.</li>
+                                <li><code>@keydown.window</code>: Ouve o teclado na janela inteira (atalhos).</li>
+                            </ul>
+                        </div>
+
+                        <div class="code-window border-orange-500">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ open: false }"</span><span class="tk-tag">&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- Fecha se apertar ESC --&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">@keydown.escape.window</span>=<span class="tk-str">"open = false"</span><span class="tk-tag">&gt;</span>
+  
+    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"open = true"</span><span class="tk-tag">&gt;</span>Abrir<span class="tk-tag">&lt;/button&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- Fecha se clicar fora --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"open"</span> 
+         <span class="tk-alpine">@click.outside</span>=<span class="tk-str">"open = false"</span><span class="tk-tag">&gt;</span>
+       Sou um Modal!
+    <span class="tk-tag">&lt;/div&gt;</span>
+    
+  <span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="current === 5" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10" class="p-8 md:p-12 h-full flex flex-col">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-pink-400 font-mono text-xl font-bold">&lt;x-transition&gt;</span>
+                        <span
+                            class="bg-pink-900 text-pink-200 text-xs px-2 py-1 rounded uppercase tracking-wider">Animações</span>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">Animações de Graça</h3>
+                            <p class="text-gray-400 mb-6">
+                                Adicione <code>x-transition</code> em qualquer elemento que tenha <code>x-show</code> ou
+                                <code>x-if</code>. O Alpine calcula entrada e saída suavemente.
+                            </p>
+                            <p class="text-sm text-gray-500 italic mb-4">Dica: Combine com Tailwind para efeitos
+                                específicos.</p>
+                            <div class="bg-gray-800 p-4 rounded text-center">
+                                <div x-data="{ show: true }" class="cursor-pointer" @click="show = !show">
+                                    <p class="text-xs text-gray-400 mb-2">(Clique abaixo)</p>
+                                    <div x-show="show" x-transition.duration.1000ms
+                                        class="w-16 h-16 bg-pink-500 mx-auto rounded-lg flex items-center justify-center">
+                                        ✨
+                                    </div>
+                                    <p x-show="!show" class="text-gray-500 py-4">Sumiu...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="code-window border-pink-500">
+                            <div class="code-header">
+                                <div class="dot dot-green"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ on: false }"</span><span class="tk-tag">&gt;</span>
+  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"on = !on"</span><span class="tk-tag">&gt;</span>Toggle<span class="tk-tag">&lt;/button&gt;</span>
+
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"on"</span>
+       <span class="tk-alpine">x-transition</span>
+       <span class="tk-alpine">x-transition:enter.duration.500ms</span>
+       <span class="tk-alpine">x-transition:leave.duration.200ms</span><span class="tk-tag">&gt;</span>
+       
+    Olha que suave!
+    
+  <span class="tk-tag">&lt;/div&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-6 right-8 flex gap-3">
+                    <button @click="current > 1 ? current-- : null"
+                        class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition border border-gray-600 disabled:opacity-50"
+                        :disabled="current === 1">
+                        <i class="ph ph-caret-left"></i>
+                    </button>
+                    <button @click="current < total ? current++ : null"
+                        class="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center transition shadow-lg disabled:opacity-50"
+                        :disabled="current === total">
+                        <i class="ph ph-caret-right"></i>
+                    </button>
+                </div>
+
+                <div class="absolute bottom-8 left-8 text-sm font-mono text-gray-500">
+                    CONCEITO <span x-text="current"></span> / <span x-text="total"></span>
+                </div>
+
+            </div>
+        </section>
+
+        <section x-data="{ step: 1, total: 4 }" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-blue-600 text-white">9</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Desafio Final: O Buscador de CEP</h2>
+                    <p class="text-gray-500 text-sm mt-1">Conectando sua aplicação ao mundo real (API).</p>
+                </div>
+            </div>
+
+            <div class="slide-container bg-[#0f172a] text-white border-gray-800 min-h-[600px] relative">
+
+                <div class="absolute top-0 left-0 w-full h-1 bg-gray-800">
+                    <div class="h-full bg-green-500 transition-all duration-300"
+                        :style="`width: ${(step / total) * 100}%`"></div>
+                </div>
+
+                <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 h-full flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <span class="text-green-400 font-bold tracking-widest uppercase text-xs mb-2 block">Passo
+                                1/4</span>
+                            <h3 class="text-3xl font-bold mb-4">Prepare o Terreno</h3>
+                            <p class="text-gray-400 mb-6">
+                                Crie um novo arquivo chamado <code>cep.html</code>.
+                                Vamos definir o <strong>Estado Inicial</strong>. Precisamos de 3 coisas na memória:
+                            </p>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div> <strong>cep:</strong> O que o
+                                    usuário digita.
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div> <strong>endereco:</strong> Onde
+                                    guardaremos o resultado da API.
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div> <strong>loading:</strong> Para
+                                    mostrar "Carregando...".
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="code-window border-green-500">
+                            <div class="code-header">
+                                <div class="dot dot-red"></div>
+                            </div>
+                            <div class="code-body">
+                                <pre>
+<span class="tk-tag">&lt;body</span> <span class="tk-attr">class</span>=<span class="tk-str">"p-10 bg-gray-100"</span><span class="tk-tag">&gt;</span>
+
+  <span class="tk-cmt">&lt;!-- 1. Defina o Estado --&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ 
+      cep: '', 
+      endereco: null,
+      loading: false 
+  }"</span> <span class="tk-attr">class</span>=<span class="tk-str">"max-w-lg mx-auto bg-white p-6 rounded shadow"</span><span class="tk-tag">&gt;</span>
+
+     <span class="tk-tag">&lt;h1</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-2xl font-bold mb-4"</span><span class="tk-tag">&gt;</span>Buscar Endereço<span class="tk-tag">&lt;/h1&gt;</span>
+
+  <span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;/body&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 2" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 h-full flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <span class="text-green-400 font-bold tracking-widest uppercase text-xs mb-2 block">Passo
+                                2/4</span>
+                            <h3 class="text-3xl font-bold mb-4">A Busca (Fetch)</h3>
+                            <p class="text-gray-400 mb-6 leading-relaxed">
+                                Adicione o Input ligado ao <code>cep</code>.
+                                No botão, usaremos o
+
+                                <span class="term-highlight text-blue-400 border-blue-500"
+                                    @click="modalOpen = true; 
+                      modalTitle = 'Fetch API'; 
+                      modalOrigin = 'Analogia: O Motoboy do Delivery'; 
+                      modalDesc = 'Imagine um app de comida. 1. Você faz o pedido (Request). 2. O app diz que está a caminho (Promise/Promessa). 3. Você continua assistindo TV (Assíncrono, não trava). 4. A comida chega (Response). 5. Você abre o pacote (.json).'">
+                                    fetch
+                                </span>
+
+                                dentro do <code>@click</code>. Ele retorna uma
+
+                                <span class="term-highlight text-purple-400 border-purple-500"
+                                    @click="modalOpen = true; 
+                      modalTitle = 'Promise (Promessa)'; 
+                      modalOrigin = 'Conceito de Tempo'; 
+                      modalDesc = 'É um objeto que representa um valor que pode não estar disponível agora, mas estará no futuro. Pode ser: Pendente (Indo buscar), Resolvida (Sucesso) ou Rejeitada (Erro).'">
+                                    Promessa
+                                </span>.
+                            </p>
+
+                            <div class="bg-gray-800 p-4 rounded border-l-4 border-blue-500 text-xs text-gray-300">
+                                <strong>Nota:</strong> Em projetos reais, moveríamos essa função para fora, mas hoje
+                                faremos <em>inline</em> para ver a mágica acontecer numa linha só.
+                            </div>
+                        </div>
+                        <div class="code-window border-green-500">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-cmt">&lt;!-- Input ligado ao CEP --&gt;</span>
+<span class="tk-tag">&lt;input</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"cep"</span> <span class="tk-attr">placeholder</span>=<span class="tk-str">"Digite o CEP"</span> <span class="tk-attr">class</span>=<span class="tk-str">"border p-2 w-full mb-4"</span><span class="tk-tag">&gt;</span>
+
+<span class="tk-cmt">&lt;!-- O Gatilho --&gt;</span>
+<span class="tk-tag">&lt;button</span> 
+  <span class="tk-attr">class</span>=<span class="tk-str">"bg-blue-600 text-white px-4 py-2 rounded"</span>
+  <span class="tk-alpine">@click</span>=<span class="tk-str">"
+    loading = true;
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(r => r.json())
+      .then(dados => endereco = dados)
+      .finally(() => loading = false)
+  "</span><span class="tk-tag">&gt;</span>
+  Buscar CEP
+<span class="tk-tag">&lt;/button&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 3" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 h-full flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <span class="text-green-400 font-bold tracking-widest uppercase text-xs mb-2 block">Passo
+                                3/4</span>
+                            <h3 class="text-3xl font-bold mb-4">UX: Feedback Visual</h3>
+                            <p class="text-gray-400 mb-6">
+                                Ninguém gosta de clicar e não saber se funcionou.
+                                Vamos usar <code>x-show</code> para mostrar um aviso enquanto os dados viajam pela
+                                internet.
+                            </p>
+                        </div>
+                        <div class="code-window border-green-500">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-cmt">&lt;!-- Só aparece se loading for VERDADE --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"loading"</span> <span class="tk-attr">class</span>=<span class="tk-str">"mt-4 text-blue-500"</span><span class="tk-tag">&gt;</span>
+  
+  <span class="tk-tag">&lt;i</span> <span class="tk-attr">class</span>=<span class="tk-str">"ph ph-spinner animate-spin"</span><span class="tk-tag">&gt;&lt;/i&gt;</span> 
+  Buscando satélites...
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div x-show="step === 4" x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10"
+                    class="p-8 md:p-12 h-full flex flex-col justify-between">
+                    <div class="grid lg:grid-cols-2 gap-12 flex-grow">
+                        <div>
+                            <span class="text-green-400 font-bold tracking-widest uppercase text-xs mb-2 block">Passo
+                                4/4</span>
+                            <h3 class="text-3xl font-bold mb-4">Mostrando os Dados</h3>
+                            <p class="text-gray-400 mb-6">
+                                Finalmente, vamos desenhar o cartão de endereço.
+                                Usamos <code>x-show="endereco"</code> para garantir que ele fique escondido até termos
+                                dados.
+                            </p>
+                        </div>
+                        <div class="code-window border-green-500">
+                            <div class="code-body">
+                                <pre>
+<span class="tk-cmt">&lt;!-- Só mostra se endereco não for nulo --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"endereco"</span> <span class="tk-attr">class</span>=<span class="tk-str">"mt-4 p-4 bg-gray-50 rounded"</span><span class="tk-tag">&gt;</span>
+  
+  <span class="tk-tag">&lt;p</span> <span class="tk-attr">class</span>=<span class="tk-str">"font-bold"</span><span class="tk-tag">&gt;</span>Endereço Encontrado:<span class="tk-tag">&lt;/p&gt;</span>
+  
+  <span class="tk-tag">&lt;p&gt;</span>
+    Rua: <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"endereco.logradouro"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+  <span class="tk-tag">&lt;/p&gt;</span>
+  <span class="tk-tag">&lt;p&gt;</span>
+    Bairro: <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"endereco.bairro"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+  <span class="tk-tag">&lt;/p&gt;</span>
+  <span class="tk-tag">&lt;p&gt;</span>
+    Cidade: <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"endereco.localidade"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+  <span class="tk-tag">&lt;/p&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span>
+</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-6 right-8 flex gap-3">
+                    <button @click="step > 1 ? step-- : null"
+                        class="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition disabled:opacity-50"
+                        :disabled="step === 1"><i class="ph ph-caret-left"></i></button>
+                    <button @click="step < total ? step++ : null"
+                        class="w-10 h-10 rounded-full bg-green-600 hover:bg-green-500 text-white flex items-center justify-center transition shadow-lg disabled:opacity-50"
+                        :disabled="step === total"><i class="ph ph-caret-right"></i></button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+                <i class="ph ph-upload-simple text-blue-600"></i> Entrega de Hoje
+            </h2>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-3xl p-8 md:p-10">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-blue-900 mb-4">O que enviar?</h3>
+                        <p class="text-blue-800 mb-6">
+                            Você criou dois artefatos hoje. Suba ambos para o seu repositório do GitHub e envie o link
+                            no Google Classroom.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div
+                                class="flex items-center gap-4 bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                                <div
+                                    class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl">
+                                    <i class="ph ph-calculator"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">1. O Card Mágico</h4>
+                                    <p class="text-xs text-gray-500">index.html (Twitter Box / Card)</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                                <div
+                                    class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-xl">
+                                    <i class="ph ph-map-pin"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">2. Buscador de CEP</h4>
+                                    <p class="text-xs text-gray-500">cep.html (Com fetch funcional)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 w-full">
+                        <div class="bg-gray-900 rounded-xl p-6 text-gray-300 font-mono text-sm shadow-2xl">
+                            <p class="text-gray-500 mb-4 border-b border-gray-700 pb-2">Terminal / Git Bash</p>
+
+                            <p class="mb-2"><span class="text-green-400">$</span> git checkout -b semana-11-alpine</p>
+                            <p class="mb-2"><span class="text-green-400">$</span> git add index.html cep.html</p>
+                            <p class="mb-2"><span class="text-green-400">$</span> git commit -m "feat: aula 41 intro
+                                alpine"</p>
+                            <p class="mb-4"><span class="text-green-400">$</span> git push origin semana-11-alpine</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-32">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📚 Para Estudar Mais</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <a href="https://alpinejs.dev/start-here" target="_blank"
+                    class="group block bg-white p-6 rounded-2xl border border-gray-200 hover:border-green-500 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                            <i class="ph ph-book-open text-xl"></i>
+                        </div>
+                        <i class="ph ph-arrow-up-right text-gray-400 group-hover:text-green-500"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 group-hover:text-green-600 mb-2">Documentação Oficial</h3>
+                    <p class="text-sm text-gray-500">A "Bíblia" do Alpine. Leia a seção "Start Here". É curta e direto
+                        ao ponto.</p>
+                </a>
+
+                <a href="https://www.alpinetoolbox.com/" target="_blank"
+                    class="group block bg-white p-6 rounded-2xl border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                            <i class="ph ph-toolbox text-xl"></i>
+                        </div>
+                        <i class="ph ph-arrow-up-right text-gray-400 group-hover:text-blue-500"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 group-hover:text-blue-600 mb-2">Alpine Toolbox</h3>
+                    <p class="text-sm text-gray-500">Exemplos prontos de componentes: Tabs, Modais, Dropdowns para
+                        copiar e colar.</p>
+                </a>
+
+                <a href="https://dev.to/codeslinker/alpinejs-cheat-sheet-5e4d" target="_blank"
+                    class="group block bg-white p-6 rounded-2xl border border-gray-200 hover:border-purple-500 hover:shadow-lg transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <div
+                            class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">
+                            <i class="ph ph-file-text text-xl"></i>
+                        </div>
+                        <i class="ph ph-arrow-up-right text-gray-400 group-hover:text-purple-500"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 group-hover:text-purple-600 mb-2">Cheat Sheet</h3>
+                    <p class="text-sm text-gray-500">Um resumo rápido de todos os comandos (x-data, x-bind, x-on) em uma
+                        página só.</p>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer
+        class="fixed bottom-0 w-full bg-white border-t border-gray-200 p-4 z-50 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.1)]">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <p class="text-sm font-medium text-gray-500">
+                <span class="text-green-600 font-bold">Próxima Aula:</span> Smart Portfolio (SPA).
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

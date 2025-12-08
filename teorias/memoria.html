@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice: Engenharia da Memória | IFRN - Técnico em Informática</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        brand: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        memory: { ram: '#f59e0b', ssd: '#10b981', fade: '#94a3b8' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .scientific-box {
+            border-left: 3px solid #8b5cf6;
+            padding-left: 1rem;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+            color: #4c1d95;
+            font-size: 0.9em;
+            background: #f5f3ff;
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .ref-tag {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #a78bfa;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Animação simples para fluxo de dados */
+        @keyframes dataFlow {
+            0% {
+                left: 0;
+                opacity: 1;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .data-packet {
+            position: absolute;
+            animation: dataFlow 2s infinite linear;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 bg-brand-600 rounded flex items-center justify-center text-white font-bold font-mono">
+                    IF</div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-sm text-slate-900 leading-tight">Técnico em Informática</span>
+                    <span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Neurociência
+                        Cognitiva</span>
+                </div>
+            </div>
+            <a href="#" onclick="window.history.back(); return false;"
+                class="text-sm text-brand-600 hover:text-brand-800 font-medium flex items-center gap-1 transition-colors">
+                &larr; Voltar
+            </a>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span
+                class="bg-purple-50 text-purple-700 border border-purple-200 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 inline-block">
+                Processamento da Informação
+            </span>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Engenharia da Memória
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Como seu cérebro salva arquivos? Entenda os processos de <strong>Codificação, Armazenamento e
+                    Recuperação</strong> e por que "entender" (Ausubel) salva no HD, enquanto "decorar" (Bloom Nível 1)
+                fica só na memória RAM.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-20">
+
+        <section class="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 shadow-sm">
+            <div class="grid md:grid-cols-[1fr_250px] gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Por que eu esqueço tudo na hora da prova?</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Não, você não tem "memória ruim". Você só está salvando os arquivos na pasta errada. Vamos
+                        entender como hackear seu aprendizado em 3 passos simples.
+                    </p>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+
+                    </p>
+                    <ul class="space-y-3 mt-6">
+                        <li class="flex items-start gap-3">
+
+                        </li>
+                        <li class="flex items-start gap-3">
+
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex items-center justify-center bg-slate-50 rounded-xl border border-slate-100 p-4">
+
+
+                    [Image of Bloom's Taxonomy Pyramid]
+
+                </div>
+            </div>
+        </section>
+
+        <div class="relative py-4">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="w-full border-t border-slate-200"></div>
+            </div>
+            <div class="relative flex justify-center">
+                <span class="bg-f8fafc px-3 text-sm text-slate-500 font-medium bg-[#f8fafc]">3 pontos relevantes para
+                    entender a memória</span>
+            </div>
+        </div>
+
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="grid md:grid-cols-[1fr_200px] gap-8 items-center">
+                <div>
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-2 block">Passo 1: A
+                        Memória RAM</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">O cérebro tem um "Filtro de Spam" agressivo</h2>
+                    <p class="text-slate-600 mb-4">
+                        Imagine que seu cérebro recebe milhões de informações por segundo (sons, luzes, vozes). Se ele
+                        guardasse tudo, ele explodiria.
+                    </p>
+                    <p class="text-slate-600 mb-4">
+                        Por isso, ele joga quase tudo no lixo imediatamente. O que você ouve na aula fica na
+                        <strong>Memória de Curto Prazo</strong> (tipo a memória RAM do PC). Se você não fizer nada com
+                        essa informação, ela apaga assim que você dorme.
+                    </p>
+                    <div class="tip-box">
+                        <strong>O segredo:</strong> Ler e ouvir é passivo. Para "salvar no HD", você precisa
+                        <em>fazer</em> algo com a informação (explicar, desenhar, usar).
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col items-center justify-center bg-slate-50 rounded-xl p-4 border border-slate-100 h-full">
+                    <div class="text-4xl mb-2">🗑️</div>
+                    <div class="text-xs text-center text-slate-500">
+                        90% do que você ouve hoje vai para o lixo até amanhã se não for usado.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-2xl font-bold text-slate-900">O Pipeline de Dados</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Atkinson & Shiffrin (1968)</span>
+                    "O Modelo Multi-armazém: A informação passa da Memória Sensorial para a Curta Prazo (Trabalho) e, se
+                    houver ensaio elaborativo, para a Longo Prazo."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Input → RAM → SSD.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Tudo o que você vê/ouve entra no "Buffer". Se você prestar atenção, vai para a "Memória RAM" (Curta
+                    Prazo - dura segundos). Só se você <strong>processar</strong> essa informação (Ancoragem de
+                    Ausubel), ela é gravada no "SSD" (Longo Prazo).
+                </p>
+
+                <div class="mt-4 bg-slate-100 p-4 rounded-lg border-l-4 border-slate-500">
+                    <p class="text-xs font-bold text-slate-500 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Quando você ouve o professor falar um comando Linux, ele está na RAM. Se você não digitar ou
+                        associar a algo, ao sair da sala (shutdown), a RAM limpa. Você precisa "Salvar Como" (criar
+                        conexão significativa).
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-4 text-center">Fluxo de Dados Cognitivo</p>
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex items-center justify-between text-[10px] font-bold text-slate-500">
+
+                    <div
+                        class="w-16 h-24 border-2 border-dashed border-slate-300 rounded flex items-center justify-center text-center relative">
+                        Input<br>Sensorial
+                        <div class="absolute -bottom-6 text-[9px] text-red-400">Perdido em 1s</div>
+                    </div>
+
+                    <div class="flex-1 h-2 bg-slate-100 relative mx-2 overflow-hidden rounded">
+                        <div class="w-4 h-full bg-slate-400 absolute top-0 left-0 data-packet"></div>
+                    </div>
+
+                    <div
+                        class="w-20 h-24 bg-yellow-50 border-2 border-yellow-400 rounded flex flex-col items-center justify-center text-center text-yellow-700 shadow-sm">
+                        Memória<br>Trabalho
+                        <span class="text-[8px] mt-1 font-normal">(RAM)</span>
+                    </div>
+
+                    <div class="flex-1 h-2 bg-slate-100 relative mx-2 overflow-hidden rounded">
+                        <div class="w-4 h-full bg-brand-500 absolute top-0 left-0 data-packet"
+                            style="animation-duration: 3s;"></div>
+                    </div>
+
+                    <div
+                        class="w-20 h-24 bg-green-50 border-2 border-green-500 rounded flex flex-col items-center justify-center text-center text-green-700 shadow-md">
+                        Longo<br>Prazo
+                        <span class="text-[8px] mt-1 font-normal">(SSD)</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="grid md:grid-cols-[1fr_200px] gap-8 items-center">
+                <div>
+                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2 block">Passo 2: A
+                        Conexão (Ausubel)</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">A "Teoria do Cabide"</h2>
+                    <p class="text-slate-600 mb-4">
+                        Tente jogar uma camisa no meio de uma parede lisa. Ela cai no chão, certo?
+                        O conhecimento novo é a camisa. Sua mente precisa de um <strong>gancho</strong> (cabide) na
+                        parede para segurar essa camisa.
+                    </p>
+                    <p class="text-slate-600 mb-4">
+                        Esse gancho é <span class="highlight">algo que você já sabe</span>.
+                    </p>
+                    <p class="text-slate-600 text-sm">
+                        <strong>Exemplo:</strong> O professor vai ensinar "Endereço IP". Se ele só falar números, você
+                        esquece (a camisa cai). Se ele disser: <em>"IP é igual ao CEP da sua casa, só que para
+                            computadores"</em>, pronto! O gancho (CEP) segurou a informação nova (IP).
+                    </p>
+                </div>
+
+                <div
+                    class="grid-bg rounded-xl p-4 border border-slate-100 h-full flex flex-col items-center justify-center relative">
+                    <div class="w-16 h-1 bg-slate-300 rounded mb-[-2px]"></div>
+                    <div class="text-4xl z-10">🪝</div>
+                    <div
+                        class="w-20 h-10 bg-purple-500 rounded text-white text-[10px] flex items-center justify-center font-bold shadow-lg -mt-2 z-20">
+                        Matéria Nova
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-brand-100 text-brand-600 w-8 h-8 rounded flex items-center justify-center font-bold">2</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Profundidade de Processamento</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Craik & Lockhart (1972)</span>
+                    "A memória não depende de quanto tempo você estuda, mas da profundidade com que a informação é
+                    processada. Processamento superficial (visual/acústico) vs. Processamento Profundo (semântico)."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Ler 10x é pior que Explicar 1x.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Aqui Bloom e Memória se casam.
+                    <br>• <strong>Bloom Nível 1 (Lembrar):</strong> É superficial. A memória é fraca.
+                    <br>• <strong>Bloom Nível 4+ (Analisar/Criar):</strong> É profundo. Cria múltiplos caminhos neurais
+                    para acessar o dado.
+                </p>
+
+                <div class="mt-4 bg-brand-50 p-4 rounded-lg border-l-4 border-brand-500">
+                    <p class="text-xs font-bold text-brand-700 uppercase mb-1">Técnica de Estudo</p>
+                    <p class="text-slate-800 text-sm">
+                        Não use "Manutenção" (repetir a palavra <code>array</code>). Use "Elaboração" (desenhar como um
+                        <code>array</code> se parece na memória do PC). Isso força o cérebro a gravar mais fundo.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-4 text-center">Camadas de Processamento</p>
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex flex-col justify-end gap-2">
+
+                    <div
+                        class="w-full bg-red-100 border border-red-200 p-2 rounded text-center text-xs text-red-800 opacity-60">
+                        <span class="font-bold block">Superficial (Visual/Sonoro)</span>
+                        "A palavra JAVA tem 4 letras"
+                    </div>
+
+                    <div
+                        class="w-full bg-yellow-100 border border-yellow-200 p-3 rounded text-center text-xs text-yellow-800 opacity-80 shadow-sm">
+                        <span class="font-bold block">Intermediário (Fonético/Categoria)</span>
+                        "JAVA rima com TRAVA. É linguagem."
+                    </div>
+
+                    <div
+                        class="w-full bg-green-100 border border-green-500 p-4 rounded text-center text-xs text-green-900 shadow-md transform scale-105">
+                        <span class="font-bold block text-sm">Profundo (Semântico / Significativo)</span>
+                        "JAVA é Orientado a Objetos, roda na JVM e eu uso pra fazer Backend."
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-rose-100 text-rose-600 w-8 h-8 rounded flex items-center justify-center font-bold">3</span>
+                    <h2 class="text-2xl font-bold text-slate-900">A Curva do Esquecimento</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Hermann Ebbinghaus (1885)</span>
+                    "A retenção da informação cai exponencialmente com o tempo. Sem revisão, você esquece 50% em uma
+                    hora e 70% em 24h."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Seu cérebro tem um "Coletor de Lixo" (Garbage
+                        Collector) agressivo.</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Para o cérebro, informação que não é usada é lixo. A única forma de impedir a deleção é a
+                    <strong>Recuperação Espaçada</strong>. Cada vez que você força a memória a lembrar (Bloom:
+                    Recuperar), você "reseta" a curva e ela cai mais devagar.
+                </p>
+
+                <div class="mt-4 bg-rose-50 p-4 rounded-lg border-l-4 border-rose-500">
+                    <p class="text-xs font-bold text-rose-700 uppercase mb-1">Técnica: Repetição Espaçada (SRS)</p>
+                    <p class="text-slate-800 text-sm">
+                        Não estude 5 horas na véspera. Estude 30 min hoje, 10 min amanhã, 5 min semana que vem. Use apps
+                        como <strong>Anki</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-4 text-center">Gráfico de Decaimento</p>
+                <div class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative">
+                    <div class="absolute left-4 bottom-4 w-[90%] h-px bg-slate-300"></div>
+                    <div class="absolute left-4 bottom-4 h-[80%] w-px bg-slate-300"></div> <svg
+                        class="absolute left-4 bottom-4 w-full h-[160px]" style="overflow: visible;">
+                        <path d="M0,0 Q20,100 200,150" fill="none" stroke="#cbd5e1" stroke-width="2"
+                            transform="scale(1, -1)" />
+                        <text x="50" y="-30" fill="#94a3b8" font-size="8" transform="scale(1, -1)">Sem Revisão</text>
+                    </svg>
+
+                    <svg class="absolute left-4 bottom-4 w-full h-[160px]" style="overflow: visible;">
+                        <path d="M0,0 Q10,20 30,50" fill="none" stroke="#22c55e" stroke-width="2"
+                            transform="scale(1, -1)" />
+                        <line x1="30" y1="-50" x2="30" y2="0" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2"
+                            transform="scale(1, -1)" />
+                        <path d="M30,0 Q80,40 220,60" fill="none" stroke="#22c55e" stroke-width="2"
+                            transform="scale(1, -1)" />
+                        <text x="90" y="-80" fill="#16a34a" font-size="9" font-weight="bold"
+                            transform="scale(1, -1)">Com Revisão</text>
+                    </svg>
+
+                    <div class="absolute bottom-1 right-2 text-[8px] text-slate-400">Tempo &rarr;</div>
+                    <div class="absolute top-2 left-1 text-[8px] text-slate-400">Retenção</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div class="grid md:grid-cols-[1fr_200px] gap-8 items-center">
+                <div>
+                    <span class="text-xs font-bold text-green-600 uppercase tracking-wider mb-2 block">Passo 3: A
+                        Profundidade (Bloom)</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">Pare de ser um "Papagaio"</h2>
+                    <p class="text-slate-600 mb-4">
+                        Existe uma escada de aprendizado. Muitos alunos ficam presos no degrau mais baixo: a
+                        <strong>Decoreba</strong> (Lembrar).
+                    </p>
+                    <ul class="space-y-3 mt-4 text-sm text-slate-700">
+                        <li class="flex items-center gap-2">
+                            <span class="bg-slate-200 px-2 py-1 rounded text-xs font-bold">Nível 1 (Básico)</span>
+                            <span>Repetir o que o professor disse. (Fraco)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Nível 3
+                                (Médio)</span>
+                            <span>Usar a fórmula para resolver um problema. (Bom)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-green-500 text-white px-2 py-1 rounded text-xs font-bold">Nível 6
+                                (Mestre)</span>
+                            <span>Criar algo novo com aquilo. (Excelente)</span>
+                        </li>
+                    </ul>
+                    <p class="mt-4 text-slate-600 text-sm">
+                        Quem só decora, esquece. Quem cria, aprende para sempre.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center justify-end h-full gap-1">
+                    <div
+                        class="w-full bg-green-500 h-8 rounded-t text-white text-[10px] flex items-center justify-center font-bold">
+                        Criar</div>
+                    <div
+                        class="w-3/4 bg-green-300 h-8 rounded-t text-green-900 text-[10px] flex items-center justify-center">
+                        Aplicar</div>
+                    <div
+                        class="w-1/2 bg-slate-300 h-8 rounded-t text-slate-600 text-[10px] flex items-center justify-center">
+                        Decorar</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid md:grid-cols-2 gap-12 items-start">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="bg-teal-100 text-teal-600 w-8 h-8 rounded flex items-center justify-center font-bold">4</span>
+                    <h2 class="text-2xl font-bold text-slate-900">Código Dual (Visual + Verbal)</h2>
+                </div>
+
+                <div class="scientific-box">
+                    <span class="ref-tag">Allan Paivio (1971)</span>
+                    "O cérebro tem canais separados para processar informações verbais e visuais. Quando usamos ambos,
+                    criamos dois caminhos de recuperação independentes, dobrando a chance de lembrança."
+                </div>
+
+                <p class="text-slate-700 font-medium">
+                    A tradução simples: <span class="text-brand-600">Backup Redundante (RAID 1).</span>
+                </p>
+                <p class="text-slate-600 text-sm">
+                    Se você só lê (verbal), tem um caminho. Se você lê e vê um diagrama (visual), tem dois. Se um
+                    falhar, o outro recupera o dado. É por isso que os modelos visuais desta página ajudam você a
+                    aprender.
+                </p>
+
+                <div class="mt-4 bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">
+                    <p class="text-xs font-bold text-teal-700 uppercase mb-1">Contexto IFRN</p>
+                    <p class="text-slate-800 text-sm">
+                        Nunca escreva código ou estude redes só lendo texto. <strong>Desenhe a topologia</strong> da
+                        rede. <strong>Faça o fluxograma</strong> do algoritmo. Isso ativa o Código Dual.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-full">
+                <div
+                    class="grid-bg h-full min-h-[200px] border border-slate-100 p-4 relative flex items-center justify-center gap-6">
+                    <div class="flex flex-col items-center gap-2">
+                        <div
+                            class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center border border-slate-300">
+                            <span class="text-xl">Aa</span>
+                        </div>
+                        <div class="h-16 w-1 bg-slate-200"></div>
+                        <div
+                            class="w-16 h-10 bg-slate-50 border border-slate-200 text-[8px] flex items-center justify-center text-center p-1">
+                            "Loop For"
+                        </div>
+                    </div>
+
+                    <div class="text-2xl font-bold text-teal-500">+</div>
+
+                    <div class="flex flex-col items-center gap-2">
+                        <div
+                            class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center border border-slate-300">
+                            <span class="text-xl">👁️</span>
+                        </div>
+                        <div class="h-16 w-1 bg-slate-200"></div>
+                        <div class="w-16 h-10 bg-white border border-teal-400 flex items-center justify-center p-1">
+                            <div
+                                class="w-4 h-4 rounded-full border-2 border-teal-500 border-t-transparent animate-spin">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-[10px] text-teal-600 font-bold mt-2">Memória 2x mais forte</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 px-4 mt-12">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <h3 class="font-bold text-slate-800 text-sm mb-4 uppercase tracking-wider">📚 Leitura Científica Recomendada
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4 text-left">
+                <div class="p-4 bg-slate-50 rounded border border-slate-200 text-xs text-slate-600">
+                    <strong>ATKINSON, R. C.; SHIFFRIN, R. M.</strong> (1968). Human memory: A proposed system and its
+                    control processes.
+                    <br><span class="text-purple-600 italic">Base para entender RAM vs HD mental.</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded border border-slate-200 text-xs text-slate-600">
+                    <strong>CRAIK, F. I. M.; LOCKHART, R. S.</strong> (1972). Levels of processing: A framework for
+                    memory research.
+                    <br><span class="text-purple-600 italic">Explica por que "entender" fixa melhor que
+                        "decorar".</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded border border-slate-200 text-xs text-slate-600">
+                    <strong>PAIVIO, A.</strong> (1986). Mental representations: A dual coding approach.
+                    <br><span class="text-purple-600 italic">A ciência por trás dos mapas mentais e diagramas.</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded border border-slate-200 text-xs text-slate-600">
+                    <strong>EBBINGHAUS, H.</strong> (1885). Memory: A Contribution to Experimental Psychology.
+                    <br><span class="text-purple-600 italic">O estudo pioneiro sobre esquecimento e repetição.</span>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-100">
+                <p class="text-sm text-slate-500">Material Didático Digital • IFRN - Instituto Federal do Rio Grande do
+                    Norte</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
