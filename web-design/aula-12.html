@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
 
 <head>
     <meta charset="UTF-8">
@@ -19,14 +19,14 @@
                         brand: {
                             50: '#f0f9ff',
                             100: '#e0f2fe',
-                            500: '#0ea5e9', /* Primary Blue */
+                            500: '#0ea5e9',
                             600: '#0284c7',
                             700: '#0369a1',
                             800: '#075985',
                             900: '#0c4a6e',
                         },
                         accent: {
-                            500: '#8b5cf6', /* Secondary Purple (Destaques) */
+                            500: '#8b5cf6',
                             600: '#7c3aed',
                         }
                     }
@@ -42,7 +42,7 @@
             background-color: #f8fafc;
         }
 
-        /* Tag de Código Inline */
+        /* Utilitários de Código */
         .code-tag {
             font-family: 'Courier New', monospace;
             background-color: #f1f5f9;
@@ -54,7 +54,6 @@
             font-weight: 600;
         }
 
-        /* Bloco de Código Escuro */
         .code-block {
             background: #0f172a;
             border-radius: 8px;
@@ -63,54 +62,45 @@
             font-family: 'Courier New', monospace;
             color: #e2e8f0;
             border: 1px solid #334155;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.6;
         }
 
-        .code-keyword {
+        .kwd {
             color: #f472b6;
         }
 
-        /* pink */
-        .code-prop {
+        /* keyword */
+        .prop {
             color: #60a5fa;
         }
 
-        /* blue */
-        .code-val {
+        /* property */
+        .val {
             color: #a78bfa;
         }
 
-        /* purple */
-        .code-comment {
+        /* value */
+        .cmt {
             color: #64748b;
             font-style: italic;
         }
 
-        /* Checkbox Customizado */
-        .checkbox-item {
-            transition: all 0.2s ease;
-            cursor: pointer;
+        /* comment */
+
+        /* Hide Scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
 
-        .checkbox-item:hover {
-            background-color: #f1f5f9;
-        }
-
-        .checkbox-item:has(input:checked) {
-            background-color: #f0f9ff;
-            border-color: #0ea5e9;
-        }
-
-        /* Padrão de Fundo para Previews */
-        .grid-bg {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 10px 10px;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="bg-white">
+<body class="bg-white overflow-x-hidden">
 
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,509 +110,408 @@
                             class="text-brand-600">Design</span></span>
                     <span class="text-xs font-medium px-2 py-0.5 bg-slate-100 rounded text-slate-500">Módulo 2</span>
                 </div>
-
                 <div class="hidden md:flex space-x-8 text-sm font-medium">
-                    <a href="#conteudo" class="text-slate-600 hover:text-brand-600 transition">Conteúdo</a>
-                    <a href="#pratica" class="text-brand-700 font-bold hover:text-brand-900 transition">Laboratório
-                        Prático</a>
-                    <a href="#checklist" class="text-slate-600 hover:text-brand-600 transition">Checklist</a>
+                    <a href="#slides" class="text-slate-600 hover:text-brand-600 transition">Conceitos</a>
+                    <a href="#controle" class="text-slate-600 hover:text-brand-600 transition">Propriedades</a>
+                    <a href="#pratica" class="text-brand-700 font-bold hover:text-brand-900 transition">Laboratório</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white border-b border-slate-200">
-        <div class="max-w-5xl mx-auto">
+    <header class="pt-40 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-5xl mx-auto text-center">
             <div
-                class="inline-block mb-6 px-4 py-2 bg-brand-100 text-brand-800 rounded-full font-semibold text-sm border border-brand-200">
+                class="inline-block mb-6 px-4 py-1 bg-brand-100 text-brand-800 rounded-full font-bold text-xs uppercase tracking-wide border border-brand-200">
                 Semana 12 • Layout Moderno
             </div>
-
-            <h1 class="font-bold text-5xl md:text-6xl text-slate-900 mb-6 leading-tight">
-                Flexbox I: O Container<br>
-                <span class="text-brand-700">O Gerente do Espaço</span>
+            <h1 class="font-bold text-5xl md:text-6xl text-slate-900 mb-6 leading-tight tracking-tight">
+                Flexbox: O Container
             </h1>
-
-            <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl font-light">
-                Hoje você deixa de brigar com margens e aprende a delegar. Vamos dominar o elemento <strong>Pai</strong>
-                para que ele controle o alinhamento e a distribuição dos <strong>Filhos</strong> automaticamente.
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                Entenda como controlar o espaço e o alinhamento delegando o controle ao elemento pai.
             </p>
-
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#conteudo"
-                    class="btn-cta bg-brand-600 text-white font-bold py-4 px-8 rounded-full text-lg text-center hover:bg-brand-700 transition shadow-lg shadow-brand-500/20">
-                    Iniciar Aula
-                </a>
-                <a href="#pratica"
-                    class="border-2 border-brand-600 text-brand-700 font-bold py-4 px-8 rounded-full text-lg text-center hover:bg-brand-50 transition">
-                    Ir para Prática
-                </a>
-            </div>
         </div>
     </header>
 
-    <section id="conteudo" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto space-y-20">
+    <section id="slides" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 border-y border-slate-200 scroll-mt-20">
+        <div class="max-w-6xl mx-auto relative group">
 
-            <section id="conteudo" class="py-10 px-4 sm:px-6 lg:px-8 bg-slate-50 border-b border-slate-200">
-                <div class="max-w-6xl mx-auto">
+            <div class="mb-12 text-center">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Conceitos Fundamentais</h2>
+            </div>
 
-                    <div class="text-center max-w-2xl mx-auto mb-8">
-                        <span class="text-brand-600 font-bold tracking-wider uppercase text-sm">Apresentação
-                            Interativa</span>
-                        <h2 class="text-3xl font-bold text-slate-900 mt-2">Mecânica do Flexbox</h2>
-                        <p class="text-slate-600 mt-2 text-sm">Use as setas para navegar entre os conceitos.</p>
+            <button onclick="scrollSlide(-1)"
+                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white text-slate-700 p-3 rounded-full shadow-lg border border-slate-100 hover:scale-110 transition hidden md:block">❮</button>
+            <button onclick="scrollSlide(1)"
+                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white text-slate-700 p-3 rounded-full shadow-lg border border-slate-100 hover:scale-110 transition hidden md:block">❯</button>
+
+            <div id="slider-container"
+                class="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-8 no-scrollbar scroll-smooth px-4">
+
+                <div
+                    class="min-w-full snap-center bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col md:flex-row transform transition hover:shadow-2xl">
+                    <div class="bg-slate-800 p-10 md:w-1/3 flex flex-col justify-center text-white">
+                        <span class="text-xs font-bold text-slate-400 uppercase mb-3 tracking-wider">01. Contexto</span>
+                        <h3 class="text-3xl font-bold mb-6">A Evolução</h3>
+                        <p class="text-slate-300 text-base leading-relaxed">
+                            O <strong>Fluxo Normal (Block)</strong> é como a gravidade: tudo cai verticalmente. O
+                            <strong>Flexbox</strong> nos dá "trilhos", permitindo o fluxo lateral.
+                        </p>
                     </div>
-
-                    <div class="relative group">
-
-                        <button onclick="scrollSlide(-1)"
-                            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white text-brand-600 hover:text-brand-800 p-3 rounded-full shadow-lg border border-slate-200 hover:scale-110 transition hidden md:flex">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-
-                        <div id="slider-container"
-                            class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 scroll-smooth hide-scrollbar"
-                            style="scrollbar-width: none; -ms-overflow-style: none;">
-
-                            <div
-                                class="min-w-full snap-center flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-                                <div class="bg-slate-800 p-8 md:w-1/3 flex flex-col justify-center text-white">
-                                    <span
-                                        class="text-brand-400 font-bold tracking-widest text-xs uppercase mb-2">Revisão
-                                        Aula 11 vs Aula 12</span>
-                                    <h3 class="text-2xl font-bold mb-4">A Evolução do Layout</h3>
-                                    <p class="text-slate-300 leading-relaxed mb-6">
-                                        Na aula passada, vimos o <strong>Fluxo Normal</strong> (Block). Ele é como a
-                                        gravidade: tudo cai para baixo. Hoje, vamos "desligar a gravidade" e ligar os
-                                        "trilhos" (Flex).
-                                    </p>
-                                    <div class="text-sm font-mono bg-slate-900 p-3 rounded text-slate-400">
-                                        display: <span class="text-red-400 line-through">block</span> <span
-                                            class="text-green-400">flex</span>;
-                                    </div>
-                                </div>
-                                <div class="p-8 md:w-2/3 bg-slate-50 grid grid-cols-2 gap-8 items-center">
-                                    <div
-                                        class="text-center opacity-50 grayscale hover:grayscale-0 transition duration-500">
-                                        <h4 class="font-bold text-slate-500 mb-2">Aula 11: Block Model</h4>
-                                        <div
-                                            class="border-2 border-dashed border-slate-300 p-2 space-y-2 bg-white rounded">
-                                            <div
-                                                class="bg-slate-400 h-6 w-full rounded text-[10px] text-white flex items-center justify-center">
-                                                Div 1 (Cai)</div>
-                                            <div
-                                                class="bg-slate-400 h-6 w-full rounded text-[10px] text-white flex items-center justify-center">
-                                                Div 2 (Cai)</div>
-                                        </div>
-                                        <p class="text-xs text-slate-400 mt-2">Empilha verticalmente.<br>Difícil colocar
-                                            ao lado.</p>
-                                    </div>
-
-                                    <div
-                                        class="absolute left-1/2 md:left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-white p-2 rounded-full shadow border border-slate-100">
-                                        ➡️
-                                    </div>
-
-                                    <div class="text-center transform scale-105">
-                                        <h4 class="font-bold text-brand-600 mb-2">Aula 12: Flex Model</h4>
-                                        <div class="border-2 border-brand-500 p-2 flex gap-2 bg-white rounded">
-                                            <div
-                                                class="bg-brand-500 h-16 w-1/2 rounded text-[10px] text-white flex items-center justify-center">
-                                                Item 1</div>
-                                            <div
-                                                class="bg-brand-500 h-16 w-1/2 rounded text-[10px] text-white flex items-center justify-center">
-                                                Item 2</div>
-                                        </div>
-                                        <p class="text-xs text-brand-600 mt-2 font-bold">Flui Lateralmente.<br>Controle
-                                            total.</p>
-                                    </div>
-                                </div>
+                    <div class="p-10 md:w-2/3 grid grid-cols-2 gap-10 items-center bg-slate-50">
+                        <div class="text-center group-hover:opacity-100 opacity-60 transition">
+                            <span class="text-xs font-bold text-slate-500 block mb-3">Antes (Block)</span>
+                            <div class="border border-slate-300 bg-white p-3 space-y-2 rounded-lg h-40 shadow-sm">
+                                <div class="bg-slate-300 h-8 w-full rounded"></div>
+                                <div class="bg-slate-300 h-8 w-full rounded"></div>
+                                <div class="bg-slate-300 h-8 w-full rounded"></div>
                             </div>
-
-                            <div
-                                class="min-w-full snap-center flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-                                <div class="bg-brand-700 p-8 md:w-1/3 flex flex-col justify-center text-white">
-                                    <span class="bg-brand-900 w-max px-2 py-1 rounded text-xs font-bold mb-2">Conceito
-                                        1</span>
-                                    <h3 class="text-2xl font-bold mb-4">Pai vs Filhos</h3>
-                                    <p class="text-brand-100 leading-relaxed">
-                                        O Flexbox é um contrato de gerenciamento. Você aplica a regra no
-                                        <strong>Container (Pai)</strong>, e os <strong>Itens (Filhos)</strong> obedecem.
-                                    </p>
-                                </div>
-                                <div class="p-8 md:w-2/3 bg-slate-50 flex items-center justify-center">
-                                    <div
-                                        class="relative border-4 border-dashed border-slate-300 rounded-xl p-8 w-full max-w-sm bg-white">
-                                        <span
-                                            class="absolute -top-3 left-4 bg-slate-500 text-white text-xs px-2 py-1 rounded font-bold uppercase tracking-wider">Container
-                                            (display: flex)</span>
-
-                                        <div class="flex gap-4 mt-2">
-                                            <div
-                                                class="flex-1 bg-brand-100 border-2 border-brand-500 rounded p-4 text-center animate-pulse">
-                                                <span class="text-brand-700 font-bold text-xs block">FILHO 1</span>
-                                            </div>
-                                            <div
-                                                class="flex-1 bg-brand-100 border-2 border-brand-500 rounded p-4 text-center animate-pulse">
-                                                <span class="text-brand-700 font-bold text-xs block">FILHO 2</span>
-                                            </div>
-                                        </div>
-
-                                        <p class="text-center text-xs text-slate-400 mt-4">Os netos (elementos dentro
-                                            dos filhos) não são afetados.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="min-w-full snap-center flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-                                <div class="bg-slate-900 p-8 md:w-1/3 flex flex-col justify-center text-white">
-                                    <span class="bg-slate-700 w-max px-2 py-1 rounded text-xs font-bold mb-2">Conceito
-                                        2</span>
-                                    <h3 class="text-2xl font-bold mb-4">O Sistema de Eixos</h3>
-                                    <p class="text-slate-300 leading-relaxed">
-                                        Esqueça "Esquerda e Direita". O Flexbox usa trilhos.
-                                        <br><br>
-                                        <strong>Main Axis:</strong> Onde o trem anda.<br>
-                                        <strong>Cross Axis:</strong> Perpendicular ao trem.
-                                    </p>
-                                </div>
-                                <div class="p-8 md:w-2/3 bg-slate-50 flex items-center justify-center">
-                                    <div
-                                        class="relative w-64 h-64 bg-white rounded-full shadow-lg border border-slate-100 flex items-center justify-center">
-                                        <div
-                                            class="absolute w-full h-1 bg-indigo-500 top-1/2 left-0 transform -translate-y-1/2 z-10">
-                                        </div>
-                                        <span
-                                            class="absolute right-2 top-1/2 -mt-6 text-indigo-600 font-bold text-xs">MAIN
-                                            AXIS (justify)</span>
-                                        <div
-                                            class="absolute right-0 top-1/2 -mt-2 w-0 h-0 border-t-8 border-t-transparent border-l-[16px] border-l-indigo-500 border-b-8 border-b-transparent transform -translate-y-1/2">
-                                        </div>
-
-                                        <div
-                                            class="absolute h-full w-1 bg-pink-500 top-0 left-1/2 transform -translate-x-1/2 z-0">
-                                        </div>
-                                        <span
-                                            class="absolute left-1/2 bottom-2 ml-2 text-pink-600 font-bold text-xs">CROSS
-                                            AXIS (align)</span>
-                                        <div
-                                            class="absolute bottom-0 left-1/2 -ml-2 w-0 h-0 border-l-8 border-l-transparent border-t-[16px] border-t-pink-500 border-r-8 border-r-transparent transform -translate-x-1/2">
-                                        </div>
-
-                                        <div class="flex gap-2 z-20">
-                                            <div class="w-10 h-10 bg-slate-800 rounded shadow-lg"></div>
-                                            <div class="w-10 h-10 bg-slate-800 rounded shadow-lg"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="min-w-full snap-center flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
-                                <div class="bg-brand-600 p-8 md:w-1/3 flex flex-col justify-center text-white">
-                                    <span class="bg-brand-800 w-max px-2 py-1 rounded text-xs font-bold mb-2">Conceito
-                                        3</span>
-                                    <h3 class="text-2xl font-bold mb-4">Justify vs Align</h3>
-                                    <p class="text-brand-100 leading-relaxed mb-4">
-                                        Os comandos mágicos que substituem as margens.
-                                    </p>
-                                    <ul class="text-sm space-y-2">
-                                        <li class="flex items-center gap-2">↔️ <strong>Justify-content:</strong>
-                                            Distribui no espaço horizontal (Main).</li>
-                                        <li class="flex items-center gap-2">↕️ <strong>Align-items:</strong> Centraliza
-                                            na altura (Cross).</li>
-                                    </ul>
-                                </div>
-                                <div class="p-8 md:w-2/3 bg-slate-50 grid grid-cols-2 gap-4">
-                                    <div class="space-y-2">
-                                        <span class="text-xs font-bold text-slate-400 uppercase">Justify:
-                                            Space-Between</span>
-                                        <div
-                                            class="bg-white p-2 border border-slate-200 rounded h-24 flex justify-between items-center">
-                                            <div class="w-6 h-6 bg-indigo-500 rounded"></div>
-                                            <div class="w-6 h-6 bg-indigo-500 rounded"></div>
-                                            <div class="w-6 h-6 bg-indigo-500 rounded"></div>
-                                        </div>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <span class="text-xs font-bold text-slate-400 uppercase">Align: Center</span>
-                                        <div
-                                            class="bg-white p-2 border border-slate-200 rounded h-24 flex justify-center items-center">
-                                            <div class="w-6 h-6 bg-pink-500 rounded"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
-
-                        <button onclick="scrollSlide(1)"
-                            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white text-brand-600 hover:text-brand-800 p-3 rounded-full shadow-lg border border-slate-200 hover:scale-110 transition hidden md:flex">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                                </path>
-                            </svg>
-                        </button>
-
+                        <div class="text-center">
+                            <span class="text-xs font-bold text-brand-600 block mb-3">Depois (Flex)</span>
+                            <div
+                                class="border-2 border-brand-500 bg-white p-3 flex gap-2 rounded-lg h-40 items-start shadow-md">
+                                <div class="bg-brand-500 h-20 w-1/3 rounded"></div>
+                                <div class="bg-brand-500 h-20 w-1/3 rounded"></div>
+                                <div class="bg-brand-500 h-20 w-1/3 rounded"></div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="flex justify-center gap-2 mt-4">
-                        <div class="w-2 h-2 rounded-full bg-brand-600"></div>
-                        <div class="w-2 h-2 rounded-full bg-slate-300"></div>
-                        <div class="w-2 h-2 rounded-full bg-slate-300"></div>
-                        <div class="w-2 h-2 rounded-full bg-slate-300"></div>
-                    </div>
-
                 </div>
-            </section>
 
-            <script>
-                function scrollSlide(direction) {
-                    const container = document.getElementById('slider-container');
-                    const slideWidth = container.offsetWidth;
-                    container.scrollBy({
-                        left: slideWidth * direction,
-                        behavior: 'smooth'
-                    });
-                }
-            </script>
+                <div
+                    class="min-w-full snap-center bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-brand-600 p-10 md:w-1/3 flex flex-col justify-center text-white">
+                        <span class="text-xs font-bold text-brand-200 uppercase mb-3 tracking-wider">02. Sintaxe</span>
+                        <h3 class="text-3xl font-bold mb-6">O Comando Pai</h3>
+                        <p class="text-brand-100 text-base leading-relaxed">
+                            Tudo começa no elemento <strong>PAI</strong>. Ao aplicar o comando, os filhos imediatamente
+                            tentam se acomodar na mesma linha.
+                        </p>
+                    </div>
+                    <div class="p-10 md:w-2/3 grid md:grid-cols-2 gap-8 items-center bg-slate-50">
+                        <div class="code-block text-sm shadow-lg">
+                            <span class="cmt">/* CSS no Container Pai */</span>
+                            <span class="kwd">.container</span> {
+                            <span class="prop">display</span>: <span class="val">flex</span>;
+                            <span class="prop">gap</span>: <span class="val">20px</span>;
+                            }
+                        </div>
+                        <div class="border-2 border-brand-500 border-dashed rounded-xl p-6 bg-white relative">
+                            <span
+                                class="text-xs text-brand-500 font-bold absolute -top-3 left-4 bg-white px-2">.container</span>
+                            <div class="flex gap-4">
+                                <div
+                                    class="bg-brand-500 w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-lg">
+                                    1</div>
+                                <div
+                                    class="bg-brand-500 w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-lg">
+                                    2</div>
+                                <div
+                                    class="bg-brand-500 w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-lg">
+                                    3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="min-w-full snap-center bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-slate-900 p-10 md:w-1/3 flex flex-col justify-center text-white">
+                        <span class="text-xs font-bold text-slate-500 uppercase mb-3 tracking-wider">03. Lógica</span>
+                        <h3 class="text-3xl font-bold mb-6">Sistema de Eixos</h3>
+                        <p class="text-slate-300 text-base leading-relaxed">
+                            Esqueça "esquerda/direita".
+                            <br><br>
+                            <strong>Main Axis ➡️</strong>: Direção do fluxo.<br>
+                            <strong>Cross Axis ⬇️</strong>: Direção de corte.
+                        </p>
+                    </div>
+                    <div class="p-10 md:w-2/3 flex justify-center items-center bg-slate-50">
+                        <div
+                            class="relative w-80 h-48 bg-white border border-slate-200 shadow-lg rounded-xl flex items-center justify-center gap-3">
+                            <div class="absolute w-full h-0.5 bg-indigo-500 top-1/2 z-10"></div>
+                            <span
+                                class="absolute right-0 top-1/2 -mt-6 text-indigo-600 font-bold text-xs bg-indigo-50 px-1 rounded">MAIN
+                                AXIS</span>
+
+                            <div class="absolute h-full w-0.5 bg-pink-500 left-1/2 z-0"></div>
+                            <span
+                                class="absolute left-1/2 bottom-0 ml-3 mb-2 text-pink-600 font-bold text-xs bg-pink-50 px-1 rounded">CROSS
+                                AXIS</span>
+
+                            <div class="w-10 h-10 bg-slate-800 rounded-md z-20 shadow-xl border-2 border-slate-600">
+                            </div>
+                            <div class="w-10 h-10 bg-slate-800 rounded-md z-20 shadow-xl border-2 border-slate-600">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="min-w-full snap-center bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                    <div class="bg-indigo-700 p-10 md:w-1/3 flex flex-col justify-center text-white">
+                        <span class="text-xs font-bold text-indigo-300 uppercase mb-3 tracking-wider">04.
+                            Controle</span>
+                        <h3 class="text-3xl font-bold mb-6">Quem controla quem?</h3>
+                        <p class="text-indigo-100 text-base leading-relaxed">
+                            Para mover no Eixo Principal: <code>justify-content</code>. <br>
+                            Para mover no Eixo Cruzado: <code>align-items</code>.
+                        </p>
+                    </div>
+                    <div class="p-10 md:w-2/3 grid grid-cols-2 gap-10 bg-slate-50 items-center">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-600 block mb-3">justify-content (↔️)</span>
+                            <div
+                                class="bg-white p-3 border border-slate-200 rounded-lg h-24 flex justify-between items-center shadow-sm">
+                                <div class="w-6 h-6 bg-indigo-500 rounded"></div>
+                                <div class="w-6 h-6 bg-indigo-500 rounded"></div>
+                                <div class="w-6 h-6 bg-indigo-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-pink-600 block mb-3">align-items (↕️)</span>
+                            <div
+                                class="bg-white p-3 border border-slate-200 rounded-lg h-24 flex justify-center items-center shadow-sm">
+                                <div class="w-6 h-6 bg-pink-500 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex justify-center gap-3 mt-8">
+                <div class="w-2 h-2 rounded-full bg-brand-600"></div>
+                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+                <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="controle" class="py-32 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-5xl mx-auto space-y-32">
+
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="bg-indigo-100 text-indigo-700 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl">1</span>
+                        <h2 class="text-3xl font-bold text-slate-900">Alinhamento Horizontal</h2>
+                    </div>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Controlado pela propriedade <code class="code-tag">justify-content</code>. Ela decide como
+                        "queimar" o espaço que sobra na linha.
+                    </p>
+
+                    <div class="code-block text-sm shadow-lg">
+                        <span class="kwd">.container</span> {
+                        <span class="prop">display</span>: <span class="val">flex</span>;
+                        <span class="prop">justify-content</span>: <span class="val">space-between</span>;
+                        }
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/#aa-justify-content"
+                            target="_blank"
+                            class="inline-flex items-center gap-2 text-indigo-600 font-bold hover:text-indigo-800 transition group text-sm">
+                            <span>📖 Ver Cheat Sheet Completo</span>
+                            <span class="group-hover:translate-x-1 transition">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-6 bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 mb-2 block uppercase tracking-wider">flex-start
+                            (Padrão)</span>
+                        <div
+                            class="bg-white border border-slate-200 h-12 rounded-lg flex justify-start px-3 items-center gap-2 shadow-sm">
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 mb-2 block uppercase tracking-wider">center</span>
+                        <div
+                            class="bg-white border border-slate-200 h-12 rounded-lg flex justify-center px-3 items-center gap-2 shadow-sm">
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span
+                            class="text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-wider">space-between
+                            (Menus!)</span>
+                        <div
+                            class="bg-white border border-slate-200 h-12 rounded-lg flex justify-between px-3 items-center shadow-sm">
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                            <div class="w-8 h-8 bg-indigo-500 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <hr class="border-slate-100">
 
-            <article class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="order-2 md:order-1 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <div class="grid-bg h-40 border border-slate-100 rounded flex justify-between items-center p-4">
-                        <div class="bg-brand-500 text-white w-12 h-12 rounded shadow"></div>
-                        <div class="bg-brand-400 text-white w-12 h-12 rounded shadow"></div>
-                        <div class="bg-brand-300 text-white w-12 h-12 rounded shadow"></div>
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div class="flex items-center gap-4">
+                        <span
+                            class="bg-pink-100 text-pink-700 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl">2</span>
+                        <h2 class="text-3xl font-bold text-slate-900">Alinhamento Vertical</h2>
                     </div>
-
-                    <div class="code-block mt-4 text-xs">
-                        <span class="code-keyword">.menu</span> { <br>
-                        &nbsp;&nbsp;<span class="code-prop">display</span>: <span class="code-val">flex</span>; <br>
-                        &nbsp;&nbsp;<span class="code-prop">justify-content</span>: <span
-                            class="code-val">space-between</span>; <br>
-                        &nbsp;&nbsp;<span class="code-prop">align-items</span>: <span class="code-val">center</span>;
-                        <br>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Controlado por <code class="code-tag">align-items</code>. Define o comportamento na "altura" da
+                        linha.
+                    </p>
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 text-sm text-amber-900 rounded-r">
+                        <strong>Regra Importante:</strong> Para centralizar verticalmente, o pai PRECISA ter uma altura
+                        definida (<code class="code-tag">height</code>) maior que a dos filhos.
+                    </div>
+                    <div class="code-block text-sm shadow-lg">
+                        <span class="kwd">.hero-banner</span> {
+                        <span class="prop">display</span>: <span class="val">flex</span>;
+                        <span class="prop">height</span>: <span class="val">400px</span>; <span class="cmt">/* Altura
+                            fixa */</span>
+                        <span class="prop">align-items</span>: <span class="val">center</span>;
                         }
                     </div>
                 </div>
 
-                <div class="order-1 md:order-2 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <span
-                            class="bg-brand-100 text-brand-700 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl">2</span>
-                        <h2 class="text-2xl font-bold text-slate-900">Alinhamento e Distribuição</h2>
+                <div class="space-y-6 bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                    <div class="grid grid-cols-3 gap-4 h-64">
+
+                        <div
+                            class="bg-white border border-slate-200 rounded-lg flex flex-col items-center h-full shadow-sm p-2">
+                            <div class="bg-pink-500 w-6 h-full rounded opacity-80"></div>
+                            <span class="text-[10px] text-slate-400 mt-2 font-bold uppercase">stretch</span>
+                        </div>
+
+                        <div
+                            class="bg-white border border-slate-200 rounded-lg flex flex-col justify-center items-center h-full shadow-sm p-2">
+                            <div class="bg-pink-500 w-6 h-12 rounded"></div>
+                            <span class="text-[10px] text-pink-600 absolute bottom-4 font-bold uppercase">center</span>
+                        </div>
+
+                        <div
+                            class="bg-white border border-slate-200 rounded-lg flex flex-col justify-end items-center h-full pb-2 shadow-sm p-2">
+                            <div class="bg-pink-500 w-6 h-12 rounded"></div>
+                            <span class="text-[10px] text-slate-400 absolute top-4 font-bold uppercase">flex-end</span>
+                        </div>
+
                     </div>
-                    <p class="text-slate-600 leading-relaxed">
-                        É aqui que a mágica acontece. Usamos <span class="code-tag">justify-content</span> para alinhar
-                        no trilho do trem (horizontal por padrão) e <span class="code-tag">align-items</span> para
-                        alinhar perpendicularmente (vertical por padrão).
-                    </p>
-                    <ul class="list-disc pl-5 text-slate-600 space-y-1">
-                        <li><strong>space-between:</strong> Um item em cada ponta (ideal para Menus).</li>
-                        <li><strong>center:</strong> Agrupa tudo no meio.</li>
-                        <li><strong>gap:</strong> Cria o espaço entre os itens. Adeus margens!</li>
-                    </ul>
                 </div>
-            </article>
+            </div>
 
         </div>
     </section>
 
-    <section id="pratica" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+    <section id="pratica" class="py-32 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
         <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-8 border-b border-slate-700 pb-4">
-                <span class="text-3xl">🔬</span>
-                <h2 class="font-bold text-3xl">Laboratório Prático (60 min)</h2>
+            <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 border-b border-slate-700 pb-8">
+                <span class="text-5xl">💻</span>
+                <div>
+                    <h2 class="font-bold text-4xl mb-2">Laboratório de Entrega</h2>
+                    <p class="text-slate-400 text-lg">Prática em sala. Siga a nomenclatura exata dos arquivos.</p>
+                </div>
             </div>
 
-            <p class="text-slate-300 mb-12 text-lg max-w-2xl">
-                Crie um arquivo <code class="bg-slate-800 px-2 py-1 rounded text-brand-300">aula-12-pratica.html</code>.
-                Copie a estrutura básica abaixo e resolva os 3 desafios usando apenas CSS no Container.
-            </p>
+            <div class="grid lg:grid-cols-2 gap-16">
 
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <div class="space-y-8">
-
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white flex-shrink-0">
-                            1</div>
-                        <div>
-                            <h3 class="font-bold text-xl mb-2 text-brand-400">Preparação (HTML)</h3>
-                            <p class="text-slate-400 text-sm mb-3">
-                                Crie as 3 caixas principais: um Menu, um Hero (banner) e uma Galeria.
-                            </p>
-                            <div class="code-block text-xs bg-black border-slate-700">
-                                &lt;!-- Desafio 1: Menu --&gt;
-                                &lt;nav class="menu"&gt;
-                                &lt;div&gt;Logo&lt;/div&gt; &lt;div&gt;Links&lt;/div&gt; &lt;div&gt;Login&lt;/div&gt;
-                                &lt;/nav&gt;
-
-                                &lt;!-- Desafio 2: Hero Centralizado --&gt;
-                                &lt;section class="hero"&gt;
-                                &lt;h1&gt;Bem-vindo&lt;/h1&gt;
-                                &lt;/section&gt;
-
-                                &lt;!-- Desafio 3: Galeria --&gt;
-                                &lt;div class="galeria"&gt;
-                                &lt;div class="foto"&gt;1&lt;/div&gt; &lt;div class="foto"&gt;2&lt;/div&gt; &lt;div
-                                class="foto"&gt;3&lt;/div&gt;
-                                &lt;/div&gt;
-                            </div>
-                        </div>
+                <div
+                    class="bg-slate-800 rounded-2xl p-10 border border-slate-700 hover:border-brand-500 transition duration-300 group shadow-xl">
+                    <div class="flex justify-between items-start mb-8">
+                        <span
+                            class="bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wide">Exercício
+                            1</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-brand-300 font-mono border border-slate-700">nome-atividade-1.html</code>
                     </div>
 
-                    <div class="flex gap-4">
-                        <div
-                            class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white flex-shrink-0">
-                            2</div>
-                        <div>
-                            <h3 class="font-bold text-xl mb-2 text-brand-400">A Missão (CSS)</h3>
-                            <p class="text-slate-400 text-sm mb-3">
-                                Aplique os estilos. Tente não olhar a resposta no quadro!
-                            </p>
-                            <ul class="text-sm text-slate-300 space-y-3 list-disc pl-4">
-                                <li><strong>Menu:</strong> Use <code class="code-tag">space-between</code> para separar
-                                    os itens e <code class="code-tag">align-items: center</code> para alinhar
-                                    verticalmente.</li>
-                                <li><strong>Hero:</strong> Defina <code class="code-tag">height: 300px</code>. Use
-                                    Flexbox para colocar o título no <strong>centro exato</strong> da caixa.</li>
-                                <li><strong>Galeria:</strong> Adicione 6 fotos. Use <code
-                                        class="code-tag">flex-wrap: wrap</code> e <code
-                                        class="code-tag">gap: 10px</code> para que elas quebrem de linha se faltar
-                                    espaço.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="bg-slate-800 rounded-xl p-8 border border-slate-700 sticky top-24">
-                    <h3 class="text-slate-400 font-bold mb-6 text-sm uppercase tracking-widest text-center">Meta Visual
-                    </h3>
-
-                    <div class="space-y-4">
-                        <div
-                            class="bg-white rounded h-10 flex justify-between items-center px-4 text-xs font-bold text-slate-600">
-                            <span>Logo</span> <span>Links</span> <span>Login</span>
-                        </div>
-
-                        <div
-                            class="bg-brand-600 rounded h-32 flex justify-center items-center text-white font-bold shadow-lg">
-                            BEM-VINDO
-                        </div>
-
-                        <div class="flex flex-wrap gap-2">
-                            <div class="bg-slate-600 w-12 h-12 rounded"></div>
-                            <div class="bg-slate-600 w-12 h-12 rounded"></div>
-                            <div class="bg-slate-600 w-12 h-12 rounded"></div>
-                            <div class="bg-slate-600 w-12 h-12 rounded"></div>
-                        </div>
-                    </div>
-
-                    <p class="text-slate-500 text-xs mt-4 text-center">
-                        Seus componentes devem se comportar assim no navegador.
+                    <h3 class="font-bold text-2xl mb-4 group-hover:text-brand-400 transition">A Barra de Navegação</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Crie um cabeçalho onde a <strong>Logo</strong> fica na extrema esquerda e os
+                        <strong>Links</strong> na extrema direita. Tudo centralizado verticalmente.
                     </p>
+
+                    <div class="bg-white rounded h-16 flex justify-between items-center px-6 mb-8 shadow-inner">
+                        <div class="text-slate-900 font-black text-sm tracking-tighter">LOGO</div>
+                        <div class="flex gap-2">
+                            <div class="w-10 h-2 bg-slate-300 rounded-full"></div>
+                            <div class="w-10 h-2 bg-slate-300 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-700 pt-6">
+                        <p class="text-xs text-slate-500 mb-3 font-bold uppercase tracking-widest">Dicas do Professor:
+                        </p>
+                        <ul class="text-xs text-slate-400 space-y-2 font-mono">
+                            <li>• display: flex;</li>
+                            <li>• justify-content: space-between;</li>
+                            <li>• align-items: center;</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="checklist" class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="font-bold text-2xl text-slate-900 mb-6 flex items-center gap-2">
-                <span>✅</span> Checklist de Consolidação
-            </h2>
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-3">
-
-                <label class="checkbox-item flex items-start gap-4 p-4 rounded-lg border border-slate-100">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
-                    <div>
-                        <strong class="text-slate-800 text-sm block">O Container é quem manda</strong>
-                        <span class="text-slate-500 text-xs">Entendi que aplico as regras no elemento PAI, não nos
-                            filhos.</span>
+                <div
+                    class="bg-slate-800 rounded-2xl p-10 border border-slate-700 hover:border-pink-500 transition duration-300 group shadow-xl">
+                    <div class="flex justify-between items-start mb-8">
+                        <span
+                            class="bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full tracking-wide">Exercício
+                            2</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-pink-300 font-mono border border-slate-700">nome-atividade-2.html</code>
                     </div>
-                </label>
 
-                <label class="checkbox-item flex items-start gap-4 p-4 rounded-lg border border-slate-100">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
-                    <div>
-                        <strong class="text-slate-800 text-sm block">Diferença de Eixos</strong>
-                        <span class="text-slate-500 text-xs">Sei que 'justify' é para o eixo principal e 'align' é para
-                            o cruzado.</span>
-                    </div>
-                </label>
+                    <h3 class="font-bold text-2xl mb-4 group-hover:text-pink-400 transition">O Centro Absoluto</h3>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Crie uma seção de tela cheia (100vh) com um cartão de boas-vindas <strong>exatamente no
+                            meio</strong> da tela (horizontal e vertical).
+                    </p>
 
-                <label class="checkbox-item flex items-start gap-4 p-4 rounded-lg border border-slate-100">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
-                    <div>
-                        <strong class="text-slate-800 text-sm block">Uso do Gap</strong>
-                        <span class="text-slate-500 text-xs">Pare de usar margins manuais para afastar itens da
-                            grade.</span>
+                    <div
+                        class="bg-slate-700 rounded-lg h-40 flex justify-center items-center mb-8 relative border border-slate-600 shadow-inner">
+                        <div class="bg-white text-slate-900 px-6 py-3 rounded shadow-lg text-xs font-bold z-10">
+                            Olá Mundo
+                        </div>
+                        <div class="absolute w-full h-px bg-pink-500/30"></div>
+                        <div class="absolute h-full w-px bg-pink-500/30"></div>
                     </div>
-                </label>
+
+                    <div class="border-t border-slate-700 pt-6">
+                        <p class="text-xs text-slate-500 mb-3 font-bold uppercase tracking-widest">Dicas do Professor:
+                        </p>
+                        <ul class="text-xs text-slate-400 space-y-2 font-mono">
+                            <li>• height: 100vh;</li>
+                            <li>• justify-content: center;</li>
+                            <li>• align-items: center;</li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="bg-white border-t border-slate-200 py-12">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="flex justify-between items-center">
-                <a href="aula-11.html"
-                    class="group flex items-center gap-2 text-slate-500 hover:text-brand-600 transition">
-                    <span class="text-xl group-hover:-translate-x-1 transition">&larr;</span>
-                    <div class="text-left">
-                        <span class="block text-xs uppercase font-bold tracking-wider">Voltar</span>
-                        <span class="text-sm">Aula 11: Fluxo e Posicionamento</span>
-                    </div>
-                </a>
-
-                <div class="text-center hidden md:block">
-                    <p class="text-slate-400 text-xs">
-                        Tecnologia em Análise e Desenvolvimento de Sistemas • IFRN<br>
-                        Módulo Front-End: Web Design
-                    </p>
-                </div>
-
-                <a href="aula-13.html"
-                    class="group flex items-center gap-2 text-brand-600 hover:text-brand-800 transition">
-                    <div class="text-right">
-                        <span class="block text-xs uppercase font-bold tracking-wider text-slate-400">Próxima
-                            Aula</span>
-                        <span class="text-sm font-bold">Flexbox II: Os Itens</span>
-                    </div>
-                    <span class="text-xl group-hover:translate-x-1 transition">&rarr;</span>
-                </a>
-            </div>
-        </div>
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400 text-sm">
+        <p>IFRN - Tecnologia em Análise e Desenvolvimento de Sistemas</p>
     </footer>
 
     <script>
-        document.querySelectorAll('input[type="checkbox"]').forEach((checkbox, index) => {
-            const pageId = document.title; // Usa o título como ID único da página
-            const key = `${pageId}-chk-${index}`;
+        function scrollSlide(direction) {
+            const container = document.getElementById('slider-container');
+            // Move 80% of screen width to ensure next slide is visible
+            const scrollAmount = window.innerWidth < 768 ? container.offsetWidth : 600;
 
-            // Carrega estado
-            checkbox.checked = localStorage.getItem(key) === 'true';
-
-            // Salva estado
-            checkbox.addEventListener('change', e => {
-                localStorage.setItem(key, e.target.checked);
+            container.scrollBy({
+                left: scrollAmount * direction,
+                behavior: 'smooth'
             });
-        });
+        }
     </script>
-
 </body>
 
 </html>
