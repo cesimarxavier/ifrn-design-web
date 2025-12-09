@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="bg-gray-50">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Prática: Redesign IFRN no Figma</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #111827;
+        }
+
+        /* Estilo Blueprintt Card */
+        .blueprint-card {
+            background-color: #FFFFFF;
+            border-radius: 1rem;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .blueprint-card:hover {
+            border-color: #D1D5DB;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 6rem;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+        }
+
+        /* Checkbox Customizado */
+        .step-checkbox:checked+div {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+
+        /* Cores IFRN */
+        .bg-ifrn-green {
+            background-color: #35A853;
+        }
+
+        .text-ifrn-green {
+            color: #35A853;
+        }
+
+        .bg-ifrn-red {
+            background-color: #B91C1C;
+        }
+
+        .text-ifrn-red {
+            color: #B91C1C;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen pb-20" x-data="{ currentStep: 0 }">
+
+    <nav class="bg-white border-b border-gray-200 fixed w-full top-0 z-50 h-16">
+        <div class="container mx-auto px-6 h-full flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="h-8 w-8 bg-ifrn-green rounded-lg flex items-center justify-center text-white font-bold text-xs">
+                    IF</div>
+                <h1 class="text-lg font-bold tracking-tight">Princípios de Design <span
+                        class="text-gray-400 font-normal">| Aula 01</span></h1>
+            </div>
+            <span
+                class="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-sm font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Ao
+                Vivo • 70 min</span>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-6 mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+        <aside class="hidden lg:block lg:col-span-4 relative">
+            <div class="sticky-sidebar space-y-6">
+                <div class="blueprint-card p-6">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Briefing</h2>
+                    <h3 class="text-xl font-bold mb-2">Redesign IFRN ZN</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">Missão: Transformar o site atual em uma
+                        interface moderna, focada em conversão, usando Figma.</p>
+                    <div class="border-t border-gray-100 pt-6">
+                        <h3 class="text-sm font-bold mb-4">Paleta de Cores</h3>
+                        <div class="flex gap-4">
+                            <div class="text-center">
+                                <div class="w-10 h-10 rounded-lg bg-ifrn-green shadow-sm mb-1 mx-auto"></div><span
+                                    class="text-[10px] text-gray-500 font-mono">#35A853</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-10 h-10 rounded-lg bg-ifrn-red shadow-sm mb-1 mx-auto"></div><span
+                                    class="text-[10px] text-gray-500 font-mono">#B91C1C</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-10 h-10 rounded-lg bg-[#1F2937] shadow-sm mb-1 mx-auto"></div><span
+                                    class="text-[10px] text-gray-500 font-mono">#1F2937</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blueprint-card p-6 bg-gray-900 text-white">
+                    <h3 class="text-sm font-bold mb-4 text-green-400">Regra dos 8 Pontos</h3>
+                    <ul class="text-sm space-y-3">
+                        <li class="flex justify-between py-2 border-b border-gray-800"><span
+                                class="text-gray-400">Grid</span><span class="font-mono font-bold">12 Cols / 24px
+                                Gutter</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-800"><span
+                                class="text-gray-400">Espaçamento</span><span class="font-mono font-bold">8, 16, 24, 32,
+                                48...</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-800"><span class="text-gray-400">H1 /
+                                Texto</span><span class="font-mono font-bold">48px / 16px</span></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main class="lg:col-span-8 space-y-8">
+
+            <div class="max-w-2xl">
+                <h2 class="text-3xl font-extrabold tracking-tight mb-2 text-gray-900">Roteiro de Construção</h2>
+                <p class="text-gray-600">Siga o passo a passo e marque as etapas concluídas.</p>
+            </div>
+
+            <div class="blueprint-card p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 rounded-bl-lg">
+                    00:00 - 10:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-blue-100 text-blue-600 text-sm">1</span>
+                    Setup & Grid</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Frame Desktop (1440px)</span>
+                        </div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Grid 12 Colunas</span><span
+                                class="text-sm text-gray-500">Margin: 64, Gutter: 24.</span></div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalGrid.showModal()"
+                        class="text-xs font-bold text-blue-600 hover:underline">Por que 12 colunas?</button></div>
+            </div>
+
+            <div class="blueprint-card p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 rounded-bl-lg">
+                    10:00 - 20:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-blue-100 text-blue-600 text-sm">2</span>
+                    Header</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Logo e Menu</span><span
+                                class="text-sm text-gray-500">Use Auto Layout (Shift+A). Altura 80px.</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Alinhamento</span><span
+                                class="text-sm text-gray-500">Space Between (Logo na ponta, Menu na outra).</span></div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalGestalt.showModal()"
+                        class="text-xs font-bold text-blue-600 hover:underline">Teoria: Gestalt</button></div>
+            </div>
+
+            <div class="blueprint-card p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 rounded-bl-lg">
+                    20:00 - 30:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-blue-100 text-blue-600 text-sm">3</span>
+                    Hero Section</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Imagem com Overlay</span><span
+                                class="text-sm text-gray-500">Retângulo preto 60% opacidade sobre a foto.</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Botão Vermelho
+                                (Ação)</span><span class="text-sm text-gray-500">Cor #B91C1C para chamar atenção
+                                (Contraste).</span></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="blueprint-card p-6 border-l-4 border-ifrn-green relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-ifrn-green text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
+                    30:00 - 40:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-ifrn-green text-white text-sm">4</span>
+                    Sobre o Curso</h3>
+                <p class="text-sm text-gray-500 mb-4 italic">"O zigue-zague mantém o usuário acordado."</p>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Desligar Grid
+                                Visível</span><span class="text-sm text-gray-500">Atalho: Ctrl + Shift + 4.</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Layout Dividido
+                                (Split)</span><span class="text-sm text-gray-500">Texto na esquerda (6 cols), Foto na
+                                direita (6 cols).</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Texto Alinhado à
+                                Esquerda</span><span class="text-sm text-gray-500">Nunca use justificado na web (gera
+                                "rios de espaço").</span></div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalRhythm.showModal()"
+                        class="text-xs font-bold text-ifrn-green hover:underline">Por que Layout Zigue-Zague?</button>
+                </div>
+            </div>
+
+            <div class="blueprint-card p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 rounded-bl-lg">
+                    40:00 - 50:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-blue-100 text-blue-600 text-sm">5</span>
+                    Disciplinas & Professores</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Card "Pai"
+                                (Componente)</span><span class="text-sm text-gray-500">Retângulo branco com Auto Layout.
+                                Padding interno de 24px (Respiro).</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Sombra Específica</span><span
+                                class="text-sm text-gray-500 font-mono bg-gray-100 px-2 py-1 rounded">Effects > Drop
+                                Shadow: Blur 16, Y 4, Opacity 10%</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Repetição</span><span
+                                class="text-sm text-gray-500">Duplicar 3x. Para professores, arredonde a foto (Radius
+                                50%).</span></div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalConsistency.showModal()"
+                        class="text-xs font-bold text-blue-600 hover:underline">Por que consistência?</button></div>
+            </div>
+
+            <div class="blueprint-card p-6 border-l-4 border-ifrn-green relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-ifrn-green text-white px-3 py-1 text-xs font-bold rounded-bl-lg">
+                    50:00 - 60:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-ifrn-green text-white text-sm">6</span>
+                    Seção FAQ</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Estrutura
+                                Minimalista</span><span class="text-sm text-gray-500">Pergunta em Bold + Ícone de seta.
+                                Sem caixas.</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Separadores</span><span
+                                class="text-sm text-gray-500">Linha fina (Stroke) apenas embaixo. Cinza claro.</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalMinimalism.showModal()"
+                        class="text-xs font-bold text-ifrn-green hover:underline">Lei da Proximidade (FAQ)</button>
+                </div>
+            </div>
+
+            <div class="blueprint-card p-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500 rounded-bl-lg">
+                    60:00 - 70:00</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3"><span
+                        class="flex items-center justify-center w-8 h-8 rounded bg-blue-100 text-blue-600 text-sm">7</span>
+                    Footer & Protótipo</h3>
+                <div class="space-y-2">
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Fundo Escuro</span><span
+                                class="text-sm text-gray-500">Use o Verde IFRN (#35A853). Texto branco pequeno
+                                (14px).</span></div>
+                    </label>
+                    <label
+                        class="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition"><input
+                            type="checkbox"
+                            class="step-checkbox w-5 h-5 mt-0.5 rounded text-ifrn-green focus:ring-ifrn-green">
+                        <div class="flex-1"><span class="block font-medium text-gray-900">Play!</span><span
+                                class="text-sm text-gray-500">Clique em "Present" para ver o site funcionando.</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="mt-4 text-right"><button @click="$refs.modalLoop.showModal()"
+                        class="text-xs font-bold text-blue-600 hover:underline">O Loop Visual</button></div>
+            </div>
+
+        </main>
+    </div>
+
+    <dialog x-ref="modalGrid"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-bold text-gray-900">O Poder do 12</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p>12 é divisível por 2, 3, 4 e 6. Isso permite dividir a tela em metades, terços ou quartos perfeitamente.
+            </p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalGrid.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Fechar</button></div>
+    </dialog>
+
+    <dialog x-ref="modalGestalt"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-bold text-gray-900">Gestalt: Proximidade</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p>"Coisas próximas são um grupo". Ao afastar o Menu do Logo, criamos dois grupos visuais distintos.</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalGestalt.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Entendi</button></div>
+    </dialog>
+
+    <dialog x-ref="modalRhythm"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900">Leitura e Ritmo</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p><strong>Por que alinhar à esquerda?</strong> Texto justificado cria espaços irregulares entre palavras
+                (rios de espaço) que cansam a vista. O alinhamento à esquerda é o padrão natural de leitura ocidental.
+            </p>
+            <p><strong>Layout Zigue-Zague:</strong> Se todo o site fosse centralizado, seria monótono. Alternar
+                "Texto-Foto" e depois "Foto-Texto" cria um ritmo visual que mantém o usuário engajado.</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalRhythm.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Entendi</button></div>
+    </dialog>
+
+    <dialog x-ref="modalConsistency"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-bold text-gray-900">Consistência</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p>Se um card tem sombra, todos devem ter. O usuário aprende o padrão uma vez e navega sem pensar.</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalConsistency.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Entendi</button></div>
+    </dialog>
+
+    <dialog x-ref="modalMinimalism"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-bold text-gray-900">Minimalismo no FAQ</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p>Não precisamos colocar tudo dentro de caixas ("Cards").</p>
+            <p>Para o FAQ, usamos a <strong>Lei da Proximidade</strong>: A linha fina separa os tópicos, mas mantém a
+                leveza. A resposta aparece logo abaixo da pergunta, conectando-as visualmente.</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalMinimalism.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Entendi</button></div>
+    </dialog>
+
+    <dialog x-ref="modalLoop"
+        class="blueprint-card p-0 backdrop:bg-gray-900/50 open:animate-fade-in m-auto max-w-lg w-full">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-bold text-gray-900">O Loop Visual</h3>
+        </div>
+        <div class="p-6 text-gray-600 space-y-4">
+            <p>Por que o rodapé é verde?</p>
+            <p>Começamos o site com a marca (verde) no topo. Terminamos com a marca (verde) no rodapé. Isso "empacota" o
+                site e sinaliza visualmente que a experiência acabou.</p>
+        </div>
+        <div class="p-4 bg-gray-50 rounded-b-xl flex justify-end"><button @click="$refs.modalLoop.close()"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Entendi</button></div>
+    </dialog>
+
+</body>
+
+</html>
