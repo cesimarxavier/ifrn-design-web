@@ -4,641 +4,604 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista 11 — Alpine.js | Design Web IFRN</title>
+    <title>Lista 11 — Fundamentos Alpine.js | Design Web IFRN</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace']
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            500: '#8b5cf6',
-                            600: '#7c3aed', // Violeta Principal
-                            700: '#6d28d9',
-                            800: '#5b21b6',
-                            900: '#4c1d95',
-                        },
-                        secondary: {
-                            500: '#d946ef', // Fuchsia para gradientes
-                            600: '#c026d3'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        /* SETUP VISUAL PREMIUM */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Work Sans', sans-serif;
             color: #1e293b;
             background-color: #f8fafc;
+            overflow-x: hidden;
         }
 
-        /* Estilos Utilitários - Design Web Identity */
-        .btn-cta {
-            background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%);
-            transition: all 0.3s ease;
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Sora', sans-serif;
         }
 
-        .btn-cta:hover {
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
-            transform: translateY(-2px);
+        /* Utilitários */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        .btn-secondary {
-            border: 2px solid #7c3aed;
-            color: #7c3aed;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: #7c3aed;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .code-inline {
-            background: #f1f5f9;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            color: #d946ef;
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
             border: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-            font-weight: 600;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Bloom Levels Colors - Mantendo a semântica pedagógica */
-        .level-1 {
-            border-left: 5px solid #22c55e;
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -5px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
         }
 
-        /* Lembrar */
-        .level-2 {
-            border-left: 5px solid #eab308;
+        /* Cores de Nível Bloom */
+        .bloom-2 {
+            border-left: 4px solid #eab308;
         }
 
-        /* Aplicar */
-        .level-3 {
-            border-left: 5px solid #f97316;
+        /* Compreender (Amarelo) */
+        .bloom-3 {
+            border-left: 4px solid #3b82f6;
         }
 
-        /* Analisar */
-        .level-4 {
-            border-left: 5px solid #ef4444;
+        /* Aplicar (Azul) */
+        .bloom-4 {
+            border-left: 4px solid #9333ea;
         }
 
-        /* Criar */
+        /* Analisar (Roxo) */
 
-        /* Fundo de Grid para Previews */
-        .bg-grid-pattern {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+        .bg-grid {
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
             background-size: 10px 10px;
+        }
+
+        .git-bar {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 8px 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            border-top: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .git-cmd {
+            color: #4ade80;
         }
     </style>
 </head>
 
-<body class="bg-slate-50">
+<body class="pb-40">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2">
-                    <div
-                        class="w-8 h-8 bg-gradient-to-br from-brand-600 to-secondary-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                        D</div>
-                    <span class="font-bold text-xl text-slate-900 tracking-tight">Design <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-secondary-600">Web</span></span>
-                    <span
-                        class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-slate-100 rounded text-slate-500 ml-2">Semana
-                        11</span>
-                </div>
-                <div class="text-sm font-medium text-slate-500 hidden sm:block">
-                    IFRN • Tecnologia em Sistemas para Internet
-                </div>
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-6 fixed w-full top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                    IF</div>
+                <span class="font-bold text-gray-900 text-sm md:text-base">Design Web <span
+                        class="text-gray-400 font-normal">| Lista 11</span></span>
+            </div>
+            <div class="flex gap-2">
+                <span class="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Reatividade</span>
+                <span class="text-xs font-bold text-red-500 bg-red-50 px-3 py-1 rounded-full border border-red-100">20
+                    Files</span>
             </div>
         </div>
     </nav>
 
-    <section class="pt-32 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-brand-50 to-white border-b border-slate-200">
-        <div class="max-w-5xl mx-auto">
-            <div
-                class="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-white text-brand-700 rounded-full font-semibold text-sm border border-brand-200 shadow-sm">
-                <i class="ph ph-clock"></i> Prazo de Entrega: 7 Dias
-            </div>
+    <main class="px-4 md:px-8 max-w-7xl mx-auto mt-32">
 
-            <h1 class="font-extrabold text-4xl md:text-6xl text-slate-900 mb-6 leading-tight font-inter">
-                Lista 11: <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-secondary-600">Alpine.js</span>
+        <header class="mb-16 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                Fundamentos da <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Interatividade.</span>
             </h1>
-
-            <p class="text-xl text-slate-600 mb-10 leading-relaxed max-w-3xl font-light">
-                Esta lista consolida a transição do JavaScript Imperativo para a <strong>Reatividade
-                    Declarativa</strong>. Seu objetivo é construir interfaces que reagem aos dados, preparando o terreno
-                para o React.
+            <p class="text-gray-500 max-w-2xl mx-auto mb-8 text-lg">
+                Nesta lista, vamos focar nos 4 pilares iniciais do Alpine.js: <strong>Estado, Texto, HTML e
+                    Eventos</strong>. O objetivo é entender como criar páginas que reagem ao clique do usuário sem
+                recarregar.
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#exercicios"
-                    class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
-                    <i class="ph ph-code"></i> Começar Desafios
-                </a>
-                <a href="https://alpinejs.dev" target="_blank"
-                    class="btn-secondary font-bold py-4 px-8 rounded-full text-lg text-center flex items-center justify-center gap-2">
-                    <i class="ph ph-book-open"></i> Documentação
-                </a>
+            <div class="flex flex-wrap justify-center gap-4 text-sm font-bold text-gray-600">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 bg-yellow-500 rounded-sm"></span> Compreender
+                </div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 bg-blue-500 rounded-sm"></span> Aplicar</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 bg-purple-500 rounded-sm"></span> Analisar
+                </div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <section id="exercicios" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto space-y-16">
+        <section class="mb-16">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                O "Objeto Mágico" (x-data & x-text)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center font-bold text-xl shadow-sm">
-                        1</div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Nível 1: Lembrar & Compreender</h2>
-                        <p class="text-slate-500 text-sm">Aquecimento: Sintaxe básica <code>x-data</code> e
+                <article class="card bloom-2">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-yellow-600 font-bold font-mono">01</span>
+                            <span class="badge bg-yellow-50 text-yellow-700">Compreender</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Olá Mundo Reativo</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Declare um estado com <code>{ mensagem: 'Alpine Rocks!' }</code>. Exiba esse texto dentro de
+                            um <code>&lt;h1&gt;</code> usando a diretiva correta.
+                        </p>
+                        <div class="bg-gray-50 p-3 rounded text-xs text-gray-500 mb-4">
+                            <strong>Obs:</strong> Não escreva o texto direto no HTML. Use <code>x-text</code>.
+                        </div>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex01.html</span>
+                        <span class="git-cmd">feat: ex01 hello</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-2">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-yellow-600 font-bold font-mono">02</span>
+                            <span class="badge bg-yellow-50 text-yellow-700">Compreender</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Matemática Inline</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Crie um estado com <code>{ preco: 10, qtd: 5 }</code>. Em um parágrafo, exiba o total
+                            (multiplicação) usando JS diretamente dentro do <code>x-text</code>.
+                        </p>
+                    </div>
+                    <div class="bg-grid h-24 border-t border-gray-100 flex items-center justify-center">
+                        <span class="font-mono text-sm">Total: 50</span>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex02.html</span>
+                        <span class="git-cmd">feat: ex02 math</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-2">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-yellow-600 font-bold font-mono">03</span>
+                            <span class="badge bg-yellow-50 text-yellow-700">Compreender</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Concatenando Strings</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ nome: 'Ana', sobrenome: 'Silva' }</code>. Exiba o nome completo em um
+                            <code>span</code> somando as strings.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex03.html</span>
+                        <span class="git-cmd">feat: ex03 strings</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">04</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Injeção de HTML</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ link: '&lt;a href="#"&gt;Clique aqui&lt;/a&gt;' }</code>.
+                            Use a diretiva <code>x-html</code> para renderizar o link funcional, não o texto da tag.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex04.html</span>
+                        <span class="git-cmd">feat: ex04 html</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">05</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Métodos no x-text</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ email: 'aluno@ifrn.edu.br' }</code>. Exiba o email todo em
+                            <strong>maiúsculas</strong> usando a função <code>.toUpperCase()</code> do JS nativo dentro
+                            da diretiva.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex05.html</span>
+                        <span class="git-cmd">feat: ex05 methods</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                Interatividade (x-on)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <article class="card bloom-2">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-yellow-600 font-bold font-mono">06</span>
+                            <span class="badge bg-yellow-50 text-yellow-700">Compreender</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Botão Alert</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Crie um botão. Ao clicar (<code>@click</code>), dispare um <code>alert('Olá')</code> do
+                            navegador. Não precisa de <code>x-data</code> para isso.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex06.html</span>
+                        <span class="git-cmd">feat: ex06 click</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">07</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Contador (Incremento)</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ count: 0 }</code>. Botão "+" aumenta o valor. Span mostra o valor
+                            atualizado.
+                        </p>
+                    </div>
+                    <div class="bg-grid h-24 border-t border-gray-100 flex items-center justify-center gap-3">
+                        <span class="font-bold text-2xl text-blue-600">5</span>
+                        <button class="bg-slate-900 text-white px-3 py-1 rounded text-xs">+</button>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex07.html</span>
+                        <span class="git-cmd">feat: ex07 counter</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">08</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Contador Completo</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Melhore o Ex 07. Adicione um botão "-" (decremento) e um botão "Reset" (volta a zero).
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex08.html</span>
+                        <span class="git-cmd">feat: ex08 full-counter</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">09</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Toggle Booleano</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ ligado: false }</code>. Botão que alterna entre true/false
+                            (<code>ligado = !ligado</code>).
+                            O texto do botão deve mudar para "Ligar" ou "Desligar" usando ternário no
                             <code>x-text</code>.
                         </p>
                     </div>
-                </div>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-1 group hover:border-green-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">01. O Cartão de Visita Digital</h3>
-                        <span
-                            class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-200">BÁSICO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Em frameworks modernos, nunca escrevemos dados "na pedra" no
-                                HTML. Os dados vêm do JS (Estado).
-                            </p>
-                            <div class="bg-green-50 p-4 rounded-lg border border-green-100 text-sm text-green-900">
-                                <strong>Tarefa:</strong> Criar um Card (use DaisyUI) onde Foto, Nome e Cargo vêm do
-                                <code>x-data</code>.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Crie o objeto de dados com <code>x-data="{ nome: '...', cargo: '...' }"</code>.</li>
-                                <li>Use <code class="code-inline">x-text</code> para injetar os textos nas tags.</li>
-                                <li><strong>Desafio:</strong> Use <code class="code-inline">x-show</code> para mostrar
-                                    um badge "Online" se uma variável for true.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <div
-                                    class="bg-white p-4 shadow-md border border-slate-100 rounded-lg w-48 text-center relative">
-                                    <div
-                                        class="w-3 h-3 bg-green-500 rounded-full absolute top-2 right-2 border-2 border-white">
-                                    </div>
-                                    <div class="w-12 h-12 bg-slate-200 rounded-full mx-auto mb-2"></div>
-                                    <div class="h-2 bg-slate-200 w-3/4 mx-auto mb-1 rounded"></div>
-                                    <div class="h-2 bg-slate-100 w-1/2 mx-auto rounded"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="git-bar">
+                        <span>📄 ex09.html</span>
+                        <span class="git-cmd">feat: ex09 boolean</span>
                     </div>
                 </article>
 
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-1 group hover:border-green-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">02. Botão "Spoiler Alert"</h3>
-                        <span
-                            class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded border border-green-200">BÁSICO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Controlar visibilidade é a base de menus, modais e abas.
-                            </p>
-                            <div class="bg-green-50 p-4 rounded-lg border border-green-100 text-sm text-green-900">
-                                <strong>Tarefa:</strong> Um texto que começa oculto e aparece ao clicar em um botão.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Use um estado booleano: <code>mostrar: false</code>.</li>
-                                <li>Use <code class="code-inline">x-show="mostrar"</code> no texto do spoiler.</li>
-                                <li>No botão, use <code class="code-inline">@click="mostrar = true"</code>.</li>
-                                <li>Faça o botão desaparecer quando o texto aparecer (Inverta a lógica).</li>
-                            </ul>
+                <article class="card bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-purple-600 font-bold font-mono">10</span>
+                            <span class="badge bg-purple-50 text-purple-700">Analisar</span>
                         </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <button
-                                    class="bg-slate-800 text-white px-4 py-2 rounded text-xs shadow hover:bg-slate-700 transition">Ver
-                                    Spoiler 🫣</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-yellow-100 text-yellow-700 flex items-center justify-center font-bold text-xl shadow-sm">
-                        2</div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Nível 2: Aplicar</h2>
-                        <p class="text-slate-500 text-sm">Interatividade: <code>x-on</code> e estilos dinâmicos
-                            <code>:class</code>.
+                        <h3 class="font-bold text-gray-800 mb-2">Mouse Events</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Crie uma div (quadrado). Use <code>@mouseenter</code> para mudar o texto dentro dela para
+                            "Entrou!" e <code>@mouseleave</code> para "Saiu!".
                         </p>
                     </div>
-                </div>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">03. Contador de Likes Colorido</h3>
-                        <span
-                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> A interface deve reagir aos números. Se o valor muda, o
-                                estilo muda.
-                            </p>
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
-                                <strong>Tarefa:</strong> Contador que muda a cor do ícone conforme o valor.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Inicie em 0. Clique aumenta.</li>
-                                <li>Use <code class="code-inline">:class</code>: Se > 0, o coração fica vermelho e
-                                    pulsa.</li>
-                                <li>Se > 10, exibe uma mensagem "Popstar!" ao lado.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48 gap-3 text-3xl text-slate-300">
-                                <i class="ph ph-heart-straight-fill text-red-500 animate-pulse"></i>
-                                <span class="font-mono text-slate-700 font-bold">12</span>
-                            </div>
-                        </div>
+                    <div class="git-bar">
+                        <span>📄 ex10.html</span>
+                        <span class="git-cmd">feat: ex10 hover</span>
                     </div>
                 </article>
 
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">04. Galeria de Imagens</h3>
-                        <span
-                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Binding de atributos. O <code>src</code> da imagem pode ser
-                                uma variável.
-                            </p>
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
-                                <strong>Tarefa:</strong> 3 botões pequenos que trocam a foto principal.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Crie <code>x-data="{ imgAtual: 'url1.jpg' }"</code>.</li>
-                                <li>Botões atualizam a variável ao clicar.</li>
-                                <li>A tag imagem usa <code class="code-inline">:src="imgAtual"</code>.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex flex-col justify-center items-center h-48 gap-3">
-                                <div class="w-full h-24 bg-slate-300 rounded shadow-inner"></div>
-                                <div class="flex gap-2">
-                                    <div class="w-8 h-8 bg-brand-200 rounded ring-2 ring-brand-500"></div>
-                                    <div class="w-8 h-8 bg-slate-200 rounded hover:bg-slate-300"></div>
-                                    <div class="w-8 h-8 bg-slate-200 rounded hover:bg-slate-300"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-2 group hover:border-yellow-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">05. O Semáforo</h3>
-                        <span
-                            class="bg-yellow-100 text-yellow-800 text-xs font-bold px-2 py-1 rounded border border-yellow-200">INTERMEDIÁRIO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Lógica de exclusividade. Apenas um item ativo por vez.
-                            </p>
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-sm text-yellow-900">
-                                <strong>Tarefa:</strong> Criar um semáforo funcional onde só uma luz acende.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Use uma string de estado: <code>luz: 'vermelho'</code>.</li>
-                                <li>3 divs redondas (luzes).</li>
-                                <li>Use <code class="code-inline">:class</code> para aplicar cor brilhante APENAS se a
-                                    variável bater com a luz (ex: <code>luz === 'verde'</code>).</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <div class="bg-slate-800 p-3 rounded-xl flex flex-col gap-2 shadow-2xl">
-                                    <div class="w-6 h-6 rounded-full bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.6)]">
-                                    </div>
-                                    <div class="w-6 h-6 rounded-full bg-slate-700/50"></div>
-                                    <div class="w-6 h-6 rounded-full bg-slate-700/50"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
             </div>
+        </section>
 
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xl shadow-sm">
-                        3</div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Nível 3: Analisar</h2>
-                        <p class="text-slate-500 text-sm">Lógica de Listas <code>x-for</code> e Inputs
-                            <code>x-model</code>.
+        <section class="mb-16">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+                Controlando a Interface
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">11</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Spoiler Alert (Show)</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Um botão "Ver Spoiler". Ao clicar, um parágrafo oculto aparece (use <code>x-show</code>).
                         </p>
                     </div>
+                    <div class="git-bar">
+                        <span>📄 ex11.html</span>
+                        <span class="git-cmd">feat: ex11 show</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-purple-600 font-bold font-mono">12</span>
+                            <span class="badge bg-purple-50 text-purple-700">Analisar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Menu Dropdown (Básico)</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Botão "Menu". Ao clicar, exibe uma lista de links abaixo dele. Ao clicar de novo, esconde.
+                        </p>
+                    </div>
+                    <div class="bg-grid h-24 border-t border-gray-100 flex items-center justify-center relative">
+                        <button class="bg-gray-200 px-3 py-1 rounded text-xs">Menu ▼</button>
+                        <div class="absolute top-16 bg-white shadow border p-2 rounded text-[10px]">Link 1<br>Link 2
+                        </div>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex12.html</span>
+                        <span class="git-cmd">feat: ex12 dropdown</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-purple-600 font-bold font-mono">13</span>
+                            <span class="badge bg-purple-50 text-purple-700">Analisar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Dropdown Inteligente</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Melhore o Ex 12. Adicione o modificador <code>.outside</code> no evento de clique para
+                            fechar o menu quando clicar fora dele.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex13.html</span>
+                        <span class="git-cmd">feat: ex13 outside</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">14</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Botão Like (Emoji)</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Estado: <code>{ liked: false }</code>. Se false, mostra "🤍". Se true, mostra "❤️". O clique
+                            alterna o estado.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex14.html</span>
+                        <span class="git-cmd">feat: ex14 like</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">15</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Contador de Likes</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Combine o Ex 14 com um número. Se curtir, soma 1. Se descurtir, subtrai 1.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex15.html</span>
+                        <span class="git-cmd">feat: ex15 like-count</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="mb-24">
+            <h2 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+                Lógica Condicional
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">16</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Tabs (Abas) Simples</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            3 botões (Tab 1, 2, 3) e 3 divs de conteúdo. Use uma variável <code>tab: 1</code> para
+                            controlar qual div aparece com <code>x-show</code>.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex16.html</span>
+                        <span class="git-cmd">feat: ex16 tabs</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-purple-600 font-bold font-mono">17</span>
+                            <span class="badge bg-purple-50 text-purple-700">Analisar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Modal Básico</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Botão "Abrir Modal". Exibe um div centralizada com fundo escuro. Botão "Fechar" dentro do
+                            modal esconde ele.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex17.html</span>
+                        <span class="git-cmd">feat: ex17 modal</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-3">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-blue-600 font-bold font-mono">18</span>
+                            <span class="badge bg-blue-50 text-blue-700">Aplicar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Ver Mais / Ver Menos</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Exiba um texto longo cortado. Botão "Ler mais" mostra tudo. Ao clicar de novo, volta a
+                            cortar ("Ler menos").
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex18.html</span>
+                        <span class="git-cmd">feat: ex18 read-more</span>
+                    </div>
+                </article>
+
+                <article class="card bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-purple-600 font-bold font-mono">19</span>
+                            <span class="badge bg-purple-50 text-purple-700">Analisar</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 mb-2">Semáforo</h3>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Botão "Mudar". Alterna uma string ciclicamente: 'verde' -> 'amarelo' -> 'vermelho'. Exiba a
+                            cor atual em texto.
+                        </p>
+                    </div>
+                    <div class="git-bar">
+                        <span>📄 ex19.html</span>
+                        <span class="git-cmd">feat: ex19 traffic</span>
+                    </div>
+                </article>
+
+                <article class="card bg-gray-900 border-gray-800 text-white bloom-4">
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-white font-bold font-mono">20</span>
+                            <span class="badge bg-purple-600 text-white">CHEFÃO</span>
+                        </div>
+                        <h3 class="font-bold text-white mb-2">Galeria com Zoom</h3>
+                        <p class="text-sm text-gray-400 mb-4">
+                            Uma imagem pequena. Ao passar o mouse (<code>mouseenter</code>), ela aumenta
+                            (<code>scale-150</code> via classes). Ao sair, volta ao normal.
+                        </p>
+                    </div>
+                    <div class="git-bar border-gray-700">
+                        <span>📄 ex20.html</span>
+                        <span class="git-cmd">feat: ex20 gallery</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section
+            class="mt-20 mb-12 bg-slate-900 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-400 to-blue-500"></div>
+
+            <h2 class="text-3xl font-bold mb-6 font-sora">Pronto para enviar?</h2>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <h3 class="font-bold text-green-400 mb-4 flex items-center gap-2"><i
+                            class="ph ph-folder-simple"></i> Estrutura de entrega</h3>
+                    <p class="text-sm text-slate-300 mb-2">Crie uma <i>branch</i> e crie os 20 arquivos (1 para cada
+                        tarefa). Cada tarefa pode se chamar: <strong class=" text-green-400"><code>ex01.html</code>...
+                            <code>ex20.html</code>)</strong>.</p>
+                    <p class="text-sm text-slate-300 mb-2">Você deverá fazer um <i>commit</i> para cada atividade,
+                        conforme está descrito na tarefa Veja um exemplo da tarefa 1: <strong
+                            class=" text-green-400"><code>commit -m "Feat: ex01 hello"</strong>.</p>
+                    
                 </div>
 
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-3 group hover:border-orange-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">06. To-Do List Simples</h3>
-                        <span
-                            class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded border border-orange-200">ANALISAR</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Arrays de objetos são a estrutura de dados mais comum em apps
-                                reais.
-                            </p>
-                            <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 text-sm text-orange-900">
-                                <strong>Tarefa:</strong> Renderizar uma lista de tarefas a partir de um array.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Crie um array: <code>[{txt: 'Estudar', feito: false}, ...]</code>.</li>
-                                <li>Use <code class="code-inline">x-for</code> para criar os <code>&lt;li&gt;</code>.
-                                </li>
-                                <li><strong>Interatividade:</strong> Clicar no item alterna o booleano
-                                    <code>feito</code> e aplica a classe <code>line-through</code>.
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <ul
-                                    class="bg-white p-4 w-48 shadow-sm border border-slate-100 rounded text-xs space-y-2 font-medium">
-                                    <li class="line-through text-slate-400 flex items-center gap-2">
-                                        <div class="w-3 h-3 rounded-sm border border-slate-300 bg-slate-100"></div>
-                                        Estudar Alpine
-                                    </li>
-                                    <li class="text-slate-700 flex items-center gap-2">
-                                        <div class="w-3 h-3 rounded-sm border border-brand-500"></div> Fazer Exercício
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-3 group hover:border-orange-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">07. Calculadora de Gorjeta</h3>
-                        <span
-                            class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded border border-orange-200">ANALISAR</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Matemática reativa. Inputs controlam variáveis que recalcula
-                                o total automaticamente.
-                            </p>
-                            <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 text-sm text-orange-900">
-                                <strong>Tarefa:</strong> Calcular o total da conta + serviço em tempo real.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Input numérico para o valor (R$).</li>
-                                <li>Select para % da gorjeta (10%, 15%, 20%).</li>
-                                <li>Use <code class="code-inline">x-text</code> com lógica matemática para mostrar o
-                                    Total.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <div class="text-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                                    <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Total a Pagar
-                                    </p>
-                                    <p class="text-3xl font-bold text-brand-600 mt-1">R$ 115,00</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div class="space-y-8">
-                <div class="flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-xl shadow-sm">
-                        4</div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Nível 4: Criar & Avaliar</h2>
-                        <p class="text-slate-500 text-sm">Desafios Reais: Fetch API, Validação e UX.</p>
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <h3 class="font-bold text-blue-400 mb-4 flex items-center gap-2"><i class="ph ph-github-logo"></i>
+                        Git Flow</h3>
+                    <div class="font-mono text-xs text-slate-300 space-y-2">
+                        <p>$ git checkout -b lista-11-alpine</p>
+                        <p>$ git add .</p>
+                        <p>$ git commit -m "feat: concluindo lista 11"</p>
+                        <p>$ git push origin lista-11-alpine</p>
                     </div>
                 </div>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-4 group hover:border-rose-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">08. Validador de Senha</h3>
-                        <span
-                            class="bg-rose-100 text-rose-800 text-xs font-bold px-2 py-1 rounded border border-rose-200">AVANÇADO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Feedback visual imediato melhora a UX. O usuário não deve
-                                esperar clicar para saber se errou.
-                            </p>
-                            <div class="bg-rose-50 p-4 rounded-lg border border-rose-100 text-sm text-rose-900">
-                                <strong>Tarefa:</strong> Input de senha com 3 regras que mudam de cor.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Input ligado a <code>senha</code> com <code class="code-inline">x-model</code>.</li>
-                                <li>Abaixo, mostre as regras: Min 8 chars, tem número, tem símbolo.</li>
-                                <li>Use classes dinâmicas para pintar de verde/vermelho.</li>
-                                <li>Botão "Cadastrar" só habilita (<code class="code-inline">:disabled</code>) se todas
-                                    ok.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <div class="bg-white p-4 w-full max-w-xs rounded-xl shadow border border-slate-100">
-                                    <div class="h-8 border border-slate-200 rounded mb-3 bg-slate-50"></div>
-                                    <div class="flex gap-3 text-[10px] font-bold">
-                                        <span class="text-green-500 bg-green-50 px-2 py-1 rounded">✓ 8 chars</span>
-                                        <span class="text-slate-300 bg-slate-50 px-2 py-1 rounded">○ Número</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-lg shadow-slate-200/50 level-4 group hover:border-rose-300 transition-colors">
-                    <div class="bg-slate-50 px-8 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-slate-800">09. Gerador de Fatos (API)</h3>
-                        <span
-                            class="bg-rose-100 text-rose-800 text-xs font-bold px-2 py-1 rounded border border-rose-200">AVANÇADO</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-600 text-sm">
-                                <strong>Contexto:</strong> Assincronismo. O app precisa mostrar que está "pensando"
-                                enquanto busca dados.
-                            </p>
-                            <div class="bg-rose-50 p-4 rounded-lg border border-rose-100 text-sm text-rose-900">
-                                <strong>Tarefa:</strong> Botão que busca fatos de uma API (Ex: CatFacts) e trata
-                                Loading.
-                            </div>
-                            <ul class="text-xs text-slate-500 list-disc list-inside space-y-2">
-                                <li>Botão dispara <code>fetch</code> no <code class="code-inline">@click</code>.</li>
-                                <li>Defina <code>loading = true</code> antes do fetch e <code>false</code> no final.
-                                </li>
-                                <li>Use <code class="code-inline">x-show="loading"</code> para mostrar um spinner.</li>
-                                <li>Exiba o fato recebido na tela.</li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-grid-pattern p-6 rounded-lg border border-slate-200 flex justify-center items-center h-48">
-                                <button class="btn-secondary py-2 px-6 text-sm rounded-full flex items-center gap-2">
-                                    <i class="ph ph-magic-wand"></i> Gerar Fato
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article
-                    class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl border border-slate-700 overflow-hidden shadow-2xl text-white level-4">
-                    <div class="bg-white/5 px-8 py-4 border-b border-white/10 flex justify-between items-center">
-                        <h3 class="font-bold text-lg text-white flex items-center gap-2">
-                            <i class="ph ph-trophy text-brand-400 text-xl"></i> 10. O Mini E-commerce (Chefão)
-                        </h3>
-                        <span
-                            class="bg-brand-500/20 text-brand-300 text-xs font-bold px-2 py-1 rounded border border-brand-500/30">DESAFIO
-                            FINAL</span>
-                    </div>
-                    <div class="p-8 grid md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <p class="text-slate-300 text-sm">
-                                <strong>Contexto:</strong> Consolidar tudo: Arrays, Eventos, Matemática e Persistência.
-                            </p>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 text-sm text-slate-200">
-                                <strong>Tarefa:</strong> Lista de produtos e carrinho de compras funcional.
-                            </div>
-                            <ul class="text-xs text-slate-400 list-disc list-inside space-y-2">
-                                <li>Array de Produtos (id, nome, preço).</li>
-                                <li>Array de Carrinho (vazio).</li>
-                                <li>Botão "Adicionar" joga o item no array <code>carrinho</code>.</li>
-                                <li>Exibir o <strong>Total (R$)</strong> somado dinamicamente (reduce ou loop).</li>
-                                <li><strong>Bônus:</strong> Use o plugin <code>$persist</code> para salvar no navegador.
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="flex flex-col justify-center">
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">Meta
-                                Visual</span>
-                            <div
-                                class="bg-white/5 p-6 rounded-lg border border-white/10 flex justify-center items-center h-48 bg-grid-pattern">
-                                <div class="bg-white shadow-lg p-4 rounded-xl w-full text-slate-800">
-                                    <div
-                                        class="flex justify-between text-xs mb-2 font-bold pb-2 border-b border-slate-100">
-                                        <span>Produto A</span>
-                                        <span>R$ 50</span>
-                                    </div>
-                                    <div
-                                        class="flex justify-between text-xs mb-2 font-bold pb-2 border-b border-slate-100">
-                                        <span>Produto B</span>
-                                        <span>R$ 100</span>
-                                    </div>
-                                    <div class="pt-2 flex justify-between text-sm font-bold text-brand-600">
-                                        <span>Total</span>
-                                        <span>R$ 150</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
             </div>
 
-        </div>
-    </section>
+            <div class="mt-10">
+                <a href="#"
+                    class="inline-flex items-center gap-2 bg-white text-slate-900 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition shadow-lg">
+                    <i class="ph ph-paper-plane-right"></i>
+                    Enviar Link no Classroom
+                </a>
+            </div>
+        </section>
 
-    <footer class="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
-        <p class="font-bold text-slate-700">Design Web • IFRN</p>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-10 text-center">
+        <p class="text-sm text-slate-400">Design Web • IFRN</p>
     </footer>
 
 </body>
