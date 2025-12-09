@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 12: Listas & Estado (Avançado) | Design Web IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        /* --- ESTILOS DO TEMPLATE PREMIUM --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-sora {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Componentes Visuais */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .step-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Sora';
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        /* Janela de Código */
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            color: #d4d4d4;
+        }
+
+        .code-header {
+            background: #252526;
+            padding: 6px 12px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .code-body {
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        /* Syntax Highlight */
+        .tk-tag {
+            color: #569cd6;
+        }
+
+        .tk-attr {
+            color: #9cdcfe;
+        }
+
+        .tk-str {
+            color: #ce9178;
+        }
+
+        .tk-kwd {
+            color: #c586c0;
+        }
+
+        .tk-fn {
+            color: #dcdcaa;
+        }
+
+        .tk-cmt {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .tk-alpine {
+            color: #ff79c6;
+            font-weight: bold;
+        }
+
+        /* Term Highlight Interativo */
+        .term-highlight {
+            cursor: help;
+            border-bottom: 2px dashed #8b5cf6;
+            color: #7c3aed;
+            font-weight: 700;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .term-highlight:hover {
+            background-color: #f3e8ff;
+            color: #5b21b6;
+        }
+
+        /* Utilitários */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="pb-40" x-data="{ modalOpen: false, modalTitle: '', modalDesc: '' }">
+
+    <div class="fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+        :class="{ 'opacity-100 pointer-events-auto': modalOpen }" @click="modalOpen = false"
+        @keydown.escape.window="modalOpen = false">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full text-center transform scale-95 transition-transform duration-300"
+            :class="{ 'scale-100': modalOpen }" @click.stop>
+            <h3 class="text-2xl font-bold font-sora mb-4 text-purple-600" x-text="modalTitle"></h3>
+            <p class="text-gray-600 text-lg leading-relaxed" x-text="modalDesc"></p>
+            <button @click="modalOpen = false"
+                class="mt-8 text-sm text-gray-400 hover:text-gray-600 uppercase font-bold tracking-widest">Fechar</button>
+        </div>
+    </div>
+
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-6 fixed w-full top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    <i class="ph ph-brackets-curly"></i>
+                </div>
+                <div>
+                    <span class="font-sora font-bold text-gray-900 block text-lg">Design Web</span>
+                    <span class="text-xs text-gray-500 font-medium tracking-wide">Módulo 4: Alpine.js</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
+                <a href="#x-model" class="hover:text-purple-600 transition">Inputs</a>
+                <a href="#x-for" class="hover:text-purple-600 transition">Listas</a>
+                <a href="#crud" class="text-purple-600 font-bold bg-purple-50 px-3 py-1 rounded-full">Prática CRUD</a>
+                <a href="#store" class="hover:text-purple-600 transition">Store</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="px-4 md:px-8 max-w-6xl mx-auto mt-32">
+
+        <header class="mb-24 text-center relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -z-10">
+            </div>
+
+            <div class="inline-flex gap-3 mb-6">
+                <span class="badge bg-purple-100 text-purple-800 border border-purple-200">Semana 12</span>
+                <span class="badge bg-blue-100 text-blue-700 border border-blue-200">Arrays & Objetos</span>
+            </div>
+
+            <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 font-sora tracking-tight leading-tight">
+                Domando Listas e<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Dados
+                    Dinâmicos.</span>
+            </h1>
+
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Sites reais não são estáticos. Hoje vamos aprender a sincronizar formulários com
+                <strong>x-model</strong>, renderizar listas com <strong>x-for</strong> e manipular Arrays
+                (Adicionar/Remover) em tempo real.
+            </p>
+        </header>
+
+        <section id="x-model" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">O Espelho Digital (x-model)</h2>
+                    <p class="text-gray-500 text-sm mt-1">Sincronia perfeita entre o input e a memória.</p>
+                </div>
+            </div>
+
+            <div class="card p-8 bg-white border border-gray-200">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-gray-600 leading-relaxed">
+                            O <code class="bg-gray-100 px-1 rounded font-bold text-purple-700">x-model</code> cria o
+                            <span class="term-highlight"
+                                @click="modalOpen=true; modalTitle='Two-Way Data Binding'; modalDesc='Ligação de mão dupla. Se você digita no input, a variável muda. Se a variável muda no código, o input atualiza na tela.'">Two-Way
+                                Binding</span>. É essencial para formulários.
+                        </p>
+                        <div class="bg-purple-50 p-4 rounded-xl border border-purple-100">
+                            <h4 class="font-bold text-purple-900 mb-2 text-sm uppercase tracking-wide">Compatibilidade
+                            </h4>
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="badge bg-white border border-purple-200 text-purple-700">input[text]</span>
+                                <span class="badge bg-white border border-purple-200 text-purple-700">checkbox</span>
+                                <span class="badge bg-white border border-purple-200 text-purple-700">select</span>
+                                <span class="badge bg-white border border-purple-200 text-purple-700">textarea</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center" x-data="{ nome: '' }">
+                        <label class="block text-left text-xs font-bold text-gray-400 uppercase mb-1">Teste
+                            aqui:</label>
+                        <input x-model="nome" type="text" placeholder="Digite seu nome..."
+                            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none transition mb-4">
+
+                        <p class="text-lg">
+                            Olá, <span x-text="nome || 'Visitante'"
+                                class="font-bold text-purple-600 bg-purple-100 px-2 rounded"></span>! 👋
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="x-for" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Anatomia do Loop (x-for)</h2>
+                    <p class="text-gray-500 text-sm mt-1">Como renderizar Arrays de forma eficiente.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-bl-xl">
+                        IMPORTANTE</div>
+
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">A Regra do &lt;template&gt;</h3>
+
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                                1</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Tag Invisível</h4>
+                                <p class="text-sm text-gray-500 mt-1">O loop <strong>DEVE</strong> estar numa tag
+                                    <code>&lt;template&gt;</code>. Ela não aparece na tela, serve apenas de "molde".</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div
+                                class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">
+                                2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">A Chave (:key)</h4>
+                                <p class="text-sm text-gray-500 mt-1">Sempre use <code>:key="id"</code>. Isso ajuda o
+                                    Alpine (e o React no futuro) a saber qual item é qual se a lista mudar de ordem.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-window h-full">
+                    <div class="code-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                    </div>
+                    <div class="code-body">
+                        <pre><span class="tk-tag">&lt;ul&gt;</span>
+  <span class="tk-cmt">&lt;!-- O Molde --&gt;</span>
+  <span class="tk-tag">&lt;template</span> <span class="tk-alpine">x-for</span>=<span class="tk-str">"item in items"</span> <span class="tk-alpine">:key</span>=<span class="tk-str">"item.id"</span><span class="tk-tag">&gt;</span>
+      
+      <span class="tk-cmt">&lt;!-- O que será repetido --&gt;</span>
+      <span class="tk-tag">&lt;li&gt;</span>
+          <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"item.nome"</span><span class="tk-tag">&gt;&lt;/span&gt;</span> - 
+          <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"item.preco"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+      <span class="tk-tag">&lt;/li&gt;</span>
+
+  <span class="tk-tag">&lt;/template&gt;</span>
+<span class="tk-tag">&lt;/ul&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crud" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-purple-600 text-white shadow-purple-200">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Dinâmica: Gerenciador de Tags</h2>
+                    <p class="text-gray-500 text-sm mt-1">Praticando <code>push</code> (Adicionar) e <code>filter</code>
+                        (Remover).</p>
+                </div>
+            </div>
+
+            <div class="card p-2 border-purple-200 shadow-xl">
+                <div class="bg-gray-50 p-8 rounded-t-2xl border-b border-gray-200">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="flex-1 bg-white p-6 rounded-xl border border-gray-200 shadow-sm" x-data="{ 
+                                novo: '', 
+                                tags: ['HTML', 'CSS', 'AlpineJS'],
+                                add() {
+                                    if (this.novo.trim() !== '') {
+                                        this.tags.push(this.novo);
+                                        this.novo = '';
+                                    }
+                                },
+                                remove(tagParaRemover) {
+                                    this.tags = this.tags.filter(t => t !== tagParaRemover);
+                                }
+                             }">
+                            <h4 class="font-bold text-gray-800 mb-4">Minhas Skills:</h4>
+
+                            <div class="flex gap-2 mb-6">
+                                <input x-model="novo" @keydown.enter="add()" type="text" placeholder="Nova skill..."
+                                    class="flex-1 border p-2 rounded text-sm bg-gray-50 focus:ring-2 focus:ring-purple-500 outline-none">
+                                <button @click="add()"
+                                    class="bg-purple-600 text-white px-4 rounded text-sm font-bold hover:bg-purple-700 transition">Add</button>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2">
+                                <template x-for="tag in tags">
+                                    <span
+                                        class="inline-flex items-center gap-1 bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm font-medium border border-purple-100">
+                                        <span x-text="tag"></span>
+                                        <button @click="remove(tag)" class="hover:text-red-500 transition ml-1"><i
+                                                class="ph ph-x"></i></button>
+                                    </span>
+                                </template>
+                                <span x-show="tags.length === 0" class="text-gray-400 text-sm italic">Nenhuma skill
+                                    adicionada.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                <h5 class="font-bold text-blue-900 text-sm mb-1">Adicionar (Push)</h5>
+                                <p class="text-sm text-blue-800 font-mono">this.tags.push(this.novo)</p>
+                                <p class="text-xs text-blue-600 mt-1">Empurra o novo item para o final do array.</p>
+                            </div>
+                            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                                <h5 class="font-bold text-red-900 text-sm mb-1">Remover (Filter)</h5>
+                                <p class="text-sm text-red-800 font-mono">this.tags = this.tags.filter(t => t !== item)
+                                </p>
+                                <p class="text-xs text-red-600 mt-1">Cria uma NOVA lista contendo tudo, MENOS o item
+                                    clicado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-window rounded-t-none border-t-0">
+                    <div class="code-body">
+                        <pre><span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ tags: ['HTML'], novo: '' }"</span><span class="tk-tag">&gt;</span>
+    <span class="tk-tag">&lt;input</span> <span class="tk-alpine">x-model</span>=<span class="tk-str">"novo"</span> <span class="tk-alpine">@keydown.enter</span>=<span class="tk-str">"tags.push(novo); novo=''"</span><span class="tk-tag">&gt;</span>
+    
+    <span class="tk-tag">&lt;template</span> <span class="tk-alpine">x-for</span>=<span class="tk-str">"tag in tags"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;span</span> <span class="tk-attr">class</span>=<span class="tk-str">"badge"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;span</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"tag"</span><span class="tk-tag">&gt;&lt;/span&gt;</span>
+            <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tags = tags.filter(t => t !== tag)"</span><span class="tk-tag">&gt;</span>X<span class="tk-tag">&lt;/button&gt;</span>
+        <span class="tk-tag">&lt;/span&gt;</span>
+    <span class="tk-tag">&lt;/template&gt;</span>
+<span class="tk-tag">&lt;/div&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="store" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">4</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Store Global & Computed</h2>
+                    <p class="text-gray-500 text-sm mt-1">Organizando a casa para aplicações grandes.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                    <div
+                        class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-2xl mb-6">
+                        <i class="ph ph-database"></i></div>
+                    <h3 class="font-bold text-gray-900 text-xl mb-4">Alpine.store</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Em vez de colocar arrays gigantes dentro do HTML (o que fica feio), guardamos no JavaScript
+                        Global.
+                    </p>
+                    <div class="bg-gray-100 p-3 rounded font-mono text-xs text-gray-600 border border-gray-200">
+                        Alpine.store('usuarios', { ... })<br>
+                        <span class="text-blue-600">// No HTML:</span><br>
+                        $store.usuarios.lista
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition">
+                    <div
+                        class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-2xl mb-6">
+                        <i class="ph ph-funnel"></i></div>
+                    <h3 class="font-bold text-gray-900 text-xl mb-4">Getters (Computed)</h3>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        São funções que agem como filtros inteligentes. Elas retornam dados processados sem alterar o
+                        original.
+                    </p>
+                    <div class="bg-gray-100 p-3 rounded font-mono text-xs text-gray-600 border border-gray-200">
+                        get ativos() {<br>
+                        &nbsp;&nbsp;return this.users.filter(u => u.ativo)<br>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lab" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-blue-600 text-white shadow-blue-200">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Laboratório Final: Task Master</h2>
+                    <p class="text-gray-500 text-sm mt-1">Aplicação completa com filtro e estado global.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="order-2 lg:order-1">
+                    <div class="card bg-gray-50 p-2 border-gray-200 mb-6">
+                        <div class="bg-white p-6 rounded-xl shadow-sm min-h-[400px]" x-data="{ 
+                            newTodo: '',
+                            filter: 'all',
+                            todos: [
+                                { id: 1, text: 'Aprender Alpine.js', done: true },
+                                { id: 2, text: 'Criar Store Global', done: false },
+                                { id: 3, text: 'Finalizar Projeto', done: false }
+                            ],
+                            get filtered() {
+                                if (this.filter === 'done') return this.todos.filter(t => t.done);
+                                if (this.filter === 'todo') return this.todos.filter(t => !t.done);
+                                return this.todos;
+                            },
+                            add() {
+                                if(!this.newTodo) return;
+                                this.todos.push({ id: Date.now(), text: this.newTodo, done: false });
+                                this.newTodo = '';
+                            }
+                        }">
+                            <div class="flex justify-between items-end mb-6">
+                                <h3 class="font-bold text-2xl text-gray-800">Minhas Tarefas</h3>
+                                <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
+                                    x-text="todos.filter(t => !t.done).length + ' pendentes'"></span>
+                            </div>
+
+                            <div class="flex gap-2 mb-6">
+                                <input x-model="newTodo" @keyup.enter="add()" type="text" placeholder="Nova tarefa..."
+                                    class="w-full border p-3 rounded-lg bg-gray-50 outline-none focus:ring-2 focus:ring-blue-500">
+                                <button @click="add()"
+                                    class="bg-blue-600 text-white px-4 rounded-lg hover:bg-blue-700 transition"><i
+                                        class="ph ph-plus-bold"></i></button>
+                            </div>
+
+                            <div class="flex gap-2 mb-4 text-sm">
+                                <button @click="filter = 'all'"
+                                    :class="filter === 'all' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500'"
+                                    class="px-3 py-1 rounded-full font-bold transition">Todas</button>
+                                <button @click="filter = 'todo'"
+                                    :class="filter === 'todo' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500'"
+                                    class="px-3 py-1 rounded-full font-bold transition">Pendentes</button>
+                                <button @click="filter = 'done'"
+                                    :class="filter === 'done' ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-500'"
+                                    class="px-3 py-1 rounded-full font-bold transition">Feitas</button>
+                            </div>
+
+                            <ul class="space-y-2">
+                                <template x-for="todo in filtered" :key="todo.id">
+                                    <li class="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-gray-300 transition group cursor-pointer"
+                                        @click="todo.done = !todo.done">
+                                        <div class="w-5 h-5 rounded border flex items-center justify-center transition"
+                                            :class="todo.done ? 'bg-green-500 border-green-500' : 'border-gray-300'">
+                                            <i x-show="todo.done" class="ph ph-check text-white text-xs"></i>
+                                        </div>
+                                        <span x-text="todo.text"
+                                            :class="todo.done ? 'text-gray-400 line-through' : 'text-gray-700'"></span>
+                                        <button @click.stop="todos = todos.filter(t => t.id !== todo.id)"
+                                            class="ml-auto text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition"><i
+                                                class="ph ph-trash"></i></button>
+                                    </li>
+                                </template>
+                            </ul>
+
+                            <div x-show="filtered.length === 0" class="text-center text-gray-400 mt-8 text-sm italic">
+                                Nenhuma tarefa encontrada.
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gray-400">↑ Aplicação funcional rodando com Alpine.js</p>
+                </div>
+
+                <div class="order-1 lg:order-2 space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Passo a Passo</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                1</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Setup da Store</h4>
+                                <p class="text-sm text-gray-600 mt-1">Crie <code>Alpine.store('tasks', {...})</code> com
+                                    o array de dados e uma propriedade para o filtro atual.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Lógica Computada</h4>
+                                <p class="text-sm text-gray-600 mt-1">Adicione um getter <code>get filtered()</code> na
+                                    store que retorna o array filtrado baseada na seleção ('all', 'done', 'todo').</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <div
+                                class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                                3</div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">Interface Reativa</h4>
+                                <p class="text-sm text-gray-600 mt-1">Use <code>x-for</code> no HTML percorrendo a
+                                    propriedade computada, não o array original.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 mt-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-gray-400 text-xs font-mono">script.js</span>
+                        </div>
+                        <pre class="text-xs text-gray-300 font-mono overflow-x-auto">
+Alpine.store('todo', {
+    items: [],
+    filter: 'all',
+    
+    get list() {
+        if (this.filter === 'done') 
+            return this.items.filter(i => i.done);
+        return this.items;
+    },
+
+    add(text) { ... }
+})</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24 bg-green-50 border border-green-200 rounded-3xl p-8">
+            <h2 class="text-2xl font-bold text-green-900 mb-6 flex items-center gap-2">
+                <i class="ph ph-check-fat text-green-600"></i> Checklist de Consolidação
+            </h2>
+            <div class="space-y-3">
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Entendi que <code>x-model</code> sincroniza dados em tempo real.</span>
+                </label>
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Sei usar <code>&lt;template x-for&gt;</code> para criar listas e usar
+                        <code>:key</code>.</span>
+                </label>
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Sei usar <code>push()</code> e <code>filter()</code> para manipular
+                        arrays.</span>
+                </label>
+            </div>
+        </section>
+
+    </main>
+
+    <footer
+        class="fixed bottom-0 w-full bg-white border-t border-gray-200 p-4 z-50 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)]">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <p class="text-sm font-medium text-gray-500">
+                <span class="text-purple-600 font-bold">Próxima Aula:</span> Consumindo APIs com Fetch (Async).
+            </p>
+            <div class="text-xs text-gray-400 font-mono">IFRN • Módulo 4</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

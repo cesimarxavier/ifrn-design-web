@@ -9,7 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 
     <style>
@@ -25,6 +25,7 @@
             color: #334155;
             background-color: #f1f5f9;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         h1,
@@ -125,7 +126,7 @@
             flex-shrink: 0;
         }
 
-        /* Easter Egg Modal Transition */
+        /* Modal Transition */
         .modal-enter {
             opacity: 0;
             transform: scale(0.9);
@@ -183,17 +184,80 @@
                     class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600">SPA</span>
             </h1>
             <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Hoje vamos consolidar tudo. Sem recarregar página, com tema Dark/Light e animações.
-                Abra o VS Code, crie <code>index.html</code> e vamos codar.
+                Hoje vamos consolidar tudo. Sem recarregar página, com tema Dark/Light e animações. Abra o VS Code, crie
+                <code>index.html</code> e vamos codar.
             </p>
         </header>
 
-        <section x-data="{ step: 1, total: 4 }" class="mb-24">
+        <section class="mb-24 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+            <div class="flex items-center gap-4 mb-6 pb-6 border-b border-gray-100">
+                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl">
+                    <i class="ph ph-rewind"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Flashback: Aula 41</h2>
+                    <p class="text-slate-500 text-sm">Recapitulando os fundamentos antes de avançar.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <p class="text-slate-600 leading-relaxed">
+                        Na última aula, aprendemos que o Alpine.js nos permite criar interfaces reativas declarando o
+                        estado direto no HTML. Vimos <code>x-data</code> para criar variáveis e <code>x-show</code> para
+                        controlar a visibilidade.
+                    </p>
+                    <div class="flex gap-3 mt-4">
+                        <a href="aula-41.html" target="_blank"
+                            class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition">
+                            <i class="ph ph-book-open"></i> Ver Slide da Aula 41
+                        </a>
+                        <a href="aula-41-apendice-alpine.html" target="_blank"
+                            class="inline-flex items-center gap-2 text-sm font-bold text-purple-600 hover:text-purple-800 transition">
+                            <i class="ph ph-list-dashes"></i> Cheat Sheet Alpine
+                        </a>
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-700 text-sm uppercase tracking-wide mb-3">Conceitos Chave</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-mono text-slate-600">x-data</span>
+                        <span
+                            class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-mono text-slate-600">x-show</span>
+                        <span
+                            class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-mono text-slate-600">@click</span>
+                        <span
+                            class="px-3 py-1 bg-white border border-slate-200 rounded text-xs font-mono text-slate-600">:class</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24" x-data="{ step: 1, total: 4 }">
             <div class="flex items-center gap-4 mb-8">
                 <div class="step-circle bg-slate-800 text-white">1</div>
                 <div>
                     <h2 class="text-3xl font-bold text-slate-900">Live Coding: A Estrutura</h2>
                     <p class="text-slate-500 text-sm mt-1">Construção guiada da espinha dorsal.</p>
+                </div>
+            </div>
+
+            <div class="mb-8 p-6 bg-purple-50 rounded-2xl border border-purple-100 flex gap-4 items-start">
+                <i class="ph ph-info text-2xl text-purple-600 mt-1"></i>
+                <div>
+                    <h4 class="font-bold text-purple-900 mb-2">Intenção Pedagógica</h4>
+                    <p class="text-purple-800 text-sm leading-relaxed mb-2">
+                        Neste exercício, vamos construir uma <strong>Single Page Application (SPA)</strong>. O objetivo
+                        é entender como gerenciar o estado global de navegação (<code>tab</code>) e temas
+                        (<code>dark</code>) sem recarregar a página.
+                    </p>
+                    <p class="text-purple-800 text-sm font-bold">Critérios de Sucesso:</p>
+                    <ul class="text-purple-800 text-sm list-disc list-inside ml-2">
+                        <li>A troca de abas deve ser instantânea (sem F5).</li>
+                        <li>O tema escuro deve persistir visualmente.</li>
+                        <li>O código deve estar organizado e semântico.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -203,23 +267,23 @@
                         :style="`width: ${(step / total) * 100}%`"></div>
                 </div>
 
-                <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-x-10"
-                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                <div x-show="step === 1" class="p-8 md:p-12 flex-grow flex flex-col justify-between"
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10">
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div>
                             <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
                                 1/4</span>
                             <h3 class="text-3xl font-bold mb-4">O Cérebro da Aplicação</h3>
                             <p class="text-slate-400 mb-6 text-lg">
-                                Uma SPA (Single Page Application) precisa de um "Estado Global". Vamos definir isso na
-                                tag <code>&lt;html&gt;</code>.
+                                Uma SPA precisa de um "Estado Global". Vamos definir isso na tag
+                                <code>&lt;html&gt;</code> para que toda a página tenha acesso.
                             </p>
                             <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 space-y-3">
                                 <h4 class="text-white font-bold text-sm">Estado Global:</h4>
                                 <ul class="text-sm text-slate-300 space-y-2 font-mono">
-                                    <li><code>tab</code>: 'home'</li>
-                                    <li><code>dark</code>: false</li>
+                                    <li><code>tab</code>: 'home' (Controla a tela visível)</li>
+                                    <li><code>dark</code>: false (Controla o tema DaisyUI)</li>
                                 </ul>
                             </div>
                         </div>
@@ -230,8 +294,7 @@
                                 <div class="dot bg-green-500"></div>
                             </div>
                             <div class="code-body">
-                                <pre>
-<span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
+                                <pre><span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
 <span class="tk-tag">&lt;html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"pt-br"</span> 
       <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ 
           tab: 'home', 
@@ -247,30 +310,28 @@
 <span class="tk-tag">&lt;body</span> <span class="tk-attr">class</span>=<span class="tk-str">"min-h-screen transition-colors"</span><span class="tk-tag">&gt;</span>
     ...
 <span class="tk-tag">&lt;/body&gt;</span>
-<span class="tk-tag">&lt;/html&gt;</span>
-</pre>
+<span class="tk-tag">&lt;/html&gt;</span></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div x-show="step === 2" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-x-10"
-                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                <div x-show="step === 2" class="p-8 md:p-12 flex-grow flex flex-col justify-between"
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10">
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div>
                             <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
                                 2/4</span>
                             <h3 class="text-3xl font-bold mb-4">A Navegação (Navbar)</h3>
                             <p class="text-slate-400 mb-6">
-                                Os botões da Navbar não levam para outra página. Eles apenas mudam o valor da variável
-                                <code>tab</code>.
+                                Os botões da Navbar não levam para outra página (`href`). Eles apenas mudam o valor da
+                                variável <code>tab</code>. O botão ativo ganha destaque visual automaticamente.
                             </p>
                         </div>
                         <div class="code-window border-purple-500/50">
                             <div class="code-body">
-                                <pre>
-<span class="tk-tag">&lt;nav</span> <span class="tk-attr">class</span>=<span class="tk-str">"navbar bg-base-100 shadow-lg px-8"</span><span class="tk-tag">&gt;</span>
+                                <pre><span class="tk-tag">&lt;nav</span> <span class="tk-attr">class</span>=<span class="tk-str">"navbar bg-base-100 shadow-lg px-8"</span><span class="tk-tag">&gt;</span>
   <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-1 font-bold text-xl"</span><span class="tk-tag">&gt;</span>DevPortfolio<span class="tk-tag">&lt;/div&gt;</span>
   
   <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"flex-none gap-2"</span><span class="tk-tag">&gt;</span>
@@ -294,16 +355,15 @@
     <span class="tk-tag">&lt;input</span> <span class="tk-attr">type</span>=<span class="tk-str">"checkbox"</span> <span class="tk-attr">class</span>=<span class="tk-str">"toggle"</span> 
            <span class="tk-alpine">x-model</span>=<span class="tk-str">"dark"</span> <span class="tk-tag">/&gt;</span>
   <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/nav&gt;</span>
-</pre>
+<span class="tk-tag">&lt;/nav&gt;</span></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div x-show="step === 3" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-x-10"
-                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                <div x-show="step === 3" class="p-8 md:p-12 flex-grow flex flex-col justify-between"
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10">
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div>
                             <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
@@ -311,13 +371,12 @@
                             <h3 class="text-3xl font-bold mb-4">O Conteúdo (SPA)</h3>
                             <p class="text-slate-400 mb-6">
                                 Usamos <code>x-show</code> para mostrar apenas a aba ativa. O <code>x-transition</code>
-                                dá o toque de classe na troca.
+                                dá o toque de classe na troca, criando uma animação suave.
                             </p>
                         </div>
                         <div class="code-window border-purple-500/50">
                             <div class="code-body">
-                                <pre>
-<span class="tk-tag">&lt;main</span> <span class="tk-attr">class</span>=<span class="tk-str">"p-10 max-w-5xl mx-auto"</span><span class="tk-tag">&gt;</span>
+                                <pre><span class="tk-tag">&lt;main</span> <span class="tk-attr">class</span>=<span class="tk-str">"p-10 max-w-5xl mx-auto"</span><span class="tk-tag">&gt;</span>
 
     <span class="tk-cmt">&lt;!-- SEÇÃO HOME --&gt;</span>
     <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"tab === 'home'"</span> 
@@ -327,11 +386,11 @@
             <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"hero-content text-center"</span><span class="tk-tag">&gt;</span>
                 <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"max-w-md"</span><span class="tk-tag">&gt;</span>
                     <span class="tk-tag">&lt;h1</span> <span class="tk-attr">class</span>=<span class="tk-str">"text-5xl font-bold"</span><span class="tk-tag">&gt;</span>Olá, eu sou Dev<span class="tk-tag">&lt;/h1&gt;</span>
-                    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'projetos'"</span> 
+                    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"tab = 'contato'"</span> 
                             <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary mt-6"</span><span class="tk-tag">&gt;</span>
-                        Ver Projetos
+                        Fale Comigo
                     <span class="tk-tag">&lt;/button&gt;</span>
-                <span class="tk-tag">&lt;/div&gt;</span>
+                <span class="tk-tag">&lt;div</span>
             <span class="tk-tag">&lt;/div&gt;</span>
         <span class="tk-tag">&lt;/div&gt;</span>
 
@@ -339,16 +398,15 @@
 
     <span class="tk-cmt">&lt;!-- Outras seções (Projetos, Contato)... --&gt;</span>
 
-<span class="tk-tag">&lt;/main&gt;</span>
-</pre>
+<span class="tk-tag">&lt;/main&gt;</span></pre>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div x-show="step === 4" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 translate-x-10"
-                    class="p-8 md:p-12 flex-grow flex flex-col justify-between">
+                <div x-show="step === 4" class="p-8 md:p-12 flex-grow flex flex-col justify-between"
+                    x-transition:enter="transition ease-out duration-300 transform"
+                    x-transition:enter-start="opacity-0 translate-x-10">
                     <div class="grid lg:grid-cols-2 gap-12">
                         <div>
                             <span class="text-purple-400 font-bold uppercase text-xs mb-2 block tracking-wider">Passo
@@ -356,12 +414,12 @@
                             <h3 class="text-3xl font-bold mb-4">Modais Locais</h3>
                             <p class="text-slate-400 mb-6">
                                 Cada card de projeto pode ter seu próprio estado <code>x-data="{ modal: false }"</code>.
+                                Isso isola a lógica de cada modal.
                             </p>
                         </div>
                         <div class="code-window border-purple-500/50">
                             <div class="code-body">
-                                <pre>
-<span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card bg-base-100 shadow-xl"</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ modal: false }"</span><span class="tk-tag">&gt;</span>
+                                <pre><span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card bg-base-100 shadow-xl"</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ modal: false }"</span><span class="tk-tag">&gt;</span>
   <span class="tk-tag">&lt;div</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-body"</span><span class="tk-tag">&gt;</span>
     <span class="tk-tag">&lt;h2</span> <span class="tk-attr">class</span>=<span class="tk-str">"card-title"</span><span class="tk-tag">&gt;</span>Projeto X<span class="tk-tag">&lt;/h2&gt;</span>
     <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"modal = true"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn btn-primary"</span><span class="tk-tag">&gt;</span>Ver<span class="tk-tag">&lt;/button&gt;</span>
@@ -378,8 +436,7 @@
           <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"modal = false"</span> <span class="tk-attr">class</span>=<span class="tk-str">"btn"</span><span class="tk-tag">&gt;</span>X<span class="tk-tag">&lt;/button&gt;</span>
        <span class="tk-tag">&lt;/div&gt;</span>
   <span class="tk-tag">&lt;/div&gt;</span>
-<span class="tk-tag">&lt;/div&gt;</span>
-</pre>
+<span class="tk-tag">&lt;/div&gt;</span></pre>
                             </div>
                         </div>
                     </div>
@@ -395,7 +452,6 @@
             </div>
         </section>
 
-
         <section class="mb-32">
             <div class="flex items-center gap-4 mb-8">
                 <div class="step-circle bg-purple-600 text-white">2</div>
@@ -406,7 +462,6 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-8">
-
                 <div
                     class="card bg-white p-8 rounded-3xl border border-purple-200 shadow-xl relative overflow-hidden group hover:border-purple-400 transition-all">
                     <div
@@ -415,30 +470,21 @@
                     <div class="flex items-center gap-3 mb-4">
                         <div
                             class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
-                            <i class="ph ph-list text-xl"></i>
-                        </div>
+                            <i class="ph ph-list text-xl"></i></div>
                         <h3 class="text-xl font-bold text-slate-800">Seção FAQ (Accordion)</h3>
                     </div>
-
                     <p class="text-slate-600 mb-6 text-sm leading-relaxed">
-                        Na aba "Sobre", crie uma lista de Perguntas Frequentes (FAQ). Ao clicar na pergunta, a resposta
-                        aparece.
-                        <strong>Regra:</strong> Apenas uma pode estar aberta por vez.
+                        Na aba "Sobre", crie uma lista de Perguntas Frequentes. <strong>Regra:</strong> Apenas uma pode
+                        estar aberta por vez.
                     </p>
-
                     <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
                         <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i class="ph ph-code"></i>
                             Dica de Lógica:</h4>
                         <div class="code-window">
                             <div class="code-body p-3 text-xs">
                                 <pre><span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ ativo: null }"</span><span class="tk-tag">&gt;</span>
-  <span class="tk-cmt">&lt;!-- Item 1 --&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 1"</span><span class="tk-tag">&gt;</span>Pergunta 1<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"ativo === 1"</span><span class="tk-tag">&gt;</span>Resposta 1<span class="tk-tag">&lt;/div&gt;</span>
-  
-  <span class="tk-cmt">&lt;!-- Item 2 --&gt;</span>
-  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 2"</span><span class="tk-tag">&gt;</span>Pergunta 2<span class="tk-tag">&lt;/button&gt;</span>
-  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"ativo === 2"</span><span class="tk-tag">&gt;</span>Resposta 2<span class="tk-tag">&lt;/div&gt;</span>
+  <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"ativo = 1"</span><span class="tk-tag">&gt;</span>P1<span class="tk-tag">&lt;/button&gt;</span>
+  <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"ativo === 1"</span><span class="tk-tag">&gt;</span>R1<span class="tk-tag">&lt;/div&gt;</span>
 <span class="tk-tag">&lt;/div&gt;</span></pre>
                             </div>
                         </div>
@@ -453,186 +499,80 @@
                     <div class="flex items-center gap-3 mb-4">
                         <div
                             class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
-                            <i class="ph ph-envelope-simple text-xl"></i>
-                        </div>
+                            <i class="ph ph-envelope-simple text-xl"></i></div>
                         <h3 class="text-xl font-bold text-slate-800">Contato Inteligente</h3>
                     </div>
                     <p class="text-slate-600 mb-6 text-sm">
-                        Na aba "Contato", crie inputs de Email e Mensagem.
-                        O botão "Enviar" deve ficar desabilitado se estiver incompleto.
+                        Na aba "Contato", crie inputs de Email e Mensagem. O botão "Enviar" deve ficar desabilitado se
+                        estiver incompleto.
                     </p>
-
                     <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 text-sm">
                         <h4 class="font-bold text-slate-700 mb-2 flex items-center gap-2"><i
                                 class="ph ph-check-circle"></i> Checklist:</h4>
                         <ul class="space-y-2 text-slate-600">
-                            <li class="flex items-center gap-2">
-                                <input type="checkbox" disabled
-                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
-                                <span>Use <code>x-model</code></span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <input type="checkbox" disabled
-                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
-                                <span>Use <code>:disabled</code></span>
-                            </li>
-                            <li class="flex items-center gap-2">
-                                <input type="checkbox" disabled
-                                    class="checkbox checkbox-xs checkbox-primary cursor-pointer">
-                                <span>Mostre sucesso com <code>x-show</code></span>
-                            </li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-green-500"></i> Use
+                                <code>x-model</code></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-green-500"></i> Use
+                                <code>:disabled</code></li>
+                            <li class="flex items-center gap-2"><i class="ph ph-check text-green-500"></i> Mostre
+                                sucesso com <code>x-show</code></li>
                         </ul>
                     </div>
                 </div>
-
             </div>
         </section>
 
-        <section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50 border-t border-slate-200">
-            <div class="max-w-5xl mx-auto">
+        <section class="mb-24">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+                <i class="ph ph-upload-simple text-blue-600"></i> Entrega de Hoje
+            </h2>
 
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="p-3 bg-white rounded-xl shadow-sm border border-slate-200">
-                        <i class="ph ph-table text-2xl text-brand-600"></i>
+            <div class="bg-blue-50 border border-blue-200 rounded-3xl p-8 md:p-10">
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-blue-900 mb-4">O que enviar?</h3>
+                        <p class="text-blue-800 mb-6">
+                            Você criou dois artefatos hoje. Suba ambos para o seu repositório do GitHub e envie o link
+                            no Google Classroom.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div
+                                class="flex items-center gap-4 bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                                <div
+                                    class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl">
+                                    <i class="ph ph-code"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">1. O Portfolio (SPA)</h4>
+                                    <p class="text-xs text-gray-500">index.html (Com Abas e Tema)</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                                <div
+                                    class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-xl">
+                                    <i class="ph ph-check-square-offset"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">2. Missões Extras</h4>
+                                    <p class="text-xs text-gray-500">FAQ e Formulário implementados no mesmo arquivo</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-slate-900">Resumo Técnico</h2>
-                        <p class="text-slate-500 text-sm">Guia rápido de como aplicar os comandos nesta lista.</p>
-                    </div>
-                </div>
 
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm">
-                            <thead class="bg-slate-50 border-b border-slate-200">
-                                <tr>
-                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
-                                        Diretiva</th>
-                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
-                                        Função (Metáfora)</th>
-                                    <th class="px-6 py-4 font-bold text-slate-700 uppercase tracking-wider text-xs">
-                                        Aplicação na Lista</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100">
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code class="code-inline text-blue-600 border-blue-200 bg-blue-50">x-data</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Cérebro.</strong> Define os dados iniciais.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 01 (Cartão):</div>
-                                        <code
-                                            class="text-xs bg-slate-100 p-1 rounded">x-data="{ nome: 'Maria', cargo: 'Dev' }"</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code
-                                            class="code-inline text-purple-600 border-purple-200 bg-purple-50">x-text</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Espelho.</strong> Mostra o valor de uma variável.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 01 & 07 (Gorjeta):</div>
-                                        <code
-                                            class="text-xs bg-slate-100 p-1 rounded">&lt;h2 x-text="nome"&gt;&lt;/h2&gt;</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code class="code-inline text-pink-600 border-pink-200 bg-pink-50">x-show</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Fantasma.</strong> Esconde/Mostra elementos.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 02 (Spoiler):</div>
-                                        <code class="text-xs bg-slate-100 p-1 rounded">x-show="mostrarSpoiler"</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code
-                                            class="code-inline text-cyan-600 border-cyan-200 bg-cyan-50">x-bind (:)</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Camaleão.</strong> Classes e atributos dinâmicos.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 03 (Likes) & 08 (Senha):
-                                        </div>
-                                        <code
-                                            class="text-xs bg-slate-100 p-1 rounded block mb-1">:class="{ 'text-red-500': likes > 0 }"</code>
-                                        <code
-                                            class="text-xs bg-slate-100 p-1 rounded block">:disabled="senha.length < 8"</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code
-                                            class="code-inline text-orange-600 border-orange-200 bg-orange-50">x-on (@)</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Gatilho.</strong> Ações de clique ou teclado.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 03 (Likes) & 09 (API):
-                                        </div>
-                                        <code class="text-xs bg-slate-100 p-1 rounded">@click="likes++"</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code
-                                            class="code-inline text-emerald-600 border-emerald-200 bg-emerald-50">x-model</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>A Ponte.</strong> Sincroniza inputs e variáveis.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 07 (Gorjeta) & 08 (Senha):
-                                        </div>
-                                        <code
-                                            class="text-xs bg-slate-100 p-1 rounded">&lt;input x-model="valorConta"&gt;</code>
-                                    </td>
-                                </tr>
-
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-6 py-4">
-                                        <code
-                                            class="code-inline text-indigo-600 border-indigo-200 bg-indigo-50">x-for</code>
-                                    </td>
-                                    <td class="px-6 py-4 text-slate-600">
-                                        <strong>O Clone.</strong> Repete HTML para cada item da lista.
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="font-mono text-slate-500 text-xs mb-1">Ex 06 (To-Do) & 10 (Loja):
-                                        </div>
-                                        <code class="text-xs bg-slate-100 p-1 rounded">x-for="tarefa in lista"</code>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                    <div
-                        class="bg-slate-50 px-6 py-4 border-t border-slate-200 text-xs text-slate-500 flex items-center gap-2">
-                        <i class="ph ph-info text-brand-600 text-lg"></i>
-                        <span>Precisa de mais detalhes? Consulte a <a href="https://alpinejs.dev" target="_blank"
-                                class="text-brand-600 hover:underline font-bold">Documentação Oficial</a>.</span>
+                    <div class="flex-1 w-full">
+                        <div class="bg-gray-900 rounded-xl p-6 text-gray-300 font-mono text-sm shadow-2xl">
+                            <p class="text-gray-500 mb-4 border-b border-gray-700 pb-2">Terminal / Git Bash</p>
+                            <p class="mb-2"><span class="text-green-400">$</span> git checkout -b aula-43-spa</p>
+                            <p class="mb-2"><span class="text-green-400">$</span> git add index.html</p>
+                            <p class="mb-2"><span class="text-green-400">$</span> git commit -m "feat: portfolio spa com
+                                alpine"</p>
+                            <p class="mb-4"><span class="text-green-400">$</span> git push origin aula-43-spa</p>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -640,24 +580,27 @@
 
     <div x-show="showSecret" x-transition:enter="modal-enter modal-enter-active" x-transition:leave="modal-leave-active"
         class="fixed inset-0 bg-slate-900/95 z-[100] flex justify-center items-center p-4" x-cloak>
+        <div x-show="showSecret" x-transition:enter="modal-enter modal-enter-active"
+            x-transition:leave="modal-leave-active"
+            class="fixed inset-0 bg-slate-900/95 z-[100] flex justify-center items-center p-4" x-cloak>
 
-        <div
-            class="bg-[#1e1e1e] w-full max-w-5xl h-[85vh] rounded-2xl shadow-2xl border border-slate-700 flex flex-col overflow-hidden relative">
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-[#252526]">
-                <div class="flex items-center gap-3">
-                    <span class="text-2xl">🎉</span>
-                    <div>
-                        <h3 class="text-white font-bold text-lg">Gabarito Secreto Desbloqueado!</h3>
-                        <p class="text-slate-400 text-xs">Você encontrou o código final.</p>
+            <div
+                class="bg-[#1e1e1e] w-full max-w-5xl h-[85vh] rounded-2xl shadow-2xl border border-slate-700 flex flex-col overflow-hidden relative">
+                <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-[#252526]">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">🎉</span>
+                        <div>
+                            <h3 class="text-white font-bold text-lg">Gabarito Secreto Desbloqueado!</h3>
+                            <p class="text-slate-400 text-xs">Você encontrou o código final.</p>
+                        </div>
                     </div>
+                    <button @click="showSecret = false" class="text-slate-400 hover:text-white"><i
+                            class="ph ph-x text-2xl"></i></button>
                 </div>
-                <button @click="showSecret = false" class="text-slate-400 hover:text-white"><i
-                        class="ph ph-x text-2xl"></i></button>
-            </div>
 
-            <div class="flex-grow overflow-auto p-0">
-                <div class="code-body text-xs md:text-sm">
-                    <pre>
+                <div class="flex-grow overflow-auto p-0">
+                    <div class="code-body text-xs md:text-sm">
+                        <pre>
 <span class="tk-tag">&lt;!DOCTYPE html&gt;</span>
 <span class="tk-tag">&lt;html</span> <span class="tk-attr">lang</span>=<span class="tk-str">"pt-br"</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{ tab: 'home', dark: true }"</span> <span class="tk-alpine">:data-theme</span>=<span class="tk-str">"dark ? 'dracula' : 'cupcake'"</span><span class="tk-tag">&gt;</span>
 <span class="tk-tag">&lt;head&gt;</span>
@@ -735,6 +678,7 @@
 <span class="tk-tag">&lt;/body&gt;</span>
 <span class="tk-tag">&lt;/html&gt;</span>
 </pre>
+                    </div>
                 </div>
             </div>
         </div>

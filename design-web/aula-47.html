@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 13: Alpine.js & APIs | Design Web IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <style>
+        /* --- ESTILOS GERAIS (TEMPLATE PREMIUM) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-sora {
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Círculos de Passo */
+        .step-circle {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Sora';
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cards */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Estilo de Código */
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            color: #d4d4d4;
+        }
+
+        .code-header {
+            background: #252526;
+            padding: 6px 12px;
+            display: flex;
+            gap: 6px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .code-body {
+            padding: 16px;
+            overflow-x: auto;
+        }
+
+        /* Highlight Code */
+        .tk-tag {
+            color: #569cd6;
+        }
+
+        .tk-attr {
+            color: #9cdcfe;
+        }
+
+        .tk-str {
+            color: #ce9178;
+        }
+
+        .tk-kwd {
+            color: #c586c0;
+        }
+
+        .tk-fn {
+            color: #dcdcaa;
+        }
+
+        .tk-cmt {
+            color: #6a9955;
+            font-style: italic;
+        }
+
+        .tk-alpine {
+            color: #ff79c6;
+            font-weight: bold;
+        }
+
+        /* Utilitários */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .bg-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="pb-40">
+
+    <nav class="bg-white/90 backdrop-blur border-b border-gray-200 py-4 px-6 fixed w-full top-0 z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                    <i class="ph ph-brackets-curly"></i>
+                </div>
+                <div>
+                    <span class="font-sora font-bold text-gray-900 block text-lg">Design Web</span>
+                    <span class="text-xs text-gray-500 font-medium tracking-wide">Módulo 4: Alpine.js</span>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
+                <a href="#conceitos" class="hover:text-blue-600 transition">Conceitos</a>
+                <a href="#lifecycle" class="hover:text-blue-600 transition">Lifecycle</a>
+                <a href="#lab" class="text-blue-600 font-bold bg-blue-50 px-3 py-1 rounded-full">Laboratório API</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="px-4 md:px-8 max-w-6xl mx-auto mt-32">
+
+        <header class="mb-20 text-center relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-green-500/5 rounded-full blur-3xl -z-10">
+            </div>
+
+            <div class="inline-flex gap-3 mb-6">
+                <span class="badge bg-green-100 text-green-800 border border-green-200">Semana 13</span>
+                <span class="badge bg-gray-100 text-gray-600 border border-gray-200">APIs & Async</span>
+            </div>
+
+            <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 font-sora tracking-tight leading-tight">
+                Conectando com o<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-teal-600">Mundo
+                    Real.</span>
+            </h1>
+
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Sites estáticos são seguros, mas limitados. Hoje vamos aprender a buscar dados externos (Fetch), lidar
+                com o tempo de espera (Loading) e tratar falhas (Error Handling) usando Alpine.
+            </p>
+        </header>
+
+        <section id="conceitos" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Fetch API no Alpine</h2>
+                    <p class="text-gray-500 text-sm mt-1">Como trazer dados de fora para dentro do seu componente.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <p class="text-gray-600 leading-relaxed">
+                        No Alpine, funções assíncronas funcionam nativamente. Você pode chamar uma API diretamente no
+                        <code>x-data</code> ou em métodos auxiliares.
+                    </p>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl">
+                        <h4 class="font-bold text-blue-900 mb-2 text-sm uppercase tracking-wide">O Padrão de Ouro</h4>
+                        <ul class="space-y-2 text-blue-800 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle mt-1"></i>
+                                <span><strong>Estado Inicial:</strong> Defina arrays vazios e flags de loading.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle mt-1"></i>
+                                <span><strong>Async/Await:</strong> Mais limpo que <code>.then()</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="ph ph-check-circle mt-1"></i>
+                                <span><strong>Try/Catch:</strong> Sempre proteja sua chamada de rede.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="dot dot-red"></div>
+                        <div class="dot dot-yellow"></div>
+                        <div class="dot dot-green"></div>
+                    </div>
+                    <div class="code-body">
+                        <pre><span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"{
+    posts: [],
+    async carregarPosts() {
+        const resp = await fetch('https://api...');
+        this.posts = await resp.json();
+    }
+}"</span><span class="tk-tag">&gt;</span>
+
+    <span class="tk-tag">&lt;button</span> <span class="tk-alpine">@click</span>=<span class="tk-str">"carregarPosts()"</span><span class="tk-tag">&gt;</span>
+        Baixar Dados
+    <span class="tk-tag">&lt;/button&gt;</span>
+
+    <span class="tk-tag">&lt;template</span> <span class="tk-alpine">x-for</span>=<span class="tk-str">"post in posts"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"post.title"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
+    <span class="tk-tag">&lt;/template&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lifecycle" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-gray-900 text-white">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Lifecycle (Ciclo de Vida)</h2>
+                    <p class="text-gray-500 text-sm mt-1">Quando carregar os dados automaticamente?</p>
+                </div>
+            </div>
+
+            <div class="card p-8 bg-white border border-gray-200">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="col-span-1 border-r border-gray-100 pr-8">
+                        <h3 class="font-bold text-xl text-purple-600 mb-4 font-mono">x-init</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            É o "construtor" do componente. Executa assim que o elemento é criado no DOM.
+                        </p>
+                        <div class="bg-gray-100 p-3 rounded text-xs text-gray-600 font-mono">
+                            x-init="carregarDados()"
+                        </div>
+                    </div>
+
+                    <div class="col-span-2">
+                        <h4 class="font-bold text-gray-800 mb-4">Exemplo Prático: Carregamento Automático</h4>
+                        <div class="code-window">
+                            <div class="code-body">
+                                <pre><span class="tk-cmt">&lt;!-- Assim que a div nasce, ela busca os dados --&gt;</span>
+<span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-data</span>=<span class="tk-str">"app()"</span> <span class="tk-alpine">x-init</span>=<span class="tk-str">"init()"</span><span class="tk-tag">&gt;</span>
+    ...
+<span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;script&gt;</span>
+<span class="tk-kwd">function</span> <span class="tk-fn">app</span>() {
+    <span class="tk-kwd">return</span> {
+        usuarios: [],
+        <span class="tk-fn">init</span>() {
+            <span class="tk-kwd">this</span>.usuarios = <span class="tk-str">['Ana', 'João']</span>;
+            <span class="tk-fn">console</span>.<span class="tk-fn">log</span>(<span class="tk-str">'Componente pronto!'</span>);
+        }
+    }
+}
+<span class="tk-tag">&lt;/script&gt;</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="lab" class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="step-circle bg-blue-600 text-white shadow-blue-200">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Laboratório: Crypto Dashboard</h2>
+                    <p class="text-gray-500 text-sm mt-1">Construindo uma aplicação completa com API pública.</p>
+                </div>
+            </div>
+
+            <div class="card bg-gray-900 p-2 border-gray-700 mb-12 shadow-2xl">
+                <div class="bg-gray-800 p-4 border-b border-gray-700 flex justify-between items-center rounded-t-xl">
+                    <span class="text-gray-400 text-xs font-mono uppercase tracking-widest">Resultado Final</span>
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-100 p-8 min-h-[400px]" x-data="{ 
+                        coins: [], 
+                        loading: true,
+                        async load() {
+                            this.loading = true;
+                            // Simulação de delay de rede
+                            await new Promise(r => setTimeout(r, 2000));
+                            this.coins = [
+                                { name: 'Bitcoin', symbol: 'BTC', price: 98000, change: 2.5 },
+                                { name: 'Ethereum', symbol: 'ETH', price: 3800, change: -1.2 },
+                                { name: 'Solana', symbol: 'SOL', price: 140, change: 5.7 }
+                            ];
+                            this.loading = false;
+                        }
+                     }" x-init="load()">
+
+                    <div class="max-w-2xl mx-auto">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800">CryptoTracker</h2>
+                            <button @click="load()"
+                                class="text-sm text-blue-600 hover:underline flex items-center gap-1">
+                                <i class="ph ph-arrows-clockwise" :class="{'animate-spin': loading}"></i> Atualizar
+                            </button>
+                        </div>
+
+                        <div x-show="loading" class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm h-20 animate-pulse"></div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm h-20 animate-pulse"></div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm h-20 animate-pulse"></div>
+                        </div>
+
+                        <div x-show="!loading" class="space-y-4">
+                            <template x-for="coin in coins">
+                                <div
+                                    class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 flex justify-between items-center transition hover:shadow-md">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs"
+                                            x-text="coin.symbol"></div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900" x-text="coin.name"></h4>
+                                            <span class="text-xs text-gray-500" x-text="coin.symbol"></span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-mono font-bold text-gray-900"
+                                            x-text="'$' + coin.price.toLocaleString()"></p>
+                                        <p class="text-xs font-bold"
+                                            :class="coin.change > 0 ? 'text-green-500' : 'text-red-500'"
+                                            x-text="(coin.change > 0 ? '+' : '') + coin.change + '%'"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Como construir?</h3>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            1</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Estrutura de Dados</h4>
+                            <p class="text-sm text-gray-600 mt-1">Crie o <code>x-data</code> com um array vazio
+                                <code>coins: []</code> e um booleano <code>loading: true</code>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            2</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">API Real</h4>
+                            <p class="text-sm text-gray-600 mt-1">Use a API pública da CoinGecko ou simule com
+                                <code>setTimeout</code> (como no exemplo acima).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <div
+                            class="bg-blue-100 text-blue-700 w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0">
+                            3</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Skeleton UI</h4>
+                            <p class="text-sm text-gray-600 mt-1">Use <code>x-show="loading"</code> para mostrar blocos
+                                cinzas pulsantes (animate-pulse do Tailwind) enquanto carrega.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-window h-full">
+                    <div class="code-body">
+                        <pre><span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-init</span>=<span class="tk-str">"fetchData()"</span><span class="tk-tag">&gt;</span>
+    
+    <span class="tk-cmt">&lt;!-- Loading State --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"loading"</span><span class="tk-tag">&gt;</span>
+        Carregando...
+    <span class="tk-tag">&lt;/div&gt;</span>
+
+    <span class="tk-cmt">&lt;!-- Data State --&gt;</span>
+    <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-show</span>=<span class="tk-str">"!loading"</span><span class="tk-tag">&gt;</span>
+        <span class="tk-tag">&lt;template</span> <span class="tk-alpine">x-for</span>=<span class="tk-str">"coin in coins"</span><span class="tk-tag">&gt;</span>
+            <span class="tk-tag">&lt;div</span> <span class="tk-alpine">x-text</span>=<span class="tk-str">"coin.name"</span><span class="tk-tag">&gt;&lt;/div&gt;</span>
+        <span class="tk-tag">&lt;/template&gt;</span>
+    <span class="tk-tag">&lt;/div&gt;</span>
+
+<span class="tk-tag">&lt;/div&gt;</span></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-24 bg-green-50 border border-green-200 rounded-3xl p-8">
+            <h2 class="text-2xl font-bold text-green-900 mb-6 flex items-center gap-2">
+                <i class="ph ph-check-fat text-green-600"></i> Checklist de Consolidação
+            </h2>
+            <div class="space-y-3">
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Entendi que <code>fetch</code> é assíncrono e retorna uma
+                        Promise.</span>
+                </label>
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Sei usar <code>x-init</code> para carregar dados ao abrir a
+                        página.</span>
+                </label>
+                <label
+                    class="flex items-center gap-3 p-3 bg-white rounded-lg border border-green-100 cursor-pointer hover:shadow-sm transition">
+                    <input type="checkbox" class="w-5 h-5 text-green-600 rounded focus:ring-green-500">
+                    <span class="text-gray-700">Implementei um estado de Loading para melhorar a UX.</span>
+                </label>
+            </div>
+        </section>
+
+    </main>
+
+    <footer
+        class="fixed bottom-0 w-full bg-white border-t border-gray-200 p-4 z-50 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)]">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <p class="text-sm font-medium text-gray-500">
+                <span class="text-green-600 font-bold">Próxima Etapa:</span> Projeto Interdisciplinar.
+            </p>
+            <div class="text-xs text-gray-400 font-mono">IFRN • Módulo 4</div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
