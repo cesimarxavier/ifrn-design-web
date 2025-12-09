@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apêndice: Flexbox | ADS IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        /* Tag de Código Pequena */
+        .code-tag {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        /* Efeito Hover nos Cards */
+        .info-card {
+            transition: all 0.2s ease;
+        }
+
+        .info-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.1);
+        }
+
+        .code-tag {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .prop-card {
+            transition: all 0.2s ease;
+        }
+
+        .prop-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.1);
+        }
+
+        /* Padrão quadriculado para fundo das pistas visuais */
+        .pattern-grid {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-lg text-slate-900">Web Design</span>
+                <span class="h-4 w-px bg-slate-300"></span>
+                <span class="text-sm text-slate-500 font-medium">Licenciatura em Informática</span>
+            </div>
+            <a href="#" onclick="window.history.back(); return false;"
+                class="group flex items-center gap-2 text-sm text-slate-500 hover:text-brand-600 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:-translate-x-1 transition"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Voltar à página anterior
+            </a>
+        </div>
+    </nav>
+
+    <header class="bg-white border-b border-slate-200 py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div
+                class="inline-block mb-4 px-3 py-1 bg-brand-50 text-brand-700 rounded-full text-xs font-bold border border-brand-100 uppercase tracking-wide">
+                Apêndice Técnico
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">
+                Guia de Referência: Flexbox
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Um mapa completo das propriedades do CSS Flexible Box Layout Module. Consulte este guia para lembrar
+                quem controla o alinhamento (Pai) e quem controla o tamanho (Filhos).
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <section id="secao-container">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-brand-100 text-brand-600 flex items-center justify-center font-bold text-xl">
+                    A</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Propriedades do Container (Pai)</h2>
+                    <p class="text-slate-500 text-sm">Estas regras definem o layout geral e o alinhamento.</p>
+                </div>
+            </div>
+
+            <div class="mb-8 p-4 bg-slate-50 border border-slate-200 rounded-lg text-center">
+                <p class="text-sm text-slate-500 mb-2 font-bold uppercase tracking-widest">Conceito Visual de Eixos</p>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">display</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        O interruptor que liga o Flexbox. Transforma os filhos diretos em itens flexíveis.
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Valores:</strong> flex | inline-flex
+                    </div>
+                    <div
+                        class="pattern-grid h-24 bg-slate-50 rounded border border-slate-200 mb-4 flex gap-2 p-2 items-center justify-center">
+                        <div
+                            class="w-8 h-8 bg-brand-500 rounded text-white flex items-center justify-center text-xs font-bold">
+                            1</div>
+                        <div
+                            class="w-8 h-8 bg-brand-500 rounded text-white flex items-center justify-center text-xs font-bold">
+                            2</div>
+                        <div
+                            class="w-8 h-8 bg-brand-500 rounded text-white flex items-center justify-center text-xs font-bold">
+                            3</div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">flex-direction</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Define o Eixo Principal. A direção para onde o "trem" corre.
+                        <br>
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Valores:</strong> row (padrão) | column | row-reverse
+                    </div>
+                    <div
+                        class="pattern-grid h-24 bg-slate-50 rounded border border-slate-200 mb-4 flex gap-2 p-2 items-center justify-center">
+                        <div class="flex flex-col gap-1 items-center">
+                            <span class="text-[10px] text-slate-400 font-bold">ROW (➡️)</span>
+                            <div class="flex gap-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="w-px h-full bg-slate-300 mx-2"></div>
+                        <div class="flex flex-col gap-1 items-center">
+                            <span class="text-[10px] text-slate-400 font-bold">COL (⬇️)</span>
+                            <div class="flex flex-col gap-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">justify-content</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Alinha os itens ao longo do <strong>Eixo Principal</strong> (normalmente horizontal).
+                        <br>
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Valores:</strong> flex-start | center | space-between
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">flex-start</span>
+                            </div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-start gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">center</span></div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-center gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">flex-end</span></div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-end gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">space-between</span>
+                                <span class="text-[10px] text-slate-400">Cola nas bordas</span>
+                            </div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-between gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">space-around</span>
+                                <span class="text-[10px] text-slate-400">Espaço igual ao redor</span>
+                            </div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-around gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1"><span class="code-tag">space-evenly</span>
+                                <span class="text-[10px] text-slate-400">Distância visual perfeita</span>
+                            </div>
+                            <div class="bg-slate-100 h-6 rounded flex justify-evenly gap-1 p-1">
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                                <div class="w-4 h-4 bg-brand-500 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">align-items</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Alinha os itens ao longo do <strong>Eixo Cruzado</strong> (normalmente vertical).
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Valores:</strong> stretch (padrão) | center | flex-start
+                    </div>
+                    <div
+                        class="pattern-grid h-24 bg-slate-50 rounded border border-slate-200 mb-4 flex justify-center items-center gap-4 p-2">
+                        <div class="h-full w-4 bg-brand-200 border border-brand-500 rounded"></div>
+                        <div class="h-8 w-4 bg-brand-500 rounded"></div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">flex-wrap</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Define se os itens devem quebrar para a próxima linha se faltar espaço.
+                        <br>
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Valores:</strong> nowrap (padrão) | wrap
+                    </div>
+                    <div class="pattern-grid h-24 bg-slate-50 rounded border border-slate-200 mb-4 p-2">
+                        <div class="flex flex-wrap gap-1">
+                            <div
+                                class="w-10 h-6 bg-brand-500 rounded text-[9px] text-white flex items-center justify-center">
+                                1</div>
+                            <div
+                                class="w-10 h-6 bg-brand-500 rounded text-[9px] text-white flex items-center justify-center">
+                                2</div>
+                            <div
+                                class="w-10 h-6 bg-brand-500 rounded text-[9px] text-white flex items-center justify-center">
+                                3</div>
+                            <div
+                                class="w-10 h-6 bg-brand-500 rounded text-[9px] text-white flex items-center justify-center">
+                                4 (Wrap)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-brand-700">gap</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Cria calhas (espaçamento) entre os itens. Substitui margens manuais.
+                    </p>
+                    <div class="bg-brand-50 p-3 rounded text-xs text-brand-800 border border-brand-100">
+                        <strong>Exemplo:</strong> gap: 20px;
+                    </div>
+                    <div
+                        class="pattern-grid h-24 bg-slate-50 rounded border border-slate-200 mb-4 flex items-center justify-center p-2">
+                        <div class="bg-brand-500 w-8 h-8 rounded"></div>
+                        <div class="w-4 h-full flex flex-col items-center justify-center">
+                            <div class="w-full border-t border-slate-400"></div>
+                            <span class="text-[8px]">gap</span>
+                        </div>
+                        <div class="bg-brand-500 w-8 h-8 rounded"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="secao-itens">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xl">
+                    B</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Propriedades dos Itens (Filhos)</h2>
+                    <p class="text-slate-500 text-sm">Regras individuais para controlar tamanho e ordem.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-purple-700">flex-grow</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Define a proporção de crescimento. "Se sobrar espaço, o quanto eu posso pegar?"
+                    </p>
+                    <div class="bg-purple-50 p-3 rounded text-xs text-purple-800 border border-purple-100">
+                        <strong>Padrão:</strong> 0 (Não cresce)
+                    </div>
+                    <div
+                        class="pattern-grid h-20 bg-slate-50 rounded border border-slate-200 mb-4 flex gap-1 p-2 items-center">
+                        <div class="h-8 bg-purple-200 w-8 rounded flex items-center justify-center text-[10px]">1</div>
+                        <div
+                            class="h-8 bg-purple-600 flex-1 rounded flex items-center justify-center text-white text-[10px]">
+                            Grow: 1</div>
+                        <div class="h-8 bg-purple-200 w-8 rounded flex items-center justify-center text-[10px]">1</div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-purple-700">align-self</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Permite que um único item desobedeça a regra do pai (align-items).
+                    </p>
+                    <div class="bg-purple-50 p-3 rounded text-xs text-purple-800 border border-purple-100">
+                        <strong>Uso:</strong> Botão deslocado no card.
+                    </div>
+                    <div
+                        class="pattern-grid bg-slate-50 rounded border border-slate-200 mb-4 flex gap-2 p-2 justify-center h-32 items-start">
+                        <div class="w-6 h-8 bg-purple-200 rounded"></div>
+                        <div class="w-6 h-8 bg-purple-600 rounded self-end transform translate-y-6"></div>
+                        <div class="w-6 h-8 bg-purple-200 rounded"></div>
+                    </div>
+                </div>
+
+                <div class="info-card bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="code-tag text-lg text-purple-700">order</span>
+                    </div>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Muda a ordem visual sem mudar o HTML. Útil para responsividade.
+                    </p>
+                    <div class="bg-purple-50 p-3 rounded text-xs text-purple-800 border border-purple-100">
+                        <strong>Padrão:</strong> 0
+                    </div>
+                    <div
+                        class="pattern-grid h-20 bg-slate-50 rounded border border-slate-200 mb-4 flex gap-2 p-2 justify-center items-center">
+                        <div class="w-8 h-8 bg-purple-200 rounded flex items-center justify-center text-xs">1</div>
+                        <div class="w-8 h-8 bg-purple-200 rounded flex items-center justify-center text-xs">2</div>
+                        <div
+                            class="w-8 h-8 bg-purple-600 text-white rounded flex items-center justify-center text-xs order-first">
+                            -1</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="secao-tabela">
+            <div class="flex items-center gap-4 mb-8">
+                <div
+                    class="h-10 w-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xl">
+                    C</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Valores Padrão (Default)</h2>
+                    <p class="text-slate-500 text-sm">Como o navegador se comporta se você não definir nada.</p>
+                </div>
+            </div>
+
+            <div class="overflow-hidden bg-white rounded-xl border border-slate-200 shadow-sm">
+                <div class="overflow-hidden bg-white rounded-xl border border-slate-200 shadow-sm">
+                    <table class="min-w-full divide-y divide-slate-200">
+                        <thead class="bg-slate-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Propriedade
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Aplica-se a
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Valor Padrão
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-200">
+
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">flex-direction</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">row</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">flex-wrap</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">nowrap</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">flex-flow</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">row nowrap</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">justify-content</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">flex-start</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">align-items</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">stretch</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">align-content</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">normal (stretch)</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-indigo-700">gap</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Container (Pai)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">0</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="bg-slate-100 h-1"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">order</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">0</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">flex-grow</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">0</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">flex-shrink</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">1</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">flex-basis</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">auto</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">flex</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">0 1 auto</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-6 py-4 whitespace-nowrap"><span
+                                        class="code-tag text-purple-700">align-self</span></td>
+                                <td class="px-6 py-4 text-sm text-slate-600 font-bold">Item (Filho)</td>
+                                <td class="px-6 py-4 text-sm text-slate-500 font-mono">auto</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="avisos">
+            <div class="bg-rose-50 border border-rose-100 rounded-xl p-6 mb-6">
+                <div class="flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-rose-500 mt-0.5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                        <h4 class="text-rose-900 font-bold text-sm">Armadilha Comum: Altura Indefinida</h4>
+                        <p class="text-rose-800 text-sm mt-1">
+                            O <code>align-items: center</code> (vertical) só funciona se o container tiver uma altura
+                            definida (<code>height</code> ou <code>min-height</code>). Se o container for do tamanho do
+                            conteúdo, centralizar verticalmente não terá efeito visual.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-100 rounded-xl p-6">
+                <div class="flex items-start gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-500 mt-0.5" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                        <h4 class="text-amber-900 font-bold text-sm">O Fim do Float</h4>
+                        <p class="text-amber-800 text-sm mt-1">
+                            Ao usar Flexbox, as propriedades <code>float</code>, <code>clear</code> e
+                            <code>vertical-align</code> não têm efeito sobre os itens flexíveis. Remova-as para limpar
+                            seu código.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="bg-slate-900 text-slate-300 py-12 px-4">
+        <div class="max-w-5xl mx-auto text-center">
+            <h3 class="text-white text-xl font-bold mb-6">Resumo Rápido para Decoração</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <strong class="block text-white mb-1">Eixo Principal</strong>
+                    <span class="text-brand-400">justify-content</span>
+                </div>
+
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <strong class="block text-white mb-1">Eixo Cruzado</strong>
+                    <span class="text-brand-400">align-items</span>
+                </div>
+
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <strong class="block text-white mb-1">Space-Between</strong>
+                    <span class="text-slate-400">Cola nas bordas</span>
+                </div>
+
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <strong class="block text-white mb-1">Column</strong>
+                    <span class="text-slate-400">Eixos invertem</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white py-12 border-t border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">
+                Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Norte<br>
+                Licenciatura em Informática • Material Didático de Apoio
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
