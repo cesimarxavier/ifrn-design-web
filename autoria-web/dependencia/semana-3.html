@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios — B2: Semanas 11-15 | Autoria Web IFRN</title>
+    <meta name="description" content="Lista de exercícios fundamentais sobre CSS, Box Model, Flexbox e CSS Grid.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS CUSTOMIZADO PARA COERÊNCIA VISUAL E INTERAÇÃO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .exercise-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid #e5e7eb;
+            /* Base para o hover */
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
+        }
+
+        /* Cores por nível */
+        .level-basic {
+            --main-color: #10b981;
+        }
+
+        /* Green - Aplicar (Nível 3) */
+        .level-intermediate {
+            --main-color: #f59e0b;
+        }
+
+        /* Amber - Avaliar (Nível 5) */
+        .level-advanced {
+            --main-color: #ef4444;
+        }
+
+        /* Red - Criar (Nível 6) */
+
+        .exercise-card:hover {
+            border-left-color: var(--main-color);
+        }
+
+        .level-basic .badge {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .level-intermediate .badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .level-advanced .badge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .level-basic .header-bg {
+            background: #d1fae5;
+        }
+
+        .level-intermediate .header-bg {
+            background: #fef3c7;
+        }
+
+        .level-advanced .header-bg {
+            background: #fee2e2;
+        }
+
+        .level-basic .header-text {
+            color: #065f46;
+        }
+
+        .level-intermediate .header-text {
+            color: #92400e;
+        }
+
+        .level-advanced .header-text {
+            color: #991b1b;
+        }
+
+
+        .code-inline {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header (Adaptado para IFRN Green) -->
+    <header class="bg-white border-b-2 border-green-500 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a href="#" class="text-sm text-gray-600 hover:text-green-700 mb-1 block">
+                        ← Voltar para Autoria Web
+                    </a>
+                    <h1 class="font-bold text-2xl text-gray-900">
+                        <a href="#" class="hover:underline">BIMESTRE 2 — Semanas 11 a 15</a>
+                    </h1>
+                    <p class="text-gray-600">Módulo: Estilização e Layout (CSS)</p>
+                </div>
+                <div class="text-right">
+                    <div class="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-sm">
+                        📅 Prazo: 5 Semanas
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Entrega via GitHub</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-4">🎯 Objetivo do Módulo</h2>
+            <p class="text-xl mb-6 opacity-95">
+                Dominar a linguagem CSS para formatar e posicionar elementos. O foco é entender o Modelo de Caixa (Box
+                Model), os seletores avançados e as técnicas modernas de layout (Flexbox e Grid).
+            </p>
+
+            <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                <h3 class="font-bold text-xl mb-3">Instruções Essenciais</h3>
+                <ul class="space-y-2 opacity-95">
+                    <li>✓ Sincronização: Crie uma Branch única por semana no seu repositório Git (ex: <span
+                            class="code-inline bg-white bg-opacity-20 text-white">semana-11-seletores</span>).</li>
+                    <li>✓ Entrega: Envie o link do repositório/branch no Sistema Moodle ou Sala de Aula.</li>
+                    <li>✓ Autoria: O histórico de commits do GitHub é a sua prova de que você fez a atividade.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto space-y-8" id="exercises-container">
+            <!-- Exercícios serão injetados aqui -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
+        <p>
+            <a href="#" class="hover:text-white transition">Autoria Web</a> •
+            Bimestre 2 • IFRN © 2025
+        </p>
+    </footer>
+
+    <!-- JAVASCRIPT: Lógica do Programa e Dados dos Exercícios -->
+    <script>
+        // --- DADOS DOS EXERCÍCIOS (Estrutura do Bimestre 2, Semanas 11-15) ---
+
+        const EXERCISES_DATA = [
+            // Semana 11: Sintaxe CSS (Aplicar - Nível 3)
+            {
+                week: 11,
+                title: "Seleção Avançada e Pseudo-Classes",
+                level: "BÁSICO",
+                time: "45 min",
+                description: "Crie uma página com 3 tipos de botões diferentes. Use a sintaxe CSS para estilizar cada botão de três formas distintas: por ID, por classe combinada e por atributo HTML.",
+                focus: "Sintaxe CSS, Seletores Básicos e de Atributo",
+                tasks: [
+                    "Criar 3 botões (usando ID, Class e Atributo data-role).",
+                    "Estilizar o botão 1 usando apenas o seletor <code class='code-inline'>#id</code>.",
+                    "Estilizar o botão 2 usando apenas o seletor de classe.",
+                    "Estilizar o botão 3 usando o seletor de atributo <code class='code-inline'>[data-role='primary']</code>."
+                ]
+            },
+            // Semana 12: Box Model (Aplicar - Nível 3)
+            {
+                week: 12,
+                title: "Controle de Espaçamento (Box Model)",
+                level: "BÁSICO",
+                time: "60 min",
+                description: "Desenvolva um componente 'Card de Informação' onde você aplica explicitamente todas as propriedades do Box Model (margin, border, padding, content) para atingir dimensões exatas.",
+                focus: "Box Model, Margin, Padding, Border",
+                tasks: [
+                    "Criar uma <code class='code-inline'>&lt;div&gt;</code> com largura e altura fixas (ex: 300px).",
+                    "Aplicar <code class='code-inline'>padding: 20px;</code> e <code class='code-inline'>border: 5px solid gray;</code>.",
+                    "Aplicar <code class='code-inline'>margin: 15px auto;</code> para centralizar o card e dar espaço externo.",
+                    "No CSS, usar <code class='code-inline'>box-sizing: border-box;</code> para que o padding e a borda não aumentem o tamanho total do card."
+                ]
+            },
+            // Semana 13: Box Model - Debug (Avaliar - Nível 5)
+            {
+                week: 13,
+                title: "Avaliação: Debug de Box Model",
+                level: "INTERMEDIÁRIO",
+                time: "60 min",
+                description: "Dada uma página HTML com um Box Model quebrado (elementos com overflow ou margens desalinhadas), você deve diagnosticar e corrigir os 3 erros principais utilizando o DevTools do navegador.",
+                focus: "Debug CSS, Propriedades Conflitantes",
+                tasks: [
+                    "Identificar um elemento com `padding` excessivo que causa overflow horizontal.",
+                    "Corrigir o layout aplicando <code class='code-inline'>box-sizing: border-box;</code> ao elemento principal.",
+                    "Diagnosticar e remover o 'colapso de margens' entre dois elementos, usando uma técnica de correção (ex: adicionar `padding` ao elemento pai ou usar Flexbox)."
+                ]
+            },
+            // Semana 14: Flexbox (Aplicar - Nível 3)
+            {
+                week: 14,
+                title: "Layout Flexível com Flexbox",
+                level: "BÁSICO",
+                time: "90 min",
+                description: "Crie um Header de Navegação que se ajusta de forma flexível. O logotipo deve estar à esquerda e a lista de links deve estar à direita e centralizada verticalmente.",
+                focus: "Flexbox, Alinhamento, Justify-Content",
+                tasks: [
+                    "Criar o <code class='code-inline'>&lt;header&gt;</code> e torná-lo um container Flexbox (<code class='code-inline'>display: flex;</code>).",
+                    "Usar <code class='code-inline'>justify-content: space-between;</code> para separar logo e links.",
+                    "Usar <code class='code-inline'>align-items: center;</code> para centralizar verticalmente o conteúdo.",
+                    "Criar 5 links e garantir que eles tenham espaçamento uniforme entre si (usando gap ou margin)."
+                ]
+            },
+            // Semana 15: CSS Grid (Aplicar - Nível 3)
+            {
+                week: 15,
+                title: "Introdução ao Layout com CSS Grid",
+                level: "BÁSICO",
+                time: "90 min",
+                description: "Desenvolva um layout de Galeria de Produtos simples (3x3). Use o CSS Grid para definir a estrutura principal e as propriedades de posicionamento.",
+                focus: "CSS Grid, Grid Template Columns",
+                tasks: [
+                    "Criar um container <code class='code-inline'>&lt;div&gt;</code> e definir <code class='code-inline'>display: grid;</code>.",
+                    "Usar <code class='code-inline'>grid-template-columns: 1fr 1fr 1fr;</code> ou <code class='code-inline'>repeat()</code> para criar 3 colunas de tamanho igual.",
+                    "Inserir 9 itens dentro do container.",
+                    "Aplicar <code class='code-inline'>grid-gap</code> (ou <code class='code-inline'>gap</code>) para espaçamento entre os itens."
+                ]
+            },
+        ];
+
+        // --- LÓGICA DE RENDERIZAÇÃO E CHECKLISTS ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExercises();
+            setupChecklists();
+        });
+
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            container.innerHTML = EXERCISES_DATA.map(data => createExerciseCard(data)).join('');
+        }
+
+        function getLevelClass(level) {
+            if (level === 'BÁSICO') return 'level-basic';
+            if (level === 'INTERMEDIÁRIO') return 'level-intermediate';
+            if (level === 'AVANÇADO') return 'level-advanced';
+            return 'level-basic';
+        }
+
+        function createExerciseCard(data) {
+            const levelClass = getLevelClass(data.level);
+            const statusClass = data.level === 'BÁSICO' ? 'text-green-700' : data.level === 'INTERMEDIÁRIO' ? 'text-yellow-700' : 'text-red-700';
+
+            // Cria o HTML do checklist dinamicamente a partir das tarefas
+            const checklistHtml = data.tasks.map((task, index) => `
+                <label class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                    <input type="checkbox" data-week="${data.week}" data-task="${index}" class="w-5 h-5 ${statusClass} rounded">
+                    <span class="text-gray-800">${task}</span>
+                </label>
+            `).join('');
+
+            const timeIcon = data.time.includes('min') ? '⏱️' : '⏳';
+
+            return `
+                <article class="exercise-card ${levelClass} bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${levelClass.replace('level-', 'header-bg-')} rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-2xl ${levelClass.replace('level-', 'header-text-')}">W${data.week}</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-gray-900">${data.title}</h3>
+                                <p class="text-gray-600">${data.focus}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 items-end">
+                            <span class="badge px-3 py-1 rounded-full text-xs font-bold">${data.level}</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">${timeIcon} ${data.time}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                        <p class="font-bold text-blue-900 mb-2">Descrição da Tarefa:</p>
+                        <p class="text-sm text-blue-800">${data.description}</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Entrega</h4>
+                        <div class="space-y-2">
+                            ${checklistHtml}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // --- LÓGICA DO CHECKLIST E LOCALSTORAGE ---
+
+        function setupChecklists() {
+            const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
+
+            // 1. Carregar estado do LocalStorage
+            checkboxes.forEach(checkbox => {
+                const week = checkbox.dataset.week;
+                const task = checkbox.dataset.task;
+                const key = `b2_w${week}_t${task}`;
+
+                const savedState = localStorage.getItem(key);
+                if (savedState === 'true') {
+                    checkbox.checked = true;
+                }
+            });
+
+            // 2. Salvar estado ao clicar
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const week = event.target.dataset.week;
+                    const task = event.target.dataset.task;
+                    const key = `b2_w${week}_t${task}`;
+
+                    localStorage.setItem(key, event.target.checked);
+
+                    // Adicionar feedback visual temporário se desejar (opcional)
+                    const parentCard = event.target.closest('.exercise-card');
+                    if (parentCard) {
+                        parentCard.classList.toggle('border-opacity-100', event.target.checked);
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

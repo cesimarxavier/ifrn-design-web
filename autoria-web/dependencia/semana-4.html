@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Exercícios — B2: Semanas 16-20 | Autoria Web IFRN</title>
+    <meta name="description"
+        content="Lista de exercícios avançados sobre Tipografia, Variáveis CSS e Início do Projeto Bimestral de Estilização.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS CUSTOMIZADO PARA COERÊNCIA VISUAL E INTERAÇÃO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .exercise-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid #e5e7eb;
+            /* Base para o hover */
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(47, 107, 72, 0.15);
+        }
+
+        /* Cores por nível */
+        .level-basic {
+            --main-color: #10b981;
+        }
+
+        /* Green - Aplicar (Nível 3) */
+        .level-intermediate {
+            --main-color: #f59e0b;
+        }
+
+        /* Amber - Avaliar (Nível 5) */
+        .level-advanced {
+            --main-color: #ef4444;
+        }
+
+        /* Red - Criar (Nível 6) */
+
+        .exercise-card:hover {
+            border-left-color: var(--main-color);
+        }
+
+        .level-basic .badge {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .level-intermediate .badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .level-advanced .badge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .level-basic .header-bg {
+            background: #d1fae5;
+        }
+
+        .level-intermediate .header-bg {
+            background: #fef3c7;
+        }
+
+        .level-advanced .header-bg {
+            background: #fee2e2;
+        }
+
+        .level-basic .header-text {
+            color: #065f46;
+        }
+
+        .level-intermediate .header-text {
+            color: #92400e;
+        }
+
+        .level-advanced .header-text {
+            color: #991b1b;
+        }
+
+
+        .code-inline {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Header (Adaptado para IFRN Green) -->
+    <header class="bg-white border-b-2 border-green-500 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a href="#" class="text-sm text-gray-600 hover:text-green-700 mb-1 block">
+                        ← Voltar para Autoria Web
+                    </a>
+                    <h1 class="font-bold text-2xl text-gray-900">
+                        <a href="#" class="hover:underline">BIMESTRE 2 — Semanas 16 a 20</a>
+                    </h1>
+                    <p class="text-gray-600">Módulo: Estilização e Layout Avançado (CSS)</p>
+                </div>
+                <div class="text-right">
+                    <div class="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-sm">
+                        📅 Prazo: 5 Semanas
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Entrega via GitHub</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-700 to-green-800 text-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-3xl mb-4">🎯 Objetivo do Módulo</h2>
+            <p class="text-xl mb-6 opacity-95">
+                Nesta segunda metade do Bimestre 2, você dominará o poder das variáveis e aprimorará suas habilidades de
+                layout com Flexbox e Grid, preparando-se para o Projeto II.
+            </p>
+
+            <div class="mt-6 bg-white bg-opacity-10 backdrop-blur rounded-xl p-6">
+                <h3 class="font-bold text-xl mb-3">Instruções Essenciais</h3>
+                <ul class="space-y-2 opacity-95">
+                    <li>✓ Sincronização: Crie uma Branch única por semana no seu repositório Git (ex: <span
+                            class="code-inline bg-white bg-opacity-20 text-white">semana-16-tipografia</span>).</li>
+                    <li>✓ Entrega: Envie o link do repositório/branch no Sistema Moodle ou Sala de Aula.</li>
+                    <li>✓ Autoria: O histórico de commits do GitHub é a sua prova de que você fez a atividade.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercícios -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto space-y-8" id="exercises-container">
+            <!-- Exercícios serão injetados aqui -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 sm:px-6 lg:px-8 bg-gray-900 text-gray-400 text-center text-sm">
+        <p>
+            <a href="#" class="hover:text-white transition">Autoria Web</a> •
+            Bimestre 2 • IFRN © 2025
+        </p>
+    </footer>
+
+    <!-- JAVASCRIPT: Lógica do Programa e Dados dos Exercícios -->
+    <script>
+        // --- DADOS DOS EXERCÍCIOS (Estrutura do Bimestre 2, Semanas 16-20) ---
+
+        const EXERCISES_DATA = [
+            // Semana 16: Tipografia (Aplicar - Nível 3)
+            {
+                week: 16,
+                title: "Tipografia e Efeitos Visuais",
+                level: "BÁSICO",
+                time: "45 min",
+                description: "Aplique fontes personalizadas via Google Fonts e utilize efeitos visuais em CSS (text-shadow e box-shadow) para dar profundidade a um card e um título.",
+                focus: "Google Fonts, Text-Shadow, Box-Shadow",
+                study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/text-shadow",
+                tasks: [
+                    "Importar uma fonte do Google Fonts (ex: 'Roboto' ou 'Poppins').",
+                    "Aplicar <code class='code-inline'>font-family</code> à tag <code class='code-inline'>body</code>.",
+                    "Adicionar um sutil <code class='code-inline'>text-shadow</code> a um título <code class='code-inline'>&lt;h1&gt;</code>.",
+                    "Aplicar um <code class='code-inline'>box-shadow</code> elegante a um componente <code class='code-inline'>&lt;div&gt;</code>."
+                ]
+            },
+            // Semana 17: Seletores (Avaliar - Nível 5)
+            {
+                week: 17,
+                title: "Avaliação: Otimização de Seletores",
+                level: "INTERMEDIÁRIO",
+                time: "60 min",
+                description: "Dadas 5 regras CSS com alta especificidade (ex: usando #id e múltiplos descendentes), refatore-as para o seletor mais limpo e eficiente, priorizando a manutenção futura.",
+                focus: "Otimização CSS, Especificidade",
+                study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Specificity",
+                tasks: [
+                    "Refatorar um seletor que usa <code class='code-inline'>#id .container p</code> para uma classe única e limpa.",
+                    "Explicar no código (comentário) por que o seletor original era ineficiente (alta especificidade).",
+                    "Criar um seletor usando <code class='code-inline'>:nth-child()</code> para estilizar apenas o terceiro item de uma lista."
+                ]
+            },
+            // Semana 18: Layout (Criar - Nível 6)
+            {
+                week: 18,
+                title: "Criação: Layout de Página Principal (Grid)",
+                level: "AVANÇADO",
+                time: "120 min",
+                description: "Utilize o CSS Grid para montar a estrutura base de uma página web complexa, com cabeçalho, navegação lateral, área principal e rodapé. Você deve usar nomeação de áreas.",
+                focus: "CSS Grid Avançado, Layout de Página",
+                study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/CSS_Grid_Layout",
+                tasks: [
+                    "Definir <code class='code-inline'>display: grid</code> no body ou container principal.",
+                    "Usar <code class='code-inline'>grid-template-areas</code> para nomear 4 áreas: header, nav, main, footer.",
+                    "Posicionar os elementos HTML (header, nav, main, footer) dentro dessas áreas usando <code class='code-inline'>grid-area</code>.",
+                    "Garantir que a área principal (<code class='code-inline'>main</code>) ocupe o máximo de espaço disponível no layout."
+                ]
+            },
+            // Semana 19: Cores e Variáveis (Aplicar - Nível 3)
+            {
+                week: 19,
+                title: "Esquema de Cores e Variáveis CSS",
+                level: "BÁSICO",
+                time: "60 min",
+                description: "Crie um esquema de cores modular para seu projeto usando Variáveis CSS. Você deve definir uma cor primária, uma secundária e um fundo, e aplicá-las a vários elementos.",
+                focus: "Variáveis CSS, Cores",
+                study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Using_CSS_custom_properties",
+                tasks: [
+                    "Definir pelo menos 3 variáveis globais (no seletor <code class='code-inline'>:root</code>): <code class='code-inline'>--cor-primaria</code>, <code class='code-inline'>--cor-secundaria</code>, <code class='code-inline'>--fundo-claro</code>.",
+                    "Aplicar essas variáveis em 5 elementos HTML diferentes (ex: <code class='code-inline'>background-color</code>, <code class='code-inline'>color</code>, <code class='code-inline'>border-color</code>).",
+                    "Demonstrar que a mudança de uma variável (<code class='code-inline'>--cor-primaria</code>) no CSS afeta todos os 5 elementos."
+                ]
+            },
+            // Semana 20: Projeto Final II (Criar - Nível 6)
+            {
+                week: 20,
+                title: "PROJETO FINAL II: Layout Estilizado do E-commerce",
+                level: "AVANÇADO",
+                time: "240 min",
+                description: "Consolidação Final do Bimestre. Estilize completamente as duas páginas do Projeto I (index e produto). O foco é transformar a estrutura HTML em um layout visualmente atraente, utilizando Grid e Box Model de forma eficiente.",
+                focus: "Projeto Nível 6, Consistência Visual e Estrutural",
+                study_link: "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",
+                tasks: [
+                    "Desenvolver o <code class='code-inline'>README.md</code> detalhado para a entrega final do B2.",
+                    "Aplicar as variáveis CSS (Semana 19) para um esquema de cores coeso.",
+                    "Estilizar o Card de Produto com <code class='code-inline'>box-shadow</code>, <code class='code-inline'>border-radius</code> e <code class='code-inline'>padding</code> (Semana 12).",
+                    "Garantir que a <code class='code-inline'>index.html</code> use Flexbox e Grid para o posicionamento dos elementos principais."
+                ]
+            },
+        ];
+
+        // --- LÓGICA DE RENDERIZAÇÃO E CHECKLISTS ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExercises();
+            setupChecklists();
+        });
+
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            container.innerHTML = EXERCISES_DATA.map(data => createExerciseCard(data)).join('');
+        }
+
+        function getLevelClass(level) {
+            if (level === 'BÁSICO') return 'level-basic';
+            if (level === 'INTERMEDIÁRIO') return 'level-intermediate';
+            if (level === 'AVANÇADO') return 'level-advanced';
+            return 'level-basic';
+        }
+
+        function createExerciseCard(data) {
+            const levelClass = getLevelClass(data.level);
+            const statusClass = data.level === 'BÁSICO' ? 'text-green-700' : data.level === 'INTERMEDIÁRIO' ? 'text-yellow-700' : 'text-red-700';
+
+            // Cria o HTML do checklist dinamicamente a partir das tarefas
+            const checklistHtml = data.tasks.map((task, index) => `
+                <label class="checkbox-item flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer">
+                    <input type="checkbox" data-week="${data.week}" data-task="${index}" class="w-5 h-5 ${statusClass} rounded">
+                    <span class="text-gray-800">${task}</span>
+                </label>
+            `).join('');
+
+            const timeIcon = data.time.includes('min') ? '⏱️' : '⏳';
+
+            return `
+                <article class="exercise-card ${levelClass} bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 mb-6">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 ${levelClass.replace('level-', 'header-bg-')} rounded-xl flex items-center justify-center flex-shrink-0">
+                                <span class="font-bold text-2xl ${levelClass.replace('level-', 'header-text-')}">W${data.week}</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-2xl text-gray-900">${data.title}</h3>
+                                <p class="text-gray-600">${data.focus}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 items-end">
+                            <span class="badge px-3 py-1 rounded-full text-xs font-bold">${data.level}</span>
+                            <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-semibold">${timeIcon} ${data.time}</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6 border-l-4 border-blue-500">
+                        <p class="font-bold text-blue-900 mb-2">Descrição da Tarefa:</p>
+                        <p class="text-sm text-blue-800">${data.description}</p>
+                        ${data.study_link ? `<p class="mt-4 text-xs font-semibold text-blue-900"><a href="${data.study_link}" target="_blank" class="hover:underline">🔗 Link de Estudo Recomendado</a></p>` : ''}
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="font-bold text-lg text-gray-900 mb-3">Checklist de Entrega</h4>
+                        <div class="space-y-2">
+                            ${checklistHtml}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        // --- LÓGICA DO CHECKLIST E LOCALSTORAGE ---
+
+        function setupChecklists() {
+            const checkboxes = document.querySelectorAll('.checkbox-item input[type="checkbox"]');
+
+            // 1. Carregar estado do LocalStorage
+            checkboxes.forEach(checkbox => {
+                const week = checkbox.dataset.week;
+                const task = checkbox.dataset.task;
+                const key = `b2_w${week}_t${task}`;
+
+                const savedState = localStorage.getItem(key);
+                if (savedState === 'true') {
+                    checkbox.checked = true;
+                }
+            });
+
+            // 2. Salvar estado ao clicar
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const week = event.target.dataset.week;
+                    const task = event.target.dataset.task;
+                    const key = `b2_w${week}_t${task}`;
+
+                    localStorage.setItem(key, event.target.checked);
+
+                    // Adicionar feedback visual temporário se desejar (opcional)
+                    const parentCard = event.target.closest('.exercise-card');
+                    if (parentCard) {
+                        parentCard.classList.toggle('border-opacity-100', event.target.checked);
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
