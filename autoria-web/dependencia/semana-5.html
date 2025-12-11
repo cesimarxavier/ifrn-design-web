@@ -195,14 +195,14 @@
                 title: "Refatoração: Unidades Relativas (REM e EM)",
                 level: "BÁSICO",
                 time: "60 min",
-                description: "Refatore um layout simples que usa dimensões fixas (em pixels) para usar exclusivamente unidades relativas (<code class='code-inline'>rem</code> e <code class='code-inline'>em</code>).",
+                description: "Refatore o layout de uma das páginas do seu E-commerce (Projeto II) que usa dimensões fixas (em pixels) para usar exclusivamente unidades relativas (<code class='code-inline'>rem</code> e <code class='code-inline'>em</code>).",
                 focus: "Unidades Relativas, Escala Responsiva",
                 study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/length",
                 tasks: [
+                    "Criar a branch <code class='code-inline'>semana-21-rem-em</code> e iniciar a partir do Projeto II.",
                     "Definir a fonte base (<code class='code-inline'>font-size</code>) do <code class='code-inline'>&lt;html&gt;</code> em 62.5% (10px).",
                     "Refatorar todos os tamanhos de fonte (<code class='code-inline'>font-size</code>) para usar <code class='code-inline'>rem</code>.",
-                    "Refatorar <code class='code-inline'>padding</code> e <code class='code-inline'>margin</code> internos de um componente para usar <code class='code-inline'>em</code>.",
-                    "Garantir que a mudança de <code class='code-inline'>font-size</code> no <code class='code-inline'>&lt;html&gt;</code> escale todo o layout proporcionalmente."
+                    "Refatorar <code class='code-inline'>padding</code> e <code class='code-inline'>margin</code> internos de um componente para usar <code class='code-inline'>em</code>."
                 ]
             },
             // Semana 22: Mobile-First (Aplicar - Nível 3)
@@ -211,7 +211,7 @@
                 title: "Mobile-First: O Paradigma de Design",
                 level: "BÁSICO",
                 time: "90 min",
-                description: "Crie uma página de perfil (Header e Detalhes) seguindo estritamente a metodologia Mobile-First. O layout deve ser empilhado por padrão e só se expandir para o desktop.",
+                description: "Usando a metodologia Mobile-First, garanta que a página <code class='code-inline'>index.html</code> do seu E-commerce comece com o layout empilhado (coluna única) e só se expanda para o desktop com uma Media Query.",
                 focus: "Mobile-First, Breakpoints Mínimos",
                 study_link: "https://developer.mozilla.org/pt-BR/docs/Web/CSS/Media_Queries",
                 tasks: [
@@ -226,7 +226,7 @@
                 title: "Media Queries e Layout Adaptativo",
                 level: "BÁSICO",
                 time: "60 min",
-                description: "Desenvolva um componente de 'Card de Notícia' que muda sua orientação de vertical para horizontal em telas de tablet e desktop.",
+                description: "Desenvolva um componente de 'Card de Produto' (Flexbox) que muda sua orientação de vertical (mobile) para horizontal (desktop) usando Media Queries.",
                 focus: "Flexbox Responsivo, Max-Width e Min-Width",
                 study_link: "https://css-tricks.com/a-complete-guide-to-flexbox/",
                 tasks: [
@@ -236,19 +236,19 @@
                     "Dentro da Media Query, alterar a direção para <code class='code-inline'>flex-direction: row;</code> para a orientação horizontal."
                 ]
             },
-            // Semana 24: Acessibilidade (Avaliar - Nível 5)
+            // Semana 24: Acessibilidade - Contraste e Foco (Avaliar - Nível 5) - REFATORADO
             {
                 week: 24,
-                title: "Avaliação: Contraste e Navegação por Teclado",
+                title: "Avaliação: Contraste e Foco (WCAG)",
                 level: "INTERMEDIÁRIO",
                 time: "90 min",
-                description: "Dada uma página com sérios problemas de cores (baixo contraste) e usabilidade (sem foco visível), use o DevTools para identificar os erros e corrigi-los.",
+                description: "Crie uma página de demonstração para provar a importância de dois padrões de acessibilidade: 1) Contraste de Cores e 2) Foco de Teclado. Você deve criar o problema e corrigi-lo.",
                 focus: "Contraste de Cores (WCAG), Foco de Teclado",
                 study_link: "https://web.dev/accessible-color/",
                 tasks: [
-                    "Usar a ferramenta de auditoria de cores do DevTools para encontrar um erro de contraste (ex: texto cinza claro em fundo branco).",
-                    "Corrigir o contraste alterando a cor do texto para atingir a conformidade WCAG AA (mínimo de 4.5:1).",
-                    "Garantir que o foco (<code class='code-inline'>:focus</code>) em todos os botões e links seja altamente visível (ex: outline: 3px solid blue;)."
+                    "Criar dois botões/cards, um com contraste insuficiente (texto cinza claro em fundo branco) e outro com contraste ideal.",
+                    "Corrigir o contraste do item falho alterando a cor do texto para atingir a conformidade WCAG AA.",
+                    "Criar um seletor CSS altamente visível para o estado <code class='code-inline'>:focus</code> (ex: outline forte ou cor vibrante) e aplicá-lo a todos os elementos interativos."
                 ]
             },
             // Semana 25: Acessibilidade (Aplicar - Nível 3)
@@ -257,7 +257,7 @@
                 title: "Acessibilidade: ARIA e Estrutura",
                 level: "BÁSICO",
                 time: "60 min",
-                description: "Aplique atributos ARIA essenciais a componentes de interface que não são nativamente semânticos, melhorando a experiência para usuários de leitores de tela.",
+                description: "Aplique na atividade W24, atributos ARIA essenciais a componentes de interface que não são nativamente semânticos, melhorando a experiência para usuários de leitores de tela.",
                 focus: "ARIA, Rotulação, Estrutura",
                 study_link: "https://developer.mozilla.org/pt-BR/docs/Web/Accessibility/ARIA",
                 tasks: [
