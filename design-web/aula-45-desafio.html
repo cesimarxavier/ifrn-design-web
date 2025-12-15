@@ -276,8 +276,6 @@
             </div>
         </section>
 
-
-
         <section id="x-for" class="mb-24">
             <div class="flex items-center gap-4 mb-8">
                 <div class="step-circle bg-gray-900 text-white">2</div>
@@ -342,57 +340,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="mb-20">
-
-            <div class="flex items-center gap-4 mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-900">Vamos ver o loop funcionando</h2>
-                    <p class="text-gray-500 text-sm mt-1">Como aplicaria em uma lista simples.</p>
-                </div>
-            </div>
-
-            <div class="bg-white p-8 rounded-xl shadow-lg w-full" x-data="{ 
-                lista: ['Major'], novoItem: '' 
-             }">
-
-                <h1 class="text-2xl font-bold mb-6 text-gray-800">Aula de campo</h1>
-
-                <div class="flex gap-2 mb-6">
-                    <input type="text" x-model="novoItem" @keydown.enter="lista.push(novoItem); novoItem = ''"
-                        class="w-full border-2 border-gray-200 p-3 rounded-lg outline-none focus:border-blue-500 transition"
-                        placeholder="O que vamos fazer hoje?">
-
-                    <button @click="if(novoItem) { lista.push(novoItem); novoItem = '' }"
-                        class="bg-blue-600 text-white px-6 rounded-lg font-bold hover:bg-blue-700 transition">
-                        +
-                    </button>
-                </div>
-
-                <ul class="space-y-3">
-                    <template x-for="(item, index) in lista" :key="index">
-
-                        <li
-                            class="flex justify-between items-center bg-gray-50 p-4 rounded-lg border border-gray-100 animate-fade-in-down">
-
-                            <span x-text="item" class="font-medium text-gray-700"></span>
-
-                            <button @click="lista.splice(index, 1)"
-                                class="text-red-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-full transition">
-                                Remover
-                            </button>
-                        </li>
-
-                    </template>
-                </ul>
-
-                <div x-show="lista.length === 0" class="text-center text-gray-400 mt-6">
-                    Sua lista está vazia! 🎉
-                </div>
-
-            </div>
-
         </section>
 
         <section id="crud" class="mb-24">
