@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 34 — Manipulação de Classes e Estilos | Autoria Web IFRN</title>
+    <title>Semana 34 — Domínio Completo do DOM | Autoria Web IFRN</title>
+    <meta name="description" content="Aula completa cobrindo manipulação de DOM, atributos, formulários e introdução a Arrays e Loops.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
@@ -34,40 +35,16 @@
         }
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #1f2937; }
 
         .btn-cta {
-            background: linear-gradient(135deg, #e63946 0%, #d62828 100%);
+            background: linear-gradient(135deg, #2f6b48 0%, #1f4a32 100%);
             transition: all 0.3s ease;
         }
-
         .btn-cta:hover {
-            box-shadow: 0 8px 24px rgba(230, 57, 70, 0.35);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            border: 2px solid #2f6b48;
-            color: #2f6b48;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: #2f6b48;
-            color: white;
+            box-shadow: 0 8px 24px rgba(47, 107, 72, 0.35);
             transform: translateY(-2px);
         }
 
@@ -79,599 +56,262 @@
             font-family: 'Courier New', monospace;
             color: #d1d5db;
             border: 2px solid #374151;
+            line-height: 1.6;
         }
 
-        .checkbox-item {
-            transition: all 0.2s ease;
-        }
+        .highlight-code { color: #fbbf24; font-weight: bold; }
+        .tag-html { color: #60a5fa; }
+        .string-js { color: #a78bfa; }
 
-        .checkbox-item:has(input:checked) {
-            background: #e6f2ea;
-            border-color: #2f6b48;
-        }
-
-        .step-number {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #2f6b48, #1f4a32);
-            color: white;
-            border-radius: 50%;
-            display: flex;
+        .section-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.25rem;
-            flex-shrink: 0;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 
-<body class="bg-white">
+<body class="bg-gray-50">
 
-    <!-- Hero -->
-    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+    <section class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-gray-200">
         <div class="max-w-5xl mx-auto">
-            <!-- Breadcrumb -->
-            <div class="mb-8">
+            <div class="mb-6">
                 <p class="text-sm text-gray-600">
-                    <a href="../index.html" class="hover:text-ifrn-red-500 transition">Início</a> /
-                    <a href="../autoria-web-disciplina.html" class="hover:text-ifrn-red-500 transition">Autoria Web</a>
-                    /
-                    <a href="../autoria-web-disciplina.html#plano" class="hover:text-ifrn-red-500 transition">Bimestre
-                        4</a> /
+                    <a href="../index.html" class="hover:text-ifrn-green-700 transition">Autoria Web</a> / 
                     <span class="font-semibold text-ifrn-green-700">Semana 34</span>
                 </p>
             </div>
 
-            <!-- Tag -->
-            <div
-                class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
-                🎨 Classes e Estilos
+            <div class="inline-block mb-6 px-4 py-2 bg-ifrn-green-100 text-ifrn-green-800 rounded-full font-semibold text-sm">
+                🚀 Aulão Completo
             </div>
 
-            <h1 class="font-bold text-5xl md:text-6xl text-gray-900 mb-6 leading-tight">
-                Semana 34 — Manipulação de Classes e Estilos
+            <h1 class="font-bold text-4xl md:text-5xl text-gray-900 mb-6 leading-tight">
+                Domínio do DOM, Arrays e Loops
             </h1>
 
-            <p class="text-xl md:text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
-                Agora você vai aprender a mudar a aparência dos elementos: adicionar e remover classes CSS, criar temas
-                (dark mode), e estilizar elementos diretamente via JavaScript.
+            <p class="text-xl text-gray-700 mb-10 leading-relaxed max-w-3xl">
+                Hoje vamos conectar todas as peças. Você aprenderá a manipular textos, imagens e formulários (Parte 1) e depois usará Arrays para automatizar a criação de HTML (Parte 2).
             </p>
 
-            <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="#exemplo1" class="btn-cta text-white font-bold py-4 px-8 rounded-full text-lg text-center">
-                    Começar pelos exemplos
+            <div class="flex flex-wrap gap-4">
+                <a href="#parte1" class="btn-cta text-white font-bold py-3 px-8 rounded-full">
+                    Parte 1: O Básico
                 </a>
-                <a href="#exercicios"
-                    class="border border-green-800 text-green-800 py-4 px-8 rounded-full text-lg text-center">
-                    Ver exercícios em sala
+                <a href="#parte2" class="bg-white border-2 border-ifrn-green-500 text-ifrn-green-700 font-bold py-3 px-8 rounded-full hover:bg-ifrn-green-50 transition">
+                    Parte 2: Automação
                 </a>
             </div>
-
-            <!-- Info Cards -->
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-                    <p class="font-bold text-gray-900 mb-1">Duração</p>
-                    <p class="text-sm text-gray-600">2 aulas geminadas</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-                    <p class="font-bold text-gray-900 mb-1">Foco</p>
-                    <p class="text-sm text-gray-600">classList e propriedades style</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-                    <p class="font-bold text-gray-900 mb-1">Níveis de Bloom</p>
-                    <p class="text-sm text-gray-600">Aplicar / Criar</p>
-                </div>
-            </div>
-
-            <!-- Intenção de Aprendizagem -->
-            <section class="py-12 bg-white">
-                <div class="mx-auto">
-                    <div
-                        class="bg-gradient-to-br from-ifrn-green-800 to-ifrn-green-700 rounded-3xl p-8 md:p-10 text-white shadow-xl">
-                        <div class="flex items-start gap-4">
-                            <div>
-                                <h2 class="font-bold text-3xl mb-4">Intenção de Aprendizagem</h2>
-                                <p class="text-xl opacity-95 leading-relaxed">
-                                    Aprender a usar classList para manipular classes CSS e criar interações visuais
-                                    simples como dark mode, destaques e mudanças de tema usando JavaScript.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     </section>
 
-    <!-- Critérios de Sucesso -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="font-bold text-3xl text-gray-900 mb-6">
-                ✅ Critérios de sucesso
-            </h2>
-            <p class="text-gray-700 mb-6">
-                Marque conforme você for dominando cada conceito:
-            </p>
-
-            <div class="space-y-3">
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>classList.add():</strong> Sei adicionar classes CSS via JavaScript
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>classList.remove():</strong> Consigo remover classes
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>classList.toggle():</strong> Sei alternar classes (liga/desliga)
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>Estilos inline:</strong> Consigo usar .style.color e .style.backgroundColor
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>Dark Mode:</strong> Criei um botão funcional de tema escuro
-                    </span>
-                </label>
-
-                <label
-                    class="checkbox-item flex items-start gap-4 p-5 bg-white rounded-xl border-2 border-gray-200 cursor-pointer">
-                    <input type="checkbox"
-                        class="mt-1 w-5 h-5 text-ifrn-green-600 rounded focus:ring-2 focus:ring-ifrn-green-500">
-                    <span class="text-gray-800">
-                        <strong>Prática:</strong> Consegui fazer os exercícios de manipulação visual
-                    </span>
-                </label>
-            </div>
-        </div>
-    </section>
-
-    <!-- Retomada Semana 33 -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="parte1" class="py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-5xl mx-auto">
-            <div class="bg-gray-50 rounded-2xl p-8 border-l-4 border-ifrn-green-500">
-                <h3 class="font-bold text-2xl text-gray-900 mb-4 flex items-center gap-2">
-                    <span>↩️</span>
-                    Retomada rápida da Semana 33
-                </h3>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Semana passada você aprendeu a <strong>modificar conteúdo</strong>: textos com <code
-                        class="bg-gray-200 px-2 py-1 rounded">innerText</code>, HTML com <code
-                        class="bg-gray-200 px-2 py-1 rounded">innerHTML</code> e atributos como <code
-                        class="bg-gray-200 px-2 py-1 rounded">src</code> e <code
-                        class="bg-gray-200 px-2 py-1 rounded">href</code>. Agora vamos aprender a mudar a
-                    <strong>aparência visual</strong> dos elementos.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- classList -->
-    <section id="exemplo1" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-5xl mx-auto">
-            <div
-                class="bg-gradient-to-r from-ifrn-green-600 to-ifrn-green-700 rounded-3xl p-8 text-white shadow-xl mb-8">
-                <h2 class="font-bold text-3xl mb-4">
-                    📋 classList: Manipulando Classes CSS
-                </h2>
-                <p class="text-xl opacity-95">
-                    A forma mais comum de mudar a aparência é adicionar/remover classes CSS.
-                </p>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-ifrn-green-600 text-white rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg">1</div>
+                <div>
+                    <h2 class="font-bold text-3xl text-gray-900">Manipulação Direta</h2>
+                    <p class="text-gray-500">Essencial para os exercícios 01 a 07</p>
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
-                    <h3 class="font-bold text-xl text-gray-900 mb-2">add()</h3>
-                    <p class="text-gray-700 text-sm mb-3">Adiciona uma classe</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="section-badge bg-blue-100 text-blue-800">Texto</div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-900">Mudar o que está escrito</h3>
+                    <p class="text-gray-600 mb-4">Use <code class="bg-gray-100 px-1 rounded">innerText</code> para alterar o texto dentro de tags como h1, p, span, button.</p>
+                    
                     <div class="code-block text-sm">
-                        elemento.<span class="text-yellow-400">classList</span>.<span
-                            class="text-blue-400">add</span>(<span class="text-orange-400">"ativo"</span>);
+                        <span class="text-gray-500">// HTML: &lt;h1 id="titulo"&gt;Olá&lt;/h1&gt;</span><br><br>
+                        const titulo = document.querySelector("#titulo");<br>
+                        titulo.<span class="highlight-code">innerText</span> = <span class="string-js">"Novo Texto!"</span>;
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
-                    <h3 class="font-bold text-xl text-gray-900 mb-2">remove()</h3>
-                    <p class="text-gray-700 text-sm mb-3">Remove uma classe</p>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="section-badge bg-purple-100 text-purple-800">Estrutura</div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-900">Inserir HTML (Tags)</h3>
+                    <p class="text-gray-600 mb-4">Use <code class="bg-gray-100 px-1 rounded">innerHTML</code> quando precisar colocar tags (negrito, links, listas) dentro de uma div.</p>
+                    
                     <div class="code-block text-sm">
-                        elemento.<span class="text-yellow-400">classList</span>.<span
-                            class="text-blue-400">remove</span>(<span class="text-orange-400">"ativo"</span>);
+                        <span class="text-gray-500">// HTML: &lt;div id="box"&gt;&lt;/div&gt;</span><br><br>
+                        const box = document.querySelector("#box");<br>
+                        box.<span class="highlight-code">innerHTML</span> = <span class="string-js">"&lt;strong&gt;Negrito&lt;/strong&gt;"</span>;
                     </div>
                 </div>
 
-                <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
-                    <h3 class="font-bold text-xl text-gray-900 mb-2">toggle()</h3>
-                    <p class="text-gray-700 text-sm mb-3">Liga/desliga (alterna)</p>
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="section-badge bg-orange-100 text-orange-800">Imagens e Links</div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-900">Mudar Atributos (src, href)</h3>
+                    <p class="text-gray-600 mb-4">Para mudar uma imagem ou o destino de um link, acessamos a propriedade direta ou usamos <code class="bg-gray-100 px-1 rounded">setAttribute</code>.</p>
+                    
                     <div class="code-block text-sm">
-                        elemento.<span class="text-yellow-400">classList</span>.<span
-                            class="text-blue-400">toggle</span>(<span class="text-orange-400">"ativo"</span>);
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
-                <h3 class="font-bold text-xl text-gray-900 mb-4">Exemplo completo: Botão de Destaque</h3>
-
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <p class="font-bold text-gray-900 mb-2">HTML + CSS:</p>
-                        <div class="code-block text-sm">
-                            <span class="text-gray-500">&lt;!-- HTML --&gt;</span><br>
-                            &lt;p id="texto"&gt;Este é um texto&lt;/p&gt;<br>
-                            &lt;button id="btn"&gt;Destacar&lt;/button&gt;<br>
-                            <br>
-                            <span class="text-gray-500">/* CSS */</span><br>
-                            .<span class="text-yellow-400">destaque</span> {<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">background</span>: <span
-                                class="text-orange-400">yellow</span>;<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">font-weight</span>: <span
-                                class="text-orange-400">bold</span>;<br>
-                            }
-                        </div>
-                    </div>
-
-                    <div>
-                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
-                        <div class="code-block text-sm">
-                            <span class="text-purple-400">const</span> texto = <span
-                                class="text-blue-400">document</span>.<span
-                                class="text-yellow-400">querySelector</span>(<span
-                                class="text-orange-400">"#texto"</span>);<br>
-                            <span class="text-purple-400">const</span> btn = <span
-                                class="text-blue-400">document</span>.<span
-                                class="text-yellow-400">querySelector</span>(<span
-                                class="text-orange-400">"#btn"</span>);<br>
-                            <br>
-                            btn.<span class="text-yellow-400">onclick</span> = <span
-                                class="text-purple-400">function</span>() {<br>
-                            &nbsp;&nbsp;texto.<span class="text-yellow-400">classList</span>.<span
-                                class="text-blue-400">toggle</span>(<span
-                                class="text-orange-400">"destaque"</span>);<br>
-                            };
-                        </div>
+                        const img = document.querySelector("img");<br>
+                        img.<span class="highlight-code">src</span> = <span class="string-js">"foto-nova.jpg"</span>;<br>
+                        img.<span class="highlight-code">alt</span> = <span class="string-js">"Nova descrição"</span>;<br><br>
+                        const link = document.querySelector("a");<br>
+                        link.<span class="highlight-code">href</span> = <span class="string-js">"https://google.com"</span>;
                     </div>
                 </div>
 
-                <div class="bg-gray-900 text-white p-6 rounded-2xl">
-                    <p class="font-bold text-lg mb-3">🎬 O que acontece:</p>
-                    <p class="text-sm">Cada clique no botão liga/desliga a classe "destaque". Se está sem a classe,
-                        adiciona. Se já tem, remove.</p>
-                </div>
-            </div>
-
-            <div class="bg-gray-50 rounded p-6 border-l-2 border-gray-400">
-                <p class="font-bold text-gray-900 mb-2">💡 Por que usar toggle?</p>
-                <p class="text-gray-700">
-                    <code class="bg-gray-200 px-2 py-1 rounded">toggle()</code> é perfeito para botões que
-                    ligam/desligam algo (dark mode, menu aberto/fechado, etc). Você não precisa verificar se a classe já
-                    existe — o toggle faz isso automaticamente.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dark Mode Exemplo -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                🌙 Exemplo 2 — Dark Mode (Tema Escuro)
-            </h2>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
-                <p class="text-xl text-gray-700 mb-6 leading-relaxed">
-                    Dark mode é um dos usos mais comuns de <code class="bg-gray-100 px-2 py-1 rounded">classList</code>.
-                    Você adiciona uma classe no <code class="bg-gray-100 px-2 py-1 rounded">&lt;body&gt;</code> e o CSS
-                    cuida do resto.
-                </p>
-
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <p class="font-bold text-gray-900 mb-2">CSS:</p>
-                        <div class="code-block text-sm">
-                            <span class="text-gray-500">/* Tema padrão (claro) */</span><br>
-                            <span class="text-yellow-400">body</span> {<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">background</span>: <span
-                                class="text-orange-400">white</span>;<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">color</span>: <span
-                                class="text-orange-400">black</span>;<br>
-                            }<br>
-                            <br>
-                            <span class="text-gray-500">/* Tema escuro */</span><br>
-                            <span class="text-yellow-400">body</span>.<span class="text-yellow-400">dark</span> {<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">background</span>: <span
-                                class="text-orange-400">#1a1a1a</span>;<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">color</span>: <span
-                                class="text-orange-400">#ffffff</span>;<br>
-                            }
-                        </div>
-                    </div>
-
-                    <div>
-                        <p class="font-bold text-gray-900 mb-2">JavaScript:</p>
-                        <div class="code-block text-sm">
-                            <span class="text-purple-400">const</span> btnDark = <span
-                                class="text-blue-400">document</span>.<span
-                                class="text-yellow-400">querySelector</span>(<span
-                                class="text-orange-400">"#dark-mode"</span>);<br>
-                            <br>
-                            btnDark.<span class="text-yellow-400">onclick</span> = <span
-                                class="text-purple-400">function</span>() {<br>
-                            &nbsp;&nbsp;<span class="text-blue-400">document</span>.<span
-                                class="text-yellow-400">body</span>.<span class="text-yellow-400">classList</span>.<span
-                                class="text-blue-400">toggle</span>(<span class="text-orange-400">"dark"</span>);<br>
-                            };
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-ifrn-green-50 rounded-xl p-4 border-l-4 border-ifrn-green-500">
-                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Vantagem:</p>
-                    <p class="text-ifrn-green-800">
-                        Você escreve o CSS uma vez e o JavaScript só adiciona/remove uma classe. Todo o visual é
-                        controlado pelo CSS, que é mais organizado e performático.
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="section-badge bg-red-100 text-red-800">Formulários</div>
+                    <h3 class="font-bold text-xl mb-4 text-gray-900">Ler e Escrever em Inputs</h3>
+                    <p class="text-gray-600 mb-4">
+                        ⚠️ <strong>Atenção:</strong> Inputs não usam innerText. Para ler ou escrever o que está na caixa de texto, usamos <code class="bg-gray-100 px-1 rounded">.value</code>.
                     </p>
+                    
+                    <div class="code-block text-sm">
+                        const inputNome = document.querySelector("#nome");<br><br>
+                        <span class="text-gray-500">// Pegar o valor digitado</span><br>
+                        let texto = inputNome.<span class="highlight-code">value</span>;<br><br>
+                        <span class="text-gray-500">// Mudar o valor (Preencher)</span><br>
+                        inputNome.<span class="highlight-code">value</span> = <span class="string-js">"João Silva"</span>;
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Estilos Inline -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4"><div class="h-px bg-gray-200 w-full"></div></div>
+
+    <section id="parte2" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="max-w-5xl mx-auto">
-            <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                Exemplo 3 — Estilos Inline (Direto no JS)
-            </h2>
-
-            <p class="text-xl text-gray-700 mb-8 leading-relaxed">
-                Além de classes, você pode modificar estilos diretamente usando a propriedade <code
-                    class="bg-gray-200 px-2 py-1 rounded">.style</code>:
-            </p>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-6">
-                <h3 class="font-bold text-xl text-gray-900 mb-4">Propriedades .style comuns:</h3>
-
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <p class="font-bold text-gray-900 mb-2">Cor do texto:</p>
-                        <div class="code-block text-sm">
-                            elemento.<span class="text-yellow-400">style</span>.<span class="text-blue-400">color</span>
-                            = <span class="text-orange-400">"red"</span>;
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <p class="font-bold text-gray-900 mb-2">Cor de fundo:</p>
-                        <div class="code-block text-sm">
-                            elemento.<span class="text-yellow-400">style</span>.<span
-                                class="text-blue-400">backgroundColor</span> = <span
-                                class="text-orange-400">"yellow"</span>;
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <p class="font-bold text-gray-900 mb-2">Tamanho da fonte:</p>
-                        <div class="code-block text-sm">
-                            elemento.<span class="text-yellow-400">style</span>.<span
-                                class="text-blue-400">fontSize</span> = <span class="text-orange-400">"24px"</span>;
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-xl p-4">
-                        <p class="font-bold text-gray-900 mb-2">Display:</p>
-                        <div class="code-block text-sm">
-                            elemento.<span class="text-yellow-400">style</span>.<span
-                                class="text-blue-400">display</span> = <span class="text-orange-400">"none"</span>;
-                        </div>
-                    </div>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-ifrn-red-500 text-white rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg">2</div>
+                <div>
+                    <h2 class="font-bold text-3xl text-gray-900">Automação (Arrays e Loops)</h2>
+                    <p class="text-gray-500">Essencial para os exercícios 08 e 09</p>
                 </div>
+            </div>
 
-                <div class="bg-gray-50 rounded-xl p-6">
-                    <p class="font-bold text-gray-900 mb-2">Exemplo completo:</p>
-                    <div class="code-block">
-                        <span class="text-purple-400">const</span> alerta = <span
-                            class="text-blue-400">document</span>.<span
-                            class="text-yellow-400">querySelector</span>(<span
-                            class="text-orange-400">"#alerta"</span>);<br>
-                        <span class="text-purple-400">const</span> btn = <span
-                            class="text-blue-400">document</span>.<span
-                            class="text-yellow-400">querySelector</span>(<span
-                            class="text-orange-400">"#ativar"</span>);<br>
-                        <br>
-                        btn.<span class="text-yellow-400">onclick</span> = <span
-                            class="text-purple-400">function</span>() {<br>
-                        &nbsp;&nbsp;alerta.<span class="text-yellow-400">style</span>.<span
-                            class="text-blue-400">backgroundColor</span> = <span
-                            class="text-orange-400">"red"</span>;<br>
-                        &nbsp;&nbsp;alerta.<span class="text-yellow-400">style</span>.<span
-                            class="text-blue-400">color</span> = <span class="text-orange-400">"white"</span>;<br>
-                        &nbsp;&nbsp;alerta.<span class="text-yellow-400">style</span>.<span
-                            class="text-blue-400">padding</span> = <span class="text-orange-400">"20px"</span>;<br>
-                        };
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-200 mb-8">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4">Por que usar Arrays e Loops?</h3>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Imagine que você precisa criar uma galeria com 50 fotos. Fazer isso manualmente copiando e colando HTML é lento e propenso a erros.
+                            <br><br>
+                            Com JavaScript, você cria uma <strong>Lista (Array)</strong> com os links das fotos e usa um <strong>Loop (Repetição)</strong> para criar o HTML automaticamente.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2 text-sm text-gray-700">
+                                <span class="w-5 h-5 bg-green-100 text-green-700 rounded flex items-center justify-center text-xs">✓</span> Menos código
+                            </li>
+                            <li class="flex items-center gap-2 text-sm text-gray-700">
+                                <span class="w-5 h-5 bg-green-100 text-green-700 rounded flex items-center justify-center text-xs">✓</span> Mais fácil de alterar
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-900 rounded-xl p-6 text-white font-mono text-sm relative">
+                         
+                        <div class="absolute -top-3 -right-3 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded">Conceito</div>
+                        <p class="text-gray-400 mb-2">// 1. A Lista de Dados</p>
+                        <p class="mb-4">const frutas = [<span class="text-green-400">"Maçã"</span>, <span class="text-green-400">"Uva"</span>, <span class="text-green-400">"Banana"</span>];</p>
+                        
+                        <p class="text-gray-400 mb-2">// 2. O Loop (A Máquina)</p>
+                        <p><span class="text-purple-400">for</span> (let item <span class="text-purple-400">of</span> frutas) {</p>
+                        <p class="pl-4">console.log(item);</p>
+                        <p>}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-yellow-50 rounded p-6 border-l-4 border-yellow-500">
-                <p class="font-bold text-yellow-900 mb-2">⚖️ Classes vs .style:</p>
-                <ul class="space-y-2 text-yellow-800">
-                    <li>• <strong>Use classes:</strong> Para estilos reutilizáveis e organizados</li>
-                    <li>• <strong>Use .style:</strong> Para valores dinâmicos (ex.: posição calculada, cores do usuário)
-                    </li>
-                </ul>
+            <h3 class="font-bold text-2xl text-gray-900 mb-6">Exemplo Prático: Gerando uma Lista HTML</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                    <h4 class="font-bold text-lg mb-4 text-ifrn-green-700">Passo 1: O Array</h4>
+                    <p class="text-sm text-gray-600 mb-3">Primeiro, guardamos os dados.</p>
+                    <div class="code-block text-xs">
+                        const compras = [<span class="string-js">"Arroz"</span>, <span class="string-js">"Feijão"</span>, <span class="string-js">"Batata"</span>];
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-gray-200">
+                    <h4 class="font-bold text-lg mb-4 text-ifrn-green-700">Passo 2: O Loop e Renderização</h4>
+                    <p class="text-sm text-gray-600 mb-3">Percorremos a lista e somamos o HTML.</p>
+                    <div class="code-block text-xs">
+                        const ul = document.querySelector("#lista");<br><br>
+                        <span class="text-gray-500">// Loop</span><br>
+                        <span class="highlight-code">for</span> (let item <span class="highlight-code">of</span> compras) {<br>
+                        &nbsp;&nbsp;<span class="text-gray-500">// Template String (crase)</span><br>
+                        &nbsp;&nbsp;ul.innerHTML += <span class="string-js">`&lt;li&gt;${item}&lt;/li&gt;`</span>;<br>
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Exercícios em Sala -->
-    <section id="exercicios" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="font-bold text-3xl text-gray-900 mb-8">
-                Atividade 4 - Exercícios em Sala
-            </h2>
-
-                <p class="text-xl opacity-95 mb-6">
-                    Execute as 3 tarefas abaixo e crie 3 arquivos, 1 para cada tarefa, com os nomes: atv5-tarefa[1|2|3].html
+            <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-xl">
+                <h4 class="font-bold text-yellow-800 mb-2">💡 Dica para o Exercício 09 (Banner Rotativo)</h4>
+                <p class="text-yellow-900 text-sm mb-2">
+                    Para fazer um banner que muda infinitamente quando clicamos, usamos um truque matemático com o operador <strong>resto da divisão (%)</strong>.
                 </p>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
-                <div class="flex gap-4 items-start mb-6">
-                    <div class="step-number">1</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-gray-900 mb-3">Criar botão Dark Mode</h3>
-                        <p class="text-gray-700 mb-4">
-                            Crie um HTML com:
-                        </p>
-                        <ul class="space-y-2 text-gray-700 mb-4">
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>Um botão "🌙 Dark Mode"</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>CSS com classe <code class="bg-gray-100 px-2 py-1 rounded">.dark</code> que muda
-                                    cores do body</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>JavaScript que faz <code
-                                        class="bg-gray-100 px-2 py-1 rounded">body.classList.toggle("dark")</code></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
-                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
-                    <p class="text-ifrn-green-800">Praticar <code
-                            class="bg-white px-2 py-1 rounded">classList.toggle()</code></p>
+                <div class="bg-white bg-opacity-50 p-3 rounded font-mono text-xs text-yellow-900">
+                    let indice = 0;<br>
+                    // Ao clicar:<br>
+                    indice = (indice + 1) <span class="font-bold">%</span> lista.length;<br>
+                    // Isso faz: 0, 1, 2, 3... e volta para 0 automaticamente!
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200 mb-8">
-                <div class="flex gap-4 items-start mb-6">
-                    <div class="step-number">2</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-gray-900 mb-3">Aumentar tamanho da fonte</h3>
-                        <p class="text-gray-700 mb-4">
-                            Crie:
-                        </p>
-                        <ul class="space-y-2 text-gray-700 mb-4">
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>Um <code class="bg-gray-100 px-2 py-1 rounded">&lt;p&gt;</code> com texto</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>Um botão "🔍 Aumentar"</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>JavaScript que aumenta <code
-                                        class="bg-gray-100 px-2 py-1 rounded">style.fontSize</code> para "24px"</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        </div>
+    </section>
 
-                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
-                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
-                    <p class="text-ifrn-green-800">Praticar <code
-                            class="bg-white px-2 py-1 rounded">.style.fontSize</code></p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-gray-200">
-                <div class="flex gap-4 items-start mb-6">
-                    <div class="step-number">3</div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-xl text-gray-900 mb-3">Alerta visual</h3>
-                        <p class="text-gray-700 mb-4">
-                            Crie:
-                        </p>
-                        <ul class="space-y-2 text-gray-700 mb-4">
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>Uma <code class="bg-gray-100 px-2 py-1 rounded">&lt;div&gt;</code> com um
-                                    texto</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>Um botão "⚠️ Alertar"</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="w-2 h-2 bg-ifrn-green-600 rounded-full mt-2"></span>
-                                <span>JavaScript que muda o fundo para vermelho e o texto para branco</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="bg-ifrn-green-50 p-6 rounded border-l-2 border-ifrn-green-500">
-                    <p class="font-bold text-ifrn-green-900 mb-2">✅ Objetivo:</p>
-                    <p class="text-ifrn-green-800">Praticar <code
-                            class="bg-white px-2 py-1 rounded">.style.backgroundColor</code> e <code
-                            class="bg-white px-2 py-1 rounded">.style.color</code></p>
-                </div>
+    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-white border-t border-gray-200">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl mb-8 text-center text-gray-900">Guia de Bolso: Qual comando usar?</h2>
+            
+            <div class="overflow-hidden border rounded-xl shadow-sm">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">O que você quer fazer?</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Comando JS</th>
+                            <th class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Exercício</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-gray-900">Mudar texto de um título ou parágrafo</td>
+                            <td class="px-6 py-4 font-mono text-sm text-blue-600">.innerText</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">01, 02</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-gray-900">Inserir tags HTML (negrito, listas)</td>
+                            <td class="px-6 py-4 font-mono text-sm text-blue-600">.innerHTML</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">03, 06</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-gray-900">Trocar imagem ou link</td>
+                            <td class="px-6 py-4 font-mono text-sm text-blue-600">.src, .href, .setAttribute()</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">04, 05</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-gray-900">Pegar ou mudar texto de Input</td>
+                            <td class="px-6 py-4 font-mono text-sm text-blue-600">.value</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">07, 10</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-gray-900">Criar vários elementos iguais</td>
+                            <td class="px-6 py-4 font-mono text-sm text-blue-600">for...of + innerHTML</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">08, 09</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <!-- Fechamento -->
-    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <p class="text-sm opacity-75">
-                Autoria Web | IFRN | Semana 34 — Manipulação de Classes e Estilos
-            </p>
-        </div>
-    </section>
+    <footer class="bg-gray-900 text-white py-12 text-center">
+        <p class="opacity-75 text-sm">Autoria Web | IFRN | Material de Apoio Unificado</p>
+    </footer>
 
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', e => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Save checkbox state
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            const key = `semana34-${checkbox.parentElement.textContent.substring(0, 30)}`;
-            checkbox.checked = localStorage.getItem(key) === 'true';
-
-            checkbox.addEventListener('change', e => {
-                localStorage.setItem(key, e.target.checked);
-            });
-        });
-    </script>
 </body>
-
 </html>
