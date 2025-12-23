@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 18: Engenharia Responsiva | Licenciatura IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['Fira Code', 'monospace'] },
+                    colors: {
+                        fluid: { 50: '#ecfeff', 100: '#cffafe', 500: '#06b6d4', 600: '#0891b2', 800: '#155e75', 900: '#164e63' },
+                        tech: { 500: '#6366f1', 600: '#4f46e5' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .code-block {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        .tag {
+            color: #f472b6;
+        }
+
+        .attr {
+            color: #22d3ee;
+        }
+
+        .val {
+            color: #a78bfa;
+        }
+
+        .cmt {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        /* Pattern para demonstrar redimensionamento */
+        .resize-demo {
+            background-image: repeating-linear-gradient(45deg, #06b6d4 0, #06b6d4 10px, #0891b2 10px, #0891b2 20px);
+            transition: width 1s ease-in-out;
+        }
+
+        .resize-container:hover .resize-demo {
+            width: 50% !important;
+        }
+    </style>
+</head>
+
+<body class="bg-white overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-xl text-slate-900 tracking-tight">Web<span
+                        class="text-fluid-600">Dev</span></span>
+                <span class="h-5 w-px bg-slate-200"></span>
+                <span
+                    class="text-xs font-bold px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded uppercase tracking-wide">Licenciatura</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#viewport" class="text-slate-600 hover:text-fluid-600 transition">O Viewport</a>
+                <a href="#unidades" class="text-slate-600 hover:text-fluid-600 transition">Unidades Relativas</a>
+                <a href="#math" class="text-slate-600 hover:text-fluid-600 transition">Matemática CSS</a>
+                <a href="#media" class="text-fluid-600 font-bold hover:text-fluid-800 transition">Media Queries</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-cyan-50 via-white to-slate-50">
+        <div class="max-w-5xl mx-auto text-center">
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white border border-fluid-200 rounded-full shadow-sm">
+                <span class="text-xs font-bold text-fluid-800 uppercase tracking-wide">Semana 18 • Engenharia
+                    Front-end</span>
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-6xl text-slate-900 mb-6 leading-tight tracking-tight">
+                Mecânica da<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-fluid-600 to-tech-600">Web
+                    Responsiva</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                Responsividade não é apenas "usar media queries". É entender como o navegador renderiza pixels,
+                controlar limites com <code>max-width</code> e usar funções matemáticas para criar layouts fluidos.
+            </p>
+        </div>
+    </header>
+
+    <section id="viewport" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto">
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="bg-slate-900 text-white w-8 h-8 rounded flex items-center justify-center font-bold text-sm">1</span>
+                        <h2 class="text-3xl font-bold text-slate-900">A Meta Tag Viewport</h2>
+                    </div>
+                    <p class="text-lg text-slate-600 leading-relaxed">
+                        Sem esta linha de código, os celulares mentem. Eles fingem ter uma tela de desktop (980px) e
+                        mostram o site "zoom out" (minúsculo).
+                    </p>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 text-sm text-red-800">
+                        <strong>Regra #1:</strong> Se essa tag não estiver no <code>&lt;head&gt;</code>, seu site
+                        <strong>nunca</strong> será responsivo, não importa quanto CSS você escreva.
+                    </div>
+
+                    <div class="code-block shadow-lg">
+                        <span class="tag">&lt;meta</span>
+                        <span class="attr">name</span>=<span class="val">"viewport"</span>
+                        <span class="attr">content</span>=<span class="val">"width=device-width,
+                            initial-scale=1.0"</span>
+                        <span class="tag">&gt;</span>
+                    </div>
+                    <ul class="text-sm text-slate-500 space-y-2 font-mono">
+                        <li>• width=device-width: "Use a largura real do hardware."</li>
+                        <li>• initial-scale=1.0: "Não faça zoom automático."</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-slate-100 p-8 rounded-2xl border border-slate-200 flex gap-4 justify-center items-center h-full">
+
+                    <div class="text-center w-32">
+                        <div
+                            class="bg-white border-4 border-slate-800 rounded-[2rem] h-64 w-full p-1 overflow-hidden relative shadow-xl">
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-slate-800 rounded-full">
+                            </div>
+                            <div class="w-[300%] h-full origin-top-left scale-[0.33] bg-slate-50 p-4">
+                                <div class="h-8 bg-blue-500 w-full mb-2"></div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <div class="h-20 bg-slate-300"></div>
+                                    <div class="h-20 bg-slate-300"></div>
+                                    <div class="h-20 bg-slate-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-red-500 font-bold mt-3">Sem Meta Tag<br>(Zoom Out)</p>
+                    </div>
+
+                    <div class="text-center w-32">
+                        <div
+                            class="bg-white border-4 border-slate-800 rounded-[2rem] h-64 w-full p-2 overflow-hidden relative shadow-xl">
+                            <div class="absolute top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-slate-800 rounded-full">
+                            </div>
+                            <div class="w-full h-full bg-slate-50 pt-4 flex flex-col gap-2">
+                                <div class="h-4 bg-fluid-500 w-full rounded"></div>
+                                <div class="flex-1 bg-slate-200 rounded"></div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-fluid-600 font-bold mt-3">Com Meta Tag<br>(Adaptado)</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="unidades" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-6xl mx-auto space-y-16">
+
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-900">A Engenharia da Fluidez</h2>
+                <p class="text-slate-600 mt-2">Como controlar elementos que esticam e encolhem.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+
+                <div
+                    class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:border-fluid-400 transition">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4">A Regra de Ouro das Imagens</h3>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Imagens têm tamanho fixo por padrão. Se a tela for menor que a imagem, surge a barra de rolagem
+                        horizontal (o inimigo nº 1).
+                    </p>
+                    <div class="code-block text-xs mb-4">
+                        <span class="tag">img</span>, <span class="tag">video</span> {
+                        <span class="prop">max-width</span>: <span class="val">100%</span>;
+                        <span class="prop">height</span>: <span class="val">auto</span>;
+                        }
+                    </div>
+                    <div
+                        class="bg-slate-100 p-4 rounded border border-slate-200 resize-container group relative overflow-hidden">
+                        <p class="text-[10px] text-slate-400 uppercase font-bold mb-1 text-center">Passe o mouse para
+                            estreitar</p>
+                        <div
+                            class="w-full h-32 bg-slate-300 resize-demo rounded-lg flex items-center justify-center text-white font-bold text-xs relative transition-all duration-700 ease-in-out">
+                            Sou Fluido!
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:border-fluid-400 transition">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4">O Padrão "Container Centralizado"</h3>
+                    <p class="text-sm text-slate-600 mb-4">
+                        Não queremos que o texto estique infinitamente em monitores ultrawide. Usamos
+                        <code>max-width</code> para travar o crescimento e <code>margin: auto</code> para centralizar.
+                    </p>
+                    <div class="code-block text-xs mb-4">
+                        <span class="tag">.container</span> {
+                        <span class="prop">width</span>: <span class="val">100%</span>; <span class="cmt">/* Ocupa tudo
+                            no mobile */</span>
+                        <span class="prop">max-width</span>: <span class="val">1200px</span>; <span class="cmt">/* Trava
+                            no Desktop */</span>
+                        <span class="prop">margin-inline</span>: <span class="val">auto</span>; <span class="cmt">/*
+                            Centraliza */</span>
+                        <span class="prop">padding</span>: <span class="val">0 20px</span>; <span class="cmt">/* Respiro
+                            lateral */</span>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="math" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+
+                <div class="md:w-1/2 space-y-6">
+                    <div
+                        class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold uppercase">
+                        CSS Moderno</div>
+                    <h2 class="text-3xl font-bold text-slate-900">Responsividade sem Media Queries?</h2>
+                    <p class="text-slate-600 text-lg">
+                        Sim. Com as funções matemáticas <code>min()</code>, <code>max()</code> e <code>clamp()</code>, o
+                        navegador escolhe o valor ideal matematicamente.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <code class="text-sm font-mono text-purple-600 font-bold">width: min(100%, 600px);</code>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Tradução: "Use 600px. Mas se a tela for menor que isso (100%), use a largura da tela."
+                                <br>Substitui o padrão <code>width: 100%; max-width: 600px;</code>.
+                            </p>
+                        </div>
+
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <code
+                                class="text-sm font-mono text-purple-600 font-bold">font-size: clamp(1rem, 5vw, 2rem);</code>
+                            <p class="text-xs text-slate-500 mt-1">
+                                Tradução: "O texto deve ter 5% da largura da tela. Mas NUNCA menos que 1rem e NUNCA mais
+                                que 2rem."
+                                <br><strong>Tipografia fluida perfeita.</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 bg-slate-900 p-8 rounded-2xl text-white shadow-2xl">
+                    <h3 class="font-bold text-lg mb-4">Laboratório Visual: Clamp()</h3>
+                    <p class="text-sm text-slate-400 mb-6">Redimensione a janela do navegador. O texto abaixo muda de
+                        tamanho suavemente, sem pulos.</p>
+
+                    <div class="border-l-4 border-purple-500 pl-6 py-4">
+                        <h1 style="font-size: clamp(1.5rem, 5vw, 3rem); line-height: 1.1;"
+                            class="font-bold text-white transition-all">
+                            Tipografia Fluida
+                        </h1>
+                        <p class="text-slate-400 text-xs mt-2 font-mono">
+                            font-size: clamp(1.5rem, 5vw, 3rem);
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="media" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-6xl mx-auto space-y-12">
+
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">A Lógica dos Breakpoints</h2>
+                <p class="text-slate-600 mt-2">Quando a matemática não basta, usamos condições explícitas.</p>
+            </div>
+
+            <div class="code-block shadow-lg max-w-3xl mx-auto">
+                <span class="cmt">/* 1. Estilo Base (Mobile - Padrão) */</span>
+                <span class="tag">.card</span> { <span class="prop">background</span>: <span class="val">white</span>; }
+
+                <span class="cmt">/* 2. Tablet (Se a tela for MAIOR que 768px) */</span>
+                <span class="tag">@media</span> (<span class="prop">min-width</span>: <span class="val">768px</span>) {
+                <span class="tag">.card</span> { <span class="prop">background</span>: <span class="val">blue</span>; }
+                }
+
+                <span class="cmt">/* 3. Desktop (Se a tela for MAIOR que 1024px) */</span>
+                <span class="tag">@media</span> (<span class="prop">min-width</span>: <span class="val">1024px</span>) {
+                <span class="tag">.card</span> { <span class="prop">background</span>: <span class="val">purple</span>;
+                }
+                }
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <span class="block text-2xl mb-2">📱</span>
+                    <strong class="block text-slate-800">Mobile</strong>
+                    <span class="text-xs text-slate-500">&lt; 768px</span>
+                </div>
+                <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <span class="block text-2xl mb-2">📱💻</span>
+                    <strong class="block text-slate-800">Tablet</strong>
+                    <span class="text-xs text-slate-500">768px - 1023px</span>
+                </div>
+                <div class="p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <span class="block text-2xl mb-2">💻🖥️</span>
+                    <strong class="block text-slate-800">Desktop</strong>
+                    <span class="text-xs text-slate-500">&gt; 1024px</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <header class="pt-40 pb-20 px-4 text-center">
+        <div class="inline-block mb-4 px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-xs font-bold uppercase">
+            Metodologia</div>
+        <h1 class="font-bold text-5xl text-slate-900 mb-6">Mobile First Strategy</h1>
+        <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+            Comece pelo pequeno. É mais fácil adicionar complexidade (Desktop) do que remover (Mobile).
+        </p>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-pink-100">
+                <h3 class="text-xl font-bold text-slate-800 mb-4">A Mudança Mental</h3>
+                <p class="text-slate-600 mb-6">
+                    Em vez de usar <code>max-width</code> (diminuir), usamos <strong>min-width</strong> (expandir).
+                    <br><br>
+                    1. Escreva o CSS base para Celular (sem media query).<br>
+                    2. Adicione <code>@media (min-width: 768px)</code> para Tablet.<br>
+                    3. Adicione <code>@media (min-width: 1024px)</code> para Desktop.
+                </p>
+                <div class="code-block">
+                    <span class="text-pink-400">.coluna</span> {
+                    width: 100%; <span class="text-gray-500">/* Celular: Empilhado */</span>
+                    }
+
+                    <span class="text-purple-400">@media</span> (min-width: 768px) {
+                    <span class="text-pink-400">.coluna</span> {
+                    width: 50%; <span class="text-gray-500">/* Tablet: Lado a lado */</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            <div class="bg-slate-900 p-8 rounded-2xl shadow-lg text-white">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold">Laboratório: A Navbar Mágica</h3>
+                    <span class="bg-pink-600 text-xs font-bold px-2 py-1 rounded">Desafio</span>
+                </div>
+                <p class="text-slate-300 mb-6 text-sm">
+                    O desafio clássico. No celular, o menu é escondido (ou empilhado). No desktop, ele aparece
+                    horizontalmente.
+                </p>
+
+                <div class="space-y-4">
+                    <div class="border border-slate-700 p-4 rounded bg-black">
+                        <p class="text-xs text-slate-500 mb-2">Mobile (Base CSS)</p>
+                        <div class="flex flex-col gap-2">
+                            <div class="h-8 bg-slate-800 flex items-center px-2 font-bold text-xs">LOGO <span
+                                    class="ml-auto">☰</span></div>
+                            <div class="flex flex-col gap-1 p-2 bg-slate-800 rounded">
+                                <div class="h-4 w-full bg-slate-600 rounded"></div>
+                                <div class="h-4 w-full bg-slate-600 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-700 p-4 rounded bg-black">
+                        <p class="text-xs text-slate-500 mb-2">Desktop (@min-width: 768px)</p>
+                        <div class="h-10 bg-slate-800 flex items-center px-4 justify-between rounded">
+                            <span class="font-bold text-xs">LOGO</span>
+                            <div class="flex gap-2">
+                                <div class="h-4 w-12 bg-pink-600 rounded"></div>
+                                <div class="h-4 w-12 bg-pink-600 rounded"></div>
+                                <div class="h-4 w-12 bg-pink-600 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400 text-sm">
+        <p>IFRN - Licenciatura em Informática</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 17: CSS Profissional | Licenciatura IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    colors: {
+                        var: {
+                            500: '#10b981', /* Emerald (Representando Variáveis) */
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        ui: {
+                            500: '#3b82f6', /* Blue (Interação) */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #f0fdf4;
+        }
+
+        /* Highlighting de Código */
+        .code-block {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            color: #e2e8f0;
+            border: 1px solid #1e293b;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .sel {
+            color: #f472b6;
+        }
+
+        /* Selector Pink */
+        .prop {
+            color: #22d3ee;
+        }
+
+        /* Property Cyan */
+        .val {
+            color: #a78bfa;
+        }
+
+        /* Value Purple */
+        .var {
+            color: #34d399;
+            font-weight: bold;
+        }
+
+        /* Variable Green */
+        .cmt {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-white overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-var-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <span class="font-bold text-xl text-slate-900 tracking-tight">Web<span
+                            class="text-var-600">Dev</span></span>
+                    <span class="h-5 w-px bg-slate-200"></span>
+                    <span
+                        class="text-xs font-bold px-2 py-0.5 bg-green-50 text-green-700 rounded uppercase tracking-wide">Licenciatura</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#variaveis" class="text-slate-600 hover:text-var-600 transition">CSS Variables</a>
+                    <a href="#calc" class="text-slate-600 hover:text-var-600 transition">Calc()</a>
+                    <a href="#interacao" class="text-slate-600 hover:text-var-600 transition">Interatividade</a>
+                    <a href="#pratica" class="text-var-600 font-bold hover:text-var-800 transition">Laboratório</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 via-white to-blue-50 relative">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white border border-var-200 rounded-full shadow-sm">
+                <span class="text-xs font-bold text-var-900 uppercase tracking-wide">Semana 17 • Engenharia de
+                    CSS</span>
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-7xl text-slate-900 mb-8 leading-tight tracking-tight">
+                CSS Escalável &<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-var-600 to-ui-500">Interfaces
+                    Vivas</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                Pare de repetir códigos hexadecimais (<code>#ff0000</code>). Hoje vamos aprender a criar
+                <strong>Temas</strong> com Variáveis, usar matemática no CSS e aplicar tudo isso em formulários
+                interativos.
+            </p>
+        </div>
+    </header>
+
+    <section id="variaveis" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto">
+
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900">O Poder das Variáveis</h2>
+                <p class="text-slate-600 mt-2">Defina uma vez, use em todo lugar. Mude em um lugar, atualize tudo.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <div class="space-y-6">
+                    <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-var-500 shadow-sm">
+                        <h3 class="font-bold text-slate-800 mb-2">A Sintaxe :root</h3>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Declaramos variáveis no seletor global <code>:root</code> (o elemento html). Elas começam
+                            sempre com dois traços <code>--</code>.
+                        </p>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li>✅ <code>--brand-color: #10b981;</code></li>
+                            <li>✅ <code>--gap-padrao: 20px;</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block shadow-xl">
+                        <span class="sel">:root</span> {
+                        <span class="prop">--cor-primaria</span>: <span class="val">#3b82f6</span>;
+                        <span class="prop">--cor-texto</span>: <span class="val">#1e293b</span>;
+                        <span class="prop">--borda-raio</span>: <span class="val">8px</span>;
+                        }
+
+                        <span class="sel">.btn</span> {
+                        <span class="cmt">/* Usando a variável */</span>
+                        <span class="prop">background-color</span>: <span class="var">var(--cor-primaria)</span>;
+                        <span class="prop">color</span>: <span class="val">white</span>;
+                        <span class="prop">border-radius</span>: <span class="var">var(--borda-raio)</span>;
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-700 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 bg-white/10 px-3 py-1 text-white text-[10px] font-bold uppercase rounded-bl-lg">
+                        Simulador</div>
+
+                    <div class="space-y-6 relative z-10" id="demo-area">
+                        <div class="bg-white p-6 rounded-lg shadow-lg"
+                            style="border-left: 5px solid var(--demo-color, #3b82f6);">
+                            <h4 class="font-bold text-lg mb-2" style="color: var(--demo-color, #3b82f6);">Título do Card
+                            </h4>
+                            <p class="text-slate-500 text-sm mb-4">Este componente usa a variável
+                                <code>--demo-color</code> para bordas, títulos e botões.
+                            </p>
+                            <button class="px-4 py-2 rounded text-white text-sm font-bold transition-colors"
+                                style="background-color: var(--demo-color, #3b82f6);">
+                                Ação Principal
+                            </button>
+                        </div>
+
+                        <div class="flex gap-4 justify-center">
+                            <button
+                                onclick="document.getElementById('demo-area').style.setProperty('--demo-color', '#3b82f6')"
+                                class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white shadow hover:scale-110 transition"></button>
+                            <button
+                                onclick="document.getElementById('demo-area').style.setProperty('--demo-color', '#ef4444')"
+                                class="w-8 h-8 rounded-full bg-red-500 border-2 border-white shadow hover:scale-110 transition"></button>
+                            <button
+                                onclick="document.getElementById('demo-area').style.setProperty('--demo-color', '#10b981')"
+                                class="w-8 h-8 rounded-full bg-emerald-500 border-2 border-white shadow hover:scale-110 transition"></button>
+                            <button
+                                onclick="document.getElementById('demo-area').style.setProperty('--demo-color', '#f59e0b')"
+                                class="w-8 h-8 rounded-full bg-amber-500 border-2 border-white shadow hover:scale-110 transition"></button>
+                        </div>
+                        <p class="text-center text-slate-400 text-xs">Clique nas bolinhas para injetar um novo valor na
+                            variável via JS.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="calc" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="w-full bg-slate-200 h-16 rounded overflow-hidden flex items-center relative">
+                        <div class="h-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold"
+                            style="width: calc(100% - 80px);">
+                            width: calc(100% - 80px)
+                        </div>
+                        <div
+                            class="h-full bg-red-400 w-[80px] flex items-center justify-center text-white text-xs font-bold absolute right-0">
+                            80px
+                        </div>
+                    </div>
+                    <p class="text-center text-slate-500 text-xs mt-2">Uma sidebar fixa e um conteúdo fluido sem usar
+                        Flexbox.</p>
+                </div>
+                <div class="order-1 md:order-2 space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900">Matemática no CSS: calc()</h2>
+                    <p class="text-slate-600">
+                        O navegador pode fazer contas para você. Isso é útil para misturar unidades diferentes
+                        (porcentagem com pixels).
+                    </p>
+                    <div class="code-block text-xs">
+                        <span class="sel">.sidebar-layout</span> {
+                        <span class="cmt">/* 100% da tela MENOS 250px da barra lateral */</span>
+                        <span class="prop">width</span>: <span class="val">calc(100% - 250px)</span>;
+                        <span class="prop">margin-left</span>: <span class="val">250px</span>;
+                        }
+                    </div>
+                    <div class="bg-yellow-50 text-yellow-800 text-xs p-3 rounded border border-yellow-200">
+                        <strong>Aviso Importante:</strong> O operador matemático (+, -, *, /) precisa ter espaço em
+                        branco ao redor. <br>
+                        Errado: <code>calc(100%-20px)</code> <br>
+                        Certo: <code>calc(100% - 20px)</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="interacao" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto space-y-16">
+
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Aplicando Variáveis em Formulários</h2>
+                <p class="text-slate-600 mt-2">Como usar o que aprendemos para criar inputs profissionais e estados de
+                    interação.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+
+                <div class="space-y-8">
+                    <h3 class="font-bold text-lg text-slate-800">A Tríade dos Estados</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <span
+                                class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-mono font-bold">:hover</span>
+                            <span class="text-sm text-slate-600">Mouse em cima. Dica de "clicável".</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <span
+                                class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs font-mono font-bold">:focus</span>
+                            <span class="text-sm text-slate-600">Selecionado (teclado/clique). Vital para forms.</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-slate-50 p-4 rounded-lg border border-slate-100">
+                            <span
+                                class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-mono font-bold">:active</span>
+                            <span class="text-sm text-slate-600">Momento do clique (pressionado).</span>
+                        </li>
+                    </ul>
+
+                    <div class="code-block">
+                        <span class="sel">input</span> {
+                        <span class="prop">border</span>: <span class="val">2px solid var(--cinza-claro)</span>;
+                        <span class="prop">transition</span>: <span class="val">all 0.3s ease</span>;
+                        }
+
+                        <span class="cmt">/* Foco muda para a cor da marca */</span>
+                        <span class="sel">input:focus</span> {
+                        <span class="prop">border-color</span>: <span class="var">var(--cor-primaria)</span>;
+                        <span class="prop">outline</span>: <span class="val">none</span>;
+                        <span class="prop">box-shadow</span>: <span class="val">0 0 0 4px var(--cor-foco-suave)</span>;
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-inner">
+                    <form class="space-y-6" onsubmit="event.preventDefault()">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700">Email Acadêmico</label>
+                            <input type="email" placeholder="aluno@ifrn.edu.br"
+                                class="w-full px-4 py-3 rounded-lg border-2 border-slate-300 bg-white text-slate-800 placeholder-slate-400
+                                       focus:outline-none focus:border-var-500 focus:ring-4 focus:ring-var-500/20 transition-all duration-300">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-slate-700">Senha</label>
+                            <input type="password" placeholder="••••••••"
+                                class="w-full px-4 py-3 rounded-lg border-2 border-slate-300 bg-white text-slate-800 placeholder-slate-400
+                                       focus:outline-none focus:border-var-500 focus:ring-4 focus:ring-var-500/20 transition-all duration-300">
+                        </div>
+
+                        <button class="w-full py-3 bg-var-600 text-white font-bold rounded-lg shadow-lg 
+                                       hover:bg-var-500 hover:-translate-y-1 hover:shadow-var-500/30 
+                                       active:translate-y-0 active:bg-var-900 transition-all duration-200">
+                            Acessar Sistema
+                        </button>
+                    </form>
+                    <p class="text-center text-xs text-slate-400 mt-4">
+                        Tente usar a tecla <code class="bg-slate-200 px-1 rounded">TAB</code> para navegar.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pratica" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+        <div class="max-w-6xl mx-auto">
+
+            <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 border-b border-slate-700 pb-8">
+                <span class="text-5xl">💻</span>
+                <div>
+                    <h2 class="font-bold text-4xl mb-2">Laboratório de Entrega</h2>
+                    <p class="text-slate-400">Combine Variáveis e Interatividade.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+
+                <div
+                    class="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-var-500 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-var-600 text-white text-xs font-bold px-3 py-1 rounded-full">Exercício 1</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-var-300 font-mono border border-slate-600">refatoracao.html</code>
+                    </div>
+                    <h3 class="font-bold text-2xl mb-4 group-hover:text-var-400 transition">O Limpador de Código</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Você receberá um CSS "sujo" cheio de cores hexadecimais repetidas (<code>#e11d48</code>).
+                        <br><br>
+                        <strong>Sua missão:</strong>
+                        <br>1. Criar variáveis no <code>:root</code> para essas cores.
+                        <br>2. Substituir os valores fixos pelas variáveis <code>var(--nome)</code>.
+                        <br>3. Mudar o valor de uma variável e ver o site inteiro mudar de cor.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-slate-800 p-8 rounded-2xl border border-slate-700 hover:border-ui-500 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-ui-600 text-white text-xs font-bold px-3 py-1 rounded-full">Exercício 2</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-ui-300 font-mono border border-slate-600">card-interativo.html</code>
+                    </div>
+                    <h3 class="font-bold text-2xl mb-4 group-hover:text-ui-400 transition">O Card "Gamer"</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Crie um card de produto (Imagem + Título + Botão).
+                        <br><br>
+                        <strong>Requisitos:</strong>
+                        <br>1. Defina cores "Neon" em variáveis.
+                        <br>2. No <code>:hover</code> do card, a borda deve brilhar (box-shadow neon) e o card deve
+                        subir 10px.
+                        <br>3. O botão deve mudar de cor drasticamente no <code>:active</code>.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="mt-12 p-6 bg-var-900/50 rounded-xl border border-var-500/30 flex gap-4 items-start">
+                <span class="text-2xl">👩‍🏫</span>
+                <div>
+                    <h4 class="font-bold text-var-300 mb-1">Nota Pedagógica</h4>
+                    <p class="text-var-200 text-sm leading-relaxed">
+                        Ensinar variáveis CSS agora é estratégico. Quando entrarmos em <strong>Responsividade</strong>
+                        (próxima aula), usaremos variáveis para mudar o layout sem reescrever código complexo. Ex:
+                        <code>--tamanho-texto: 16px</code> no celular vira <code>18px</code> no desktop.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400 text-sm mt-12">
+        <p>IFRN - Licenciatura em Informática </p>
+    </footer>
+
+</body>
+
+</html>

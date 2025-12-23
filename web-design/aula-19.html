@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 19: Mobile First | Licenciatura IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['Fira Code', 'monospace'] },
+                    colors: {
+                        mobile: { 50: '#fdf2f8', 100: '#fce7f3', 500: '#ec4899', 600: '#db2777', 900: '#831843' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #fdf2f8;
+        }
+
+        .code-block {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            color: #e5e5e5;
+            border: 1px solid #333;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .sel {
+            color: #f472b6;
+        }
+
+        .prop {
+            color: #60a5fa;
+        }
+
+        .val {
+            color: #c084fc;
+        }
+
+        .cmt {
+            color: #6b7280;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="bg-white overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-pink-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-xl text-slate-900 tracking-tight">Web<span
+                        class="text-mobile-600">Dev</span></span>
+                <span class="h-5 w-px bg-slate-200"></span>
+                <span
+                    class="text-xs font-bold px-2 py-0.5 bg-pink-50 text-pink-700 rounded uppercase tracking-wide">Licenciatura</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#filosofia" class="text-slate-600 hover:text-mobile-600 transition">Filosofia</a>
+                <a href="#codigo" class="text-slate-600 hover:text-mobile-600 transition">Estrutura de Código</a>
+                <a href="#patterns" class="text-slate-600 hover:text-mobile-600 transition">Padrões Comuns</a>
+                <a href="#lab" class="text-mobile-600 font-bold hover:text-mobile-800 transition">Laboratório</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 via-white to-slate-50">
+        <div class="max-w-5xl mx-auto text-center">
+            <div
+                class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-white border border-pink-200 rounded-full shadow-sm">
+                <span class="text-xs font-bold text-mobile-900 uppercase tracking-wide">Estratégia de
+                    Desenvolvimento</span>
+            </div>
+
+            <h1 class="font-bold text-5xl md:text-7xl text-slate-900 mb-6 leading-tight tracking-tight">
+                Mobile First:<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-mobile-600 to-purple-600">Comece
+                    Pequeno</span>
+            </h1>
+
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                Não é sobre "espremer" um site de desktop para caber no celular. É sobre construir a essência primeiro e
+                adicionar complexidade conforme a tela aumenta.
+            </p>
+        </div>
+    </header>
+
+    <section id="filosofia" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-bold text-slate-900">Progressive Enhancement</h2>
+                    <p class="text-lg text-slate-600">
+                        Imagine que você vai viajar.
+                        <br>
+                        <strong>Desktop First</strong> é tentar colocar a casa inteira na mala e depois ir tirando
+                        coisas até fechar. (Difícil, gera bugs).
+                        <br><br>
+                        <strong>Mobile First</strong> é colocar apenas o essencial na mochila. Se sobrar espaço (telas
+                        maiores), você adiciona extras. (Eficiente, rápido).
+                    </p>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li class="flex gap-3">
+                            <span class="text-mobile-600 font-bold">✓</span>
+                            <span>Melhor Performance (Carrega menos código no celular).</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-mobile-600 font-bold">✓</span>
+                            <span>Priorização de Conteúdo (O que é vital fica no topo).</span>
+                        </li>
+                        <li class="flex gap-3">
+                            <span class="text-mobile-600 font-bold">✓</span>
+                            <span>Código mais limpo (Evita anular estilos anteriores).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-slate-50 p-10 rounded-2xl border border-slate-200 flex flex-col items-center justify-end gap-2 h-80">
+                    <div class="w-full bg-purple-600 p-4 rounded text-white text-center shadow-lg text-xs animate-bounce"
+                        style="animation-duration: 3s;">
+                        Desktop (Add: Hover, Animações, Sidebars)
+                    </div>
+                    <div class="w-2/3 bg-mobile-500 p-4 rounded text-white text-center shadow-lg text-sm">
+                        Tablet (Add: Colunas)
+                    </div>
+                    <div class="w-1/3 bg-slate-800 p-4 rounded text-white text-center shadow-lg font-bold">
+                        Mobile (A Base)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="codigo" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-50">
+        <div class="max-w-5xl mx-auto space-y-12">
+
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">A Regra do Min-Width</h2>
+                <p class="text-slate-600 mt-2">Como escrever o CSS na ordem correta.</p>
+            </div>
+
+            <div class="code-block shadow-2xl">
+                <span class="cmt">/* 1. CSS BASE (Mobile) - Sem Media Query */</span>
+                <span class="sel">.container</span> {
+                <span class="prop">display</span>: <span class="val">flex</span>;
+                <span class="prop">flex-direction</span>: <span class="val">column</span>; <span class="cmt">/*
+                    Empilhado */</span>
+                <span class="prop">padding</span>: <span class="val">20px</span>;
+                }
+
+                <span class="cmt">/* 2. TABLET (Acima de 768px) - Adicionamos complexidade */</span>
+                <span class="sel">@media</span> (<span class="prop">min-width</span>: <span class="val">768px</span>) {
+                <span class="sel">.container</span> {
+                <span class="prop">flex-direction</span>: <span class="val">row</span>; <span class="cmt">/* Lado a lado
+                    */</span>
+                <span class="prop">gap</span>: <span class="val">40px</span>;
+                }
+                }
+
+                <span class="cmt">/* 3. DESKTOP (Acima de 1024px) - Detalhes finais */</span>
+                <span class="sel">@media</span> (<span class="prop">min-width</span>: <span class="val">1024px</span>) {
+                <span class="sel">.container</span> {
+                <span class="prop">max-width</span>: <span class="val">1200px</span>;
+                <span class="prop">margin</span>: <span class="val">0 auto</span>;
+                }
+                }
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm text-yellow-800">
+                <strong>Atenção:</strong> Se você usar <code>max-width</code> (Desktop First), você terá que escrever um
+                código para desktop e depois escrever outro código para <em>desfazer</em> o que fez no celular. Com
+                <code>min-width</code>, você apenas <em>adiciona</em>.
+            </div>
+
+        </div>
+    </section>
+
+    <section id="patterns" class="py-24 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto space-y-16">
+
+            <h2 class="text-3xl font-bold text-slate-900 text-center">Padrões de Transformação</h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4">1. De Pilha para Linha</h3>
+                    <p class="text-sm text-slate-600 mb-6">
+                        O padrão mais comum. Itens ficam um embaixo do outro no celular e viram colunas no tablet.
+                    </p>
+
+                    <div class="flex flex-col gap-8">
+                        <div class="border border-slate-300 bg-white p-2 rounded w-32 mx-auto">
+                            <span class="text-[10px] text-slate-400 block text-center mb-1">Mobile</span>
+                            <div class="flex flex-col gap-1">
+                                <div class="h-8 bg-mobile-500 rounded"></div>
+                                <div class="h-8 bg-mobile-500 rounded"></div>
+                                <div class="h-8 bg-mobile-500 rounded"></div>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-slate-400">⬇️ min-width: 768px</div>
+
+                        <div class="border border-slate-300 bg-white p-2 rounded w-full">
+                            <span class="text-[10px] text-slate-400 block text-center mb-1">Tablet/Desktop</span>
+                            <div class="flex gap-2">
+                                <div class="h-8 bg-mobile-500 rounded flex-1"></div>
+                                <div class="h-8 bg-mobile-500 rounded flex-1"></div>
+                                <div class="h-8 bg-mobile-500 rounded flex-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-lg text-slate-800 mb-4">2. O Menu de Navegação</h3>
+                    <p class="text-sm text-slate-600 mb-6">
+                        No celular, escondemos os links (Hamburger). No desktop, mostramos a lista horizontalmente.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="border border-slate-300 bg-white p-2 rounded w-48 mx-auto">
+                            <div class="flex justify-between items-center h-8 bg-slate-100 px-2 rounded">
+                                <span class="font-bold text-[10px]">LOGO</span>
+                                <span class="text-[10px]">☰</span>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-slate-400">⬇️ min-width: 768px</div>
+
+                        <div class="border border-slate-300 bg-white p-2 rounded w-full">
+                            <div class="flex justify-between items-center h-8 bg-slate-100 px-4 rounded">
+                                <span class="font-bold text-[10px]">LOGO</span>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-2 bg-slate-400 rounded"></div>
+                                    <div class="w-8 h-2 bg-slate-400 rounded"></div>
+                                    <div class="w-8 h-2 bg-slate-400 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="lab" class="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 border-b border-slate-700 pb-8">
+                <span class="text-5xl">📱</span>
+                <div>
+                    <h2 class="font-bold text-4xl mb-2">Laboratório Mobile First</h2>
+                    <p class="text-slate-400">Desafio de implementação evolutiva.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700">
+                <h3 class="text-xl font-bold mb-4 text-mobile-500">Exercício: O Card de Notícia</h3>
+                <p class="mb-6 text-slate-300">
+                    Você deve criar um componente que muda drasticamente de layout.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 font-mono text-sm">
+                    <div>
+                        <strong class="block text-white mb-2">Passo 1: Mobile (Base)</strong>
+                        <ul class="list-disc pl-4 space-y-2 text-slate-400">
+                            <li>Imagem no topo (width: 100%).</li>
+                            <li>Título abaixo da imagem.</li>
+                            <li>Texto abaixo do título.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="block text-white mb-2">Passo 2: Desktop (@media 768px)</strong>
+                        <ul class="list-disc pl-4 space-y-2 text-slate-400">
+                            <li>Imagem vai para a esquerda (width: 200px).</li>
+                            <li>Texto vai para a direita (flex: 1).</li>
+                            <li>Título fica maior.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400 text-sm mt-12">
+        <p>IFRN - Licenciatura em Informática</p>
+    </footer>
+
+</body>
+
+</html>
