@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 16: Grid Areas | Licenciatura IFRN</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#fff1f2', 100: '#ffe4e6', 500: '#f43f5e', 600: '#e11d48', 700: '#be123c', 900: '#881337', /* Rose Theme */
+                        },
+                        gridline: {
+                            500: '#6366f1', /* Indigo para linhas */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background-color: #fff1f2;
+        }
+
+        .code-block {
+            background: #1e1b4b;
+            /* Indigo 950 */
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #e0e7ff;
+            border: 1px solid #312e81;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .kwd {
+            color: #f472b6;
+        }
+
+        .prop {
+            color: #a5b4fc;
+        }
+
+        .val {
+            color: #fda4af;
+        }
+
+        .str {
+            color: #fcd34d;
+        }
+
+        /* Grid Visualizer Pattern */
+        .grid-guide {
+            background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Marcador de Linha */
+        .line-marker {
+            position: absolute;
+            background: #6366f1;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="bg-white overflow-x-hidden">
+
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur border-b border-rose-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <span class="font-bold text-xl text-slate-900 tracking-tight">Web<span
+                            class="text-brand-600">Design</span></span>
+                    <span class="h-4 w-px bg-slate-300 mx-2"></span>
+                    <span
+                        class="text-xs font-bold px-2 py-0.5 bg-rose-50 text-rose-700 rounded uppercase tracking-wide">MóDULO
+                        2</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#linhas" class="text-slate-600 hover:text-brand-600 transition">Linhas (Lines)</a>
+                    <a href="#areas" class="text-slate-600 hover:text-brand-600 transition">Áreas (Areas)</a>
+                    <a href="#pratica" class="text-brand-600 font-bold hover:text-brand-800 transition">Laboratório</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-rose-50 via-white to-indigo-50">
+        <div class="max-w-5xl mx-auto text-center">
+            <div
+                class="inline-block mb-6 px-4 py-1 bg-brand-100 text-brand-800 rounded-full font-bold text-xs uppercase tracking-wide border border-brand-200">
+                Semana 16 • O Grid Visual
+            </div>
+            <h1 class="font-bold text-5xl md:text-6xl text-slate-900 mb-6 leading-tight tracking-tight">
+                CSS Grid: <br>
+                <span class="text-brand-600">Áreas e Posicionamento</span>
+            </h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto font-light leading-relaxed">
+                Vamos parar de contar pixels e começar a desenhar layouts. Aprenda a posicionar elementos usando
+                coordenadas de linhas e mapas de áreas nomeadas.
+            </p>
+        </div>
+    </header>
+
+    <section id="linhas" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto space-y-16">
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="bg-indigo-100 text-indigo-700 w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl">1</span>
+                        <h2 class="text-3xl font-bold text-slate-900">O Mapa do Tesouro (Lines)</h2>
+                    </div>
+                    <p class="text-lg text-slate-600">
+                        O Grid não conta colunas, ele conta <strong>Linhas</strong>. <br>
+                        Se você tem 3 colunas, você tem 4 linhas verticais (o início, as divisórias e o fim).
+                    </p>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 text-sm text-indigo-900">
+                        <strong>Analogia para Sala de Aula:</strong> É como Batalha Naval ou uma Planilha. Para ocupar
+                        duas células, você começa na linha 1 e vai até a linha 3.
+                    </div>
+
+                    <div class="code-block shadow-lg">
+                        <span class="kwd">.item-destaque</span> {
+                        <span class="cmt">/* Começa na linha 1, para na 3 */</span>
+                        <span class="prop">grid-column</span>: <span class="val">1 / 3</span>;
+
+                        <span class="cmt">/* Começa na linha 1, para na 2 */</span>
+                        <span class="prop">grid-row</span>: <span class="val">1 / 2</span>;
+                        }
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-10 rounded-2xl border border-slate-200 flex justify-center">
+                    <div
+                        class="relative w-64 h-64 bg-white border border-slate-300 shadow-sm grid grid-cols-2 grid-rows-2 gap-2 p-2">
+
+                        <div class="line-marker" style="top: -8px; left: 0;">1</div>
+                        <div class="line-marker" style="top: -8px; left: 50%;">2</div>
+                        <div class="line-marker" style="top: -8px; left: 100%;">3</div>
+
+                        <div class="line-marker" style="top: 0; left: -8px;">1</div>
+                        <div class="line-marker" style="top: 50%; left: -8px;">2</div>
+                        <div class="line-marker" style="top: 100%; left: -8px;">3</div>
+
+                        <div
+                            class="bg-indigo-500/90 text-white rounded flex items-center justify-center text-xs font-bold col-span-2 relative z-0 border-2 border-indigo-600 shadow-lg transform scale-105">
+                            grid-column: 1 / 3
+                        </div>
+                        <div class="bg-slate-200 rounded flex items-center justify-center text-[10px] text-slate-400">
+                            Item 2</div>
+                        <div class="bg-slate-200 rounded flex items-center justify-center text-[10px] text-slate-400">
+                            Item 3</div>
+
+                        <div
+                            class="absolute inset-0 pointer-events-none border-2 border-dashed border-indigo-300/50 z-10">
+                        </div>
+                        <div class="absolute top-0 bottom-0 left-1/2 w-px bg-indigo-300/50 border-l border-dashed z-10">
+                        </div>
+                        <div class="absolute left-0 right-0 top-1/2 h-px bg-indigo-300/50 border-t border-dashed z-10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                    <h3 class="font-bold text-slate-800">A Palavra-chave "Span"</h3>
+                </div>
+                <div class="p-6 grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Às vezes não sabemos o número da linha final. Queremos apenas dizer: "Ocupe 2 colunas, não
+                            importa onde comece". Usamos o <code>span</code>.
+                        </p>
+                        <code
+                            class="block bg-slate-100 p-2 rounded text-brand-700 text-xs font-mono mb-2">grid-column: span 2;</code>
+                        <p class="text-xs text-slate-400">Isso significa: "Estique-se por 2 células".</p>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 bg-slate-100 p-2 rounded border border-slate-200">
+                        <div class="h-10 bg-slate-300 rounded"></div>
+                        <div
+                            class="h-10 bg-brand-500 text-white text-[10px] flex items-center justify-center font-bold rounded col-span-2 shadow-md">
+                            span 2</div>
+                        <div class="h-10 bg-slate-300 rounded"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="areas" class="py-20 px-4 sm:px-6 lg:px-8 bg-rose-50">
+        <div class="max-w-6xl mx-auto space-y-12">
+
+            <div class="text-center">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm">Arquitetura Visual</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Grid Template Areas</h2>
+                <p class="text-slate-600 mt-2 max-w-2xl mx-auto">A forma mais intuitiva de criar layouts. Você "desenha"
+                    seu site no código usando nomes.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                        <span
+                            class="bg-slate-800 text-white w-6 h-6 rounded flex items-center justify-center text-xs">A</span>
+                        O Código (A Planta Baixa)
+                    </h3>
+                    <p class="text-sm text-slate-600">
+                        Definimos nomes para cada célula. Se repetirmos o nome, a área se expande.
+                    </p>
+
+                    <div class="code-block shadow-2xl border-rose-900/50">
+                        <span class="kwd">.layout</span> {
+                        <span class="prop">display</span>: <span class="val">grid</span>;
+                        <span class="prop">grid-template-columns</span>: <span class="val">1fr 3fr</span>;
+                        <span class="prop">grid-template-areas</span>:
+                        <span class="str">"header header"</span>
+                        <span class="str">"sidebar content"</span>
+                        <span class="str">"footer footer"</span>;
+                        }
+
+                        <span class="cmt">/* Conectando os filhos */</span>
+                        <span class="kwd">header</span> { <span class="prop">grid-area</span>: <span
+                            class="str">header</span>; }
+                        <span class="kwd">aside</span> { <span class="prop">grid-area</span>: <span
+                            class="str">sidebar</span>; }
+                        <span class="kwd">main</span> { <span class="prop">grid-area</span>: <span
+                            class="str">content</span>; }
+                        <span class="kwd">footer</span> { <span class="prop">grid-area</span>: <span
+                            class="str">footer</span>; }
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-700 flex items-center gap-2">
+                        <span
+                            class="bg-brand-600 text-white w-6 h-6 rounded flex items-center justify-center text-xs">B</span>
+                        O Resultado Visual
+                    </h3>
+                    <p class="text-sm text-slate-600">
+                        O navegador renderiza exatamente o que desenhamos nas strings.
+                    </p>
+
+                    <div class="w-full aspect-video bg-white border-2 border-slate-300 rounded-xl p-2 grid gap-2 shadow-lg"
+                        style="grid-template-columns: 1fr 3fr; grid-template-rows: auto 1fr auto;">
+
+                        <div
+                            class="col-span-2 bg-brand-100 border-2 border-brand-300 rounded flex items-center justify-center text-brand-700 font-bold text-sm h-12 relative group">
+                            <span
+                                class="absolute top-1 left-2 text-[8px] text-brand-400 opacity-50 uppercase">header</span>
+                            Header
+                        </div>
+
+                        <div
+                            class="bg-indigo-50 border-2 border-indigo-200 rounded flex items-center justify-center text-indigo-700 font-bold text-sm relative">
+                            <span
+                                class="absolute top-1 left-2 text-[8px] text-indigo-400 opacity-50 uppercase">sidebar</span>
+                            Nav
+                        </div>
+
+                        <div
+                            class="bg-slate-100 border-2 border-slate-200 rounded flex items-center justify-center text-slate-500 font-bold text-sm h-32 relative">
+                            <span
+                                class="absolute top-1 left-2 text-[8px] text-slate-400 opacity-50 uppercase">content</span>
+                            Main Content
+                        </div>
+
+                        <div
+                            class="col-span-2 bg-slate-800 border-2 border-slate-600 rounded flex items-center justify-center text-slate-300 font-bold text-sm h-10 relative">
+                            <span
+                                class="absolute top-1 left-2 text-[8px] text-slate-500 opacity-50 uppercase">footer</span>
+                            Footer
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pratica" class="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-6 mb-12 border-b border-slate-700 pb-8">
+                <span class="text-5xl">🎨</span>
+                <div>
+                    <h2 class="font-bold text-4xl mb-2">Laboratório Criativo</h2>
+                    <p class="text-slate-400 text-lg">Use o poder das Áreas para criar layouts artísticos.</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+
+                <div
+                    class="bg-slate-800 rounded-2xl p-8 border border-slate-700 hover:border-brand-500 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full">Desafio 1</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-brand-300 font-mono">layout-revista.html</code>
+                    </div>
+
+                    <h3 class="font-bold text-2xl mb-4 text-white">Manchete de Revista (Bento Grid)</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        Crie um layout estilo "Bento Box" (Apple/Microsoft). Uma imagem grande destaque, duas médias ao
+                        lado e três pequenas embaixo.
+                        <br><strong class="text-brand-400">Dica:</strong> Use <code>grid-template-areas</code> para
+                        desenhar os blocos.
+                    </p>
+
+                    <div class="bg-white/5 rounded-lg p-4 h-48 grid gap-2 border border-slate-600"
+                        style="grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr;">
+                        <div
+                            class="bg-brand-600/80 rounded row-span-2 flex items-center justify-center text-xs font-bold border border-brand-500">
+                            Destaque (2x2)</div>
+                        <div
+                            class="bg-indigo-500/80 rounded flex items-center justify-center text-[10px] border border-indigo-400">
+                            Notícia 1</div>
+                        <div
+                            class="bg-indigo-500/80 rounded flex items-center justify-center text-[10px] border border-indigo-400">
+                            Notícia 2</div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-slate-800 rounded-2xl p-8 border border-slate-700 hover:border-indigo-500 transition duration-300 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full">Desafio 2</span>
+                        <code
+                            class="text-xs bg-black px-3 py-1.5 rounded text-indigo-300 font-mono">painel-admin.html</code>
+                    </div>
+
+                    <h3 class="font-bold text-2xl mb-4 text-white">O Painel de Controle</h3>
+                    <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+                        O teste final de arquitetura. Header no topo. Sidebar lateral esquerda que vai do topo ao chão
+                        (ou abaixo do header). Conteúdo principal com gráficos.
+                        <br><strong class="text-indigo-400">Dica:</strong> Defina
+                        <code>"header header" "sidebar content"</code>.
+                    </p>
+
+                    <div class="bg-white/5 rounded-lg p-2 h-48 grid gap-1 border border-slate-600"
+                        style="grid-template-columns: 50px 1fr; grid-template-rows: 30px 1fr;">
+                        <div
+                            class="col-span-2 bg-slate-600 rounded flex items-center justify-center text-[9px] border border-slate-500">
+                            Header</div>
+                        <div
+                            class="bg-slate-700 rounded flex items-center justify-center text-[9px] border border-slate-600 writing-vertical">
+                            Sidebar</div>
+                        <div class="bg-slate-800/50 rounded p-1 grid gap-1 grid-cols-2 grid-rows-2">
+                            <div class="bg-indigo-500/30 rounded"></div>
+                            <div class="bg-indigo-500/30 rounded"></div>
+                            <div class="col-span-2 bg-indigo-500/30 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 p-6 bg-brand-900/20 rounded-xl border border-brand-500/30 flex gap-4 items-start">
+                <span class="text-2xl">💡</span>
+                <div>
+                    <h4 class="font-bold text-brand-300 mb-1">Dica Pedagógica</h4>
+                    <p class="text-brand-200 text-sm leading-relaxed">
+                        O conceito de "Grid Areas" é excelente para alunos que têm dificuldade com matemática ou
+                        coordenadas abstratas (1 / 3). É uma abordagem <strong>semântica</strong> e
+                        <strong>visual</strong> de programação. Encoraje o uso de nomes descritivos (`menu`, `anuncio`,
+                        `rodape`).
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-slate-400 text-sm">
+        <p>IFRN - Licenciatura em Informática </p>
+    </footer>
+
+</body>
+
+</html>
