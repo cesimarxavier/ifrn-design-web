@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 3: Hotsite de Evento - Projeto Integrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        tech: {
+                            dark: '#0B1120',    /* Fundo Principal */
+                            card: '#161F32',    /* Card */
+                            accent: '#F97316',  /* Laranja Evento */
+                            yellow: '#EAB308',  /* Amarelo Destaque */
+                            text: '#94A3B8',    /* Texto secundário */
+                            heading: '#F8FAFC'  /* Texto principal */
+                        }
+                    },
+                    backgroundImage: {
+                        'event-gradient': 'linear-gradient(to right, #F97316, #EAB308)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans antialiased text-tech-text bg-tech-dark">
+
+    <header class="relative overflow-hidden pt-10 pb-20 border-b border-white/5">
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-orange-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-yellow-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+
+        <nav class="relative z-10 max-w-4xl mx-auto px-6 mb-12">
+            <a href="integrador.html"
+                class="inline-flex items-center text-gray-400 hover:text-white transition-colors text-sm font-medium gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Voltar para a Home
+            </a>
+        </nav>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-900/30 border border-orange-500/30 text-orange-300 text-xs font-bold uppercase tracking-wide mb-6">
+                Tema 03
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-white">
+                Hotsite de Evento: <br>
+                <span class="text-transparent bg-clip-text bg-event-gradient">O Hype transformado em Código.</span>
+            </h1>
+            <p class="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                Eventos precisam de impacto imediato. Sua missão é criar uma página de alta conversão, com contagem
+                regressiva e visual inesquecível.
+            </p>
+        </div>
+    </header>
+
+    <section class="py-16 border-b border-white/5 bg-tech-dark/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="prose prose-lg prose-invert text-gray-400">
+                <h3 class="text-white">O Cenário</h3>
+                <p>
+                    Um "Hotsite" é um site com vida curta e objetivo único: fazer a pessoa clicar no botão de inscrição.
+                    Pode ser um Festival de Música, uma Feira de Tecnologia, um Hackathon ou um Campeonato de Skate.
+                </p>
+                <p>
+                    Neste tema, o design precisa gerar <strong>urgência</strong> (O tempo está acabando!) e o código
+                    precisa ser <strong>robusto</strong> (Formulários que funcionam). É o equilíbrio perfeito entre
+                    marketing visual e lógica de programação.
+                </p>
+
+                <h3 class="text-white">A Sua Missão</h3>
+                <p>
+                    Desenvolva uma página promocional para um evento fictício (ou real). O site não pode ser "morno".
+                    Ele precisa ter:
+                </p>
+                <ul class="list-disc pl-5 space-y-2 marker:text-orange-500">
+                    <li><strong>Tipografia Display:</strong> Títulos gigantes e expressivos.</li>
+                    <li><strong>Contagem Regressiva:</strong> Um timer real feito em JavaScript (Dias : Horas :
+                        Minutos).</li>
+                    <li><strong>Call to Action (CTA):</strong> Botões de destaque que chamam para a ação ("Comprar
+                        Ingresso").</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-card/30">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-10 text-center">3 Caminhos Possíveis</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-orange-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-orange-500/10 text-orange-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Festival de Música</h3>
+                    <p class="text-sm text-gray-500 mb-4">Rock in Rio, Lollapalooza ou um festival indie local.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-orange-400">✓ Line-up (Grade de atrações com fotos)</li>
+                        <li class="flex gap-2 text-orange-400">✓ Cores vibrantes e gradientes</li>
+                        <li class="flex gap-2 text-orange-400">✓ Efeito Parallax no scroll</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-yellow-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-yellow-500/10 text-yellow-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-yellow-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Conferência Tech</h3>
+                    <p class="text-sm text-gray-500 mb-4">Um evento tipo "Google I/O" ou um Hackathon do IFRN.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-yellow-400">✓ Cronograma (Timeline do evento)</li>
+                        <li class="flex gap-2 text-yellow-400">✓ Cards dos Palestrantes (Speakers)</li>
+                        <li class="flex gap-2 text-yellow-400">✓ Formulário de Inscrição validado</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-red-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-red-500/10 text-red-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Première / Lançamento</h3>
+                    <p class="text-sm text-gray-500 mb-4">Página de contagem regressiva para um filme ou jogo.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-red-400">✓ Trailer em destaque (Embed de Vídeo)</li>
+                        <li class="flex gap-2 text-red-400">✓ Fundo imersivo (Imagem Fullscreen)</li>
+                        <li class="flex gap-2 text-red-400">✓ Timer Gigante no centro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-dark text-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">Como executar?</h2>
+
+            <div class="space-y-8 relative">
+                <div
+                    class="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-orange-500 to-yellow-500 opacity-30">
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-orange-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                        1</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-orange-400">Impacto Visual (Design)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Eventos vendem emoção. Escolha uma fonte "Display" (grossa, estilizada) para os títulos. Use
+                            cores quentes (vermelho, laranja, amarelo) sobre fundo escuro para criar contraste e
+                            energia.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-yellow-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(234,179,8,0.5)]">
+                        2</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-yellow-400">Seções Claras (Autoria Web)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            A estrutura é vital. Crie seções semânticas: <code>&lt;section id="lineup"&gt;</code>,
+                            <code>&lt;section id="tickets"&gt;</code>. Use CSS Grid para alinhar as fotos dos artistas
+                            ou palestrantes de forma organizada e responsiva.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-red-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(239,68,68,0.5)]">
+                        3</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-red-400">A Lógica do Tempo (JavaScript)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Aqui brilha o JS. Vocês precisarão usar <code>setInterval</code> para criar a contagem
+                            regressiva que atualiza a cada segundo. Também devem validar o formulário de inscrição (não
+                            deixar enviar e-mail vazio).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="mt-12 p-6 bg-gradient-to-r from-tech-card to-transparent border border-orange-500/20 rounded-xl flex gap-4 items-start">
+                <svg class="w-6 h-6 text-orange-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <h4 class="font-bold text-orange-400">Dica de Ouro:</h4>
+                    <p class="text-gray-400 text-sm mt-1">
+                        O botão de "Inscreva-se" (CTA) é o rei. Ele deve estar visível o tempo todo. Que tal deixá-lo
+                        fixo no topo (Sticky Header) ou fazê-lo pulsar levemente com CSS Animation?
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-tech-card text-gray-500 py-12 text-center text-sm border-t border-white/5">
+        <p>Projeto Integrador IFRN • Técnico em Informática para Internet</p>
+    </footer>
+
+</body>
+
+</html>

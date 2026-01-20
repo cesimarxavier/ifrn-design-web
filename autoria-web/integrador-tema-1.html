@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 1: Universo Gamer - Projeto Integrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        tech: {
+                            dark: '#0B1120',    /* Fundo Principal */
+                            card: '#161F32',    /* Card */
+                            accent: '#8B5CF6',  /* Roxo Gamer */
+                            blue: '#3B82F6',    /* Azul Tech */
+                            text: '#94A3B8',    /* Texto secundário */
+                            heading: '#F8FAFC'  /* Texto principal */
+                        }
+                    },
+                    backgroundImage: {
+                        'gamer-gradient': 'linear-gradient(to right, #8B5CF6, #3B82F6)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans antialiased text-tech-text bg-tech-dark">
+
+    <header class="relative overflow-hidden pt-10 pb-20 border-b border-white/5">
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-purple-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-blue-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+
+        <nav class="relative z-10 max-w-4xl mx-auto px-6 mb-12">
+            <a href="integrador.html"
+                class="inline-flex items-center text-gray-400 hover:text-white transition-colors text-sm font-medium gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Voltar para a Home
+            </a>
+        </nav>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-wide mb-6">
+                Tema 01
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-white">
+                Universo Gamer: <br>
+                <span class="text-transparent bg-clip-text bg-gamer-gradient">Interfaces de Alta Performance.</span>
+            </h1>
+            <p class="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                Os jogos digitais têm as interfaces mais avançadas do mundo. Sua missão é criar uma Landing Page ou
+                Hotsite inspirada nesse universo.
+            </p>
+        </div>
+    </header>
+
+    <section class="py-16 border-b border-white/5 bg-tech-dark/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="prose prose-lg prose-invert text-gray-400">
+                <h3 class="text-white">O Cenário</h3>
+                <p>
+                    O mercado de games exige excelência visual. Jogadores estão acostumados com interfaces futuristas,
+                    efeitos de neon, grids complexos e respostas instantâneas. Um site "quadrado" e sem vida não
+                    funciona aqui.
+                </p>
+                <p>
+                    Este tema é o teste definitivo para unir <strong>Design de Interface (UI)</strong> com <strong>CSS
+                        Avançado</strong>.
+                </p>
+
+                <h3 class="text-white">A Sua Missão</h3>
+                <p>
+                    Escolha um jogo que você gosta, um time de E-sports (real ou fictício) ou um torneio, e desenvolva
+                    uma página web imersiva. O site precisa ter:
+                </p>
+                <ul class="list-disc pl-5 space-y-2 marker:text-purple-500">
+                    <li><strong>Identidade Visual Forte:</strong> Cores, fontes e imagens que "gritam" o tema do jogo.
+                    </li>
+                    <li><strong>Layout Criativo:</strong> Fugir do padrão "bloco em cima de bloco". Use sobreposições.
+                    </li>
+                    <li><strong>Interatividade:</strong> Efeitos de <em>hover</em> (passar o mouse) impactantes nos
+                        cards e botões.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-card/30">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-10 text-center">3 Caminhos Possíveis</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-purple-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Time de E-sports</h3>
+                    <p class="text-sm text-gray-500 mb-4">Página de apresentação de uma organização (Loud, Pain, ou
+                        fictícia).</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-purple-400">✓ Cards dos Jogadores (Foto + Função)</li>
+                        <li class="flex gap-2 text-purple-400">✓ Tabela de Próximas Partidas</li>
+                        <li class="flex gap-2 text-purple-400">✓ Formulário "Seja um Patrocinador"</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-blue-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Wiki de Personagem</h3>
+                    <p class="text-sm text-gray-500 mb-4">Página detalhada sobre um Agente (Valorant) ou Campeão (LoL).
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-blue-400">✓ Lore (História) com tipografia rica</li>
+                        <li class="flex gap-2 text-blue-400">✓ Grid de Habilidades (Ícones + Descrição)</li>
+                        <li class="flex gap-2 text-blue-400">✓ Galeria de Skins (Carrossel)</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-green-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-green-500/10 text-green-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Página de Torneio</h3>
+                    <p class="text-sm text-gray-500 mb-4">Divulgação de um campeonato escolar ou profissional.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-green-400">✓ Banner Hero com Data e Premiação</li>
+                        <li class="flex gap-2 text-green-400">✓ Tabela de Classificação (CSS Grid)</li>
+                        <li class="flex gap-2 text-green-400">✓ Botão de Inscrição (CTA Destaque)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-dark text-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">Como executar?</h2>
+
+            <div class="space-y-8 relative">
+                <div
+                    class="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-purple-500 to-blue-500 opacity-30">
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-purple-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+                        1</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-purple-400">Identidade Visual (Design)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Defina a "vibe". É terror? Use preto, vermelho e fontes rasgadas. É futurista? Use azul neon
+                            e fontes geométricas. Colete assets (imagens PNG sem fundo dos personagens) de alta
+                            qualidade.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-blue-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        2</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-blue-400">Estrutura de Grid (Autoria Web)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Aqui o desafio é o layout. Use <code>display: grid</code> para criar os cards dos
+                            personagens. Eles precisam estar alinhados perfeitamente. Use <code>background-image</code>
+                            com gradientes sobrepostos para dar profundidade.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-green-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(34,197,94,0.5)]">
+                        3</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-green-400">Efeitos Visuais (CSS + JS)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            A cereja do bolo. Adicione <code>hover:scale-105</code> nos cards. Use CSS Transitions para
+                            fazer os botões brilharem quando passar o mouse. Se possível, use JS para filtrar
+                            personagens por classe (Ex: mostrar apenas "Duelistas").
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-tech-card text-gray-500 py-12 text-center text-sm border-t border-white/5">
+        <p>Projeto Integrador IFRN • Técnico em Informática para Internet</p>
+    </footer>
+
+</body>
+
+</html>

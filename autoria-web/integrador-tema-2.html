@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tema 2: Agência Digital - Projeto Integrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        tech: {
+                            dark: '#0B1120',    /* Fundo Principal */
+                            card: '#161F32',    /* Card */
+                            accent: '#EC4899',  /* Pink Criativo */
+                            cyan: '#06B6D4',    /* Ciano Tech */
+                            text: '#94A3B8',    /* Texto secundário */
+                            heading: '#F8FAFC'  /* Texto principal */
+                        }
+                    },
+                    backgroundImage: {
+                        'agency-gradient': 'linear-gradient(to right, #EC4899, #8B5CF6)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans antialiased text-tech-text bg-tech-dark">
+
+    <header class="relative overflow-hidden pt-10 pb-20 border-b border-white/5">
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-pink-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600 rounded-full mix-blend-screen filter blur-[100px] opacity-20">
+        </div>
+
+        <nav class="relative z-10 max-w-4xl mx-auto px-6 mb-12">
+            <a href="integrador.html"
+                class="inline-flex items-center text-gray-400 hover:text-white transition-colors text-sm font-medium gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Voltar para a Home
+            </a>
+        </nav>
+
+        <div class="relative z-10 max-w-4xl mx-auto px-6">
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-900/30 border border-pink-500/30 text-pink-300 text-xs font-bold uppercase tracking-wide mb-6">
+                Tema 02
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-white">
+                Agência Digital: <br>
+                <span class="text-transparent bg-clip-text bg-agency-gradient">Transforme seu grupo em marca.</span>
+            </h1>
+            <p class="text-xl text-gray-400 leading-relaxed max-w-2xl">
+                No mercado de tecnologia, o portfólio vale mais que o currículo. Sua missão é criar a identidade online
+                do seu Squad.
+            </p>
+        </div>
+    </header>
+
+    <section class="py-16 border-b border-white/5 bg-tech-dark/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="prose prose-lg prose-invert text-gray-400">
+                <h3 class="text-white">O Cenário</h3>
+                <p>
+                    Vocês não são apenas estudantes; são profissionais em formação. Designers, Desenvolvedores
+                    Front-end, Redatores. Mas quem sabe disso? Ninguém, a menos que vocês mostrem.
+                </p>
+                <p>
+                    Neste tema, vocês simularão o lançamento de uma <strong>Agência Digital</strong> ou de um
+                    <strong>Estúdio Criativo</strong>. É a oportunidade perfeita para aplicar <strong>CSS Grid</strong>
+                    (para galerias) e <strong>Branding</strong> (criação de marca).
+                </p>
+
+                <h3 class="text-white">A Sua Missão</h3>
+                <p>
+                    Crie um site institucional que venda os serviços do grupo. O site deve transmitir profissionalismo,
+                    criatividade e domínio técnico. Ele precisa conter:
+                </p>
+                <ul class="list-disc pl-5 space-y-2 marker:text-pink-500">
+                    <li><strong>Identidade Única:</strong> Nome da agência, logo e paleta de cores original.</li>
+                    <li><strong>Vitrine de Serviços:</strong> O que vocês fazem? (Web Design, SEO, Apps, UI/UX).</li>
+                    <li><strong>Prova Social:</strong> Quem são os membros? Quais ferramentas dominam?</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-card/30">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-white mb-10 text-center">3 Caminhos Possíveis</h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-pink-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-pink-500/10 text-pink-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">A Agência Fictícia</h3>
+                    <p class="text-sm text-gray-500 mb-4">Um site corporativo moderno para vender serviços de
+                        tecnologia.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-pink-400">✓ Cards de Serviços com Ícones</li>
+                        <li class="flex gap-2 text-pink-400">✓ Seção "Sobre Nós" com fotos da equipe</li>
+                        <li class="flex gap-2 text-pink-400">✓ Formulário de Orçamento estilizado</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-cyan-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Coletivo Criativo</h3>
+                    <p class="text-sm text-gray-500 mb-4">Foco nos talentos individuais do grupo (Portfólio conjunto).
+                    </p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-cyan-400">✓ Galeria de Projetos (Grid Masonry)</li>
+                        <li class="flex gap-2 text-cyan-400">✓ Links para Github/Linkedin de cada um</li>
+                        <li class="flex gap-2 text-cyan-400">✓ Estilo artístico e ousado</li>
+                    </ul>
+                </div>
+
+                <div
+                    class="bg-tech-card border border-white/5 p-6 rounded-2xl hover:border-purple-500/50 transition-colors group">
+                    <div
+                        class="w-12 h-12 bg-purple-500/10 text-purple-400 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500 group-hover:text-white transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-white mb-2">Startup Studio</h3>
+                    <p class="text-sm text-gray-500 mb-4">Fingir que o grupo cria produtos/apps próprios.</p>
+                    <ul class="text-sm text-gray-400 space-y-2">
+                        <li class="flex gap-2 text-purple-400">✓ Showcase de "Apps Fictícios"</li>
+                        <li class="flex gap-2 text-purple-400">✓ Design minimalista (estilo Apple/SaaS)</li>
+                        <li class="flex gap-2 text-purple-400">✓ Animações de scroll suaves</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-tech-dark text-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">Como executar?</h2>
+
+            <div class="space-y-8 relative">
+                <div
+                    class="absolute left-[15px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-pink-500 to-cyan-500 opacity-30">
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-pink-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(236,72,153,0.5)]">
+                        1</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-pink-400">Branding (Design)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            A primeira semana é sobre identidade. Criem um nome para a agência. Definam uma paleta de
+                            cores (evitem o "padrão"). Escolham fontes modernas (Sans-serif geométricas). Criem um
+                            logotipo simples no Figma.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-purple-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                        2</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-purple-400">O Poder do Grid (Autoria Web)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Portfólios precisam de organização. Use <code>display: grid</code> para criar uma galeria de
+                            projetos responsiva. Use <code>gap</code> para o respiro. Teste layouts assimétricos (ex:
+                            uma imagem grande e duas pequenas ao lado) para dar dinamismo.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 relative">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-tech-card border border-cyan-500 flex items-center justify-center font-bold text-sm shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+                        3</div>
+                    <div>
+                        <h4 class="font-bold text-lg text-cyan-400">Micro-interações (JS + CSS)</h4>
+                        <p class="text-gray-400 mt-1 text-sm leading-relaxed">
+                            Adicione personalidade. Faça os cards "subirem" levemente no hover. Crie um menu de
+                            navegação que muda de cor ao rolar a página. Se possível, adicione um tema claro/escuro
+                            (Dark Mode Toggle) com JS.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="mt-12 p-6 bg-gradient-to-r from-tech-card to-transparent border border-pink-500/20 rounded-xl flex gap-4 items-start">
+                <svg class="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <div>
+                    <h4 class="font-bold text-pink-400">Dica de Ouro:</h4>
+                    <p class="text-gray-400 text-sm mt-1">
+                        Use "Placeholders" inteligentes. Se vocês não têm projetos reais, criem capas de projetos
+                        fictícios no Figma (ex: "Redesign do Instagram", "App de Delivery"). O importante é mostrar que
+                        vocês sabem construir a interface e apresentar o trabalho.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-tech-card text-gray-500 py-12 text-center text-sm border-t border-white/5">
+        <p>Projeto Integrador IFRN • Técnico em Informática para Internet</p>
+    </footer>
+
+</body>
+
+</html>
